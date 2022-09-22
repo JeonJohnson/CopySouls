@@ -67,6 +67,6 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        
+        curState.UpdateState();
     }
 }
