@@ -685,8 +685,16 @@ namespace Enums
     }
 
 
+	public enum ePlayerState
+	{
+		Idle,
+		Move,
+		Atk,
+		Hit,
+		Death,
 
-
+		End
+	}
 
 
 }

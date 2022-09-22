@@ -1,43 +1,60 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class PlayerLocoMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
+    public bool isMoveable = true;
+
     public GameObject cam;
-    [SerializeField] GameObject playerModel;
-    [SerializeField] GameObject playerMovemnetSystem;
-    [SerializeField] Animator animator;
-
-
-    public float playerWalkSpeed = 1f;
-    public float playerRunSpeed = 1.5f;
+    public float walkSpeed = 1f;
+    public float runSpeed = 1.5f;
+    public float accelSpeed = 80f;
 
     bool isRun = false;
 
-    [SerializeField] float spinPower = 50f;
-
     [Range(1, 500)] public float mouseSensitivity = 300;
+
     float rotSpeed;
     float xRot;
     float yRot;
-    float playerSpeed = 1f;
+    float curSpeed = 0f;
+
+    GameObject playerModel;
+
+    #region singletone and InitializeState
+    /// <singletone>    
+    static public PlayerMove instance = null;
+    /// <singletone>
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-
+        playerModel = Player.instance.playerModel;
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMove();
-        CameraRot(); // ¿Ãµø ∫∏¡§¿ª ¿ß«— ¿”Ω√ƒ´∏ﬁ∂Û ƒ⁄µÂ
+        CameraRot(); // Ïù¥Îèô Î≥¥Ï†ïÏùÑ ÏúÑÌïú ÏûÑÏãúÏπ¥Î©îÎùº ÏΩîÎìú
     }
 
-    void PlayerMove()
+    public void Move()
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -47,22 +64,35 @@ public class PlayerLocoMove : MonoBehaviour
         dir.Normalize();
         dir = transform.TransformDirection(dir);
 
+        //playerSpeed = Mathf.Lerp(playerSpeed, playerrunSpeed, Time.deltaTime * 10f);
+
+        curSpeed -= Time.deltaTime * accelSpeed / 2;
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isRun = true;
-            playerSpeed = Mathf.Lerp(playerSpeed, playerRunSpeed, Time.deltaTime * 10f);
+            curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
+            curSpeed += vec.magnitude * Time.deltaTime * accelSpeed;
         }
         else
         {
             isRun = false;
-            playerSpeed = Mathf.Lerp(playerSpeed, playerWalkSpeed, Time.deltaTime * 10f);
+            if (curSpeed > walkSpeed)
+            {
+                
+            }
+            else
+            {
+                curSpeed = Mathf.Clamp(curSpeed, 0f, walkSpeed);
+                curSpeed += vec.magnitude * Time.deltaTime * accelSpeed;
+            }
         }
 
-        transform.position += playerSpeed * dir * Time.deltaTime;
+        transform.position += curSpeed * dir * Time.deltaTime;
         transform.eulerAngles = new Vector3(0, cam.transform.eulerAngles.y, 0);
-        playerModel.transform.position = this.transform.position;
+        Player.instance.playerModel.transform.position = this.transform.position;
 
-
+        //ÌîåÎ†àÏù¥Ïñ¥Î™®Îç∏ ÏûêÏú†Ïù¥Îèô Î≥¥Ï†ï
         Vector3 camClampedAngle(Vector3 vec)
         {
             Vector3 returnVec = new Vector3(vec.x, 0, vec.z);
@@ -85,7 +115,6 @@ public class PlayerLocoMove : MonoBehaviour
         {
             playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(-cam.transform.forward), Time.deltaTime * 20f);
         }
-
         SetAnimation();
     }
 
@@ -105,8 +134,7 @@ public class PlayerLocoMove : MonoBehaviour
         {
             inputValue = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v)) / 2;
         }
-        animator.SetFloat("MoveSpeed", inputValue);
-        print(inputValue);
+        Player.instance.animator.SetFloat("MoveSpeed", curSpeed / runSpeed);
     }
 
     void CameraRot()
@@ -120,5 +148,11 @@ public class PlayerLocoMove : MonoBehaviour
         yRot = Mathf.Clamp(yRot, -90, 90);
         cam.transform.position = this.transform.localPosition;
         cam.transform.eulerAngles = new Vector3(-yRot, xRot, 0);
+    }
+
+    public void ResetValue()
+    {
+        curSpeed = 0f;
+        Player.instance.animator.SetFloat("MoveSpeed", 0f);
     }
 }
