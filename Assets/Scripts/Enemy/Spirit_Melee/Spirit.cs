@@ -7,9 +7,7 @@ public class Spirit : Enemy
     public override void InitializeState()
     {
         fsm[(int)Enums.eEnmeyState.Idle] = new Spirit_Idle();
-
         SetState(Enums.eEnmeyState.Idle);
-
     }
 
     protected override void Awake()
