@@ -24,8 +24,8 @@ public class Spirit : Enemy
 
     protected override void Update()
     {
-
         base.Update();
+        //GameObject obj = UnitManager.Instance.playerObj;
     }
 
 }
