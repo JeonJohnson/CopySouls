@@ -48,7 +48,8 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
-        curState.ExitState();
+        if (curState_e != eEnmeyState.End)
+        { curState.ExitState(); }
            
         preState = curState;
         preState_e = curState_e;
