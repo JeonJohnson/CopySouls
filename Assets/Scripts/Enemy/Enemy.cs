@@ -25,9 +25,57 @@ public abstract class Enemy : MonoBehaviour
     public cState curState = null;
     public eEnmeyState curState_e = eEnmeyState.End;
 
-
     public abstract void InitializeState();
-    //추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
+    //public StateController fsmCtrl;
+
+    public void SetState(eEnmeyState state)
+    {
+        if (state == curState_e || fsm[(int)state] == null)
+        {
+            return;
+        }
+
+        if (curState_e != eEnmeyState.End)
+        { curState.ExitState(); }
+
+        preState = curState;
+        preState_e = curState_e;
+
+        curState_e = state;
+        curState = fsm[(int)state];
+
+        curState.EnterState(this);
+    }
+
+    #region oldFsm
+    //public cState[] fsm;
+    //public cState preState = null;
+    //public eEnmeyState preState_e = eEnmeyState.End;
+    //public cState curState = null;
+    //public eEnmeyState curState_e = eEnmeyState.End;
+
+
+    //public abstract void InitializeState();
+    ////추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
+
+    //public void SetState(eEnmeyState state)
+    //{
+    //    if (state == curState_e || fsm[(int)state] == null)
+    //    {
+    //        return;
+    //    }
+
+    //    if (curState_e != eEnmeyState.End)
+    //    { curState.ExitState(); }
+
+    //    preState = curState;
+    //    preState_e = curState_e;
+
+    //    curState_e = state;
+    //    curState = fsm[(int)state];
+
+    //    curState.EnterState(this);
+    //}
 
 
     //public void SetState(cState state)
@@ -43,6 +91,7 @@ public abstract class Enemy : MonoBehaviour
     //    curState = state;
     //    curState.EnterState(this);
     //}
+    #endregion
 
    public void stop()
     {
@@ -50,31 +99,16 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public void SetState(eEnmeyState state)
-    {
-        if (state == curState_e || fsm[(int)state] == null)
-        {
-            return;
-        }
-
-        if (curState_e != eEnmeyState.End)
-        { curState.ExitState(); }
-           
-        preState = curState;
-        preState_e = curState_e;
-
-        curState_e = state;
-        curState = fsm[(int)state];
-
-        curState.EnterState(this);
-    }
+    
 
 
     protected virtual void Awake()
     {
-        fsm = new cState[(int)eEnmeyState.End];
+        //fsm = new cState[(int)eEnmeyState.End];
+        //각자 
 
-        InitializeState();
+        //fsmCtrl = new StateCtrl_Archer(this);
+//        InitializeState();
     }
 
     // Start is called before the first frame update
