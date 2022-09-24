@@ -8,6 +8,8 @@ public abstract class Enemy : MonoBehaviour
 {
     public GameObject player;
     public float distToPlayer;
+    public Vector3 preTargetPos;
+    public Vector3 curTargetPos;
 
     public Structs.EnemyStatus status;
 
@@ -40,6 +42,39 @@ public abstract class Enemy : MonoBehaviour
     //    curState = state;
     //    curState.EnterState(this);
     //}
+
+    public void ChangeTargetPos()
+    {
+        StartCoroutine(Think());
+    }
+    public void StopChangeTargetPos()
+    {
+        StopAllCoroutines();
+        //StopCoroutine(Think());
+    }
+    public Vector3 ThinkTargetPos()
+    {
+        int randX = Random.Range(-1, 2) * 10;
+        int randZ = Random.Range(-1, 2) * 10;
+        curTargetPos = new Vector3(transform.position.x + randX, 0, transform.position.z + randZ);
+        if (curTargetPos == preTargetPos) ThinkTargetPos();
+        return curTargetPos;
+    }
+    public IEnumerator Think()
+    {
+        yield return new WaitForSeconds(2.0f);
+        navAgent.isStopped = false;
+        animCtrl.SetBool("isWalk", true);
+        preTargetPos = curTargetPos;
+        curTargetPos = ThinkTargetPos();
+        yield return new WaitForSeconds(5.0f);
+        navAgent.isStopped = true;
+        animCtrl.SetBool("isWalk", false);
+        curTargetPos = transform.position;
+        StopCoroutine(Think());
+        StartCoroutine(Think());
+    }
+
 
     public void SetState(eEnmeyState state)
     {
