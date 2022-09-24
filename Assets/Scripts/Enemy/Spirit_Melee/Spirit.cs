@@ -40,7 +40,7 @@ public class Spirit : Enemy
         distToPlayer = Vector3.Distance(player.transform.position,transform.position);
         if (curState_e == Enums.eEnmeyState.Patrol) navAgent.speed = status.moveSpd;
         else if (curState_e == Enums.eEnmeyState.Atk) navAgent.speed = status.runSpd;
-        if (curTargetPos != null && navAgent.isStopped == false) navAgent.SetDestination(curTargetPos);
+        if (curTargetPos != null) navAgent.SetDestination(curTargetPos);
         
         //GameObject obj = UnitManager.Instance.playerObj;
     }

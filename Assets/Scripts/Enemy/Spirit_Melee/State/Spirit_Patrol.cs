@@ -4,6 +4,26 @@ using UnityEngine;
 
 public class Spirit_Patrol : cState
 {
+    public override void EnterState(Enemy script)
+    {
+        base.EnterState(script);
+        CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f,2.0f));
+    }
+
+    public override void UpdateState()
+    {
+        if (me.distToPlayer <= me.status.ricognitionRange)
+        {
+            me.SetState(Enums.eEnmeyState.Trace);
+        }
+    }
+
+    public override void ExitState()
+    {
+        CoroutineHelper.Instance.StopCoroutine(RandomTargetPos(5.0f, 2.0f));
+        me.animCtrl.SetBool("isWalk", false);
+    }
+
     public Vector3 ThinkTargetPos()
     {
         int randX = Random.Range(-1, 2) * 10;
@@ -15,7 +35,7 @@ public class Spirit_Patrol : cState
         return me.curTargetPos;
     }
 
-    public IEnumerator RandomTargetPos(float delayTime,float startTime)
+    public IEnumerator RandomTargetPos(float delayTime, float startTime)
     {
         me.preTargetPos = me.curTargetPos;
         me.navAgent.isStopped = false;
@@ -25,36 +45,7 @@ public class Spirit_Patrol : cState
         me.navAgent.isStopped = true;
         me.animCtrl.SetBool("isWalk", false);
         yield return new WaitForSeconds(startTime);
-        CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f,2.0f));
+        CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f, 2.0f));
     }
 
-
-
-
-
-
-
-
-
-    public override void EnterState(Enemy script)
-    {
-        base.EnterState(script);
-        me.animCtrl.SetBool("isRun", false);
-        CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f,2.0f));
-    }
-
-    public override void UpdateState()
-    {
-        //공격상태로 전환
-        if (me.distToPlayer <= me.status.ricognitionRange)
-        {
-            me.SetState(Enums.eEnmeyState.Trace);
-        }
-    }
-
-    public override void ExitState()
-    {
-        //CoroutineHelper.Instance.StopCoroutine(Think());
-        me.stop();
-    }
 }

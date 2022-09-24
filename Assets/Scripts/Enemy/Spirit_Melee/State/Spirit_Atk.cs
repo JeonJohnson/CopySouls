@@ -8,8 +8,6 @@ public class Spirit_Atk : cState
     {
         base.EnterState(script);
         me.navAgent.isStopped = true;
-        me.animCtrl.SetBool("isRun", false);
-        //me.rd.velocity = Vector3.zero;
         me.animCtrl.SetTrigger("isSlash");
     }
     public override void UpdateState()
@@ -22,6 +20,5 @@ public class Spirit_Atk : cState
 
     public override void ExitState()
     {
-        me.navAgent.isStopped = false;
     }
 }
