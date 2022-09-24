@@ -29,24 +29,24 @@ public class Spirit_Patrol : cState
     }
 
 
+
+
+
+
+
+
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        me.animCtrl.SetBool("isRun", false);
         CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f,2.0f));
     }
 
     public override void UpdateState()
     {
-        if(me.transform.position == me.curTargetPos)
-        {
-            CoroutineHelper.Instance.StartCoroutine(RandomTargetPos(5.0f, 2.0f));
-            CoroutineHelper.Instance.StopCoroutine(RandomTargetPos(5.0f, 2.0f));
-
-        }
-
-
         //공격상태로 전환
-        if (me.distToPlayer < me.status.ricognitionRange)
+        if (me.distToPlayer <= me.status.ricognitionRange)
         {
             me.SetState(Enums.eEnmeyState.Trace);
         }

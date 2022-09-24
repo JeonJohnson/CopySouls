@@ -903,7 +903,7 @@ MonoBehaviour:
     curMp: 0
     moveSpd: 1
     runSpd: 5
-    atkRange: 3
+    atkRange: 1
     patrolRange: 10
     ricognitionRange: 5
     lookAtSpd: 0
@@ -913,8 +913,8 @@ MonoBehaviour:
   animCtrl: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
-  preState_e: 6
-  curState_e: 6
+  preState_e: 7
+  curState_e: 7
 --- !u!136 &1774002805
 CapsuleCollider:
   m_ObjectHideFlags: 0

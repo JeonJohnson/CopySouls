@@ -8,25 +8,27 @@ public class Spirit_Trace : cState
     {
         base.EnterState(script);
         me.animCtrl.SetBool("isRun", true);
+        me.navAgent.isStopped = false;
     }
 
     public override void UpdateState()
     {
+        me.curTargetPos = me.player.transform.position;
+        me.transform.LookAt(me.curTargetPos);
+
         if (me.distToPlayer <= me.status.atkRange)
         {
-            me.navAgent.isStopped = true;
-            me.animCtrl.SetBool("isRun", false);
-            if (me.CoolTime > me.status.slashCoolTime)
-            {
-                me.SetState(Enums.eEnmeyState.Atk);
-                
-                me.CoolTime = 0;
-            }
+            me.SetState(Enums.eEnmeyState.Atk);
+        }
+        if (me.distToPlayer > me.status.ricognitionRange)
+        {
+            me.SetState(Enums.eEnmeyState.Patrol);
         }
     }
 
     public override void ExitState()
     {
-
+        me.animCtrl.SetBool("isRun", false);
+        me.navAgent.isStopped = true;
     }
 }
