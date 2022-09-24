@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,91 +29,86 @@ public abstract class Enemy : MonoBehaviour
     //public eEnmeyState curState_e = eEnmeyState.End;
 
     public abstract void InitializeState();
-    //public StateController fsmCtrl;
 
-//public void SetState(eEnmeyState state)
-//{
-//    if (state == curState_e || fsm[(int)state] == null)
-//    {
-//        return;
-//    }
-//
-//    if (curState_e != eEnmeyState.End)
-//    { curState.ExitState(); }
-//
-//    preState = curState;
-//    preState_e = curState_e;
-//
-//    curState_e = state;
-//    curState = fsm[(int)state];
-//
-//    curState.EnterState(this);
-//}
+	#region oldFSM
+	//public StateController fsmCtrl;
 
-    #region oldFsm
-    //public cState[] fsm;
-    //public cState preState = null;
-    //public eEnmeyState preState_e = eEnmeyState.End;
-    //public cState curState = null;
-    //public eEnmeyState curState_e = eEnmeyState.End;
+	//public void SetState(eEnmeyState state)
+	//{
+	//    if (state == curState_e || fsm[(int)state] == null)
+	//    {
+	//        return;
+	//    }
+	//
+	//    if (curState_e != eEnmeyState.End)
+	//    { curState.ExitState(); }
+	//
+	//    preState = curState;
+	//    preState_e = curState_e;
+	//
+	//    curState_e = state;
+	//    curState = fsm[(int)state];
+	//
+	//    curState.EnterState(this);
+	//}
 
 
-    //public abstract void InitializeState();
-    ////추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
-
-    //public void SetState(eEnmeyState state)
-    //{
-    //    if (state == curState_e || fsm[(int)state] == null)
-    //    {
-    //        return;
-    //    }
-
-    //    if (curState_e != eEnmeyState.End)
-    //    { curState.ExitState(); }
-
-    //    preState = curState;
-    //    preState_e = curState_e;
-
-    //    curState_e = state;
-    //    curState = fsm[(int)state];
-
-    //    curState.EnterState(this);
-    //}
+	//public cState[] fsm;
+	//public cState preState = null;
+	//public eEnmeyState preState_e = eEnmeyState.End;
+	//public cState curState = null;
+	//public eEnmeyState curState_e = eEnmeyState.End;
 
 
-    //public void SetState(cState state)
-    //{
-    //    if (state == curState)
-    //    {
-    //        return;
-    //    }
-    //    curState.ExitState();
-    //    preState = curState;
-    //    preState_e = curState_e;
-    //    curState_e = state;
-    //    curState = state;
-    //    curState.EnterState(this);
-    //}
-    #endregion
+	//public abstract void InitializeState();
+	////추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
 
-   public void stop()
-    {
-        StopAllCoroutines();
-    }
+	//public void SetState(eEnmeyState state)
+	//{
+	//    if (state == curState_e || fsm[(int)state] == null)
+	//    {
+	//        return;
+	//    }
+
+	//    if (curState_e != eEnmeyState.End)
+	//    { curState.ExitState(); }
+
+	//    preState = curState;
+	//    preState_e = curState_e;
+
+	//    curState_e = state;
+	//    curState = fsm[(int)state];
+
+	//    curState.EnterState(this);
+	//}
 
 
+	//public void SetState(cState state)
+	//{
+	//    if (state == curState)
+	//    {
+	//        return;
+	//    }
+	//    curState.ExitState();
+	//    preState = curState;
+	//    preState_e = curState_e;
+	//    curState_e = state;
+	//    curState = state;
+	//    curState.EnterState(this);
+	//}
+	#endregion
 
-    public T GetCurState<T>()
+
+	public T GetCurState<T>() where T : Enum
     {
         int index = System.Array.IndexOf(fsm, curState);
-        if (index != -1)
+
+        if (curState == null)
         {
-            return (T)(object)index;
+            Debug.Log("현재 state가 null입니다!!\nAt GetCurState Funcs");
         }
-        else
-        {
-            return default(T);
-        }
+
+        return (T)(object)index;
     }
 
 
@@ -157,12 +153,14 @@ public abstract class Enemy : MonoBehaviour
         cState nextState = fsm[state];
 
         preState = curState;
-        //preState_e = curState_e;
-
-        //curState_e = (T)(object)index;
         curState = nextState;
 
         curState.EnterState(this);
+    }
+
+    public void stop()
+    {
+        StopAllCoroutines();
     }
 
     protected virtual void Awake()
