@@ -31,6 +31,7 @@ public class CoroutineHelper : Manager<CoroutineHelper>
         monoInstance.StopCoroutine(coroutine);
     }
 
+
     public void Awake()
     {
         if (monoInstance == null)

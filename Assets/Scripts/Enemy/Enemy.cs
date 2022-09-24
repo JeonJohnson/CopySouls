@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour
     public float distToPlayer;
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
+    public float CoolTime;
 
     public Structs.EnemyStatus status;
 
@@ -43,36 +44,9 @@ public abstract class Enemy : MonoBehaviour
     //    curState.EnterState(this);
     //}
 
-    public void ChangeTargetPos()
-    {
-        StartCoroutine(Think());
-    }
-    public void StopChangeTargetPos()
+   public void stop()
     {
         StopAllCoroutines();
-        //StopCoroutine(Think());
-    }
-    public Vector3 ThinkTargetPos()
-    {
-        int randX = Random.Range(-1, 2) * 10;
-        int randZ = Random.Range(-1, 2) * 10;
-        curTargetPos = new Vector3(transform.position.x + randX, 0, transform.position.z + randZ);
-        if (curTargetPos == preTargetPos) ThinkTargetPos();
-        return curTargetPos;
-    }
-    public IEnumerator Think()
-    {
-        yield return new WaitForSeconds(2.0f);
-        navAgent.isStopped = false;
-        animCtrl.SetBool("isWalk", true);
-        preTargetPos = curTargetPos;
-        curTargetPos = ThinkTargetPos();
-        yield return new WaitForSeconds(5.0f);
-        navAgent.isStopped = true;
-        animCtrl.SetBool("isWalk", false);
-        curTargetPos = transform.position;
-        StopCoroutine(Think());
-        StartCoroutine(Think());
     }
 
 
@@ -112,6 +86,7 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        CoolTime += Time.deltaTime;
         curState.UpdateState();
     }
 }

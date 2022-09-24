@@ -16,6 +16,7 @@ public class Spirit : Enemy
 
         fsm[(int)Enums.eEnmeyState.Idle] = new Spirit_Idle();
         fsm[(int)Enums.eEnmeyState.Patrol] = new Spirit_Patrol();
+        fsm[(int)Enums.eEnmeyState.Trace] = new Spirit_Trace();
         fsm[(int)Enums.eEnmeyState.Atk] = new Spirit_Atk();
 
         SetState(Enums.eEnmeyState.Idle);
@@ -38,7 +39,12 @@ public class Spirit : Enemy
         base.Update();
         distToPlayer = Vector3.Distance(player.transform.position,transform.position);
         if (curState_e == Enums.eEnmeyState.Patrol) navAgent.speed = status.moveSpd;
-        else if (curState_e == Enums.eEnmeyState.Atk) navAgent.speed = status.runSpd;
+        else if (curState_e == Enums.eEnmeyState.Atk)
+        {
+            curTargetPos = player.transform.position;
+            transform.LookAt(curTargetPos);
+            navAgent.speed = status.runSpd;
+        }
         //추격 대상이 있으면 추격
         if (curTargetPos != null && navAgent.isStopped == false)
         {
