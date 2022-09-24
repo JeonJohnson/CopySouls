@@ -397,6 +397,7 @@ namespace Enums
     {
 		Idle,
 		Patrol,
+        Trace,
 		Run,
 		Atk,
 		Hit,
@@ -499,9 +500,11 @@ namespace Structs
 		public bool isSuperArmor;
 		public bool isGroggy;
 
-		//공격력 -> 무기쪽에서
+        public float slashCoolTime;
 
-	}
+        //공격력 -> 무기쪽에서
+
+    }
 
 	[System.Serializable]
 	public struct WeaponStatus

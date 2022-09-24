@@ -781,7 +781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669899351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.49, y: 2.4200284, z: -1.1578524}
+  m_LocalPosition: {x: 9.49, y: 0.9, z: -1.1578524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -891,7 +891,7 @@ MonoBehaviour:
   distToPlayer: 0
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
-  Target: {fileID: 0}
+  CoolTime: 0
   status:
     name: 
     type: 0
@@ -901,19 +901,20 @@ MonoBehaviour:
     curStamina: 0
     maxMp: 0
     curMp: 0
-    moveSpd: 0
-    runSpd: 0
+    moveSpd: 1
+    runSpd: 5
     atkRange: 1
     patrolRange: 10
-    ricognitionRange: 15
+    ricognitionRange: 5
     lookAtSpd: 0
     isSuperArmor: 0
     isGroggy: 0
+    slashCoolTime: 3
   animCtrl: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
-  preState_e: 6
-  curState_e: 6
+  preState_e: 7
+  curState_e: 7
 --- !u!136 &1774002805
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -942,8 +943,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 3
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!195 &1774002807
 NavMeshAgent:
   m_ObjectHideFlags: 0
