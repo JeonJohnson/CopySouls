@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class cState
 {
 	public Enemy me;
+
 	public virtual void EnterState(Enemy script)
 	{
 		if (me == null)

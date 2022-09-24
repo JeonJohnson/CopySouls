@@ -16,7 +16,7 @@ public class Pawn_Idle : cState
     {
         if (me.distToPlayer < me.status.patrolRange)
         {
-            me.SetState(Enums.eEnmeyState.Move);
+            me.SetState(Enums.eEnmeyState.Patrol);
         }
     }
 

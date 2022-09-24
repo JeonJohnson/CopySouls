@@ -657,7 +657,7 @@ namespace Enums
     public enum eEnmeyState
     {
 		Idle,
-		Move,
+		Patrol,
 		Run,
 		Atk,
 		Hit,
@@ -728,6 +728,7 @@ namespace Structs
 
 		public float atkRange;
 		public float patrolRange;
+        public float ricognitionRange;
 
 		public float lookAtSpd;
 

@@ -11,11 +11,7 @@ public class Spirit_Idle : cState
 
     public override void UpdateState()
     {
-        me.distToPlayer = Vector3.Distance(me.player.transform.position, me.transform.position);
-        if (me.distToPlayer < me.status.patrolRange)
-        {
-            me.SetState(Enums.eEnmeyState.Move);
-        }
+        me.SetState(Enums.eEnmeyState.Patrol);
     }
 
     public override void ExitState()
