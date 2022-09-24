@@ -10,6 +10,9 @@ public class CoroutineHelper : Manager<CoroutineHelper>
     //=> 코루틴이 모노비헤이비어에서 굴러가기 때문에
     //비활성화되면 안굴러감
 
+    public Dictionary<string, IEnumerator> coroutineDic;
+    //이거 지금 사용 ㄴㄴ 없애거나 할 방법 따로 안만듦.
+
     private MonoBehaviour monoInstance = null;
     public new Coroutine StartCoroutine(IEnumerator coroutine)
     {

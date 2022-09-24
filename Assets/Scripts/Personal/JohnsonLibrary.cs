@@ -346,176 +346,6 @@ public static class Funcs
 		return text;
 	}
 
-	
-	//public static Structs.WeaponStatus WeaponStatusFromText(string filePath)
-	//{
-	//	Structs.WeaponStatus tempStatus = new Structs.WeaponStatus();
-
-	//	string statusLine = ReadTextFile(filePath);
-
-	//	if (statusLine == null)
-	//	{
-	//		Debug.Log("무기 스텟 불러오기 실패");
-	//	}
-
-	//	string[] splitStr = statusLine.Split(new char[] { ':' });
-
-	//	for (int i = 0; i < splitStr.Length; ++i)
-	//	{
-	//		string tempStr = "";
-	//		for (int k = 0; k < splitStr[i].Length; ++k)
-	//		{
-	//			if (splitStr[i][k] == '\r' || splitStr[i][k] == '\n')
-	//			{
-	//				break;
-	//			}
-	//			tempStr += splitStr[i][k];
-	//		}
-	//		splitStr[i] = tempStr;
-	//	}
-
-	//	//name
-	//	tempStatus.name = splitStr[0];
-	//	//name
-
-	//	//type
-	//	if (splitStr[1] == "AR")
-	//	{
-	//		tempStatus.type = Enums.eWeaponType.AR;
-	//	}
-	//	else if (splitStr[1] == "SMG")
-	//	{
-	//		tempStatus.type = Enums.eWeaponType.SMG;
-	//	}
-	//	else if (splitStr[1] == "SR")
-	//	{
-	//		tempStatus.type = Enums.eWeaponType.SR;
-	//	}
-	//	else if (splitStr[1] == "Shotgun")
-	//	{
-	//		tempStatus.type = Enums.eWeaponType.Shotgun;
-	//	}
-	//	else if (splitStr[1] == "Pistol")
-	//	{
-	//		tempStatus.type = Enums.eWeaponType.Pistol;
-	//	}
-	//	else if (splitStr[1] == "Melee")
-	//	{ tempStatus.type = Enums.eWeaponType.Melee; }
-	//	else if (splitStr[1] == "Explosive")
-	//	{ tempStatus.type = Enums.eWeaponType.Explosive; }
-	//	//type
-
-
-	//	//slot
-	//	if (splitStr[2] == "Primary")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.Primary;
-	//	}
-	//	else if (splitStr[2] == "Secondary")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.Secondary;
-	//	}
-	//	else if (splitStr[2] == "Melee")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.Melee;
-	//	}
-	//	else if (splitStr[2] == "Special")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.Special;
-	//	}
-	//	else if (splitStr[2] == "Grenade")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.Grenade;
-	//	}
-	//	else if (splitStr[2] == "HealPack")
-	//	{
-	//		tempStatus.slot = Enums.eWeaponSlot.HealPack;
-	//	}
-	//	//slot
-
-
-	//	//firemode
-	//	if (splitStr[3] == "Auto")
-	//	{
-	//		tempStatus.fireMode = Enums.eWeaponFireMode.FullAuto;
-	//	}
-	//	else if (splitStr[3] == "SemiAuto")
-	//	{
-	//		tempStatus.fireMode = Enums.eWeaponFireMode.SemiAuto;
-	//	}
-	//	//firemode
-
-	//	tempStatus.zoomX = Convert.ToSingle(splitStr[4]);
-
-	//	tempStatus.fullMag = Convert.ToInt32(splitStr[5]);
-	//	tempStatus.curMag = Convert.ToInt32(splitStr[6]);
-	//	tempStatus.fullRound = Convert.ToInt32(splitStr[7]);
-	//	tempStatus.curRound = Convert.ToInt32(splitStr[8]);
-	//	tempStatus.roundCount = Convert.ToInt32(splitStr[9]);
-	//	tempStatus.accuracy = Convert.ToInt32(splitStr[10]);
-	//	tempStatus.recoil = Convert.ToInt32(splitStr[11]);
-	//	tempStatus.rpm = Convert.ToInt32(splitStr[12]);
-	//	tempStatus.dmg = Convert.ToInt32(splitStr[13]);
-	//	tempStatus.dmg2 = Convert.ToInt32(splitStr[14]);
-	//	tempStatus.reloadSpd = Convert.ToInt32(splitStr[15]);
-
-	//	tempStatus.price = Convert.ToInt32(splitStr[16]);
-	//	tempStatus.bulletPrice = Convert.ToInt32(splitStr[17]);
-
-	//	tempStatus.curRapidTime = 0f;
-	//	tempStatus.fullRapidTime = 1f / (tempStatus.rpm / 60f);
-	//	//fullRapidTime
-
-	//	return tempStatus;
-	//}
-
-	#region oldProject
-	//public static GameObject FindClosestUnit(GameObject me, List<GameObject> objList)
-	//{
-	//	float lowDist = -1f;
-	//	//float searchRange = me.GetComponent<Units>().unitStatus.sightRange;
-	//	GameObject closestObj = null;
-
-	//	foreach (GameObject obj in objList)
-	//	{
-	//		float dist = Vector3.Magnitude(obj.transform.position - me.transform.position);
-
-	//		if (lowDist > dist || lowDist < 0f)
-	//		{
-	//			lowDist = dist;
-	//			closestObj = obj;
-	//		}
-	//	}
-
-	//	return closestObj;
-	//}
-
-	//public static List<GameObject> FindUnitsInSightRange(GameObject me, List<GameObject> objList)
-	//{
-	//	List<GameObject> unitsInRange = new List<GameObject>();
-	//	unitsInRange.Clear();
-
-	//	Units temp = me.GetComponent<Units>();
-	//	float searchRange = 0f;
-
-	//	if (temp != null)
-	//	{ 
-	//		searchRange = temp.unitStatus.sightRange;
-	//	}
-
-	//	foreach (GameObject obj in objList)
-	//	{
-	//		float dist = Vector3.Magnitude(obj.transform.position - me.transform.position);
-
-	//		if (dist <= searchRange)
-	//		{
-	//			unitsInRange.Add(obj);
-	//		}
-	//	}
-
-	//	return unitsInRange;
-	//}
-	#endregion
 }
 
 public static class Defines
@@ -533,21 +363,6 @@ public static class Defines
 
 	public const float PI = 3.14159265f;
 
-
-	public const int zedBodyDestructionRandPercent = 100;
-
-	public const int BulletTotalCount = 150;
-
-
-	/// Zed Count
-	public const int ClotCount = 50;
-
-
-
-	public const int ShopCount = 4;
-
-
-
 	/// Zed Count
 
 
@@ -558,83 +373,7 @@ public static class Defines
 		new Vector3(0f,0f,0f)
 	};
 
-	public static string[] zedBodyPartStr =
-	{
-		"Head",
-		"Arm_L",
-		"Arm_R",
-		"Leg_L",
-		"Leg_R",
-	};
 
-
-
-	//c# 가변배열(다중배열) 초기화 방법
-	#region WeaponStr
-	public static string[] primaryWeaponStr =
-	{
-		"AK47",
-		"SW M29 Dual",
-		"FN FAL",
-		"M14 EBR",
-		"M1897 TrenchGun",
-		"Winchester M1894"
-	};
-
-	public static string[] secondaryWeaponStr =
-	{
-		"Beretta 92FS",
-		"Mac10"
-	};
-
-	public static string[] meleeWeaponStr =
-	{
-		"Axe",
-		"Katana",
-		"M9 Knife"
-	};
-
-	public static string[] specialWeaponStr =
-	{
-		"AA12",
-		"ChainSaw",
-		"Barrett M99"
-	};
-
-	public static string[] grenadeWeaponStr =
-	{
-		"Grenade"
-
-	};
-
-	public static string[] healPackWeaponStr =
-	{
-		"HealPack"
-	};
-
-
-
-	public static string[][] weaponStr = /*new string[(int)Enums.eWeaponState.End][];*/
-	{
-		primaryWeaponStr,
-		secondaryWeaponStr,
-		meleeWeaponStr,
-		specialWeaponStr,
-		grenadeWeaponStr,
-		healPackWeaponStr
-	};
-	#endregion
-
-
-	public static string[] tradeDoorStr =
-	{
-		"Church",
-		"OldShop_1",
-		"OldShop_2",
-		"HeavyGate_L",
-		"HeavyGate_R",
-		"HalfLight"
-	};
 }
 
 namespace Enums
@@ -667,6 +406,23 @@ namespace Enums
     }
 
 
+	public enum eArcherState
+	{
+		Idle,
+		Bow_Equip,
+		Bow_Unequip,
+		Walk_Patrol,
+		Walk_Careful,
+		Walk_Aiming,
+		Run,
+		Attack_Rapid,
+		Attack_Aiming,
+		Attack_Melee,
+		Hit,
+		Death,
+		End
+	}
+	
 
     public enum eEnemyType
 	{ 
