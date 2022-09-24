@@ -22,31 +22,31 @@
 
 //	public abstract void InitializeState();
 
-//	public void SetState(cState state)
-//	{
-//		int index = System.Array.IndexOf(fsm, state);
-
-//		if (index == -1 || curState == state)
-//		{//넣은 state가 null이거나 없는 경우 
-//			return;
-//		}
-
-//		if (curState != null)
-//		{
-//			curState.ExitState();
-//		}
-
-//		cState nextState = fsm[index];
-
-
-//		preState = curState;
-//		preState_e = curState_e;
-
-//		curState_e = (T)(object)index;
-//		curState = state;
-
-//		curState.EnterState(me);
+//public void SetState(cState state)
+//{
+//	int index = System.Array.IndexOf(fsm, state);
+//
+//	if (index == -1 || curState == state)
+//	{//넣은 state가 null이거나 없는 경우 
+//		return;
 //	}
+//
+//	if (curState != null)
+//	{
+//		curState.ExitState();
+//	}
+//
+//	cState nextState = fsm[index];
+//
+//
+//	preState = curState;
+//	preState_e = curState_e;
+//
+//	curState_e = (T)(object)index;
+//	curState = state;
+//
+//	curState.EnterState(me);
+//}
 
 //	public void SetState(T state)
 //	{

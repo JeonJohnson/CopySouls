@@ -18,34 +18,36 @@ public abstract class Enemy : MonoBehaviour
     public Rigidbody rd;
     public NavMeshAgent navAgent;
 
+
+
     //FSM
     public cState[] fsm;
     public cState preState = null;
-    public eEnmeyState preState_e = eEnmeyState.End;
+    //public eEnmeyState preState_e = eEnmeyState.End;
     public cState curState = null;
-    public eEnmeyState curState_e = eEnmeyState.End;
+    //public eEnmeyState curState_e = eEnmeyState.End;
 
     public abstract void InitializeState();
     //public StateController fsmCtrl;
 
-    public void SetState(eEnmeyState state)
-    {
-        if (state == curState_e || fsm[(int)state] == null)
-        {
-            return;
-        }
-
-        if (curState_e != eEnmeyState.End)
-        { curState.ExitState(); }
-
-        preState = curState;
-        preState_e = curState_e;
-
-        curState_e = state;
-        curState = fsm[(int)state];
-
-        curState.EnterState(this);
-    }
+//public void SetState(eEnmeyState state)
+//{
+//    if (state == curState_e || fsm[(int)state] == null)
+//    {
+//        return;
+//    }
+//
+//    if (curState_e != eEnmeyState.End)
+//    { curState.ExitState(); }
+//
+//    preState = curState;
+//    preState_e = curState_e;
+//
+//    curState_e = state;
+//    curState = fsm[(int)state];
+//
+//    curState.EnterState(this);
+//}
 
     #region oldFsm
     //public cState[] fsm;
@@ -99,8 +101,69 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    
 
+    public T GetCurState<T>()
+    {
+        int index = System.Array.IndexOf(fsm, curState);
+        if (index != -1)
+        {
+            return (T)(object)index;
+        }
+        else
+        {
+            return default(T);
+        }
+    }
+
+
+    public void SetState(cState state)
+    {
+        int index = System.Array.IndexOf(fsm, state);
+
+        if (index == -1 || curState == state)
+        {//넣은 state가 null이거나 없는 경우 
+            return;
+        }
+
+        if (curState != null)
+        {
+            curState.ExitState();
+        }
+
+        cState nextState = fsm[index];
+
+        preState = curState;
+        //preState_e = curState_e;
+
+        //curState_e = (T)(object)index;
+        curState = state;
+
+        curState.EnterState(this);
+    }
+
+
+    public void SetState(int state)
+    {
+        if (fsm[state] == null)
+        {
+            return;
+        }
+
+        if (curState != null)
+        {
+            curState.ExitState();
+        }
+
+        cState nextState = fsm[state];
+
+        preState = curState;
+        //preState_e = curState_e;
+
+        //curState_e = (T)(object)index;
+        curState = nextState;
+
+        curState.EnterState(this);
+    }
 
     protected virtual void Awake()
     {
@@ -108,7 +171,7 @@ public abstract class Enemy : MonoBehaviour
         //각자 
 
         //fsmCtrl = new StateCtrl_Archer(this);
-//        InitializeState();
+        InitializeState();
     }
 
     // Start is called before the first frame update

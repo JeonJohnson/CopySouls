@@ -387,27 +387,23 @@ namespace Enums
 		End
 	}
 
-
 	public enum ePoolingObj
 	{
 	
 	}
 
-    public enum eEnmeyState
+    public enum eSpiritState
     {
-		Idle,
-		Patrol,
+        Idle,
+        Patrol,
         Trace,
-		Run,
-		Atk,
-		Hit,
-		Death,
-
-		End
+        Atk,
+        Hit,
+        Death,
+        End
     }
 
-
-	public enum eArcherState
+    public enum eArcherState
 	{
 		Idle,
 		Bow_Equip,

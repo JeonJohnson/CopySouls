@@ -14,7 +14,7 @@ public class Spirit_Patrol : cState
     {
         if (me.distToPlayer <= me.status.ricognitionRange)
         {
-            me.SetState(Enums.eEnmeyState.Trace);
+            me.SetState((int)Enums.eSpiritState.Trace);
         }
     }
 

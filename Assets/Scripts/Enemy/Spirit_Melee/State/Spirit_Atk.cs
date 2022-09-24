@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Spirit_Atk : cState
 {
+
+
     public override void EnterState(Enemy script)
     {
+        
+
         base.EnterState(script);
         me.navAgent.isStopped = true;
         me.animCtrl.SetTrigger("isSlash");
@@ -14,7 +18,7 @@ public class Spirit_Atk : cState
     {
         if (me.distToPlayer > me.status.atkRange)
         {
-            me.SetState(Enums.eEnmeyState.Trace);
+            me.SetState((int)Enums.eSpiritState.Trace);
         }
     }
 

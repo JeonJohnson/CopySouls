@@ -11,7 +11,7 @@ public class Spirit_Idle : cState
 
     public override void UpdateState()
     {
-        me.SetState(Enums.eEnmeyState.Patrol);
+        me.SetState((int)Enums.eSpiritState.Patrol);
     }
 
     public override void ExitState()

@@ -18,11 +18,11 @@ public class Spirit_Trace : cState
 
         if (me.distToPlayer <= me.status.atkRange)
         {
-            me.SetState(Enums.eEnmeyState.Atk);
+            me.SetState((int)Enums.eSpiritState.Atk);
         }
         if (me.distToPlayer > me.status.ricognitionRange)
         {
-            me.SetState(Enums.eEnmeyState.Patrol);
+            me.SetState((int)Enums.eSpiritState.Patrol);
         }
     }
 
