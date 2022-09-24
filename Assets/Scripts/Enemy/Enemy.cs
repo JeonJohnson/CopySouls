@@ -18,8 +18,6 @@ public abstract class Enemy : MonoBehaviour
     public Rigidbody rd;
     public NavMeshAgent navAgent;
 
-
-
     //FSM
     public cState[] fsm;
     public cState preState = null;
