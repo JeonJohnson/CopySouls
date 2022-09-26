@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer_Idle : cState
+public class Archer_Walk_Patrol : cState
 {
-
 	Archer archer = null;
 	public override void EnterState(Enemy script)
 	{
@@ -21,6 +20,5 @@ public class Archer_Idle : cState
 	public override void ExitState()
 	{
 	}
-
 
 }

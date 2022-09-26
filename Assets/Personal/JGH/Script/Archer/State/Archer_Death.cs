@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer_Idle : cState
+public class Archer_Death : cState
 {
-
 	Archer archer = null;
 	public override void EnterState(Enemy script)
 	{
@@ -13,7 +12,6 @@ public class Archer_Idle : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 	}
-
 	public override void UpdateState()
 	{
 	}
@@ -22,5 +20,4 @@ public class Archer_Idle : cState
 	{
 	}
 
-
-}
+} 

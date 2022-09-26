@@ -7,11 +7,30 @@ public class Archer : Enemy
 {
 	public bool isEquip;
 
+
+
 	public override void InitializeState()
 	{
 		fsm = new cState[(int)eArcherState.End];
 
 		fsm[(int)eArcherState.Idle] = new Archer_Idle();
+		
+		fsm[(int)eArcherState.Bow_Equip] = new Archer_BowEquip();
+		fsm[(int)eArcherState.Bow_Unequip] = new Archer_BowUnequip();
+		
+		fsm[(int)eArcherState.Walk_Patrol] = new Archer_Walk_Patrol();
+		fsm[(int)eArcherState.Walk_Careful] = new Archer_Walk_Careful();
+		fsm[(int)eArcherState.Walk_Aiming] = new Archer_Walk_Aiming();
+		
+		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
+
+		fsm[(int)eArcherState.Attack_Rapid] = new Archer_Attack_Rapid();
+		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming();
+		fsm[(int)eArcherState.Attack_Melee] = new Archer_Attack_Melee();
+
+		fsm[(int)eArcherState.Hit] = new Archer_Hit();
+
+		fsm[(int)eArcherState.Death] = new Archer_Death();
 
 
 		SetState((int)eArcherState.Idle);
@@ -47,5 +66,18 @@ public class Archer : Enemy
 	protected override void Update()
 	{
 		base.Update();
+
+		//위에 숫자 0번 48 ~ 9번 57
+		
+		//Idle ~ MeleeAttack 까지
+		for (int i = 48; i < (int)KeyCode.Alpha9; ++i)
+		{
+			if (Input.GetKeyDown((KeyCode)i))
+			{
+				SetState(i - 48);
+			}
+		}
+
+
 	}
 }
