@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Move : Player_cState
+public class Player_Dodge : Player_cState
 {
     public override void EnterState(Player script)
     {
@@ -10,13 +10,7 @@ public class Player_Move : Player_cState
     }
     public override void UpdateState()
     {
-        PlayerMove.instance.Move();
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayerActionTable.instance.Rolling();
-        }
+        PlayerMove.instance.PlayerControlCam();
     }
 
     public override void ExitState()

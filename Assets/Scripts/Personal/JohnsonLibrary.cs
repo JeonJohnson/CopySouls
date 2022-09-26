@@ -444,6 +444,7 @@ namespace Enums
 		Move,
 		Atk,
 		Hit,
+		Dodge,
 		Death,
 
 		End
