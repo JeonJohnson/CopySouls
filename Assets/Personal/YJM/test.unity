@@ -175,9 +175,12 @@ MonoBehaviour:
   playerModel: {fileID: 919132148331860508}
   playerMovemnetSystem: {fileID: 1592347556}
   animator: {fileID: 5866666020591882972}
+  isInteracting: 1
   hp: 100
-  preState_e: 5
-  curState_e: 5
+  preState_e: 6
+  curState_e: 6
+  testMat_0: {fileID: 2100000, guid: bacd0ba9e765bf548960ec70fb749acf, type: 2}
+  testMat_1: {fileID: 2100000, guid: 3f47b402cd70f124bb78a19b3a7d4e61, type: 2}
 --- !u!114 &52961925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2247,7 +2250,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8950265562796933603, guid: 9fc5c47871e89214a8378180ddcdebc2, type: 3}
+  - {fileID: 2100000, guid: 3f47b402cd70f124bb78a19b3a7d4e61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
