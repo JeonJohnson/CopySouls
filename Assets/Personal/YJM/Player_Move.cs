@@ -11,6 +11,12 @@ public class Player_Move : Player_cState
     public override void UpdateState()
     {
         PlayerMove.instance.Move();
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerActionTable.instance.Rolling();
+        }
     }
 
     public override void ExitState()
