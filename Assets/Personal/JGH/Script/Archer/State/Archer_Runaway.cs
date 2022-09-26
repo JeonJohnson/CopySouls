@@ -11,6 +11,8 @@ public class Archer_Runaway : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+
+		me.animCtrl.SetTrigger("tRun");
 	}
 	public override void UpdateState()
 	{

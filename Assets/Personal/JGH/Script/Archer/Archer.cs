@@ -1,13 +1,49 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
 
+namespace Test
+{
+	public enum eStateTest
+	{ 
+		Idle = 48,
+		Equip,
+		Unequip,
+		Walk_Patrol,
+		Run = 54,
+		Attack_Aiming,
+		Hit = 58,
+		Death = 59,
+		End
+	}
+
+	
+
+}
+
 public class Archer : Enemy
 {
+	//public Test.eStateTest testEnum = new Test.eStateTest();
+	int[] iTestArr = 
+	{ 
+		(int)Enums.eArcherState.Idle,
+		(int)Enums.eArcherState.Bow_Equip,
+		(int)Enums.eArcherState.Bow_Unequip,
+		(int)Enums.eArcherState.Walk_Patrol,
+		(int)Enums.eArcherState.Runaway,
+		(int)Enums.eArcherState.Attack_Aiming,
+		(int)Enums.eArcherState.Hit,
+		(int)Enums.eArcherState.Death,
+
+	};
+	
 	public bool isEquip;
 
-
+	public GameObject rightHand;
+	public GameObject bowString;
+	public Vector3 bowStringOriginPos;
 
 	public override void InitializeState()
 	{
@@ -56,28 +92,29 @@ public class Archer : Enemy
 	protected override void Awake()
 	{
 		base.Awake();
+
+
+		bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
+		weapon.SetActive(false);
 	}
 
 	protected override void Start()
 	{
 		base.Start();
+
 	}
 
 	protected override void Update()
 	{
 		base.Update();
 
-		//위에 숫자 0번 48 ~ 9번 57
-		
-		//Idle ~ MeleeAttack 까지
-		for (int i = 48; i < (int)KeyCode.Alpha9; ++i)
+		for (int i = (int)KeyCode.Alpha0; i < iTestArr.Length+48; ++i)
 		{
 			if (Input.GetKeyDown((KeyCode)i))
 			{
-				SetState(i - 48);
+				int iTest = i - 48;
+				SetState(iTestArr[iTest]);
 			}
 		}
-
-
 	}
 }

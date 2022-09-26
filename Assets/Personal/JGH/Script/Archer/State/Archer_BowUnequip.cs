@@ -13,6 +13,9 @@ public class Archer_BowUnequip : cState
 		{ archer = me.GetComponent<Archer>(); }
 		
 		me.animCtrl.SetTrigger("tUnequip");
+
+		me.weapon.SetActive(false);
+		archer.isEquip = false;
 	}
 	public override void UpdateState()
 	{

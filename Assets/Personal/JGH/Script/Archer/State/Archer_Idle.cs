@@ -12,6 +12,21 @@ public class Archer_Idle : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+
+
+
+		
+
+		if (archer.isEquip)
+		{
+			me.animCtrl.SetTrigger("tIdle"); 
+		}
+		else 
+		{ 
+			me.animCtrl.SetTrigger("tIdle_Unequip"); 
+		}
+
+		
 	}
 
 	public override void UpdateState()

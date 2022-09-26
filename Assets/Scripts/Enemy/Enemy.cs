@@ -7,20 +7,21 @@ using Enums;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public Structs.EnemyStatus status;
+
+    ////Target
     public GameObject player;
     public float distToPlayer;
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
     public float CoolTime;
+    ////Target
 
-    public Structs.EnemyStatus status;
+    ////
+    public GameObject weapon;
 
-    public Animator animCtrl;
-    public Collider col;
-    public Rigidbody rd;
-    public NavMeshAgent navAgent;
 
-    //FSM
+    ////FSM
     public cState[] fsm;
     public cState preState = null;
     public int preState_i = -1;
@@ -28,7 +29,19 @@ public abstract class Enemy : MonoBehaviour
     public cState curState = null;
     public int curState_i = -1;
     //public eEnmeyState curState_e = eEnmeyState.End;
+    ////FSM
 
+    ////default Components
+    public Animator animCtrl;
+    public Collider col;
+    public Rigidbody rd;
+    public NavMeshAgent navAgent;
+    ////default Components
+
+    
+
+
+    //// Funcs
     public abstract void InitializeState();
 
 	//public StateController fsmCtrl;
@@ -98,6 +111,7 @@ public abstract class Enemy : MonoBehaviour
 	//    curState.EnterState(this);
 	//}
 
+    
 
 	public T GetCurState<T>() where T : Enum
     {

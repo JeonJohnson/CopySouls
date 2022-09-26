@@ -11,6 +11,8 @@ public class Archer_Death : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+
+		me.animCtrl.SetTrigger("tDeath");
 	}
 	public override void UpdateState()
 	{

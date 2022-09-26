@@ -11,9 +11,12 @@ public class Archer_Attack_Rapid : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+
+		me.animCtrl.SetTrigger("tAttack");
 	}
 	public override void UpdateState()
 	{
+
 	}
 
 	public override void ExitState()

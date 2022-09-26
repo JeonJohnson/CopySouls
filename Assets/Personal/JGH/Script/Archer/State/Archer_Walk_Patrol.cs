@@ -11,6 +11,8 @@ public class Archer_Walk_Patrol : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+
+		me.animCtrl.SetTrigger("tWalk");
 	}
 
 	public override void UpdateState()
