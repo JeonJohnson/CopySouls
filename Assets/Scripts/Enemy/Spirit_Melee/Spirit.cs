@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
-
 public class Spirit : Enemy
 {
-
     public eSpiritState curState_e;
+    public bool isMoving;
+    public Enums.eSpiritState spiritCurState;
+    public GameObject TargetObj;
 
     public override void InitializeState()
 	{
@@ -42,15 +43,56 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
-
+        preTargetPos = curTargetPos;
         curState_e = GetCurState<Enums.eSpiritState>();
+        isMoving = !navAgent.isStopped;
+        spiritCurState = GetCurState<Enums.eSpiritState>();
+        ChangeSpeed();
+        distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        distToPlayer = Vector3.Distance(player.transform.position,transform.position);
         if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Patrol) navAgent.speed = status.moveSpd;
         else if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk) navAgent.speed = status.runSpd;
         if (curTargetPos != null) navAgent.SetDestination(curTargetPos);
+        //아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
+        if (!navAgent.isStopped && transform.position == curTargetPos) isMoving = false;
+
+        //네이게이션을 통한 이동
+        //if (curTargetPos != null|| TargetObj) navAgent.SetDestination(curTargetPos);
         
         //GameObject obj = UnitManager.Instance.playerObj;
     }
+
+    public void ChangeSpeed()
+    {
+        if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Patrol) navAgent.speed = status.moveSpd;
+        else if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk) navAgent.speed = status.runSpd;
+    }
+
+    public Vector3 ThinkRandomTargetPos(int minDis, int maxDis)
+    {
+        Vector3 TargetPos;
+
+        int distanceX = Random.Range(minDis, maxDis + 1);
+        int distanceZ = Random.Range(minDis, maxDis + 1);
+        int randX = Random.Range(-1, 2) * distanceX;
+        int randZ = Random.Range(-1, 2) * distanceZ;
+        if (randX == 0 && randZ == 0) ThinkRandomTargetPos(minDis, maxDis);
+        TargetPos = new Vector3(transform.position.x + randX, 0, transform.position.z + randZ);
+        if (TargetPos == preTargetPos) ThinkRandomTargetPos(minDis, maxDis);
+        return TargetPos;
+    }
+
+    public IEnumerator MoveToTargetPos(float moveDulationTime, float restartTime)
+    {
+        navAgent.isStopped = false;
+        isMoving = (!navAgent.isStopped);
+        if(TargetObj == null) curTargetPos = ThinkRandomTargetPos(6, 10);
+        yield return new WaitForSeconds(moveDulationTime);
+        navAgent.isStopped = true;
+        isMoving = (!navAgent.isStopped);
+        yield return new WaitForSeconds(restartTime);
+        CoroutineHelper.Instance.StartCoroutine(MoveToTargetPos(moveDulationTime, restartTime));
+    }
+
 
 }

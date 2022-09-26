@@ -12,11 +12,14 @@ public class Spirit_Trace : cState
         CoroutineHelper.Instance.StartCoroutine(StartTrace());
         me.animCtrl.SetBool("isRun", true);
         me.navAgent.isStopped = false;
+        Spirit_StartTraceAnimation();
+        //me.navAgent.isStopped = false;
     }
 
     public override void UpdateState()
     {
         me.curTargetPos = me.player.transform.position;
+
         me.transform.LookAt(me.curTargetPos);
 
         if (me.distToPlayer <= me.status.atkRange)
@@ -48,6 +51,17 @@ public class Spirit_Trace : cState
         CoroutineHelper.Instance.StopCoroutine(StartTrace());
         me.animCtrl.SetBool("isRun", false);
         me.navAgent.isStopped = true;
+    }
+
+    public void Spirit_StartTraceAnimation()
+    {
+        if (((Spirit)me).isMoving) me.animCtrl.SetBool("isRun", true);
+        else me.animCtrl.SetBool("isRun", false);
+    }
+
+    public void Spirit_StopTraceAnimation()
+    {
+        me.animCtrl.SetBool("isRun", false);
     }
 
 }
