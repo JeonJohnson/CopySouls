@@ -23,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     public cState preState = null;
     //public eEnmeyState preState_e = eEnmeyState.End;
     public cState curState = null;
+
     //public eEnmeyState curState_e = eEnmeyState.End;
 
     public abstract void InitializeState();
@@ -97,8 +98,6 @@ public abstract class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
-
 
     public T GetCurState<T>()
     {

@@ -5,8 +5,14 @@ using UnityEngine;
 public class TestPlayerMove : MonoBehaviour
 {
     Rigidbody rigid;
+    Vector3 moveVec;
+    public float x;
+    public float z;
 
-
+    void Awake()
+    {
+        rigid = GetComponent<Rigidbody>();   
+    }
     void Start()
     {
         
@@ -14,6 +20,13 @@ public class TestPlayerMove : MonoBehaviour
 
     void Update()
     {
-        
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
+        moveVec = new Vector3(x, 0, z);
+        transform.position += moveVec.normalized;
+    }
+
+    void FixedUpdate()
+    {
     }
 }

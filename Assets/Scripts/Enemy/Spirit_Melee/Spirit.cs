@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Enums;
 
 
 public class Spirit : Enemy
 {
-	public override void InitializeState()
+
+    public eSpiritState curState_e;
+
+    public override void InitializeState()
 	{
         fsm = new cState[(int)Enums.eSpiritState.End];
 
@@ -38,6 +42,8 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+
+        curState_e = GetCurState<Enums.eSpiritState>();
 
         distToPlayer = Vector3.Distance(player.transform.position,transform.position);
         if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Patrol) navAgent.speed = status.moveSpd;
