@@ -44,6 +44,7 @@ public class Archer : Enemy
 	public GameObject bowString;
 	public Vector3 bowStringOriginPos;
 
+	//public List<GameObject> patrolPos
 	public override void InitializeState()
 	{
 		fsm = new cState[(int)eArcherState.End];

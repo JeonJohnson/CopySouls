@@ -5,6 +5,10 @@ using UnityEngine;
 public class Archer_Walk_Patrol : cState
 {
 	Archer archer = null;
+
+	public Vector3 curDest;
+	public Vector3 nextDest;
+
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -17,6 +21,7 @@ public class Archer_Walk_Patrol : cState
 
 	public override void UpdateState()
 	{
+
 	}
 
 	public override void ExitState()

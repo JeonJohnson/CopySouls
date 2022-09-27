@@ -31,6 +31,8 @@ public abstract class Enemy : MonoBehaviour
     public bool isCombat;
     public GameObject weapon;
 
+    public List<Vector3> patrolPosList;
+
 
     ////FSM
     public cState[] fsm;
@@ -212,6 +214,15 @@ public abstract class Enemy : MonoBehaviour
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
 
+
+        //for Test
+        patrolPosList = new List<Vector3>();
+        patrolPosList.Add(new Vector3());
+        patrolPosList.Add(new Vector3(10,0,10));
+        patrolPosList.Add(new Vector3(5,0,-10));
+        //for Test
+
+
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
     }
@@ -248,21 +259,77 @@ public abstract class Enemy : MonoBehaviour
     //}
 
 
-    private void OnDrawGizmos()
-    {
+    //private void OnDrawGizmos()
+    //{
+
+    //    ////인식범위
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
+    //    ////인식범위
+
+    //    ////시야각
+    //    //프로스텀으로 보여주기
+
+    //    ////시야각
+
+    //    ////공격 사정거리
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, status.atkRange);
+    //    ////공격 사정거리
+
+
+    //    ////패트롤 예상 이동 궤적
+    //    Gizmos.color = Color.blue;
+
+    //    for (int i = 0; i < patrolPosList.Count; ++i)
+    //    {
+    //        if (i == (patrolPosList.Count - 1))
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+    //        }
+    //    }
+    //}
+
+    private void OnDrawGizmosSelected()
+	{
+
+        ////인식범위
+        Color temp = Color.yellow;
+        temp.a = 0.4f;
+        //Gizmos.color = Color.yellow;
+        Gizmos.color = temp;
+        Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
+        ////시야각
+        //프로스텀으로 보여주기
 
-        ////인식범위
-
+        ////시야각
 
         ////공격 사정거리
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, status.atkRange);
+		////공격 사정거리
 
-        ////공격 사정거리
 
+		////패트롤 예상 이동 궤적
+		Gizmos.color = Color.blue;
 
-        ////패트롤 예상 이동 궤적
-
-        ////패트롤 예상 이동 궤적
-    }
+		for (int i = 0; i < patrolPosList.Count; ++i)
+		{
+            if (i == (patrolPosList.Count - 1))
+            {
+                Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+            }
+            else
+            {
+                Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+			}
+		}
+		////패트롤 예상 이동 궤적
+	}
 }
