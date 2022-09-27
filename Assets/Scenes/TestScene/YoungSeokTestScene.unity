@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -827,6 +827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   z: 0
+  speed: 5
 --- !u!1 &1420976260
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,12 +928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349283c8147a0754da07a6929a743fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 669899351}
-  distToPlayer: 0
-  preTargetPos: {x: 0, y: 0, z: 0}
-  curTargetPos: {x: 0, y: 0, z: 0}
-  targetObj: {fileID: 0}
-  CoolTime: 0
   status:
     name: 
     type: 0
@@ -944,20 +939,28 @@ MonoBehaviour:
     curMp: 0
     moveSpd: 1
     runSpd: 3
-    atkRange: 1
+    atkRange: 2
     patrolRange: 10
     ricognitionRange: 8
     lookAtSpd: 0
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
+  player: {fileID: 669899351}
+  distToPlayer: 0
+  preTargetPos: {x: 0, y: 0, z: 0}
+  curTargetPos: {x: 0, y: 0, z: 0}
+  targetObj: {fileID: 0}
+  CoolTime: 0
+  weapon: {fileID: 0}
+  preState_i: -1
+  curState_i: -1
   animCtrl: {fileID: 0}
+  col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
   curState_e: 0
   isMoving: 0
-  TargetOn: 0
-  RandomOn: 0
 --- !u!136 &1774002805
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1002,7 +1005,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 90
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

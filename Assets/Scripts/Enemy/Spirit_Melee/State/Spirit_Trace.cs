@@ -14,10 +14,9 @@ public class Spirit_Trace : cState
     {
         Spirit_PlayTraceAnimation();
 
-        me.targetObj = me.player;
+        me.curTargetPos = me.player.transform.position;
 
-        //me.curTargetPos = me.player.transform.position;
-
+        //느리게 회전 추가
         me.transform.LookAt(me.targetObj.transform);
 
         if (me.distToPlayer <= me.status.atkRange)
@@ -46,15 +45,17 @@ public class Spirit_Trace : cState
 
     public void Spirit_StartTrace()
     {
+        me.targetObj = me.player;
         me.animCtrl.SetBool("isTrace", true);
+        me.navAgent.speed = me.status.runSpd;
         CoroutineHelper.Instance.StartCoroutine(((Spirit)me).EquiptAndTargetSelction());
     }
 
     public void Spirit_StopTrace()
     {
+        me.targetObj = null;
         me.animCtrl.SetBool("isTrace", false);
         CoroutineHelper.Instance.StopCoroutine(((Spirit)me).EquiptAndTargetSelction());
-        me.targetObj = null;
         me.navAgent.isStopped = true;
     }
 
