@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Hit : Player_cState
+public class Player_Atk : Player_cState
 {
     public override void EnterState(Player script)
     {
@@ -11,8 +11,8 @@ public class Player_Hit : Player_cState
     public override void UpdateState()
     {
         PlayerLocomove.instance.PlayerControlCam();
-    }
 
+    }
     public override void ExitState()
     {
 

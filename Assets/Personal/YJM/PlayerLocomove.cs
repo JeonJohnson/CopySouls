@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerLocomove : MonoBehaviour
 {
     public bool isMoveable = true;
 
@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour
 
     #region singletone and InitializeState
     /// <singletone>    
-    static public PlayerMove instance = null;
+    static public PlayerLocomove instance = null;
     /// <singletone>
 
     private void Awake()
