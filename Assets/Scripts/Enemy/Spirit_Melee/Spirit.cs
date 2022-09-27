@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
+
+
 public class Spirit : Enemy
 {
     public eSpiritState curState_e;
     public bool isMoving;
-    public bool TargetOn;
-    public bool RandomOn;
 
     public override void InitializeState()
 	{
@@ -36,7 +36,6 @@ public class Spirit : Enemy
 
     protected override void Start()
     {
-
         base.Start();
     }
 
@@ -45,41 +44,17 @@ public class Spirit : Enemy
         base.Update();
         curState_e = GetCurState<Enums.eSpiritState>();
         isMoving = !navAgent.isStopped;
-        ChangeSpeed();
         distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
         //아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
-        if (targetObj == null && curTargetPos != null && !navAgent.isStopped && transform.position == curTargetPos) navAgent.isStopped = true;
-        if (targetObj != null && curTargetPos == null && !navAgent.isStopped && transform.position == targetObj.transform.position) navAgent.isStopped = true;
+        if (isMoving && transform.position == curTargetPos) navAgent.isStopped = true;
+        else navAgent.isStopped = false;
 
-        if (isMoving)
-        {
-            
-            if (targetObj != null && curTargetPos == null)
-            {
-                navAgent.SetDestination(targetObj.transform.position);
-
-                TargetOn = true;
-                RandomOn = false;
-
-            }
-            else if (targetObj == null && curTargetPos != null)
-            {
-                navAgent.SetDestination(curTargetPos);
-
-                TargetOn = false;
-                RandomOn = true;
-            }
-        }
+        if (isMoving) navAgent.SetDestination(curTargetPos);
 
         //GameObject obj = UnitManager.Instance.playerObj;
     }
 
-    public void ChangeSpeed()
-    {
-        if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Patrol) navAgent.speed = status.moveSpd;
-        else if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk) navAgent.speed = status.runSpd;
-    }
 
     public Vector3 ThinkRandomTargetPos(int minDis, int maxDis)
     {
@@ -111,6 +86,7 @@ public class Spirit : Enemy
 
     public IEnumerator EquiptAndTargetSelction()
     {
+        if (isMoving) navAgent.isStopped = true;
         animCtrl.SetTrigger("isEquipt");
         yield return new WaitForSeconds(1.2f);
         navAgent.isStopped = false;

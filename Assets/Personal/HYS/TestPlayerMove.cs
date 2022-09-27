@@ -8,6 +8,7 @@ public class TestPlayerMove : MonoBehaviour
     Vector3 moveVec;
     public float x;
     public float z;
+    public float speed;
 
     void Awake()
     {
@@ -23,7 +24,7 @@ public class TestPlayerMove : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
         moveVec = new Vector3(x, 0, z);
-        transform.position += moveVec.normalized;
+        transform.position += (moveVec.normalized * speed * Time.deltaTime);
     }
 
     void FixedUpdate()
