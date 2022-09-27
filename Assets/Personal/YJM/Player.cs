@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public bool isInteracting = true;
 
     public int hp = 100;
+    public int atk = 10;
 
     //FSM
     public Player_cState[] fsm;
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Move] = new Player_Move();
         fsm[(int)ePlayerState.Hit] = new Player_Hit();
         fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
+        fsm[(int)ePlayerState.Atk] = new Player_Atk();
         SetState(Enums.ePlayerState.Idle);
     }
 

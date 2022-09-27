@@ -19,6 +19,11 @@ public class Player_Idle : Player_cState
         {
             PlayerActionTable.instance.Backstep();
         }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            PlayerActionTable.instance.WeakAttack();
+        }
     }
 
     public override void ExitState()
