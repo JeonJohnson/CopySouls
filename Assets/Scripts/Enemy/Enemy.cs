@@ -18,6 +18,8 @@ public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
 
+    
+
     ////Target
     public GameObject player;
     public float distToPlayer;
@@ -30,6 +32,8 @@ public abstract class Enemy : MonoBehaviour
     ////
     public bool isCombat;
     public GameObject weapon;
+
+    public List<Vector3> patrolPosList;
 
 
     ////FSM
@@ -49,80 +53,33 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
+
+    public void UpdateStatus()
+    { //스테이터스 수치들 각종 컴포넌트에 연동 되도록.
+
+        //네브 요원
+        navAgent.speed = status.moveSpd;
+        
     
-
-
-    //// Funcs
-    public abstract void InitializeState();
-
-	//public StateController fsmCtrl;
-
-	//public void SetState(eEnmeyState state)
-	//{
-	//    if (state == curState_e || fsm[(int)state] == null)
-	//    {
-	//        return;
-	//    }
-	//
-	//    if (curState_e != eEnmeyState.End)
-	//    { curState.ExitState(); }
-	//
-	//    preState = curState;
-	//    preState_e = curState_e;
-	//
-	//    curState_e = state;
-	//    curState = fsm[(int)state];
-	//
-	//    curState.EnterState(this);
-	//}
-
-
-	//public cState[] fsm;
-	//public cState preState = null;
-	//public eEnmeyState preState_e = eEnmeyState.End;
-	//public cState curState = null;
-	//public eEnmeyState curState_e = eEnmeyState.End;
-
-
-	//public abstract void InitializeState();
-	////추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
-
-	//public void SetState(eEnmeyState state)
-	//{
-	//    if (state == curState_e || fsm[(int)state] == null)
-	//    {
-	//        return;
-	//    }
-
-	//    if (curState_e != eEnmeyState.End)
-	//    { curState.ExitState(); }
-
-	//    preState = curState;
-	//    preState_e = curState_e;
-
-	//    curState_e = state;
-	//    curState = fsm[(int)state];
-
-	//    curState.EnterState(this);
-	//}
+    }
 
 
 
-	//public void SetState(cState state)
-	//{
-	//    if (state == curState)
-	//    {
-	//        return;
-	//    }
-	//    curState.ExitState();
-	//    preState = curState;
-	//    preState_e = curState_e;
-	//    curState_e = state;
-	//    curState = state;
-	//    curState.EnterState(this);
-	//}
+	public void MoveOrder(Vector3 dest)
+	{//네비 에이전트 움직이는거 편하게
+        if (navAgent == null)
+        {
+            return;
+        }
 
-    
+        navAgent.isStopped = true;
+        navAgent.destination = dest;
+        navAgent.isStopped = false;
+	}
+
+
+	//// Funcs
+	public abstract void InitializeState();
 
 	public T GetCurState<T>() where T : Enum
     {
@@ -212,6 +169,15 @@ public abstract class Enemy : MonoBehaviour
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
 
+
+        //for Test
+        patrolPosList = new List<Vector3>();
+        patrolPosList.Add(new Vector3());
+        patrolPosList.Add(new Vector3(10,0,10));
+        patrolPosList.Add(new Vector3(5,0,-10));
+        //for Test
+
+
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
     }
@@ -248,21 +214,77 @@ public abstract class Enemy : MonoBehaviour
     //}
 
 
-    private void OnDrawGizmos()
-    {
+    //private void OnDrawGizmos()
+    //{
+
+    //    ////인식범위
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
+    //    ////인식범위
+
+    //    ////시야각
+    //    //프로스텀으로 보여주기
+
+    //    ////시야각
+
+    //    ////공격 사정거리
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, status.atkRange);
+    //    ////공격 사정거리
+
+
+    //    ////패트롤 예상 이동 궤적
+    //    Gizmos.color = Color.blue;
+
+    //    for (int i = 0; i < patrolPosList.Count; ++i)
+    //    {
+    //        if (i == (patrolPosList.Count - 1))
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+    //        }
+    //    }
+    //}
+
+    private void OnDrawGizmosSelected()
+	{
+
+        ////인식범위
+        Color temp = Color.yellow;
+        temp.a = 0.4f;
+        //Gizmos.color = Color.yellow;
+        Gizmos.color = temp;
+        Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
+        ////시야각
+        //프로스텀으로 보여주기
 
-        ////인식범위
-
+        ////시야각
 
         ////공격 사정거리
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, status.atkRange);
+		////공격 사정거리
 
-        ////공격 사정거리
 
+		////패트롤 예상 이동 궤적
+		Gizmos.color = Color.blue;
 
-        ////패트롤 예상 이동 궤적
-
-        ////패트롤 예상 이동 궤적
-    }
+		for (int i = 0; i < patrolPosList.Count; ++i)
+		{
+            if (i == (patrolPosList.Count - 1))
+            {
+                Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+            }
+            else
+            {
+                Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+			}
+		}
+		////패트롤 예상 이동 궤적
+	}
 }
