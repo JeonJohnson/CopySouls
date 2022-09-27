@@ -922,6 +922,8 @@ GameObject:
   - component: {fileID: 1382911637671713410}
   - component: {fileID: 1382911637680985912}
   - component: {fileID: 8222182383997116622}
+  - component: {fileID: 862662284}
+  - component: {fileID: 862662283}
   m_Layer: 0
   m_Name: Skeleton_Archer
   m_TagString: Untagged
@@ -1015,6 +1017,44 @@ MonoBehaviour:
   rightHand: {fileID: 1382911637671471516}
   bowString: {fileID: 244858627539802798}
   bowStringOriginPos: {x: 0, y: 0, z: 0}
+--- !u!54 &862662284
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382911637671490830}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &862662283
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382911637671490830}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1382911637671491338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
+--- !u!1 &244763597218117340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717406733745140, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
+  m_PrefabInstance: {fileID: 244191400842579240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &248789580094369640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4620178347958848, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
@@ -2407,11 +2452,6 @@ Transform:
 --- !u!1 &244858627539802798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1798074416387974, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
-  m_PrefabInstance: {fileID: 244191400842579240}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &244763597218117340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1717406733745140, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
   m_PrefabInstance: {fileID: 244191400842579240}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &570509654254328807

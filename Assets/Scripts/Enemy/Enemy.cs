@@ -18,6 +18,8 @@ public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
 
+    
+
     ////Target
     public GameObject player;
     public float distToPlayer;
@@ -51,80 +53,33 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
+
+    public void UpdateStatus()
+    { //스테이터스 수치들 각종 컴포넌트에 연동 되도록.
+
+        //네브 요원
+        navAgent.speed = status.moveSpd;
+        
     
-
-
-    //// Funcs
-    public abstract void InitializeState();
-
-	//public StateController fsmCtrl;
-
-	//public void SetState(eEnmeyState state)
-	//{
-	//    if (state == curState_e || fsm[(int)state] == null)
-	//    {
-	//        return;
-	//    }
-	//
-	//    if (curState_e != eEnmeyState.End)
-	//    { curState.ExitState(); }
-	//
-	//    preState = curState;
-	//    preState_e = curState_e;
-	//
-	//    curState_e = state;
-	//    curState = fsm[(int)state];
-	//
-	//    curState.EnterState(this);
-	//}
-
-
-	//public cState[] fsm;
-	//public cState preState = null;
-	//public eEnmeyState preState_e = eEnmeyState.End;
-	//public cState curState = null;
-	//public eEnmeyState curState_e = eEnmeyState.End;
-
-
-	//public abstract void InitializeState();
-	////추상함수임으로 Enemy클래스 상속받는 진짜 적 스크립트에서 설정해주셈.
-
-	//public void SetState(eEnmeyState state)
-	//{
-	//    if (state == curState_e || fsm[(int)state] == null)
-	//    {
-	//        return;
-	//    }
-
-	//    if (curState_e != eEnmeyState.End)
-	//    { curState.ExitState(); }
-
-	//    preState = curState;
-	//    preState_e = curState_e;
-
-	//    curState_e = state;
-	//    curState = fsm[(int)state];
-
-	//    curState.EnterState(this);
-	//}
+    }
 
 
 
-	//public void SetState(cState state)
-	//{
-	//    if (state == curState)
-	//    {
-	//        return;
-	//    }
-	//    curState.ExitState();
-	//    preState = curState;
-	//    preState_e = curState_e;
-	//    curState_e = state;
-	//    curState = state;
-	//    curState.EnterState(this);
-	//}
+	public void MoveOrder(Vector3 dest)
+	{//네비 에이전트 움직이는거 편하게
+        if (navAgent == null)
+        {
+            return;
+        }
 
-    
+        navAgent.isStopped = true;
+        navAgent.destination = dest;
+        navAgent.isStopped = false;
+	}
+
+
+	//// Funcs
+	public abstract void InitializeState();
 
 	public T GetCurState<T>() where T : Enum
     {

@@ -69,4 +69,6 @@ Death - 죽는거					11 v
 		기본 테스트용 기즈모 설정
 	할것 : 1. Patrol State 잡기
 		2. Idle 스테이트 잡기
+
+23:09 2022-09-27	patrol State 조금 작업
 		
