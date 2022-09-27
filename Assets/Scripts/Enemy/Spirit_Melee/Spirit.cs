@@ -8,8 +8,8 @@ public class Spirit : Enemy
 {
     public eSpiritState curState_e;
     public bool isMoving;
-    public Enums.eSpiritState spiritCurState;
-    public GameObject TargetObj;
+    public bool TargetOn;
+    public bool RandomOn;
 
     public override void InitializeState()
 	{
@@ -43,22 +43,35 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
-        preTargetPos = curTargetPos;
         curState_e = GetCurState<Enums.eSpiritState>();
         isMoving = !navAgent.isStopped;
-        spiritCurState = GetCurState<Enums.eSpiritState>();
         ChangeSpeed();
         distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Patrol) navAgent.speed = status.moveSpd;
-        else if (GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk) navAgent.speed = status.runSpd;
-        if (curTargetPos != null) navAgent.SetDestination(curTargetPos);
         //아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
-        if (!navAgent.isStopped && transform.position == curTargetPos) isMoving = false;
+        if (targetObj == null && curTargetPos != null && !navAgent.isStopped && transform.position == curTargetPos) navAgent.isStopped = true;
+        if (targetObj != null && curTargetPos == null && !navAgent.isStopped && transform.position == targetObj.transform.position) navAgent.isStopped = true;
 
-        //네이게이션을 통한 이동
-        //if (curTargetPos != null|| TargetObj) navAgent.SetDestination(curTargetPos);
-        
+        if (isMoving)
+        {
+            
+            if (targetObj != null && curTargetPos == null)
+            {
+                navAgent.SetDestination(targetObj.transform.position);
+
+                TargetOn = true;
+                RandomOn = false;
+
+            }
+            else if (targetObj == null && curTargetPos != null)
+            {
+                navAgent.SetDestination(curTargetPos);
+
+                TargetOn = false;
+                RandomOn = true;
+            }
+        }
+
         //GameObject obj = UnitManager.Instance.playerObj;
     }
 
@@ -82,17 +95,25 @@ public class Spirit : Enemy
         return TargetPos;
     }
 
-    public IEnumerator MoveToTargetPos(float moveDulationTime, float restartTime)
+    public IEnumerator AutoMove(float moveDulationTime, float restartTime)
     {
-        navAgent.isStopped = false;
-        isMoving = (!navAgent.isStopped);
-        if(TargetObj == null) curTargetPos = ThinkRandomTargetPos(6, 10);
-        yield return new WaitForSeconds(moveDulationTime);
-        navAgent.isStopped = true;
-        isMoving = (!navAgent.isStopped);
-        yield return new WaitForSeconds(restartTime);
-        CoroutineHelper.Instance.StartCoroutine(MoveToTargetPos(moveDulationTime, restartTime));
+        if (targetObj == null)
+        {
+            navAgent.isStopped = false;
+            preTargetPos = curTargetPos;
+            curTargetPos = ThinkRandomTargetPos(6, 10);
+            yield return new WaitForSeconds(moveDulationTime);
+            navAgent.isStopped = true;
+            yield return new WaitForSeconds(restartTime);
+            CoroutineHelper.Instance.StartCoroutine(AutoMove(moveDulationTime, restartTime));
+        }
     }
 
-
+    public IEnumerator EquiptAndTargetSelction()
+    {
+        animCtrl.SetTrigger("isEquipt");
+        yield return new WaitForSeconds(1.2f);
+        navAgent.isStopped = false;
+        targetObj = player;
+    }
 }

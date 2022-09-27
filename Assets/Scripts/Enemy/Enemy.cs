@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour
     public float distToPlayer;
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
+    public GameObject targetObj;
     public float CoolTime;
 
     public Structs.EnemyStatus status;

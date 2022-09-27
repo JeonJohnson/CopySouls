@@ -7,7 +7,7 @@ public class Spirit_Patrol : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).MoveToTargetPos(5.0f,2.0f));
+        Spirit_StartPatrol();
     }
 
     public override void UpdateState()
@@ -22,8 +22,32 @@ public class Spirit_Patrol : cState
 
     public override void ExitState()
     {
-        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).MoveToTargetPos(5.0f, 2.0f));
+        Spirit_StopPatrol();
         Spirit_StopPatrolAnimation();
+    }
+
+
+    
+
+
+
+
+
+
+
+
+    public void Spirit_StartPatrol()
+    {
+        me.animCtrl.SetBool("isPatrol", true);
+        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).AutoMove(5.0f,2.0f));
+    }
+
+    public void Spirit_StopPatrol()
+    {
+        me.animCtrl.SetBool("isPatrol", false);
+        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).AutoMove(5.0f, 2.0f));
+        me.curTargetPos = Vector3.zero;
+        me.navAgent.isStopped = true;
     }
 
     public void Spirit_PlayPatrolAnimation()

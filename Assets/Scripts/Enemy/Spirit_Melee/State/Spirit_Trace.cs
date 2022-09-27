@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class Spirit_Trace : cState
 {
-
-
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        CoroutineHelper.Instance.StartCoroutine(StartTrace());
-        me.animCtrl.SetBool("isRun", true);
-        me.navAgent.isStopped = false;
-        Spirit_StartTraceAnimation();
-        //me.navAgent.isStopped = false;
+        Spirit_StartTrace();
     }
 
     public override void UpdateState()
     {
-        me.curTargetPos = me.player.transform.position;
+        Spirit_PlayTraceAnimation();
 
-        me.transform.LookAt(me.curTargetPos);
+        me.targetObj = me.player;
+
+        //me.curTargetPos = me.player.transform.position;
+
+        me.transform.LookAt(me.targetObj.transform);
 
         if (me.distToPlayer <= me.status.atkRange)
         {
@@ -34,34 +32,42 @@ public class Spirit_Trace : cState
 
     public override void ExitState()
     {
-        StopTrace();
+        Spirit_StopTraceAnimation();
+        Spirit_StopTrace();
     }
 
-    public IEnumerator StartTrace()
+
+
+
+
+
+
+
+
+    public void Spirit_StartTrace()
     {
-        yield return new WaitForSeconds(1.0f);
-        me.animCtrl.SetTrigger("isTrace");
-        yield return new WaitForSeconds(1.0f);
-        me.animCtrl.SetBool("isRun", true);
-        me.navAgent.isStopped = false;
+        me.animCtrl.SetBool("isTrace", true);
+        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).EquiptAndTargetSelction());
     }
 
-    public void StopTrace()
+    public void Spirit_StopTrace()
     {
-        CoroutineHelper.Instance.StopCoroutine(StartTrace());
-        me.animCtrl.SetBool("isRun", false);
+        me.animCtrl.SetBool("isTrace", false);
+        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).EquiptAndTargetSelction());
+        me.targetObj = null;
         me.navAgent.isStopped = true;
     }
 
-    public void Spirit_StartTraceAnimation()
+    public void Spirit_PlayTraceAnimation()
     {
         if (((Spirit)me).isMoving) me.animCtrl.SetBool("isRun", true);
         else me.animCtrl.SetBool("isRun", false);
     }
-
     public void Spirit_StopTraceAnimation()
     {
         me.animCtrl.SetBool("isRun", false);
     }
+
+
 
 }
