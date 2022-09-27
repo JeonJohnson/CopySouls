@@ -39,6 +39,7 @@ public class Spirit_Patrol : cState
     public void Spirit_StartPatrol()
     {
         me.animCtrl.SetBool("isPatrol", true);
+        me.navAgent.speed = me.status.moveSpd;
         CoroutineHelper.Instance.StartCoroutine(((Spirit)me).AutoMove(5.0f,2.0f));
     }
 

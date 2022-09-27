@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
+
+//<필요 함수>
+//각도 , 데미지
+//적이 데미지 입는 함수
+//앞잡 뒤잡 시 몬스터가 그 방향으로 회전
+//
+
 public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
