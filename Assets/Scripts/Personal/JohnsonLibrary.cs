@@ -373,6 +373,12 @@ public static class Defines
 		new Vector3(0f,0f,0f)
 	};
 
+	public static string[] enemyNameStr =
+	{ 
+		"Spirit",
+		"Archer"
+	};
+
 
 }
 
@@ -392,7 +398,28 @@ namespace Enums
 	
 	}
 
-    public enum eSpiritState
+
+	public enum eEnemyType
+	{
+		Normal,
+		Elite,
+		Boss,
+		End
+	}
+
+	public enum eEnemyName
+	{ 
+		Spirit,
+		Archer,
+		//Magician,
+		//Knight,
+		//Boss,
+		End
+	
+	}
+
+
+	public enum eSpiritState
     {
         Idle,
         Patrol,
@@ -421,13 +448,6 @@ namespace Enums
 	}
 	
 
-    public enum eEnemyType
-	{ 
-		Normal,
-		Elite,
-		Boss,
-		End
-	}
 
 	public enum eWeaponType
 	{
@@ -472,6 +492,7 @@ namespace Structs
 	public struct EnemyStatus
 	{
 		public string name;
+		public Enums.eEnemyName name_e;
 
 		public Enums.eEnemyType type;
 
@@ -484,13 +505,13 @@ namespace Structs
 		public int maxMp;
 		public int curMp;
 
-
 		public float moveSpd;
 		public float runSpd;
 
 		public float atkRange;
 		public float patrolRange;
         public float ricognitionRange;
+		public float fovAngle;
 
 		public float lookAtSpd;
 
@@ -547,6 +568,19 @@ namespace Structs
 
 	public struct DamagedStruct
 	{
+
+		public DamagedStruct(float _dmg, bool riposte)
+		{
+			dmg = _dmg;
+			isRiposte = riposte;
+			isBackstab = false;
+		}
+
+		public bool isRiposte;
+		public bool isBackstab;
+		public float dmg;
+
+
 		////폭팔용
 		//public DamagedStruct(float _dmg, Vector3 _explosionPos)
 		//{
@@ -580,6 +614,8 @@ namespace Structs
 		//public Collider hitCol;
 		//public Vector3 explosionPos;
 		//public Vector3 dmgDir;
+
+
 
 	}
 
