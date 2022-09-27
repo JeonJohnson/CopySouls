@@ -14,6 +14,8 @@ public class Spirit_Atk : cState
     {
         //if(공격모션이 끝난 후에 상태전환)
 
+        //공격중에는 회전 불가
+        me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         if (me.distToPlayer > me.status.atkRange)
         {

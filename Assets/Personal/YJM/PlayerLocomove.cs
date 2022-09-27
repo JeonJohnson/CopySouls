@@ -93,9 +93,9 @@ public class PlayerLocomove : MonoBehaviour
         Player.instance.playerModel.transform.position = this.transform.position;
 
         //플레이어모델 자유이동 보정
-        Vector3 camClampedAngle(Vector3 vec)
+        Vector3 camClampedAngle(Vector3 _vec)
         {
-            Vector3 returnVec = new Vector3(vec.x, 0, vec.z);
+            Vector3 returnVec = new Vector3(_vec.x, 0, _vec.z);
             return returnVec;
         }
         if (Input.GetKey(KeyCode.D))

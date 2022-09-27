@@ -47,7 +47,7 @@ public class Spirit_Patrol : cState
     {
         me.animCtrl.SetBool("isPatrol", false);
         CoroutineHelper.Instance.StopCoroutine(((Spirit)me).AutoMove(5.0f, 2.0f));
-        me.curTargetPos = Vector3.zero;
+        me.curTargetPos = me.transform.position;
         me.navAgent.isStopped = true;
     }
 

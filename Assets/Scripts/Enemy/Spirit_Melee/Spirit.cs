@@ -10,6 +10,7 @@ public class Spirit : Enemy
 {
     public eSpiritState curState_e;
     public bool isMoving;
+    
 
     public override void InitializeState()
 	{
@@ -42,13 +43,18 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+
         curState_e = GetCurState<Enums.eSpiritState>();
-        isMoving = !navAgent.isStopped;
         distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        //아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
-        if (isMoving && transform.position == curTargetPos) navAgent.isStopped = true;
-        else navAgent.isStopped = false;
+        if(isMoving && targetObj == null)
+        {
+            //랜덤타겟위치가 없고 아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
+            if (transform.position == curTargetPos) navAgent.isStopped = true;
+            else if (transform.position != curTargetPos) navAgent.isStopped = false;
+        }
+
+        isMoving = !navAgent.isStopped;
 
         if (isMoving) navAgent.SetDestination(curTargetPos);
 
@@ -74,9 +80,9 @@ public class Spirit : Enemy
     {
         if (targetObj == null)
         {
-            navAgent.isStopped = false;
             preTargetPos = curTargetPos;
             curTargetPos = ThinkRandomTargetPos(6, 10);
+            navAgent.isStopped = false;
             yield return new WaitForSeconds(moveDulationTime);
             navAgent.isStopped = true;
             yield return new WaitForSeconds(restartTime);
@@ -84,12 +90,16 @@ public class Spirit : Enemy
         }
     }
 
-    public IEnumerator EquiptAndTargetSelction()
+    public IEnumerator DelayNavOn()
     {
-        if (isMoving) navAgent.isStopped = true;
+        if(isMoving) navAgent.isStopped = true;
         animCtrl.SetTrigger("isEquipt");
+        animCtrl.SetBool("isTrace", true);
         yield return new WaitForSeconds(1.2f);
-        navAgent.isStopped = false;
         targetObj = player;
+        navAgent.isStopped = false;
+
     }
+
+
 }

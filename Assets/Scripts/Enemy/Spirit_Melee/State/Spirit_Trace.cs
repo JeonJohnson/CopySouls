@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Spirit_Trace : cState
 {
+    public int count;
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
@@ -12,12 +14,17 @@ public class Spirit_Trace : cState
 
     public override void UpdateState()
     {
+
         Spirit_PlayTraceAnimation();
 
-        me.curTargetPos = me.player.transform.position;
 
         //느리게 회전 추가
-        me.transform.LookAt(me.targetObj.transform);
+        if (me.targetObj != null)
+        {
+            me.curTargetPos = me.targetObj.transform.position;
+            me.transform.LookAt(me.targetObj.transform);
+            if (me.navAgent.isStopped) me.navAgent.isStopped = false;
+        }
 
         if (me.distToPlayer <= me.status.atkRange)
         {
@@ -45,17 +52,19 @@ public class Spirit_Trace : cState
 
     public void Spirit_StartTrace()
     {
-        me.targetObj = me.player;
-        me.animCtrl.SetBool("isTrace", true);
+        //me.navAgent.isStopped = true;
+       
+        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).DelayNavOn());
+        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).DelayNavOn());
         me.navAgent.speed = me.status.runSpd;
-        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).EquiptAndTargetSelction());
+        //me.navAgent.isStopped = false;
+
     }
 
     public void Spirit_StopTrace()
     {
         me.targetObj = null;
         me.animCtrl.SetBool("isTrace", false);
-        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).EquiptAndTargetSelction());
         me.navAgent.isStopped = true;
     }
 
@@ -68,6 +77,8 @@ public class Spirit_Trace : cState
     {
         me.animCtrl.SetBool("isRun", false);
     }
+
+
 
 
 
