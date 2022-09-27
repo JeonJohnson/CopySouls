@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public GameObject playerMovemnetSystem;
     public Animator animator;
 
+    public bool isInteracting = true;
+
     public int hp = 100;
 
     //FSM
@@ -85,7 +87,25 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Idle] = new Player_Idle();
         fsm[(int)ePlayerState.Move] = new Player_Move();
         fsm[(int)ePlayerState.Hit] = new Player_Hit();
+        fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
         SetState(Enums.ePlayerState.Idle);
     }
 
+    #region PLAYER INVINCIBLE TEST CODE
+    [Header("TEST CODE")]
+    [SerializeField] Material testMat_0;
+    [SerializeField] Material testMat_1;
+
+    public void SetPlayerMat(int i)
+    {
+        if (i == 0)
+        {
+            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
+        }
+        else
+        {
+            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
+        }
+    }
+    #endregion
 }

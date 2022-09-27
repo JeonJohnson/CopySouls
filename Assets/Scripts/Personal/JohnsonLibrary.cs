@@ -411,7 +411,7 @@ namespace Enums
 		Walk_Patrol,
 		Walk_Careful,
 		Walk_Aiming,
-		Run,
+		Runaway,
 		Attack_Rapid,
 		Attack_Aiming,
 		Attack_Melee,
@@ -444,6 +444,7 @@ namespace Enums
 		Move,
 		Atk,
 		Hit,
+		Dodge,
 		Death,
 
 		End

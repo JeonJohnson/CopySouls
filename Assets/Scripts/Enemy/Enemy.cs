@@ -7,27 +7,42 @@ using Enums;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public Structs.EnemyStatus status;
+
+    ////Target
     public GameObject player;
     public float distToPlayer;
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
     public GameObject targetObj;
     public float CoolTime;
+    ////Target
 
-    public Structs.EnemyStatus status;
+    ////
+    public GameObject weapon;
 
-    public Animator animCtrl;
-    public Rigidbody rd;
-    public NavMeshAgent navAgent;
 
-    //FSM
+    ////FSM
     public cState[] fsm;
     public cState preState = null;
+    public int preState_i = -1;
     //public eEnmeyState preState_e = eEnmeyState.End;
     public cState curState = null;
-
+    public int curState_i = -1;
     //public eEnmeyState curState_e = eEnmeyState.End;
+    ////FSM
 
+    ////default Components
+    public Animator animCtrl;
+    public Collider col;
+    public Rigidbody rd;
+    public NavMeshAgent navAgent;
+    ////default Components
+
+    
+
+
+    //// Funcs
     public abstract void InitializeState();
 
 	//public StateController fsmCtrl;
@@ -97,6 +112,7 @@ public abstract class Enemy : MonoBehaviour
 	//    curState.EnterState(this);
 	//}
 
+    
 
 	public T GetCurState<T>() where T : Enum
     {
@@ -113,6 +129,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetState(cState state)
     {
+        
         int index = System.Array.IndexOf(fsm, state);
 
         if (index == -1 || curState == state)
@@ -125,13 +142,15 @@ public abstract class Enemy : MonoBehaviour
             curState.ExitState();
         }
 
-        cState nextState = fsm[index];
+        //cState nextState = fsm[index];
+
+        int curIndex = System.Array.IndexOf(fsm, curState);
 
         preState = curState;
-        //preState_e = curState_e;
+        preState_i = curIndex;
 
-        //curState_e = (T)(object)index;
         curState = state;
+        curState_i = index;
 
         curState.EnterState(this);
     }
@@ -150,9 +169,13 @@ public abstract class Enemy : MonoBehaviour
         }
 
         cState nextState = fsm[state];
+        int curIndex = System.Array.IndexOf(fsm, curState);
 
         preState = curState;
+        preState_i = curIndex;
+
         curState = nextState;
+        curState_i = state;
 
         curState.EnterState(this);
     }
@@ -164,10 +187,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //fsm = new cState[(int)eEnmeyState.End];
-        //각자 
+        animCtrl = GetComponent<Animator>();
+        rd = GetComponent<Rigidbody>();
 
-        //fsmCtrl = new StateCtrl_Archer(this);
+        //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
     }
 
@@ -180,7 +203,8 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        CoolTime += Time.deltaTime;
         curState.UpdateState();
+
+        CoolTime += Time.deltaTime;
     }
 }

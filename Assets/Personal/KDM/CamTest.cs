@@ -11,7 +11,7 @@ public class CamTest : MonoBehaviour
     public float distance = 3; // 카메라 거리
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         xmove += Input.GetAxis("Mouse X"); // 마우스의 좌우 이동량을 xmove 에 누적합니다.
         ymove -= Input.GetAxis("Mouse Y"); // 마우스의 상하 이동량을 ymove 에 누적합니다.

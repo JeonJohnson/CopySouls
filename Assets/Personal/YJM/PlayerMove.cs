@@ -116,6 +116,11 @@ public class PlayerMove : MonoBehaviour
             playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(-cam.transform.forward), Time.deltaTime * 20f);
         }
         SetAnimation();
+
+        if (Mathf.Round(vec.magnitude) <=0)
+        {
+            Player.instance.SetState(Enums.ePlayerState.Idle);
+        }
     }
 
     void SetAnimation()
@@ -154,5 +159,11 @@ public class PlayerMove : MonoBehaviour
     {
         curSpeed = 0f;
         Player.instance.animator.SetFloat("MoveSpeed", 0f);
+    }
+
+    public void PlayerControlCam()
+    {
+        Player.instance.playerMovemnetSystem.transform.position = Player.instance.playerModel.transform.position;
+        cam.transform.position = Player.instance.playerModel.transform.position;
     }
 }
