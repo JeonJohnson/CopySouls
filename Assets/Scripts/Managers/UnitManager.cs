@@ -18,14 +18,19 @@ public class UnitManager : Manager<UnitManager>
     //// <EnemyVar>
     public int enemyAllCount;
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;
-    
-    
+
+
 
     //// <EnemyVar>
-    
-    
+
+
     //// <EnemyFuncs>
-    
+    public GameObject SpawnEnemy(eEnemyName name, Vector3 pos, Vector3 rot, int count)
+    {
+
+
+        return null;
+    }
     //// <EnemyFuncs>
 
 
