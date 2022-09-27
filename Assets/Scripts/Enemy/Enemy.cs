@@ -3,7 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 using Enums;
+using Structs;
+
+
+//<필요 함수>
+//각도 , 데미지
+//적이 데미지 입는 함수
+//앞잡 뒤잡 시 몬스터가 그 방향으로 회전
+//
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -19,6 +28,7 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
     ////
+    public bool isCombat;
     public GameObject weapon;
 
 
@@ -185,10 +195,22 @@ public abstract class Enemy : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public virtual void Hit(DamagedStruct dmgStruct)
+    {
+        status.curHp -= (int)dmgStruct.dmg;
+
+        //if (dmgStruct.isBackstab)
+        //{
+        //    transform.forward = player.transform.forward;
+        //}
+    }
+    //public abstract void Death();
+
     protected virtual void Awake()
     {
         animCtrl = GetComponent<Animator>();
         rd = GetComponent<Rigidbody>();
+        navAgent = GetComponent<NavMeshAgent>();
 
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
@@ -203,8 +225,44 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (player != null)
+        { distToPlayer = Vector3.Distance(transform.position, player.transform.position); }
+            
         curState.UpdateState();
 
+
+
         CoolTime += Time.deltaTime;
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
+
+    //        Enemy script = other.GetComponent<Enemy>();
+    //        script.Hit(dmg);
+    //    }
+
+    //}
+
+
+    private void OnDrawGizmos()
+    {
+        ////인식범위
+
+
+        ////인식범위
+
+
+        ////공격 사정거리
+
+        ////공격 사정거리
+
+
+        ////패트롤 예상 이동 궤적
+
+        ////패트롤 예상 이동 궤적
     }
 }
