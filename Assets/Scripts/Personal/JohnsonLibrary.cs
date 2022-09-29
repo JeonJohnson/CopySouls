@@ -423,6 +423,8 @@ namespace Enums
     {
         Idle,
         Patrol,
+        Equipt,
+        Unequipt,
         Trace,
         Atk,
         Hit,
