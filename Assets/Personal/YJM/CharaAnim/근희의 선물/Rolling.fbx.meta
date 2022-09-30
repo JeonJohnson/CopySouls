@@ -59,10 +59,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: NewEvent
+      - time: 1
+        functionName: SetPlayerStatus
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

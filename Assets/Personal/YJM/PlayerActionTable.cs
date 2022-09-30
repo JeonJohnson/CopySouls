@@ -24,7 +24,7 @@ public class PlayerActionTable : MonoBehaviour
     #endregion
 
 
-    IEnumerator SetPlayerStatus(Enums.ePlayerState state ,float time)
+    IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state ,float time)
     {
         yield return new WaitForSeconds(time);
         Player.instance.SetState(state);
@@ -100,32 +100,32 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatus(Enums.ePlayerState.Idle, 1.733f));
+        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
     public void DashAttack()
     {
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatus(Enums.ePlayerState.Idle, 1.733f));
+        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
     public void FrontHoldAttack()
     {
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatus(Enums.ePlayerState.Idle, 1.733f));
+        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
     
     public void BackHoldAttack()
     {
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatus(Enums.ePlayerState.Idle, 1.733f));
+        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
-    public void SetPlayerStatusIdle(int i)
+    public void SetPlayerStatus(int i)
     {
-        Player.instance.SetState(Enums.ePlayerState.Idle);
+        Player.instance.SetState((Enums.ePlayerState)i);
     }
 }

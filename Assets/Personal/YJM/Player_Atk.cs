@@ -15,6 +15,6 @@ public class Player_Atk : Player_cState
     }
     public override void ExitState()
     {
-
+        PlayerLocomove.instance.PlayerPosFix();
     }
 }

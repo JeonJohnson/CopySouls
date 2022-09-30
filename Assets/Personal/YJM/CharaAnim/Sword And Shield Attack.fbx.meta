@@ -60,23 +60,23 @@ ModelImporter:
       curves: []
       events:
       - time: 1
-        functionName: SetPlayerStatusIdle
+        functionName: SetPlayerStatus
         data: 
-        objectReferenceParameter: {fileID: 3763317105239298510, guid: a7690ec5ce04b0a49b7c2941da235872, type: 3}
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       - time: 0.39169142
         functionName: SetWeaponCol
         data: 
-        objectReferenceParameter: {fileID: 3763317105239298510, guid: a7690ec5ce04b0a49b7c2941da235872, type: 3}
+        objectReferenceParameter: {fileID: 9036907234880866555, guid: 899e1139d1b1ffc4cb996144fdf54903, type: 3}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.49851632
         functionName: SetWeaponCol
         data: 
-        objectReferenceParameter: {fileID: 3763317105239298510, guid: a7690ec5ce04b0a49b7c2941da235872, type: 3}
+        objectReferenceParameter: {fileID: 9036907234880866555, guid: 899e1139d1b1ffc4cb996144fdf54903, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

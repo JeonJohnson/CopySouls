@@ -6,11 +6,8 @@ using Enums;
 
 public class Player : MonoBehaviour
 {
-    public Animator animCtrl;
-    public Rigidbody rd;
-    public NavMeshAgent navAgent;
+    public Rigidbody rb;
     public GameObject playerModel;
-    public GameObject playerMovemnetSystem;
     public Animator animator;
 
     public bool isInteracting = true;
@@ -102,11 +99,11 @@ public class Player : MonoBehaviour
     {
         if (i == 0)
         {
-            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
+            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
         }
         else
         {
-            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
+            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
         }
     }
     #endregion
