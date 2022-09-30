@@ -9,8 +9,12 @@ using Enums;
 public class Spirit : Enemy
 {
     public eSpiritState curState_e;
-    public bool isMoving;
-    
+    public float WaitTimer;     //test
+    public float PatrolTimer;   //test
+    public bool Arrival;        //test
+    public bool complete_Equipt;
+    public bool complete_Unequipt;
+    public bool complete_Atk;
 
     public override void InitializeState()
 	{
@@ -20,6 +24,8 @@ public class Spirit : Enemy
 
         fsm[(int)Enums.eSpiritState.Idle] = new Spirit_Idle();
         fsm[(int)Enums.eSpiritState.Patrol] = new Spirit_Patrol();
+        fsm[(int)Enums.eSpiritState.Equipt] = new Spirit_Equipt();
+        fsm[(int)Enums.eSpiritState.Unequipt] = new Spirit_Unequipt();
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
 
@@ -44,62 +50,29 @@ public class Spirit : Enemy
     {
         base.Update();
 
+        //if(Input.GetKey("a"))
+        //{
+        //    status.curHp--;
+        //}
+
         curState_e = GetCurState<Enums.eSpiritState>();
         distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if(isMoving && targetObj == null)
-        {
-            //랜덤타겟위치가 없고 아직 타겟지점으로 움직이는 중인데 이미 도착 했다면
-            if (transform.position == curTargetPos) navAgent.isStopped = true;
-            else if (transform.position != curTargetPos) navAgent.isStopped = false;
-        }
-
-        isMoving = !navAgent.isStopped;
-
-        if (isMoving) navAgent.SetDestination(curTargetPos);
-
-        //GameObject obj = UnitManager.Instance.playerObj;
+        if (!navAgent.isStopped) navAgent.SetDestination(curTargetPos);
     }
 
+    //애니메이션 이벤트==================================
 
-    public Vector3 ThinkRandomTargetPos(int minDis, int maxDis)
+    public void Spirit_Melee_CompleteEquiptment()
     {
-        Vector3 TargetPos;
-
-        int distanceX = Random.Range(minDis, maxDis + 1);
-        int distanceZ = Random.Range(minDis, maxDis + 1);
-        int randX = Random.Range(-1, 2) * distanceX;
-        int randZ = Random.Range(-1, 2) * distanceZ;
-        if (randX == 0 && randZ == 0) ThinkRandomTargetPos(minDis, maxDis);
-        TargetPos = new Vector3(transform.position.x + randX, 0, transform.position.z + randZ);
-        if (TargetPos == preTargetPos) ThinkRandomTargetPos(minDis, maxDis);
-        return TargetPos;
+        complete_Equipt = true;
     }
-
-    public IEnumerator AutoMove(float moveDulationTime, float restartTime)
+    public void Spirit_Melee_CompleteUnequiptment()
     {
-        if (targetObj == null)
-        {
-            preTargetPos = curTargetPos;
-            curTargetPos = ThinkRandomTargetPos(6, 10);
-            navAgent.isStopped = false;
-            yield return new WaitForSeconds(moveDulationTime);
-            navAgent.isStopped = true;
-            yield return new WaitForSeconds(restartTime);
-            CoroutineHelper.Instance.StartCoroutine(AutoMove(moveDulationTime, restartTime));
-        }
+        complete_Unequipt = true;
     }
-
-    public IEnumerator DelayNavOn()
+    public void Spirit_Melee_CompleAtk()
     {
-        if(isMoving) navAgent.isStopped = true;
-        animCtrl.SetTrigger("isEquipt");
-        animCtrl.SetBool("isTrace", true);
-        yield return new WaitForSeconds(1.2f);
-        targetObj = player;
-        navAgent.isStopped = false;
-
+        complete_Atk = true;
     }
-
-
 }

@@ -2,40 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum eSpirit_AtkPattern
+{
+    NoramlAtk,
+    SpinAtk,
+    ConsecutivelyAtk,
+    Strafe_Right,
+    Strafe_Left,
+    Strafe_Back,
+    End
+}
+
 public class Spirit_Atk : cState
 {
+    public eSpirit_AtkPattern curAtkPattern;
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
         Spirit_StartAtk();
-        Spirit_PlayAtkAnimation();
+        Spirit_SelectAtkPattern();
     }
     public override void UpdateState()
     {
-        //if(공격모션이 끝난 후에 상태전환)
+        //me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
-        //공격중에는 회전 불가
-        me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-        if (me.distToPlayer > me.status.atkRange)
+        if (((Spirit)me).complete_Atk)
         {
-            me.SetState((int)Enums.eSpiritState.Trace);
-        }
-        else if(me.distToPlayer > me.status.ricognitionRange)
-        {
-            me.SetState((int)Enums.eSpiritState.Patrol);
+            ((Spirit)me).complete_Atk = false;
+            if (me.distToPlayer > me.status.atkRange && me.distToPlayer <= me.status.ricognitionRange)
+            {
+                me.SetState((int)Enums.eSpiritState.Trace);
+            }
+            else if (me.distToPlayer > me.status.ricognitionRange)
+            {
+                me.SetState((int)Enums.eSpiritState.Unequipt);
+            }
+            else
+            {
+                Spirit_SelectAtkPattern();
+            }
         }
     }
 
     public override void ExitState()
     {
         Spirit_StopAtk();
-        Spirit_StopAtkAnimation();
     }
-
-
-
-
 
 
 
@@ -52,16 +66,89 @@ public class Spirit_Atk : cState
     public void Spirit_StopAtk()
     {
         me.animCtrl.SetBool("isAtk", false);
-        me.navAgent.isStopped = true;
     }
 
-    public void Spirit_PlayAtkAnimation()
+
+
+    public eSpirit_AtkPattern GetCurAtkPattern()
     {
-        if (!((Spirit)me).isMoving) me.animCtrl.SetTrigger("isSlash");
+        return curAtkPattern;
     }
 
-    public void Spirit_StopAtkAnimation()
+    public void Spirit_SelectAtkPattern()
     {
+        if (me.status.curHp >= me.status.maxHp / 2) PlayAtk(Random.Range(0, 3));
+        else PlayAtk(Random.Range(2, 6));
     }
 
+    public void PlayAtk(int patternIndex)
+    {
+        switch (patternIndex)
+        {
+            case 0:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.NoramlAtk;
+                    PlayNormalAtk();
+                }
+                break;
+            case 1:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.SpinAtk;
+                    PlaySpinAtk();
+                }
+                break;
+            case 2:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.ConsecutivelyAtk;
+                    PlayConsecutivelyAtk();
+                }
+                break;
+            case 3:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.Strafe_Back;
+                    PlayNormalAtk();
+                }
+                break;
+            case 4:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.Strafe_Left;
+                    PlaySpinAtk();
+                }
+                break;
+            case 5:
+                {
+                    curAtkPattern = eSpirit_AtkPattern.Strafe_Right;
+                    PlayConsecutivelyAtk();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public void PlayNormalAtk()
+    {
+        me.animCtrl.SetTrigger("isNormalAtk");
+    }
+    public void PlaySpinAtk()
+    {
+        me.animCtrl.SetTrigger("isSpinAtk");
+    }
+    public void PlayConsecutivelyAtk()
+    {
+        me.animCtrl.SetTrigger("isConsecutiveltAtk");
+    }
+    public void PlayStrafe_Back()
+    {
+        me.animCtrl.SetTrigger("isStrafeBack");
+    }
+    public void PlayStrafe_Left()
+    {
+        me.animCtrl.SetTrigger("isStrafeLeft");
+    }
+    public void PlayStrafe_Right()
+    {
+        me.animCtrl.SetTrigger("isStrafeRight");
+    }
 }

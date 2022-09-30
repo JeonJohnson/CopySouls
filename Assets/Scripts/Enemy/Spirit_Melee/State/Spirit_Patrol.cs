@@ -4,30 +4,70 @@ using UnityEngine;
 
 public class Spirit_Patrol : cState
 {
+    public float curTime;
+    public float restartPatrolTime = 5;
+    public Vector3 TargetPos;
+    public bool isArrival;
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        me.animCtrl.SetBool("isWalk", true);
         Spirit_StartPatrol();
     }
 
     public override void UpdateState()
     {
+        curTime += Time.deltaTime;
+
+        if (curTime < restartPatrolTime)
+        {
+            if(me.transform.position == TargetPos)
+            {
+                curTime = 0;
+                isArrival = true;
+            }
+        }
+        else if(curTime >= restartPatrolTime)
+        {
+            curTime = 0;
+            isArrival = true;
+        }
+
+        //test
+        ((Spirit)me).PatrolTimer = curTime;
+
         Spirit_PlayPatrolAnimation();
 
-        if (me.distToPlayer <= me.status.ricognitionRange)
+        //test
+        ((Spirit)me).Arrival = isArrival;
+
+       
+
+        if (isArrival)
         {
-            me.SetState((int)Enums.eSpiritState.Trace);
+            me.SetState((int)Enums.eSpiritState.Idle);
         }
+        else
+        {
+            if (me.distToPlayer <= me.status.ricognitionRange)
+            {
+                me.SetState((int)Enums.eSpiritState.Equipt);
+            }
+        }
+
+        
     }
 
     public override void ExitState()
     {
         Spirit_StopPatrol();
         Spirit_StopPatrolAnimation();
+        //test
+        ((Spirit)me).Arrival = isArrival;
     }
 
 
-    
 
 
 
@@ -35,25 +75,46 @@ public class Spirit_Patrol : cState
 
 
 
+
+    public Vector3 SetTargetPos(int minDis, int maxDis)
+    {
+        Vector3 TargetPos;
+
+        int distanceX = Random.Range(minDis, maxDis + 1);
+        int distanceZ = Random.Range(minDis, maxDis + 1);
+        int randX = Random.Range(-1, 2) * distanceX;
+        int randZ = Random.Range(-1, 2) * distanceZ;
+        if (randX == 0 && randZ == 0) SetTargetPos(minDis, maxDis);
+        TargetPos = new Vector3(me.transform.position.x + randX, 0, me.transform.position.z + randZ);
+        if (TargetPos == me.preTargetPos) SetTargetPos(minDis, maxDis);
+
+        if (TargetPos != null)
+        {
+            me.curTargetPos = TargetPos;
+            me.navAgent.isStopped = false;
+        }
+
+        return TargetPos;
+    }
 
     public void Spirit_StartPatrol()
     {
+        TargetPos = SetTargetPos(6, 10);
         me.animCtrl.SetBool("isPatrol", true);
         me.navAgent.speed = me.status.moveSpd;
-        CoroutineHelper.Instance.StartCoroutine(((Spirit)me).AutoMove(5.0f,2.0f));
     }
 
     public void Spirit_StopPatrol()
     {
+        isArrival = false;
         me.animCtrl.SetBool("isPatrol", false);
-        CoroutineHelper.Instance.StopCoroutine(((Spirit)me).AutoMove(5.0f, 2.0f));
         me.curTargetPos = me.transform.position;
         me.navAgent.isStopped = true;
     }
 
     public void Spirit_PlayPatrolAnimation()
     {
-        if (((Spirit)me).isMoving) me.animCtrl.SetBool("isWalk", true);
+        if (!isArrival) me.animCtrl.SetBool("isWalk", true);
         else me.animCtrl.SetBool("isWalk", false);
     }
     public void Spirit_StopPatrolAnimation()
