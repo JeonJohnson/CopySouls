@@ -91,6 +91,7 @@ public class PlayerLocomove : MonoBehaviour
         else
         {
             Player.instance.SetState(Enums.ePlayerState.Idle);
+            playerModel.transform.position = this.transform.position;
         }
 
         SprintInput();
@@ -98,7 +99,7 @@ public class PlayerLocomove : MonoBehaviour
 
     void SprintInput()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.C))
         {
             curSpeed += Time.deltaTime * accelSpeed;
             isRun = true;

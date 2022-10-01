@@ -24,6 +24,7 @@ public class PlayerActionTable : MonoBehaviour
     #endregion
 
 
+
     IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state ,float time)
     {
         yield return new WaitForSeconds(time);
@@ -51,19 +52,6 @@ public class PlayerActionTable : MonoBehaviour
     IEnumerator DealDamage(int damage, Enemy enemy)
     {
         yield return null;
-    }
-
-    public void SetWeaponCol(int i)
-    {
-        if (i == 0)
-        {
-            //무기판정 off
-            
-        }
-        else
-        {
-            //무기판정 on
-        }
     }
 
     public void Hit(int damage)
@@ -94,7 +82,7 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
-        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
+        //PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
         Player.instance.animator.SetTrigger("WeakAttack" + "_" + combo.ToString());
         Player.instance.SetState(Enums.ePlayerState.Atk);
         combo++;
@@ -117,6 +105,12 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.SetState(Enums.ePlayerState.Atk);
     }
 
+    public void RollingAttack()
+    {
+        Player.instance.animator.SetTrigger("RollingAttack");
+        Player.instance.SetState(Enums.ePlayerState.Atk);
+    }
+
     public void FrontHoldAttack()
     {
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -130,6 +124,10 @@ public class PlayerActionTable : MonoBehaviour
 
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
+
+
+
+    //Funcs
 
     public void SetPlayerStatus(int i)
     {
@@ -172,6 +170,7 @@ public class PlayerActionTable : MonoBehaviour
                 }
             }
         }
+        #region
         //Combo Input을 실행시키는 코루틴 함수를 팜 밑은 내용
         //타이머 하나 만들고
         //타이머 중에 공격버튼이 입력되면
@@ -179,5 +178,32 @@ public class PlayerActionTable : MonoBehaviour
         //아니면 타이머 끝나면 플레이어 스테이터스를 아이들로
 
         //그리고 그 코루틴함수를 애니메이션 끝나갈때쯤에 부착! 완성!
+        #endregion
+    }
+
+    public void RollingAttackCheck()
+    {
+            StartCoroutine(RollingAttackInput());
+    }
+
+    IEnumerator RollingAttackInput()
+    {
+        _timer = 0.2f;
+        isPlaying = true;
+
+        while (_timer > 0 && isPlaying)
+        {
+            _timer -= Time.deltaTime;
+            if (Input.GetButtonDown("Fire1") && Player.instance.curState_e == Enums.ePlayerState.Dodge)
+            {
+                RollingAttack();
+            }
+            yield return null;
+        }
+    }
+
+    public void EnableWeaponMeshCol(int i)
+    {
+        Player.instance.Weapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
     }
 }

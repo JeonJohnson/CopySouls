@@ -14,7 +14,7 @@ public class Player_Move : Player_cState
         PlayerLocomove.instance.Move();
 
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerActionTable.instance.Rolling();
         }

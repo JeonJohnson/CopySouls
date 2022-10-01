@@ -7,6 +7,8 @@ int hp < float 변환해서 계산후 int로 다시 돌려놓기
 int mp
 int atk
 float stamina
+bool isInteracting 
+ㄴ 꺼지면 무적
 
 <PlayerLocomove>
 bool isMove
@@ -24,6 +26,9 @@ void Hit(int damage)
 ㄴ 기본상황에서는 카메라의 위치기준으로 플레이어가 이동하지만 
 ㄴ 공격, 회피 등의 액션상황에선 플레이어 기준으로 카메라가 움직여야함
 ㄴ PlayerLocomove - PlayerControlCam() 함수 만들어둠.
+
+<플레이어 상태>
+체력
 
 스테미나 기능
 ㄴ 현재 스테미나보다 소모할 스테미나가 큰 상황에서도 기술이 나감
@@ -70,11 +75,6 @@ void Hit(int damage)
 1.Move로 향하는 애니메이션 블렌딩이 제대로 실행되지 않음
 ㄴ Move가 블렌드 트리라서.. Move안의 Idle로 향할때에는 제대로 섞이는데 Move안의 Run, Sprint로 향할땐 안섞임.
 ㄴㄴ 블렌드 트리 자체의 문제인거같음, 다시짜야 할수도?
-
-
-
-
-
 
 
 

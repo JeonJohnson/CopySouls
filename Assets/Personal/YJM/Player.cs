@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     public int hp = 100;
     public int mp = 100;
-    public int atk = 10;
     public float stamina = 100;
 
     //FSM
@@ -23,6 +22,8 @@ public class Player : MonoBehaviour
     public ePlayerState preState_e = ePlayerState.End;
     public Player_cState curState = null;
     public ePlayerState curState_e = ePlayerState.End;
+
+    public GameObject Weapon;
 
     public void SetState(ePlayerState state)
     {
