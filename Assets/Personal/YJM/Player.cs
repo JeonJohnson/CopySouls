@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
     public bool isInteracting = true;
 
     public int hp = 100;
+    public int mp = 100;
     public int atk = 10;
+    public float stamina = 100;
 
     //FSM
     public Player_cState[] fsm;
