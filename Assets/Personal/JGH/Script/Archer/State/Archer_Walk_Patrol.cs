@@ -72,7 +72,7 @@ public class Archer_Walk_Patrol : cState
 
 	public override void ExitState()
 	{
-
+		me.MoveStop();
 	}
 
 }

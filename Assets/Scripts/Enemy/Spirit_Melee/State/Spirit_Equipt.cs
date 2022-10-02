@@ -14,18 +14,19 @@ public class Spirit_Equipt : cState
     public override void UpdateState()
     {
         //me.rd.velocity = Vector3.zero;
-
+        
+        //221002 20:23 player -> targetObj
         if (((Spirit)me).complete_Equipt)
         {
-            if (me.distToPlayer <= me.status.ricognitionRange)
+            if (me.distToTarget <= me.status.ricognitionRange)
             {
                 me.SetState((int)Enums.eSpiritState.Trace);
             }
-            else if(me.distToPlayer <= me.status.atkRange)
+            else if(me.distToTarget <= me.status.atkRange)
             {
                 me.SetState((int)Enums.eSpiritState.Atk);
             }
-            else if(me.distToPlayer > me.status.ricognitionRange)
+            else if(me.distToTarget > me.status.ricognitionRange)
             {
                 //
                 me.SetState((int)Enums.eSpiritState.Unequipt);

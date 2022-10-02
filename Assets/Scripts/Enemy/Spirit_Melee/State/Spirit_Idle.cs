@@ -22,8 +22,8 @@ public class Spirit_Idle : cState
             curTime = 0;
             me.SetState((int)Enums.eSpiritState.Patrol);
         }
-
-        if (me.distToPlayer <= me.status.ricognitionRange)
+        //221002 20:23 player -> targetObj
+        if (me.distToTarget <= me.status.ricognitionRange)
         {
             me.SetState((int)Enums.eSpiritState.Equipt);
         }

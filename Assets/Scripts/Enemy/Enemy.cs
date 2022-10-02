@@ -20,11 +20,13 @@ public abstract class Enemy : MonoBehaviour
 
     
     ////Target
-    public GameObject player;
-    public float distToPlayer;
+    //public GameObject player;
+
+    public GameObject targetObj;
+    public float distToTarget;
+    public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
-    public GameObject targetObj;
     public float CoolTime;
     ////Target
 
@@ -73,6 +75,19 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
+    public void CalcAboutTarget()
+    {
+        //22 10 02 fin, 설명해주기
+        if (targetObj == null)
+        { return; }
+
+
+        distToTarget = Vector3.Distance(transform.position, targetObj.transform.position);
+        dirToTarget = (targetObj.transform.position - transform.position).normalized;
+
+        preTargetPos = curTargetPos;
+        curTargetPos = targetObj.transform.position;
+    }
 
 	public void MoveOrder(Vector3 dest)
 	{//네비 에이전트 움직이는거 편하게
@@ -86,8 +101,21 @@ public abstract class Enemy : MonoBehaviour
         navAgent.isStopped = false;
 	}
 
+    public void MoveStop()
+    {
+        if (navAgent == null)
+        {
+            return;
+        }
+
+        navAgent.isStopped = true;
+    }
+
+
 	public void CalcFovDir(float degreeAngle)
 	{
+        //22 10 02 fin, 설명해주기
+
         //시야각도를 이용해서 ㄹㅇ 시야각 구하기
 
         //f=Forward
@@ -116,6 +144,8 @@ public abstract class Enemy : MonoBehaviour
 
     public bool CheckTargetInFov()
     {
+        //22 10 02 fin, 설명해주기
+
         Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
         if (hitObjs.Length == 0)
@@ -130,13 +160,13 @@ public abstract class Enemy : MonoBehaviour
 
         foreach (Collider col in hitObjs)
         {
-            if (col.gameObject != player)
+            if (col.gameObject != targetObj)
             {
 
                 continue;
             }
 
-            Vector3 dir = (player.transform.position - transform.position).normalized;
+            Vector3 dir = (targetObj.transform.position - transform.position).normalized;
 
             float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
@@ -277,8 +307,7 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (player != null)
-        { distToPlayer = Vector3.Distance(transform.position, player.transform.position); }
+        CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);
         isCombat = CheckTargetInFov();
@@ -353,7 +382,7 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
         if (isCombat)
         {
-            Gizmos.DrawRay(transform.position, player.transform.position);
+            Gizmos.DrawRay(transform.position, targetObj.transform.position);
         }
         ////시야각
 

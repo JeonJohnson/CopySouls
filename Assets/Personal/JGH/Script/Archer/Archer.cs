@@ -116,7 +116,7 @@ public class Archer : Enemy
 
 	public bool TargetCheck()
 	{
-		if (distToPlayer <= status.ricognitionRange)
+		if (distToTarget <= status.ricognitionRange)
 		{
 			return true;
 		}

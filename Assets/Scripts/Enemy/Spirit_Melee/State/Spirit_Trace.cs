@@ -22,12 +22,13 @@ public class Spirit_Trace : cState
             me.transform.LookAt(me.targetObj.transform);
         }
 
-       if (me.distToPlayer <= me.status.atkRange)
+        //221002 20:23 player -> targetObj
+        if (me.distToTarget <= me.status.atkRange)
        {
            me.SetState((int)Enums.eSpiritState.Atk);
        }
 
-       if (me.distToPlayer > me.status.ricognitionRange)
+       if (me.distToTarget > me.status.ricognitionRange)
        {
            me.SetState((int)Enums.eSpiritState.Unequipt);
        }
@@ -49,7 +50,8 @@ public class Spirit_Trace : cState
 
     public void Spirit_StartTrace()
     {
-        me.targetObj = me.player;
+        //221002 20:23 player -> targetObj
+        //me.targetObj = me.player;
         me.navAgent.isStopped = false;
         me.animCtrl.SetBool("isTrace", true);
         me.animCtrl.SetBool("isRun", true);
