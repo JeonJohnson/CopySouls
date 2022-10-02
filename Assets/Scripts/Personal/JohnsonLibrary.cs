@@ -536,7 +536,7 @@ namespace Structs
 	{
 		public float fovAngle;
 		public Vector3 LeftDir;
-		//public Vector3 ForwardDir;
+		public Vector3 LookDir;
 		public Vector3 RightDir;
 	}
 

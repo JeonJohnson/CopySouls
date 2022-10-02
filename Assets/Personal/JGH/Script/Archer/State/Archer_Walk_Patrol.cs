@@ -66,6 +66,8 @@ public class Archer_Walk_Patrol : cState
 	public override void UpdateState()
 	{
 		NextDestCheck();
+
+		//archer.EquipWeapon();
 	}
 
 	public override void ExitState()

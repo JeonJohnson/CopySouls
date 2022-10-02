@@ -993,7 +993,7 @@ MonoBehaviour:
     atkRange: 5
     patrolRange: 0
     ricognitionRange: 7
-    fovAngle: 0
+    fovAngle: 90
     lookAtSpd: 0
     isSuperArmor: 0
     isGroggy: 0
@@ -1004,6 +1004,10 @@ MonoBehaviour:
   curTargetPos: {x: 0, y: 0, z: 0}
   targetObj: {fileID: 0}
   CoolTime: 0
+  fovStruct:
+    fovAngle: 0
+    LeftDir: {x: 0, y: 0, z: 0}
+    RightDir: {x: 0, y: 0, z: 0}
   isCombat: 0
   weapon: {fileID: 244763597218117340}
   patrolPosList: []

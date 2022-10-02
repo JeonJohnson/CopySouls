@@ -44,6 +44,8 @@ public class Archer : Enemy
 	public GameObject bowString;
 	public Vector3 bowStringOriginPos;
 
+	public eArcherState curState_e;
+
 	//public List<GameObject> patrolPos
 	public override void InitializeState()
 	{
@@ -89,6 +91,29 @@ public class Archer : Enemy
 	//	//Death - 죽는거
 	//}
 
+	//public void EquipWeapon()
+	//{
+	//	if (isCombat)
+	//	{
+	//		SetState((int)eArcherState.Bow_Equip);
+	//	}
+	//	else
+	//	{
+	//		SetState((int)eArcherState.Bow_Unequip);
+	//	}
+	//}
+
+	public void EquippedBow()
+	{
+		SetState((int)eArcherState.Bow_Equip);
+	}
+
+	public void UnequippedBow()
+	{
+		SetState((int)eArcherState.Bow_Unequip);
+	}
+
+
 	public bool TargetCheck()
 	{
 		if (distToPlayer <= status.ricognitionRange)
@@ -118,6 +143,9 @@ public class Archer : Enemy
 
 		bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
 		weapon.SetActive(false);
+
+		combatStartEvent += EquippedBow;
+		combatEndEvent += UnequippedBow;
 	}
 
 	protected override void Start()
@@ -130,6 +158,8 @@ public class Archer : Enemy
 	{
 		base.Update();
 
+		
+
 		for (int i = (int)KeyCode.Alpha0; i < iTestArr.Length+48; ++i)
 		{
 			if (Input.GetKeyDown((KeyCode)i))
@@ -138,5 +168,9 @@ public class Archer : Enemy
 				SetState(iTestArr[iTest]);
 			}
 		}
+
+
+
+		curState_e = (eArcherState)curState_i;
 	}
 }
