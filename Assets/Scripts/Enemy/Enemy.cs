@@ -114,7 +114,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public bool CheckInFovByTarget()
+    public bool CheckTargetInFov()
     {
         Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
@@ -281,12 +281,9 @@ public abstract class Enemy : MonoBehaviour
         { distToPlayer = Vector3.Distance(transform.position, player.transform.position); }
 
         CalcFovDir(status.fovAngle);
-        isCombat = CheckInFovByTarget();
-
+        isCombat = CheckTargetInFov();
 
         curState.UpdateState();
-
-
 
         CoolTime += Time.deltaTime;
     }
