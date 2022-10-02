@@ -998,15 +998,16 @@ MonoBehaviour:
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
-  player: {fileID: 0}
-  distToPlayer: 0
+  targetObj: {fileID: 0}
+  distToTarget: 0
+  dirToTarget: {x: 0, y: 0, z: 0}
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
-  targetObj: {fileID: 0}
   CoolTime: 0
   fovStruct:
     fovAngle: 0
     LeftDir: {x: 0, y: 0, z: 0}
+    LookDir: {x: 0, y: 0, z: 0}
     RightDir: {x: 0, y: 0, z: 0}
   isCombat: 0
   weapon: {fileID: 244763597218117340}
@@ -1021,6 +1022,7 @@ MonoBehaviour:
   rightHand: {fileID: 1382911637671471516}
   bowString: {fileID: 244858627539802798}
   bowStringOriginPos: {x: 0, y: 0, z: 0}
+  curState_e: 0
 --- !u!54 &862662284
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -324,11 +324,11 @@ MonoBehaviour:
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
-  player: {fileID: 1403247147}
-  distToPlayer: 0
+  targetObj: {fileID: 0}
+  distToTarget: 0
+  dirToTarget: {x: 0, y: 0, z: 0}
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
-  targetObj: {fileID: 0}
   CoolTime: 0
   fovStruct:
     fovAngle: 0
@@ -1113,7 +1113,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: player
+      propertyPath: targetObj
       value: 
       objectReference: {fileID: 1403247147}
     m_RemovedComponents: []

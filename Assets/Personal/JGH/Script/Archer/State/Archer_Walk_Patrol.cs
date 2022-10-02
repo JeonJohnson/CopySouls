@@ -36,7 +36,7 @@ public class Archer_Walk_Patrol : cState
 	{
 		float dist = Vector3.Distance(me.transform.position, me.patrolPosList[destIndex]);
 
-		if (dist <= 0.5f)
+		if (dist <= 1.0f)
 		{
 			++destIndex;
 
@@ -59,6 +59,8 @@ public class Archer_Walk_Patrol : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 		me.navAgent.speed = me.status.moveSpd;
+
+		CalcNearDestIndex();
 
 		me.animCtrl.SetTrigger("tWalk");
 	}

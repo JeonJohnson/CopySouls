@@ -166,9 +166,9 @@ public abstract class Enemy : MonoBehaviour
                 continue;
             }
 
-            Vector3 dir = (targetObj.transform.position - transform.position).normalized;
+           // Vector3 dir = (targetObj.transform.position - transform.position).normalized;
 
-            float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
+            float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
             if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
                // && !Physics.Raycast(transform.position, dir, status.ricognitionRange/*, 여기에 인바이로먼트 레이어*/)
@@ -382,7 +382,7 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
         if (isCombat)
         {
-            Gizmos.DrawRay(transform.position, targetObj.transform.position);
+            Gizmos.DrawRay(transform.position, dirToTarget*distToTarget);
         }
         ////시야각
 
