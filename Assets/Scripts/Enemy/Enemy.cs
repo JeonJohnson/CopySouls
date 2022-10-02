@@ -19,7 +19,6 @@ public abstract class Enemy : MonoBehaviour
     public Structs.EnemyStatus status;
 
     
-
     ////Target
     public GameObject player;
     public float distToPlayer;
@@ -28,6 +27,9 @@ public abstract class Enemy : MonoBehaviour
     public GameObject targetObj;
     public float CoolTime;
     ////Target
+
+    public FovStruct fovStruct;
+
 
     ////
     public bool isCombat;
@@ -77,9 +79,68 @@ public abstract class Enemy : MonoBehaviour
         navAgent.isStopped = false;
 	}
 
+	public void CalcFovDir(float degreeAngle)
+	{
+        //시야각도를 이용해서 ㄹㅇ 시야각 구하기
 
-	//// Funcs
-	public abstract void InitializeState();
+        //f=Forward
+        // A   f    B
+        // \   |   /
+        //  \  |  /
+        //   \ | /
+        //-----0-------
+
+        //forward와 A사이의 각도 @1
+        //=> @1 = Dot(f,A) * aCos;
+
+        //forword와 B 사이의 각도 @2
+        //=> @2 = Dot(f,B) * aCos;
+
+        //판별기준은 몬스터와 0의 각도를 구한다음
+        //그게 fov/2 보다 작으면 시야각 내에 있는거.
+
+        //여기서는 A와 B의 Direction 구하는거
+        fovStruct.fovAngle = degreeAngle;
+        fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
+        fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
+    }
+
+
+    public bool CheckInFovByTarget()
+    {
+        Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
+
+        if (hitObjs.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (Collider col in hitObjs)
+        {
+            if (col.gameObject != player)
+            {
+                continue;
+            }
+
+            Vector3 dir = (player.transform.position - transform.position).normalized;
+
+            float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, dir)) * Mathf.Rad2Deg;
+            //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+            if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
+               // && !Physics.Raycast(transform.position, dir, status.ricognitionRange/*, 여기에 인바이로먼트 레이어*/)
+               //여기 중간에 장애물이 있는지 없는지는 일단 나중에 넣기
+                    )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    //// Funcs
+    public abstract void InitializeState();
 
 	public T GetCurState<T>() where T : Enum
     {
@@ -193,7 +254,16 @@ public abstract class Enemy : MonoBehaviour
     {
         if (player != null)
         { distToPlayer = Vector3.Distance(transform.position, player.transform.position); }
+
+
+        CalcFovDir(status.fovAngle);
+
+        isCombat = CheckInFovByTarget();
+        if (isCombat)
+        {
             
+        }
+
         curState.UpdateState();
 
 
@@ -262,7 +332,14 @@ public abstract class Enemy : MonoBehaviour
 
         ////시야각
         //프로스텀으로 보여주기
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, fovStruct.LeftDir *status.ricognitionRange);
+        Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
 
+        if (isCombat)
+        {
+            Gizmos.DrawRay(transform.position, player.transform.position);
+        }
         ////시야각
 
         ////공격 사정거리

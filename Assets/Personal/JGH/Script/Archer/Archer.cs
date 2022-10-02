@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,22 +72,33 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Idle);
 	}
 
-    //public override void InitializeState()
-    //{
-    //	fsm = new cState[(int)eArcherState.End];
-    //	//Idle - È° ÀåÂø / ÀåÂø ¾ÈÇßÀ» ¶§ µÎ°¡Áö
-    //	//Bow_Equip - ¾ÆÀÌµé¿¡¼­ ÀüÅõÅÂ¼¼ ½ÃÀÛµÇ¸é
-    //	//Bow_Unequip - ÀüÅõ»óÅÂ¿¡¼­ µ¹¾Æ°¡¸é
-    //	//Walk_Patrol - ÀüÅõÀü µ¹¾Æ´Ù´Ï´Â°Å
-    //	//Walk_Careful - ¹«±âÀåÂøÀº ÇÏ°í ÀÖÁö¸¸ ±×³É °£º¸´Â°Å(À§Ä¡ ÀÌµ¿)
-    //	//Walk_Aiming - Á¶ÁØÇÏ¸é¼­ °£º¸´Â°Å
-    //	//Run - °Å¸®¹ú¸±·Á°í ¤¼¤¼ÇÏ´Â°Å
-    //	//Attack_Rapid - ¿©·¯¹ß »¡¸® ½î±â
-    //	//Attack_Aiming - ÇÑ¹ß ½ÅÁßÈ÷ ½î±â
-    //	//Attack_Melee - °¡±îÀÌ ¿ÔÀ»¶§
-    //	//Hit - ÃÄ¸Â´Â°Å
-    //	//Death - Á×´Â°Å
-    //}
+	//public override void InitializeState()
+	//{
+	//	fsm = new cState[(int)eArcherState.End];
+	//	//Idle - í™œ ì¥ì°© / ì¥ì°© ì•ˆí–ˆì„ ë•Œ ë‘ê°€ì§€
+	//	//Bow_Equip - ì•„ì´ë“¤ì—ì„œ ì „íˆ¬íƒœì„¸ ì‹œì‘ë˜ë©´
+	//	//Bow_Unequip - ì „íˆ¬ìƒíƒœì—ì„œ ëŒì•„ê°€ë©´
+	//	//Walk_Patrol - ì „íˆ¬ì „ ëŒì•„ë‹¤ë‹ˆëŠ”ê±°
+	//	//Walk_Careful - ë¬´ê¸°ì¥ì°©ì€ í•˜ê³  ìˆì§€ë§Œ ê·¸ëƒ¥ ê°„ë³´ëŠ”ê±°(ìœ„ì¹˜ ì´ë™)
+	//	//Walk_Aiming - ì¡°ì¤€í•˜ë©´ì„œ ê°„ë³´ëŠ”ê±°
+	//	//Run - ê±°ë¦¬ë²Œë¦´ë ¤ê³  ã…Œã…Œí•˜ëŠ”ê±°
+	//	//Attack_Rapid - ì—¬ëŸ¬ë°œ ë¹¨ë¦¬ ì˜ê¸°
+	//	//Attack_Aiming - í•œë°œ ì‹ ì¤‘íˆ ì˜ê¸°
+	//	//Attack_Melee - ê°€ê¹Œì´ ì™”ì„ë•Œ
+	//	//Hit - ì³ë§ëŠ”ê±°
+	//	//Death - ì£½ëŠ”ê±°
+	//}
+
+	public bool TargetCheck()
+	{
+		if (distToPlayer <= status.ricognitionRange)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	
 
     public override void Hit(DamagedStruct dmgStruct)
     {

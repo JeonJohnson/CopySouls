@@ -330,6 +330,10 @@ MonoBehaviour:
   curTargetPos: {x: 0, y: 0, z: 0}
   targetObj: {fileID: 0}
   CoolTime: 0
+  fovStruct:
+    fovAngle: 0
+    LeftDir: {x: 0, y: 0, z: 0}
+    RightDir: {x: 0, y: 0, z: 0}
   isCombat: 0
   weapon: {fileID: 2029199770}
   patrolPosList: []
@@ -1105,6 +1109,14 @@ PrefabInstance:
     - target: {fileID: 1382911637671713410, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1403247147}
+    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
+      propertyPath: status.fovAngle
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
