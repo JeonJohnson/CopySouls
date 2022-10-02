@@ -354,7 +354,6 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, fovStruct.LeftDir *status.ricognitionRange);
         Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
-
         if (isCombat)
         {
             Gizmos.DrawRay(transform.position, player.transform.position);
