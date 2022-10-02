@@ -44,6 +44,9 @@ public class Archer : Enemy
 	public GameObject bowString;
 	public Vector3 bowStringOriginPos;
 
+	public GameObject arrowPrefab;
+	
+	public GameObject arrow;
 	public eArcherState curState_e;
 
 	//public List<GameObject> patrolPos
@@ -113,16 +116,20 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Bow_Unequip);
 	}
 
-
-	public bool TargetCheck()
+	public void ShotArrow()
 	{
-		if (distToTarget <= status.ricognitionRange)
-		{
-			return true;
-		}
-		return false;
+		
+		
 	}
 
+	//public bool TargetCheck()
+	//{
+	//	if (distToTarget <= status.ricognitionRange)
+	//	{
+	//		return true;
+	//	}
+	//	return false;
+	//}
 	
 
     public override void Hit(DamagedStruct dmgStruct)
@@ -140,12 +147,11 @@ public class Archer : Enemy
 	{
 		base.Awake();
 
-
 		bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
 		weapon.SetActive(false);
 
-		combatStartEvent += EquippedBow;
-		combatEndEvent += UnequippedBow;
+		alertStartEvent += EquippedBow;
+		alertEndEvent += UnequippedBow;
 	}
 
 	protected override void Start()

@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 862662283}
   m_Layer: 0
   m_Name: Skeleton_Archer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -990,11 +990,11 @@ MonoBehaviour:
     curMp: 0
     moveSpd: 2
     runSpd: 5
-    atkRange: 5
+    atkRange: 4
     patrolRange: 0
-    ricognitionRange: 7
+    ricognitionRange: 8
     fovAngle: 90
-    lookAtSpd: 0
+    lookAtSpd: 1.5
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
@@ -1009,6 +1009,7 @@ MonoBehaviour:
     LeftDir: {x: 0, y: 0, z: 0}
     LookDir: {x: 0, y: 0, z: 0}
     RightDir: {x: 0, y: 0, z: 0}
+  isAlert: 0
   isCombat: 0
   weapon: {fileID: 244763597218117340}
   patrolPosList: []
@@ -1022,6 +1023,7 @@ MonoBehaviour:
   rightHand: {fileID: 1382911637671471516}
   bowString: {fileID: 244858627539802798}
   bowStringOriginPos: {x: 0, y: 0, z: 0}
+  arrowPrefab: {fileID: 1880692188100032373, guid: 03b288a6d33a9504ab5d7749cd557774, type: 3}
   curState_e: 0
 --- !u!54 &862662284
 Rigidbody:

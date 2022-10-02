@@ -407,6 +407,8 @@ public static class Defines
 
 	public const float PI = 3.14159265f;
 
+	public static Vector3 TrashVector3 = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+
 	/// Zed Count
 
 
@@ -564,6 +566,7 @@ namespace Structs
 		public float atkRange;
 		public float patrolRange;
         public float ricognitionRange;
+		[Range(0, 180)]
 		public float fovAngle;
 
 		public float lookAtSpd;
