@@ -25,12 +25,16 @@ public class UnitManager : Manager<UnitManager>
 
 
     //// <EnemyFuncs>
-    public GameObject SpawnEnemy(eEnemyName name, Vector3 pos, Vector3 rot, int count)
+    public GameObject SpawnEnemy(eEnemyName name, Vector3 pos, Vector3 rot, int count = 1)
     {
+
+
 
 
         return null;
     }
+
+    
     //// <EnemyFuncs>
 
 
