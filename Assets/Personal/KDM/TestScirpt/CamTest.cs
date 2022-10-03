@@ -9,7 +9,16 @@ public class CamTest : MonoBehaviour
     public float ymove = 0;  // Y축 누적 이동량
     public float cameraRotSpeed = 10f; // 카메라 회전속도
     public float distance = 3; // 카메라 거리
+    public float smoothRotate = 5.0f; // 부드러운 회전을 위한 변수
 
+    //Transform myTransfrom;
+
+
+    void Start()
+    {
+        //myTransfrom = GetComponent<Transform>();
+        
+    }
     // Update is called once per frame
     void LateUpdate()
     {
@@ -18,5 +27,13 @@ public class CamTest : MonoBehaviour
         transform.rotation = Quaternion.Euler(ymove, xmove, 0); // 이동량에 따라 카메라의 바라보는 방향을 조정합니다.
         Vector3 reverseDistance = new Vector3(0.0f, 0.0f, distance); // 카메라가 바라보는 앞방향은 Z 축입니다. 이동량에 따른 Z 축방향의 벡터를 구합니다.
         transform.position = Target.transform.position - transform.rotation * reverseDistance; // 타겟의 위치에서 카메라가 바라보는 방향에 벡터값을 적용한 상대 좌표를 차감합니다.
+        //float currYAngle = Mathf.LerpAngle(myTransfrom.eulerAngles.y, Target.transform.eulerAngles.y, smoothRotate * Time.deltaTime);  //부드러운 회전을 위한 Mathf.LerpAngle
+
+        //Quaternion rot = Quaternion.Euler(0, currYAngle, 0);
+
+        //myTransfrom.position = Target.transform.position - (rot * Vector3.forward * distance) + (Vector3.up * ymove);
+
+        //myTransfrom.LookAt(Target.transform.position);
+        
     }
 }
