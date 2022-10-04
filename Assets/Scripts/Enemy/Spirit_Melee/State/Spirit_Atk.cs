@@ -78,8 +78,9 @@ public class Spirit_Atk : cState
 
     public void Spirit_SelectAtkPattern()
     {
-        if (me.status.curHp >= me.status.maxHp / 2) PlayAtk(Random.Range(0, 3));
-        else PlayAtk(Random.Range(2, 6));
+        PlayAtk(Random.Range(0,3));
+        //if (me.status.curHp >= me.status.maxHp / 2) PlayAtk(Random.Range(0, 3));
+        //else PlayAtk(Random.Range(2, 6));
     }
 
     public void PlayAtk(int patternIndex)
@@ -104,24 +105,24 @@ public class Spirit_Atk : cState
                     PlayConsecutivelyAtk();
                 }
                 break;
-            case 3:
-                {
-                    curAtkPattern = eSpirit_AtkPattern.Strafe_Back;
-                    PlayNormalAtk();
-                }
-                break;
-            case 4:
-                {
-                    curAtkPattern = eSpirit_AtkPattern.Strafe_Left;
-                    PlaySpinAtk();
-                }
-                break;
-            case 5:
-                {
-                    curAtkPattern = eSpirit_AtkPattern.Strafe_Right;
-                    PlayConsecutivelyAtk();
-                }
-                break;
+        //   case 3:
+        //       {
+        //           curAtkPattern = eSpirit_AtkPattern.Strafe_Back;
+        //           PlayNormalAtk();
+        //       }
+        //       break;
+        //   case 4:
+        //       {
+        //           curAtkPattern = eSpirit_AtkPattern.Strafe_Left;
+        //           PlaySpinAtk();
+        //       }
+        //       break;
+        //   case 5:
+        //       {
+        //           curAtkPattern = eSpirit_AtkPattern.Strafe_Right;
+        //           PlayConsecutivelyAtk();
+        //       }
+        //       break;
             default:
                 break;
         }
