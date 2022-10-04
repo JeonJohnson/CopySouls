@@ -116,7 +116,25 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Bow_Unequip);
 	}
 
-	public void ShotArrow()
+    public void MoveLegWhileTurn()
+    {
+		Vector3 tempDir = (targetObj.transform.position - transform.position).normalized;
+		tempDir.y = 0;
+		float offsetAngle = Vector3.Angle(transform.forward, tempDir);
+        Debug.Log(offsetAngle);
+        if (offsetAngle > 5f)
+        {
+            Debug.Log("돌아가야함");
+            //animCtrl.GetCurrentAnimatorStateInfo(1)
+            animCtrl.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            animCtrl.SetLayerWeight(1, offsetAngle);
+        }
+    }
+
+    public void ShotArrow()
 	{
 		
 		

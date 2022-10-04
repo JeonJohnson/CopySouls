@@ -20,6 +20,8 @@ public class Archer_Attack_Aiming : cState
 	public override void UpdateState()
 	{
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
+        archer.MoveLegWhileTurn();
+
 
 		archer.bowString.transform.position = archer.rightHand.transform.position;
 
