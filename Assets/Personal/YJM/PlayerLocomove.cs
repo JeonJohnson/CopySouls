@@ -74,27 +74,30 @@ public class PlayerLocomove : MonoBehaviour
             moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
             transform.position += moveDir.normalized * Time.deltaTime * curSpeed;
-            playerModel.transform.position = this.transform.position;
-
-            if (isCameraLock == true)
-            {
-                Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
-                lookDir.y = 0f;
-                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
-            }
-            else if (isCameraLock == false)
-            {
-                Vector3 lookDir = moveDir;
-                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
-            }
         }
         else
         {
             Player.instance.SetState(Enums.ePlayerState.Idle);
-            playerModel.transform.position = this.transform.position;
         }
 
+        playerModel.transform.position = this.transform.position;
         SprintInput();
+        SetPlayerTrInputHold();
+    }
+
+    void ChangeModelTrInput()
+    {
+        if (isCameraLock == true)
+        {
+            Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
+            lookDir.y = 0f;
+            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
+        }
+        else if (isCameraLock == false)
+        {
+            Vector3 lookDir = moveDir;
+            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
+        }
     }
 
     void SprintInput()
@@ -223,9 +226,58 @@ public class PlayerLocomove : MonoBehaviour
                 _timer -= Time.deltaTime;
                 Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
                 lookDir.y = 0f;
-                playerModel.transform.forward = lookDir.normalized;
+                //playerModel.transform.forward = lookDir.normalized;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
                 yield return null;
             }
         }
+    }
+
+    float inputTimer = 0.2f;
+    Coroutine SetPlayerTrInputCoro;
+    bool isInput = false;
+
+    void SetPlayerTrInputHold()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (inputTimer >= 0f)
+        {
+            if (isInput == false)
+            {
+                SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
+                isInput = true;
+            }
+        }
+        else
+        {
+            StopCoroutine(SetPlayerTrInputCoro);
+            isInput = false;
+            ChangeModelTrInput();
+        }
+
+        if (moveInput != Vector2.zero)
+        {
+            inputTimer -= Time.deltaTime;
+        }
+        else
+        {
+                inputTimer = 0.2f;
+        }
+    }
+
+    IEnumerator SetPlayerTr()
+    {
+        float _timer = 0.2f;
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+        Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+        while (_timer >= 0f)
+        {
+                _timer -= Time.deltaTime;
+                moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, moveDir, Time.deltaTime * 20f);
+                yield return null;
+        }
+        isInput = false;
     }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Player_Move : Player_cState
 {
+    bool isRolling = false;
     public override void EnterState(Player script)
     {
         base.EnterState(script);
         PlayerLocomove.instance.ResetValue();
+        isRolling = false;
     }
     public override void UpdateState()
     {
@@ -16,7 +18,7 @@ public class Player_Move : Player_cState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlayerActionTable.instance.Rolling();
+                me.SetState(Enums.ePlayerState.Dodge);
         }
 
         if (Input.GetButtonDown("Fire1"))

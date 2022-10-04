@@ -68,7 +68,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.animator.SetTrigger("Rolling");
         PlayerLocomove.instance.SetPlayerTrSlow();
-        Player.instance.SetState(Enums.ePlayerState.Dodge);
         StartCoroutine(PlayerInvincible(0.15f, 0.3667f));
     }
 
@@ -90,6 +89,7 @@ public class PlayerActionTable : MonoBehaviour
         {
             combo = 0;
         }
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
     }
 
     public void StrongAttack()
