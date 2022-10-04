@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 441031506}
   - component: {fileID: 441031505}
   m_Layer: 0
-  m_Name: ObjectPooling
+  m_Name: ObjectPoolingCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

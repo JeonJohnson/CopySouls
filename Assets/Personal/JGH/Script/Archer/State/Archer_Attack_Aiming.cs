@@ -5,6 +5,9 @@ using UnityEngine;
 public class Archer_Attack_Aiming : cState
 {
 	Archer archer = null;
+
+	
+
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -15,6 +18,8 @@ public class Archer_Attack_Aiming : cState
 		me.isCombat = true;
 
 		me.animCtrl.SetTrigger("tAttack");
+
+		
 	}
 
 	public override void UpdateState()
@@ -22,6 +27,7 @@ public class Archer_Attack_Aiming : cState
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
         archer.MoveLegWhileTurn();
 
+		
 
 		archer.bowString.transform.position = archer.rightHand.transform.position;
 

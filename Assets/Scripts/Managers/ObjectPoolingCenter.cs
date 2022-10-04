@@ -101,7 +101,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
         objBoxes = new GameObject[(int)ePoolingObj.End];
 
-        prefabs = new GameObject[(int)ePoolingObj.End];
+        //prefabs = new GameObject[(int)ePoolingObj.End];
 
 
         CreateBoxes();
