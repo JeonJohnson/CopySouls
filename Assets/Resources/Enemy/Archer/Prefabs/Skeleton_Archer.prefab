@@ -1024,6 +1024,7 @@ MonoBehaviour:
   bowString: {fileID: 244858627539802798}
   bowStringOriginPos: {x: 0, y: 0, z: 0}
   arrowPrefab: {fileID: 1880692188100032373, guid: 03b288a6d33a9504ab5d7749cd557774, type: 3}
+  arrow: {fileID: 0}
   curState_e: 0
 --- !u!54 &862662284
 Rigidbody:
