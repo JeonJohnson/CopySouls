@@ -11,10 +11,14 @@ public class Player_Dodge : Player_cState
     public override void UpdateState()
     {
         PlayerLocomove.instance.PlayerControlCam();
+        if (Funcs.IsAnimationAlmostFinish(me.animator,"Rolling"))
+        {
+            me.SetState(0);
+        }
     }
 
     public override void ExitState()
     {
-
+        PlayerLocomove.instance.PlayerPosFix();
     }
 }

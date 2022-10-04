@@ -31,6 +31,7 @@ public class Archer_Idle : cState
 
 	public override void UpdateState()
 	{
+		//archer.EquipWeapon();
 	}
 
 	public override void ExitState()

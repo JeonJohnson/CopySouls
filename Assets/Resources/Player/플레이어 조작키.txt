@@ -1,0 +1,18 @@
+이동 : WASD
+적 락온 : Q   < 지금 EnemyManager가 없어서 Player 인스펙터 Enemy에 적 넣어주세요
+달리기 : C
+백스텝/구르기 : SPACE
+아이템교체: 아래로 휠(미완)
+아이템사용: R (미완)
+상호작용: E (미완)
+무기교체 : F (미완)
+
+약공격: LeftClick
+강공격: Shift + LeftClick (미완)
+차지공격: Shift  + LeftClick 꾹  (미완)
+대쉬공격: C + 이동 + LeftClick
+
+가드: RightClick(미완)
+패링: Shift + RightClick(미완)
+
+

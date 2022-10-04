@@ -19,6 +19,11 @@ public class Archer_BowUnequip : cState
 	}
 	public override void UpdateState()
 	{
+		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Unequip"))
+		{
+			me.SetState((int)Enums.eArcherState.Idle);
+		}
+
 	}
 
 	public override void ExitState()

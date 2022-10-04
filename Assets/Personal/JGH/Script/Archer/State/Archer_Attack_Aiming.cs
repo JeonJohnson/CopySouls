@@ -12,16 +12,20 @@ public class Archer_Attack_Aiming : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
+		me.isCombat = true;
+
 		me.animCtrl.SetTrigger("tAttack");
 	}
 
 	public override void UpdateState()
 	{
+		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
 
 		archer.bowString.transform.position = archer.rightHand.transform.position;
+
 		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shot"))
 		{
-			me.SetState(0);
+			
 		}
 	}
 	public override void ExitState()

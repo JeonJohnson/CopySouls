@@ -19,22 +19,37 @@ public abstract class Enemy : MonoBehaviour
     public Structs.EnemyStatus status;
 
     
-
     ////Target
-    public GameObject player;
-    public float distToPlayer;
+    //public GameObject player;
+
+    public GameObject targetObj;
+    public float distToTarget;
+    public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
     public Vector3 preTargetPos;
     public Vector3 curTargetPos;
-    public GameObject targetObj;
     public float CoolTime;
     ////Target
 
-    ////
-    public bool isCombat;
+
+
+    //// Events
+    //public delegate void Al
+    public delegate void AlertEventHandler();
+    public AlertEventHandler alertStartEvent;
+    public AlertEventHandler alertEndEvent;
+
+    public delegate void CombatEventandler();
+	public CombatEventandler combatStartEvent;
+    public CombatEventandler combatEndEvent;
+    //// Events
+
+
+    public FovStruct fovStruct;
+    public bool isAlert = false;
+    public bool isCombat = false;
+
     public GameObject weapon;
-
     public List<Vector3> patrolPosList;
-
 
     ////FSM
     public cState[] fsm;
@@ -54,13 +69,38 @@ public abstract class Enemy : MonoBehaviour
     ////default Components
 
 
-    public void UpdateStatus()
-    { //스테이터스 수치들 각종 컴포넌트에 연동 되도록.
+    //public void UpdateStatus()
+    //{ //스테이터스 수치들 각종 컴포넌트에 연동 되도록.
 
-        //네브 요원
-        navAgent.speed = status.moveSpd;
+    //    //네브 요원
+    //    navAgent.speed = status.moveSpd;
         
     
+    //}
+
+
+    public void CalcAboutTarget()
+    {
+        //22 10 02 fin, 설명해주기
+        if (targetObj == null)
+        { return; }
+
+
+        distToTarget = Vector3.Distance(transform.position, targetObj.transform.position);
+        dirToTarget = (targetObj.transform.position - transform.position).normalized;
+
+        preTargetPos = curTargetPos;
+        curTargetPos = targetObj.transform.position;
+	}
+
+	public Quaternion LookAtSlow(Transform me, Transform target, float spd)
+	{
+        Vector3 tempDir = dirToTarget;
+        tempDir.y = 0;
+
+        Quaternion angle = Quaternion.LookRotation(tempDir);
+
+        return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
 
 
@@ -77,9 +117,112 @@ public abstract class Enemy : MonoBehaviour
         navAgent.isStopped = false;
 	}
 
+    //public void MoveOrder(Vector3 dir)
+    //{
+    //    if (navAgent == null)
+    //    {
+    //        return;
+    //    }
 
-	//// Funcs
-	public abstract void InitializeState();
+    //    navAgent.isStopped = true;
+    //    navAgent.Move(dir);
+    //    navAgent.isStopped = false;
+    //}
+
+    public void MoveStop()
+    {
+        if (navAgent == null)
+        {
+            return;
+        }
+
+        navAgent.isStopped = true;
+    }
+
+
+	public void CalcFovDir(float degreeAngle)
+	{
+        //22 10 02 fin, 설명해주기
+
+        //시야각도를 이용해서 ㄹㅇ 시야각 구하기
+
+        //f=Forward
+        // A   f    B
+        // \   |   /
+        //  \  |  /
+        //   \ | /
+        //-----0-------
+
+        //forward와 A사이의 각도 @1
+        //=> @1 = Dot(f,A) * aCos;
+
+        //forword와 B 사이의 각도 @2
+        //=> @2 = Dot(f,B) * aCos;
+
+        //판별기준은 몬스터와 0의 각도를 구한다음
+        //그게 fov/2 보다 작으면 시야각 내에 있는거.
+
+        //여기서는 A와 B의 Direction 구하는거
+        fovStruct.fovAngle = degreeAngle;
+        fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
+        fovStruct.LookDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y);
+        fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
+    }
+
+
+    public bool CheckTargetInFov()
+    {
+        //22 10 02 fin, 설명해주기
+
+        Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
+
+        if (hitObjs.Length == 0)
+        {
+            //if (isCombat)
+            //{
+            //    combatEndEvent();
+            //}
+
+            return false;
+        }
+
+        foreach (Collider col in hitObjs)
+        {
+            if (col.gameObject != targetObj)
+            {
+
+                continue;
+            }
+
+           // Vector3 dir = (targetObj.transform.position - transform.position).normalized;
+
+            float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
+            //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+            
+            int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
+            
+            if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
+                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, layerMask))
+            {
+                if (!isAlert)
+                {
+                    isAlert = true;
+                    alertStartEvent();
+                }
+
+                return true;
+            }
+        }
+
+        //if (isCombat)
+        //{
+        //    combatEndEvent();
+        //}
+
+        return false;
+    }
+
+    public abstract void InitializeState();
 
 	public T GetCurState<T>() where T : Enum
     {
@@ -125,7 +268,8 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetState(int state)
     {
-        if (fsm[state] == null)
+        if (fsm[state] == null
+            || curState == fsm[state])
         {
             return;
         }
@@ -191,12 +335,12 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (player != null)
-        { distToPlayer = Vector3.Distance(transform.position, player.transform.position); }
-            
+        CalcAboutTarget();
+
+        CalcFovDir(status.fovAngle);
+        isAlert = CheckTargetInFov();
+
         curState.UpdateState();
-
-
 
         CoolTime += Time.deltaTime;
     }
@@ -261,8 +405,13 @@ public abstract class Enemy : MonoBehaviour
         ////인식범위
 
         ////시야각
-        //프로스텀으로 보여주기
-
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, fovStruct.LeftDir *status.ricognitionRange);
+        Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
+        if (isCombat)
+        {
+            Gizmos.DrawRay(transform.position, dirToTarget*distToTarget);
+        }
         ////시야각
 
         ////공격 사정거리

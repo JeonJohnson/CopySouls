@@ -4,69 +4,119 @@ using UnityEngine;
 
 public class CameraTest : MonoBehaviour
 {
-    [SerializeField]
-    float mouseSensitivity = 2.0f;
+    public Transform targetTransform;  // 타겟 위치 (Transform)
+    public Transform cameraPivot;      
+    public Transform cameraTransform;  // CameraManager
 
-    Transform Transform;
+    public LayerMask collisionLayers;
 
-    Vector3 MouseMove;
-    Transform cameraParentTransform;
-    Transform cameraTransform;
+    public Vector3 targetPosition;
 
-    /*
-    float cameraDist = 0f; // 리그로부터 카메라 거리
-    float cameraWidth = 0f; // y
-    float cameraHeight = -5f; // x
+    private Vector3 cameraFollowVelcocity = Vector3.zero;
+    private Vector3 cameraVectorPosition;
 
-    Vector3 dir;
-    */
+
+    public float cameraFollowSpeed = 0.2f;
+    public float cameraLookSpeed = 2;
+    public float cameraPivotSpeed = 2;
+    public float minimumPivotAngle = -35;
+    public float maximumPivotAngle = 35;
+    public float cameraCollisionRadius = 2;
+    public float cameraCollisionOffset = 0.2f;
+    public float minimumCollisionOffset = 0.2f;
+    //public float wheelSpeed = 10;
+    //public float distance; // 앞뒤
+    public float lookAngle; // 좌우
+    public float pivotAngle; // 상하
+    public Vector3 cameraInput;
+    public float cameraInputX;
+    public float cameraInputY;
+    public float cameraInputZ;
+
+    private float defaultPosition;
+
     void Start()
     {
-       /* cameraDist = Mathf.Sqrt(cameraWidth * cameraHeight + cameraDist);
 
-        dir = new Vector3(0, cameraHeight, cameraWidth).normalized;
-        */
     }
 
     void Awake()
     {
-        Transform = transform;
+        cameraInputX = cameraInput.x;
+        cameraInputY = cameraInput.y;
+        cameraInputZ = cameraInput.z;
         cameraTransform = Camera.main.transform;
-        cameraParentTransform = cameraTransform.parent;
+        defaultPosition = cameraTransform.localPosition.z;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-        CameraBalance();
         CameraDistanceCtrl();
-        //WallDetect();
     }
 
      void LateUpdate()
      {
-        CameraMove();
+        HandleAllCameraMovement();
+     }
+
+    public void HandleAllCameraMovement()
+    {
+        FollowTarget();
+        RotateCamera();
+        HandleCameraCollisions();
+    }
+    void FollowTarget()
+    {
+        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelcocity, cameraFollowSpeed);
+
+        transform.position = targetPosition;
+
     }
 
-    void CameraMove()
+    public void RotateCamera()
     {
-        cameraParentTransform.position = Transform.position + Vector3.up * 1.4f;  // 카메라 초기 위치 
-        MouseMove += new Vector3(-Input.GetAxisRaw("Mouse Y") * mouseSensitivity, Input.GetAxisRaw("Mouse X") * mouseSensitivity, 0); // 마우스 움직임 감지
-        if (MouseMove.x < -30) MouseMove.x = -30; // 카메라 최고 높이 제한
-        else if (30 < MouseMove.x) MouseMove.x = 30; // 카메라 최저 높이 제한
+        Vector3 rotation;
+        Quaternion targetRotation;
+        cameraInputX = Input.GetAxisRaw("Mouse X");
+        cameraInputY = Input.GetAxisRaw("Mouse Y");
+        //cameraInputZ = Input.GetAxisRaw("Mouset ScrollWheel");
 
-        cameraParentTransform.localEulerAngles = MouseMove;
-        /*
-        Quaternion cameraRotation = cameraParentTransform.rotation;
-        cameraRotation.x = cameraRotation.z = 0;
-        Transform.rotation = Quaternion.Slerp(Transform.rotation, cameraRotation, 10.0f * Time.deltaTime);
-        */
+        lookAngle = lookAngle + (cameraInputX * cameraLookSpeed);
+        pivotAngle = pivotAngle - (cameraInputY * cameraPivotSpeed);
+        pivotAngle = Mathf.Clamp(pivotAngle, minimumPivotAngle, maximumPivotAngle);
+
+        rotation = Vector3.zero;
+        rotation.y = lookAngle;
+        targetRotation = Quaternion.Euler(rotation);
+        transform.rotation = targetRotation;
+
+        rotation = Vector3.zero;
+        rotation.x = pivotAngle;
+        targetRotation = Quaternion.Euler(rotation);
+        cameraPivot.localRotation = targetRotation;
+
+
     }
-    void CameraBalance()
+
+    void HandleCameraCollisions()
     {
-        if (Transform.eulerAngles.x != 0 || Transform.eulerAngles.z != 0) // 모종의 이유로 기울어지면 카메라 바로잡기
-            Transform.eulerAngles = new Vector3(0, Transform.eulerAngles.y, 0);
+        float targetPosition = defaultPosition;
+        RaycastHit hit;
+        Vector3 direction = cameraTransform.position - cameraPivot.position;
+
+        if (Physics.SphereCast(cameraPivot.transform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetPosition), collisionLayers))
+        {
+            float distance = Vector3.Distance(cameraPivot.position, hit.point);
+            targetPosition = targetPosition - (distance - cameraCollisionOffset);
+        }
+
+        if (Mathf.Abs(targetPosition) < minimumCollisionOffset)
+        {
+            targetPosition = targetPosition - minimumCollisionOffset;
+        }
+
+        cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
+        cameraTransform.localPosition = cameraVectorPosition;
     }
 
     void CameraDistanceCtrl()
@@ -77,22 +127,4 @@ public class CameraTest : MonoBehaviour
         else if (Camera.main.transform.localPosition.z < -5)
             Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, Camera.main.transform.localPosition.y, -5);  // 카메라 최대 먼 수치
     }
-
-    /*void WallDetect()
-    {
-        Vector3 rayTarget = transform.up * MouseMove.x + transform.forward * MouseMove.y;
-        RaycastHit hitinfo;
-        Physics.Raycast(transform.position, rayTarget, out hitinfo, cameraDist);
-
-        if(hitinfo.point != Vector3.zero)
-        {
-            cameraParentTransform.position = hitinfo.point;
-        }
-        else
-        {
-            cameraParentTransform.localPosition = Vector3.zero;
-
-            cameraParentTransform.Translate(dir * cameraDist);
-        }
-    }*/
 }

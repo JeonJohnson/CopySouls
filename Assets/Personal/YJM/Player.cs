@@ -6,17 +6,15 @@ using Enums;
 
 public class Player : MonoBehaviour
 {
-    public Animator animCtrl;
-    public Rigidbody rd;
-    public NavMeshAgent navAgent;
+    public Rigidbody rb;
     public GameObject playerModel;
-    public GameObject playerMovemnetSystem;
     public Animator animator;
 
     public bool isInteracting = true;
 
     public int hp = 100;
-    public int atk = 10;
+    public int mp = 100;
+    public float stamina = 100;
 
     //FSM
     public Player_cState[] fsm;
@@ -24,6 +22,8 @@ public class Player : MonoBehaviour
     public ePlayerState preState_e = ePlayerState.End;
     public Player_cState curState = null;
     public ePlayerState curState_e = ePlayerState.End;
+
+    public GameObject Weapon;
 
     public void SetState(ePlayerState state)
     {
@@ -102,11 +102,11 @@ public class Player : MonoBehaviour
     {
         if (i == 0)
         {
-            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
+            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
         }
         else
         {
-            playerModel.transform.Find("Ch36").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
+            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
         }
     }
     #endregion

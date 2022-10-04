@@ -56,7 +56,8 @@ public class Spirit : Enemy
         //}
 
         curState_e = GetCurState<Enums.eSpiritState>();
-        distToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        //221002 20:23 player -> targetObj
+        distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
 
         if (!navAgent.isStopped) navAgent.SetDestination(curTargetPos);
     }

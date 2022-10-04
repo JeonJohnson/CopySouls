@@ -14,7 +14,8 @@ public class Spirit_Unequipt : cState
 
     public override void UpdateState()
     {
-        if (me.distToPlayer <= me.status.ricognitionRange)
+        //221002 20:23 player -> targetObj
+        if (me.distToTarget <= me.status.ricognitionRange)
         {
             me.SetState((int)Enums.eSpiritState.Equipt);
         }

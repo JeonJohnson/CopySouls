@@ -59,6 +59,50 @@ public static class Funcs
 		return iRand;
 	}
 
+	public static Vector3 DegreeAngle2Dir(float degreeAngle)
+	{
+		//각도를 벡터로 바꿔주는 거
+		
+		//ex)회전되지 않은 오브젝트인 경우
+			//rotation의 y값 euler값 넣으면 forward Dir나옴.
+
+		//조금 더 자세한 내용은 벡터 내적, 외적 봐보셈
+
+		float radAngle = degreeAngle * Mathf.Deg2Rad;
+		return new Vector3(Mathf.Sin(radAngle), 0f, Mathf.Cos(radAngle));
+	}
+
+	//public bool CheckInFovByGameObject(GameObject target, GameObject me,Structs.FovStruct fovStruct, float range)
+	//{
+	//	Collider[] hitObjs = Physics.OverlapSphere(me.transform.position, range);
+
+	//	if (hitObjs.Length == 0)
+	//	{
+	//		return false;
+	//	}
+
+	//	foreach (Collider col in hitObjs)
+	//	{
+	//		if (col.gameObject != target)
+	//		{
+	//			continue;
+	//		}
+
+	//		Vector3 dir = (target.transform.position - me.transform.position).normalized;
+
+	//		float angleToTarget = Mathf.Acos(Vector3.Dot(me.transform.forward, dir)) * Mathf.Rad2Deg;
+	//		//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+	//		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
+	//			&& !Physics.Raycast(me.transform.position, dir, range/*, 여기에 인바이로먼트 레이어*/))
+	//		{
+	//			return true;
+	//		}
+	//	}
+
+	//	return false;
+	//}
+
+
 	public static Vector3 Random(Vector3 min, Vector3 max)
 	{
 		float x = UnityEngine.Random.Range(min.x, max.x);
@@ -363,6 +407,8 @@ public static class Defines
 
 	public const float PI = 3.14159265f;
 
+	public static Vector3 TrashVector3 = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+
 	/// Zed Count
 
 
@@ -395,7 +441,8 @@ namespace Enums
 
 	public enum ePoolingObj
 	{
-	
+		Arrow,
+		End
 	}
 
 
@@ -487,7 +534,14 @@ namespace Structs
 		public RaycastHit rayHit;
 	}
 
-
+	[System.Serializable]
+	public struct FovStruct
+	{
+		public float fovAngle;
+		public Vector3 LeftDir;
+		public Vector3 LookDir;
+		public Vector3 RightDir;
+	}
 
 
 	[System.Serializable]
@@ -513,6 +567,7 @@ namespace Structs
 		public float atkRange;
 		public float patrolRange;
         public float ricognitionRange;
+		[Range(0, 180)]
 		public float fovAngle;
 
 		public float lookAtSpd;
@@ -567,6 +622,8 @@ namespace Structs
 		//public int bulletPrice;
 
 	}
+
+
 
 	public struct DamagedStruct
 	{

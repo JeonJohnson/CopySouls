@@ -14,14 +14,25 @@ public class Player_Move : Player_cState
         PlayerLocomove.instance.Move();
 
 
-        if (Input.GetKeyDown(KeyCode.Space)) // 쉬프트 누르면서 입력하면 인식 안됨. 동시입력 문제있나?
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerActionTable.instance.Rolling();
         }
 
         if (Input.GetButtonDown("Fire1"))
         {
-            PlayerActionTable.instance.WeakAttack();
+            if (PlayerLocomove.instance.isMove == true && PlayerLocomove.instance.isRun == true)
+            {
+                PlayerActionTable.instance.DashAttack();
+            }
+            else
+            {
+                PlayerActionTable.instance.WeakAttack();
+            }
+        }
+        if (Input.GetButtonDown("Fire1") && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            PlayerActionTable.instance.StrongAttack();
         }
     }
 

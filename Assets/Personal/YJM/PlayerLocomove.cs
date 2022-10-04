@@ -6,24 +6,28 @@ using UnityEngine.Animations;
 public class PlayerLocomove : MonoBehaviour
 {
     public bool isMoveable = true;
+    public bool isCameraLock = false;
+    public Transform targetEnemy;
 
-    public GameObject cam;
     public float walkSpeed = 1f;
     public float runSpeed = 1.5f;
     public float accelSpeed = 80f;
+    public float gravity = -5f;
 
-    bool isRun = false;
+    [SerializeField] public bool isRun = false;
 
-    [Range(1, 500)] public float mouseSensitivity = 300;
+    [Range(1, 300)] public float mouseSensitivity = 70;
 
     float rotSpeed;
     float xRot;
     float yRot;
     float curSpeed = 0f;
 
-    GameObject playerModel;
+    [SerializeField] GameObject playerModel;
+    [SerializeField] Transform cameraArm;
+    [SerializeField] Transform headPos;
 
-    #region singletone and InitializeState
+    #region singletone
     /// <singletone>    
     static public PlayerLocomove instance = null;
     /// <singletone>
@@ -45,101 +49,114 @@ public class PlayerLocomove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerModel = Player.instance.playerModel;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        CameraRot(); // 이동 보정을 위한 임시카메라 코드
+        SetAnimation();
+        KeyInput();
     }
+
+    [HideInInspector]public bool isMove = false;
+    Vector3 moveDir;
 
     public void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        Vector2 vec = new Vector2(h, v);
-        Vector3 dir = new Vector3(vec.x, 0, vec.y);
-        dir.Normalize();
-        dir = transform.TransformDirection(dir);
-
-        //playerSpeed = Mathf.Lerp(playerSpeed, playerrunSpeed, Time.deltaTime * 10f);
-
-        curSpeed -= Time.deltaTime * accelSpeed / 2;
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        isMove = moveInput.magnitude != 0;
+        if (isMove)
         {
-            isRun = true;
-            curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
-            curSpeed += vec.magnitude * Time.deltaTime * accelSpeed;
+            Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+            Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+            moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+
+            transform.position += moveDir.normalized * Time.deltaTime * curSpeed;
+            playerModel.transform.position = this.transform.position;
+
+            if (isCameraLock == true)
+            {
+                Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
+                lookDir.y = 0f;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
+            }
+            else if (isCameraLock == false)
+            {
+                Vector3 lookDir = moveDir;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
+            }
         }
         else
         {
-            isRun = false;
-            if (curSpeed > walkSpeed)
-            {
-                
-            }
-            else
-            {
-                curSpeed = Mathf.Clamp(curSpeed, 0f, walkSpeed);
-                curSpeed += vec.magnitude * Time.deltaTime * accelSpeed;
-            }
-        }
-
-        transform.position += curSpeed * dir * Time.deltaTime;
-        transform.eulerAngles = new Vector3(0, cam.transform.eulerAngles.y, 0);
-        Player.instance.playerModel.transform.position = this.transform.position;
-
-        //플레이어모델 자유이동 보정
-        Vector3 camClampedAngle(Vector3 _vec)
-        {
-            Vector3 returnVec = new Vector3(_vec.x, 0, _vec.z);
-            return returnVec;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(cam.transform.right), Time.deltaTime * 20f);
-        }
-        else if(Input.GetKey(KeyCode.A))
-        {
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(-cam.transform.right), Time.deltaTime * 20f);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(cam.transform.forward), Time.deltaTime * 20f);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, camClampedAngle(-cam.transform.forward), Time.deltaTime * 20f);
-        }
-        SetAnimation();
-
-        if (Mathf.Round(vec.magnitude) <=0)
-        {
             Player.instance.SetState(Enums.ePlayerState.Idle);
+            playerModel.transform.position = this.transform.position;
         }
+
+        SprintInput();
+    }
+
+    void SprintInput()
+    {
+        if (Input.GetKey(KeyCode.C))
+        {
+            curSpeed += Time.deltaTime * accelSpeed;
+            isRun = true;
+        }
+        else
+        {
+            curSpeed -= Time.deltaTime * accelSpeed;
+            isRun = false;
+        }
+        curSpeed = Mathf.Clamp(curSpeed, walkSpeed, runSpeed);
     }
 
     void SetAnimation()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        float inputValue;
-
-        //print(vec.magnitude);
-        if (isRun == true)
+        if (isMove == true)
         {
-            inputValue = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v));
+            Player.instance.animator.SetFloat("MoveSpeed", curSpeed / runSpeed);
         }
         else
         {
-            inputValue = Mathf.Max(Mathf.Abs(h), Mathf.Abs(v)) / 2;
+            Player.instance.animator.SetFloat("MoveSpeed", 0);
         }
-        Player.instance.animator.SetFloat("MoveSpeed", curSpeed / runSpeed);
+    }
+
+    void KeyInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isCameraLock == false && targetEnemy != null)
+            {
+                isCameraLock = true;
+            }
+            else
+            {
+                isCameraLock = false;
+            }
+        }
+
+        if (isCameraLock == true)
+        {
+            CameraLock();
+        }
+        else
+        {
+            CameraRot();
+        }
+    }
+
+    void CameraLock()
+    {
+        Vector3 lookDir = targetEnemy.transform.position - cameraArm.transform.position;
+        lookDir.y = 0f;
+
+        cameraArm.transform.forward = Vector3.Slerp(cameraArm.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
+        xRot = cameraArm.transform.eulerAngles.y;
+        yRot = cameraArm.transform.eulerAngles.z;
+        yRot = Mathf.Clamp(yRot, -90, 90);
     }
 
     void CameraRot()
@@ -147,12 +164,11 @@ public class PlayerLocomove : MonoBehaviour
         rotSpeed = mouseSensitivity;
         float h = Input.GetAxis("Mouse X");
         float v = Input.GetAxis("Mouse Y");
+
         xRot += h * rotSpeed;
         yRot += v * rotSpeed;
-
         yRot = Mathf.Clamp(yRot, -90, 90);
-        cam.transform.position = this.transform.localPosition;
-        cam.transform.eulerAngles = new Vector3(-yRot, xRot, 0);
+        cameraArm.transform.eulerAngles = new Vector3(-yRot, xRot, 0);
     }
 
     public void ResetValue()
@@ -163,7 +179,53 @@ public class PlayerLocomove : MonoBehaviour
 
     public void PlayerControlCam()
     {
-        Player.instance.playerMovemnetSystem.transform.position = Player.instance.playerModel.transform.position;
-        cam.transform.position = Player.instance.playerModel.transform.position;
+        cameraArm.transform.position = headPos.transform.position;
+    }
+
+    public void PlayerPosFix()
+    {
+        transform.position = playerModel.transform.position;
+        playerModel.transform.localPosition = Vector3.zero;
+        cameraArm.transform.localPosition = headPos.transform.localPosition;
+    }
+
+    public void SetPlayerTrImt()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+        Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+        moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+        playerModel.transform.forward = moveDir;
+    }
+
+    public void SetPlayerTrSlow(bool isCamLocked = false)
+    {
+            StartCoroutine(SetPlayerTrSlowCoro(isCamLocked));
+    }
+
+    IEnumerator SetPlayerTrSlowCoro(bool isCamLocked = false)
+    {
+        float _timer = 0.2f;
+        while (_timer >= 0f)
+        {
+            if (isCamLocked == false)
+            {
+                _timer -= Time.deltaTime;
+                Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+                Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+                moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, moveDir, Time.deltaTime * 20f);
+                yield return null;
+            }
+            else
+            {
+                _timer -= Time.deltaTime;
+                Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
+                lookDir.y = 0f;
+                playerModel.transform.forward = lookDir.normalized;
+                yield return null;
+            }
+        }
     }
 }

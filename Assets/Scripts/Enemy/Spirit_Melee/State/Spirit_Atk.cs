@@ -31,11 +31,12 @@ public class Spirit_Atk : cState
         if (((Spirit)me).complete_Atk)
         {
             ((Spirit)me).complete_Atk = false;
-            if (me.distToPlayer > me.status.atkRange && me.distToPlayer <= me.status.ricognitionRange)
+            //221002 20:23 player -> targetObj
+            if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
             {
                 me.SetState((int)Enums.eSpiritState.Trace);
             }
-            else if (me.distToPlayer > me.status.ricognitionRange)
+            else if (me.distToTarget > me.status.ricognitionRange)
             {
                 me.SetState((int)Enums.eSpiritState.Unequipt);
             }
