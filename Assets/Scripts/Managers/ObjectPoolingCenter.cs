@@ -106,7 +106,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
         CreateBoxes();
         //FindPrefabs();
-        //FillPool();
+        FillObject(ePoolingObj.Arrow);
     }
 
 
