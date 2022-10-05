@@ -12,7 +12,7 @@ public class CameraTest : MonoBehaviour
 
     public Vector3 targetPosition;
 
-    private Vector3 cameraFollowVelcocity = Vector3.zero;
+    private Vector3 cameraFollowVelocity = Vector3.zero;
     private Vector3 cameraVectorPosition;
 
 
@@ -44,7 +44,7 @@ public class CameraTest : MonoBehaviour
     {
         cameraInputX = cameraInput.x;
         cameraInputY = cameraInput.y;
-        cameraInputZ = cameraInput.z;
+        //cameraInputZ = cameraInput.z;
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
     }
@@ -67,7 +67,7 @@ public class CameraTest : MonoBehaviour
     }
     void FollowTarget()
     {
-        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelcocity, cameraFollowSpeed);
+        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelocity, cameraFollowSpeed);
 
         transform.position = targetPosition;
 
