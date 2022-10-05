@@ -345,6 +345,13 @@ public abstract class Enemy : MonoBehaviour
         CoolTime += Time.deltaTime;
     }
 
+    protected virtual void LateUpdate()
+    { 
+    
+    
+    }
+
+
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.CompareTag("Enemy"))

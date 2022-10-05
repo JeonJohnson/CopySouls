@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour, IPoolingObject
 {
+
+    public bool isShoot = false;
+    public GameObject hand;
+    public GameObject target;
+    public GameObject master;
+
     public float spd;
 
     public float time = 0;
@@ -16,12 +22,17 @@ public class Arrow : MonoBehaviour, IPoolingObject
         transform.rotation = Quaternion.identity;
     }
 
+    
+
     public IEnumerator AliveCouroutine()
     {
-        time += Time.deltaTime;
+        
+        isShoot = true;
 
         while (time < fullTime)
         {
+            time += Time.deltaTime;
+            transform.position += transform.forward * Time.deltaTime * spd;
             yield return null;
         }
 
@@ -30,7 +41,13 @@ public class Arrow : MonoBehaviour, IPoolingObject
         //ResetForReturn();
     }
 
-    
+
+    public void Awake()
+    {
+        //StartCoroutine(AliveCouroutine());
+
+    }
+
     void Start()
     {
         
@@ -39,12 +56,17 @@ public class Arrow : MonoBehaviour, IPoolingObject
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * Time.deltaTime * spd;
+        if (!isShoot && hand != null)
+        { 
+            
+            transform.position = hand.transform.position;
+            transform.forward = target.transform.position - transform.position;
+        }
     }
 
     private void OnEnable()
     {
-        StartCoroutine(AliveCouroutine());
+        
     }
 
 }

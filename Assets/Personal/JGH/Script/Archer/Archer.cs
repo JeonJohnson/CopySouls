@@ -46,8 +46,12 @@ public class Archer : Enemy
 
 	public GameObject arrowPrefab;
 	
-	public GameObject arrow;
+	public Arrow arrow;
 	public eArcherState curState_e;
+
+
+
+	Transform testTr;
 
 	//public List<GameObject> patrolPos
 	public override void InitializeState()
@@ -116,10 +120,39 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Bow_Unequip);
 	}
 
-	public void ShotArrow()
+    public void MoveLegWhileTurn()
+    {
+		Vector3 tempDir = (targetObj.transform.position - transform.position).normalized;
+		tempDir.y = 0;
+		float offsetAngle = Vector3.Angle(transform.forward, tempDir);
+        Debug.Log(offsetAngle);
+        if (offsetAngle > 5f)
+        {
+            Debug.Log("돌아가야함");
+            //animCtrl.GetCurrentAnimatorStateInfo(1)
+            animCtrl.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            animCtrl.SetLayerWeight(1, offsetAngle);
+        }
+    }
+
+
+	public void DrawArrow()
 	{
-		
-		
+		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
+		arrow.hand = rightHand;
+		arrow.master = gameObject;
+		arrow.target = targetObj;
+		//arrow.transform.position = bowString.transform.position;
+	}
+    public void ShotArrow()
+	{
+
+
+		StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
+
 	}
 
 	//public bool TargetCheck()
@@ -146,6 +179,8 @@ public class Archer : Enemy
     protected override void Awake()
 	{
 		base.Awake();
+
+		testTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
 
 		bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
 		weapon.SetActive(false);
@@ -178,5 +213,16 @@ public class Archer : Enemy
 
 
 		curState_e = (eArcherState)curState_i;
+	}
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+
+	//ChestDir = mainCameraTr.position + mainCameraTr.forward * 50f;
+	//playerChestTr.LookAt(ChestDir); //상체를 카메라 보는방향으로 보기
+	//playerChestTr.rotation = playerChestTr.rotation * Quaternion.Euler(ChestOffset);
+
+	//https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본 가져오는거? 
 	}
 }
