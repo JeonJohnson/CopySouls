@@ -346,8 +346,8 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected virtual void LateUpdate()
-    { 
-    
+    {
+        curState.LateUpdateState();
     
     }
 
@@ -402,6 +402,12 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
 	{
+        ////Dir to Target
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(transform.position, targetObj.transform.position);
+        ////Dir to Target
+
+
 
         ////인식범위
         Color temp = Color.yellow;

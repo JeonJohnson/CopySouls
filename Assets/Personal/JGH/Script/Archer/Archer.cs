@@ -224,5 +224,8 @@ public class Archer : Enemy
 	//playerChestTr.rotation = playerChestTr.rotation * Quaternion.Euler(ChestOffset);
 
 	//https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본 가져오는거? 
+
+
+
 	}
 }
