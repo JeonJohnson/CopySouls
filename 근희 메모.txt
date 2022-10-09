@@ -9,7 +9,7 @@ Based Upon 	- Body Orientation : 애니메이션이 오브젝트의 forward에 �
 
 ~~ Root transform Position Y
 
-
+~~ 유니티 에니메이션은 30프레임당 1초
 
 
 
