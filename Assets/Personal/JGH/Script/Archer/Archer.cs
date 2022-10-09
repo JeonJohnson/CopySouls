@@ -5,22 +5,25 @@ using UnityEngine;
 using Enums;
 using Structs;
 
-namespace Test
-{
-	public enum eStateTest
-	{ 
-		Idle = 48,
-		Equip,
-		Unequip,
-		Walk_Patrol,
-		Run = 54,
-		Attack_Aiming,
-		Hit = 58,
-		Death = 59,
-		End
-	}
-
-}
+//namespace Test
+//{
+//public override void InitializeState()
+//{
+//	fsm = new cState[(int)eArcherState.End];
+//	//Idle - 활 장착 / 장착 안했을 때 두가지
+//	//Bow_Equip - 아이들에서 전투태세 시작되면
+//	//Bow_Unequip - 전투상태에서 돌아가면
+//	//Walk_Patrol - 전투전 돌아다니는거
+//	//Walk_Careful - 무기장착은 하고 있지만 그냥 간보는거(위치 이동)
+//	//Walk_Aiming - 조준하면서 간보는거
+//	//Run - 거리벌릴려고 ㅌㅌ하는거
+//	//Attack_Rapid - 여러발 빨리 쏘기
+//	//Attack_Aiming - 한발 신중히 쏘기
+//	//Attack_Melee - 가까이 왔을때
+//	//Hit - 쳐맞는거
+//	//Death - 죽는거
+//}
+//}
 
 public class Archer : Enemy
 {
@@ -35,25 +38,26 @@ public class Archer : Enemy
 		(int)Enums.eArcherState.Attack_Aiming,
 		(int)Enums.eArcherState.Hit,
 		(int)Enums.eArcherState.Death,
-
 	};
 	
 	public bool isEquip;
 
-	public GameObject rightHand;
-	public GameObject bowString;
-	public Vector3 bowStringOriginPos;
+	public Transform headBoneTr;
+	public Transform spineBoneTr;
+	public Transform rightIndexFingerBoneTr;
+	
+	//public GameObject rightHand;
+	//public GameObject bowString;
+	//public Vector3 bowStringOriginPos;
 
 	public GameObject arrowPrefab;
-	
-	public Arrow arrow;
+
+	public Bow bow;
+	//public Arrow arrow;
+
 	public eArcherState curState_e;
 
 
-
-	Transform testTr;
-
-	//public List<GameObject> patrolPos
 	public override void InitializeState()
 	{
 		fsm = new cState[(int)eArcherState.End];
@@ -81,34 +85,16 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Idle);
 	}
 
-	//public override void InitializeState()
-	//{
-	//	fsm = new cState[(int)eArcherState.End];
-	//	//Idle - 활 장착 / 장착 안했을 때 두가지
-	//	//Bow_Equip - 아이들에서 전투태세 시작되면
-	//	//Bow_Unequip - 전투상태에서 돌아가면
-	//	//Walk_Patrol - 전투전 돌아다니는거
-	//	//Walk_Careful - 무기장착은 하고 있지만 그냥 간보는거(위치 이동)
-	//	//Walk_Aiming - 조준하면서 간보는거
-	//	//Run - 거리벌릴려고 ㅌㅌ하는거
-	//	//Attack_Rapid - 여러발 빨리 쏘기
-	//	//Attack_Aiming - 한발 신중히 쏘기
-	//	//Attack_Melee - 가까이 왔을때
-	//	//Hit - 쳐맞는거
-	//	//Death - 죽는거
-	//}
+	public void SettingBonesTransform()
+	{
+		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+		spineBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
+		rightIndexFingerBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightIndexDistal);
 
-	//public void EquipWeapon()
-	//{
-	//	if (isCombat)
-	//	{
-	//		SetState((int)eArcherState.Bow_Equip);
-	//	}
-	//	else
-	//	{
-	//		SetState((int)eArcherState.Bow_Unequip);
-	//	}
-	//}
+
+
+	}
+
 
 	public void EquippedBow()
 	{
@@ -120,50 +106,41 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Bow_Unequip);
 	}
 
-    public void MoveLegWhileTurn()
+    public void ActingLegWhileTurn()
     {
 		Vector3 tempDir = (targetObj.transform.position - transform.position).normalized;
 		tempDir.y = 0;
+		
 		float offsetAngle = Vector3.Angle(transform.forward, tempDir);
         Debug.Log(offsetAngle);
+
         if (offsetAngle > 5f)
         {
             Debug.Log("돌아가야함");
             //animCtrl.GetCurrentAnimatorStateInfo(1)
-            animCtrl.SetLayerWeight(1, 1);
+            animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1);
         }
         else
         {
-            animCtrl.SetLayerWeight(1, offsetAngle);
+            animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
         }
     }
 
 
 	public void DrawArrow()
 	{
-		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
-		arrow.hand = rightHand;
-		arrow.master = gameObject;
-		arrow.target = targetObj;
+		//arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
+		//arrow.hand = rightHand;
+		//arrow.master = gameObject;
+		//arrow.target = targetObj;
+
 		//arrow.transform.position = bowString.transform.position;
 	}
     public void ShotArrow()
 	{
-
-
-		StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
-
+		//StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
 	}
 
-	//public bool TargetCheck()
-	//{
-	//	if (distToTarget <= status.ricognitionRange)
-	//	{
-	//		return true;
-	//	}
-	//	return false;
-	//}
-	
 
     public override void Hit(DamagedStruct dmgStruct)
     {
@@ -180,10 +157,9 @@ public class Archer : Enemy
 	{
 		base.Awake();
 
-		testTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
+		//testTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
 
-		bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
-		weapon.SetActive(false);
+		//bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
 
 		alertStartEvent += EquippedBow;
 		alertEndEvent += UnequippedBow;
@@ -192,6 +168,9 @@ public class Archer : Enemy
 	protected override void Start()
 	{
 		base.Start();
+
+		weapon.SetActive(false);
+		SettingBonesTransform();
 
 	}
 
@@ -211,7 +190,6 @@ public class Archer : Enemy
 		}
 
 
-
 		curState_e = (eArcherState)curState_i;
 	}
 
@@ -224,8 +202,6 @@ public class Archer : Enemy
 	//playerChestTr.rotation = playerChestTr.rotation * Quaternion.Euler(ChestOffset);
 
 	//https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본 가져오는거? 
-
-
 
 	}
 }

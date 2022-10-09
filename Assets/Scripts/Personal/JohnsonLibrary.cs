@@ -466,6 +466,23 @@ namespace Enums
 	
 	}
 
+	public enum eHumanoidAvatarMask
+	{ 
+		Default,
+		Leg,
+		End
+	}
+
+	public enum eGizmoDirection
+	{ 
+		Foward,
+		Back,
+		Right,
+		Left,
+		Up,
+		Down,
+		End
+	}
 
 	public enum eSpiritState
     {

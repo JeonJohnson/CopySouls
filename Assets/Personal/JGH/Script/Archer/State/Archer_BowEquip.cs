@@ -16,9 +16,7 @@ public class Archer_BowEquip : cState
 
 		me.animCtrl.SetTrigger("tEquip");
 		me.weapon.SetActive(true);
-		archer.isEquip = true;
-
-
+		
 	}
 
 	public override void UpdateState()
@@ -29,6 +27,11 @@ public class Archer_BowEquip : cState
 
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
 		{
+			if (!archer.isEquip)
+			{
+				archer.isEquip = true;
+			}
+
 			if (me.isAlert)
 			{
 				if (me.distToTarget > me.status.atkRange)
@@ -44,6 +47,17 @@ public class Archer_BowEquip : cState
 
 		}
 	}
+
+	//public override void LateUpdateState()
+	//{
+	//	base.LateUpdateState();
+
+	//	//if (archer.isEquip)
+	//	//{
+	//	//	Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
+	//	//	me.LookAtSpecificBone(archer.headBoneTr, archer.headBoneTr.forward, dir);
+	//	//}	
+	//}
 
 	public override void ExitState()
 	{

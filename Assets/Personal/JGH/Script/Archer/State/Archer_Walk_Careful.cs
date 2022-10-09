@@ -44,6 +44,13 @@ public class Archer_Walk_Careful : cState
 		
 	}
 
+	public override void LateUpdateState()
+	{
+		base.LateUpdateState();
+
+		me.LookAtSpecificBone(archer.headBoneTr, me.targetObj.transform, Enums.eGizmoDirection.Foward);
+	}
+
 	public override void ExitState()
 	{
 	}

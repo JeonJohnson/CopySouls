@@ -5,6 +5,29 @@ using UnityEngine;
 public class Bow : MonoBehaviour
 {
 
+    public Arrow arrow;
+    public GameObject bowString;
+    public GameObject indexFinger;
+
+    public Vector3 stringOriginPos;
+
+
+    public void PullString()
+    {
+
+    }
+
+    public void ReturnString()
+    {
+
+    }
+
+    public void ShootingArrow()
+    {
+    
+    
+    }
+
     public IEnumerator StringReturnCoroutine()
     {
         
@@ -23,4 +46,16 @@ public class Bow : MonoBehaviour
     {
         
     }
+
+
+	private void OnEnable()
+	{
+		
+
+	}
+
+	private void OnDisable()
+	{
+		
+	}
 }

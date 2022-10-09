@@ -103,9 +103,111 @@ public abstract class Enemy : MonoBehaviour
         return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
 
+	#region LookAt_Animation Bone
+    //LateUpdate에서 써야함!!!
+	public void LookAtSpecificBone(HumanBodyBones boneName, Transform targetTr, Vector3 offsetEulerRotate)
+    {
+        Transform boneTr = animCtrl.GetBoneTransform(boneName);
+        boneTr.LookAt(targetTr);
+        boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
+
+    public void LookAtSpecificBone(Transform boneTr, Transform targetTr, eGizmoDirection boneDir)
+    {
+        Vector3 lookDir = (targetTr.position - boneTr.position).normalized;
+
+        switch (boneDir)
+        {
+            case eGizmoDirection.Foward:
+                {
+                    boneTr.forward = lookDir;
+                }
+                break;
+            case eGizmoDirection.Back:
+                {
+                    boneTr.forward = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Right:
+                {
+                    boneTr.right = lookDir;
+                }
+                break;
+            case eGizmoDirection.Left:
+                {
+                    boneTr.right = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Up:
+                {
+                    boneTr.up = lookDir;
+                }
+                break;
+            case eGizmoDirection.Down:
+                {
+                    boneTr.up = -lookDir;
+                }
+                break;
+
+            default:
+                {
+                    Debug.Log("Enemy bone LookAt Error");
+                }
+                break;
+        }
+    }
+
+    public void LookAtSpecificBone(Transform boneTr, Transform targetTr, eGizmoDirection boneDir, Vector3 offsetEulerRotate)
+    {
+
+        Vector3 lookDir = (targetTr.position - boneTr.position).normalized;
+
+        switch (boneDir)
+		{
+			case eGizmoDirection.Foward:
+                {
+                    boneTr.forward = lookDir;
+                }
+				break;
+			case eGizmoDirection.Back:
+                {
+                    boneTr.forward = -lookDir;
+                }
+				break;
+			case eGizmoDirection.Right:
+                {
+                    boneTr.right = lookDir;
+                }
+				break;
+			case eGizmoDirection.Left:
+                {
+                    boneTr.right = -lookDir;
+                }
+				break;
+			case eGizmoDirection.Up:
+                {
+                    boneTr.up = lookDir;
+                }
+				break;
+			case eGizmoDirection.Down:
+                {
+                    boneTr.up = -lookDir;
+                }
+				break;
+
+            default:
+                {
+                    Debug.Log("Enemy bone LookAt Error");
+                }
+				break;
+		}
+
+		boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
+    #endregion
 
 
-	public void MoveOrder(Vector3 dest)
+    public void MoveOrder(Vector3 dest)
 	{//네비 에이전트 움직이는거 편하게
         if (navAgent == null)
         {
