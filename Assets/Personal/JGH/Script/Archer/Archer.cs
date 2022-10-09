@@ -108,23 +108,58 @@ public class Archer : Enemy
 
     public void ActingLegWhileTurn()
     {
+		//코루틴보다 일단 걍 함수로 필요할때 호출하기
+		
 		Vector3 tempDir = (targetObj.transform.position - transform.position).normalized;
 		tempDir.y = 0;
-		
-		float offsetAngle = Vector3.Angle(transform.forward, tempDir);
-        Debug.Log(offsetAngle);
+		//이렇게 되면 오르막, 내리막 길에는 어떻게 되지...? 
 
-        if (offsetAngle > 5f)
-        {
-            Debug.Log("돌아가야함");
-            //animCtrl.GetCurrentAnimatorStateInfo(1)
-            animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1);
-        }
-        else
-        {
-            animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
-        }
-    }
+		float offsetAngle = Vector3.Angle(transform.forward, tempDir);
+		//Vector3.Angle은 절대값을 반환함.
+		//원시적으로 외적, 내적으로 좌,우 판단해야할듯
+
+		//1. 포워드와 direction 외적해서 법선 구하기
+		Vector3 DirCrossFoward = Vector3.Cross(tempDir,transform.forward);
+
+		//2. 나온 앵글이랑 Up벡터 내적하기
+		float dot = Vector3.Dot(DirCrossFoward, Vector3.up);
+
+		//3. 나온값은 Cos@ 값임. 이게 음수면 오른쪽, 양수면 왼쪽
+		// cos0 = 1 / cos90 = 0 / cos180 = -1
+		//왜 그렇냐?
+		//Cross는 결과값이 벡터(방향과 크기)로 나오는데
+		//이것이 비교값(현재는 월드UP)과 같은 방향이면 (cos 0 = 1
+		//다른 방향이면 (cos 180 = -1
+		//임.
+		//근데 Cross(외적)은 내적과 다르게 교환법칙이 성립안하는,
+		//즉 순서에 따라 결과값이 다르므로! 이렇게 구별이 가능하다
+		//왼쪽이면 90도 미만이니까(같은 up방향) 양수,
+		//오른쪽이면 90도 초과이니까 음수.
+
+		if (dot < 0.1f)
+		{//오른쪽
+			Debug.Log("Right");
+			animCtrl.SetBool("bTurn_R", true);
+		}
+		else if(dot > 0.1f)
+		{//왼쪽
+			Debug.Log("Left");
+			animCtrl.SetBool("bTurn_R", false);
+		}
+		else
+		{ //가운데
+			Debug.Log("Middle");
+			return;
+		}
+
+		//        Debug.Log(offsetAngle);
+
+		animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
+		
+		//221009 이거분명 나중에 길 경사 깔리면 문제생김
+		//그때 일단 tempDir의 up을 몬스터의 up과 같이 만들고
+		//왼쪽,오른쪽 판별할때도 World up 말고 local up 써보던지 일단 몰라~ㅋㅋ
+	}
 
 
 	public void DrawArrow()

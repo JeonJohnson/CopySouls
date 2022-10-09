@@ -43,7 +43,6 @@ public abstract class Enemy : MonoBehaviour
     public CombatEventandler combatEndEvent;
     //// Events
 
-
     public FovStruct fovStruct;
     public bool isAlert = false;
     public bool isCombat = false;

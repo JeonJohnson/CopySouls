@@ -27,7 +27,7 @@ public class Archer_Attack_Aiming : cState
 	public override void UpdateState()
 	{
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
-        //archer.MoveLegWhileTurn();
+        archer.ActingLegWhileTurn();
 
 		//archer.bowString.transform.position = archer.rightHand.transform.position;
 
@@ -64,6 +64,8 @@ public class Archer_Attack_Aiming : cState
 	}
 	public override void ExitState()
 	{
+		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
+
 		//archer.bowString.transform.localPosition = archer.bowStringOriginPos;
 	}
 
