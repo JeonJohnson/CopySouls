@@ -45,18 +45,23 @@ public class Archer : Enemy
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
-	
+
 	//public GameObject rightHand;
 	//public GameObject bowString;
 	//public Vector3 bowStringOriginPos;
 
-	public GameObject arrowPrefab;
+	//public GameObject arrowPrefab;
 
+	public GameObject bowPrefab;
 	public Bow bow;
-	//public Arrow arrow;
+	public Arrow arrow;
 
 	public eArcherState curState_e;
 
+
+	public delegate void AttackEventHandler();
+	public AttackEventHandler PullStartEvent;
+	public AttackEventHandler PullEndEvent;
 
 	public override void InitializeState()
 	{
@@ -90,11 +95,17 @@ public class Archer : Enemy
 		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
 		spineBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
 		rightIndexFingerBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightIndexDistal);
-
-
-
 	}
 
+	public void Initializebow()
+	{
+		if (bow == null)
+		{ 
+			//bow = Instantiate(bowPrefab,)
+		}
+
+		bow.rightIndexFingerTr = rightIndexFingerBoneTr;
+	}
 
 	public void EquippedBow()
 	{
@@ -157,23 +168,39 @@ public class Archer : Enemy
 		animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
 		
 		//221009 이거분명 나중에 길 경사 깔리면 문제생김
+		//ㅋㅋ 2차원으로만 생각하고 짠거라서 ㅋㅋ
 		//그때 일단 tempDir의 up을 몬스터의 up과 같이 만들고
-		//왼쪽,오른쪽 판별할때도 World up 말고 local up 써보던지 일단 몰라~ㅋㅋ
+		//왼쪽,오른쪽 판별할때도 World up 말고 local up 써보던지
+		//일단 몰라~ㅋㅋ 문제생길때 고쳐~
 	}
 
 
 	public void DrawArrow()
 	{
-		//arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
-		//arrow.hand = rightHand;
-		//arrow.master = gameObject;
-		//arrow.target = targetObj;
+		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
 
-		//arrow.transform.position = bowString.transform.position;
+		arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
+		arrow.target = targetObj;
+		arrow.bowLeverTr = bow.bowLeverTr;
 	}
-    public void ShotArrow()
+	public void PullEnd()
 	{
-		//StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
+		if (PullEndEvent != null)
+		{ PullEndEvent(); }
+	}
+
+
+	public void PullStart()
+	{
+		if (PullStartEvent != null)
+		{
+			PullStartEvent();
+		}
+	}
+
+    public void ShootArrow()
+	{
+		StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
 	}
 
 

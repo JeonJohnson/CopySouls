@@ -6,8 +6,45 @@ public class Archer_Attack_Aiming : cState
 {
 	Archer archer = null;
 
-	Transform testSpineTr;
-	Transform headTr;
+	//여기서도
+	//1. 정해진 시간 지나면 쏘는 패턴
+	//2. 타겟의 특정 행동 할 때 까지 쏘는패턴?
+	//3. 1+2 패턴으로 정해진 시간 동안 쏠예정인데 중간에 특정 행동하면 쏘는거
+
+	//또 하나 더 
+	//1. 쏘기 전까지 시간을 정하고 비례해서 드로우 시간 정하기?
+	//2. 드로우시간은 무적권 정해져있고 에이밍 시간을 랜덤?
+
+	// aiming 패턴에서 드로우 시간은 고정으로 하고 에이밍 시간을 랜덤으로 가자
+
+	public float aimingTime;
+
+	public float drawTime;
+	public float archerDrawAnimSpd;
+	public float bowDrawAnimSpd;
+
+	public bool isHook = false;
+
+	public void PullStart()
+	{
+		archer.bow.animCtrl.SetFloat("fPullSpd", bowDrawAnimSpd);
+		archer.bow.animCtrl.SetTrigger("tPull");
+
+		isHook = true;
+	}
+
+	public void CalcDrawSpd()
+	{
+		drawTime = 5f;
+		//유닛 드로우 애니메이션 기존 1초
+		//그러면 보우 드로우 애니메이션 기존 0.4초
+		//비율 맞출려면 *25
+		archerDrawAnimSpd = 1 / drawTime;
+		archer.animCtrl.SetFloat("fDrawSpd", archerDrawAnimSpd);
+		bowDrawAnimSpd = archerDrawAnimSpd * 0.025f;
+		Debug.Log(bowDrawAnimSpd);
+		aimingTime = Random.Range(0.5f, 2f);
+	}
 
 	public override void EnterState(Enemy script)
 	{
@@ -16,10 +53,16 @@ public class Archer_Attack_Aiming : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
+		if (archer.PullStartEvent == null)
+		{//이거 나중에 cState 생성자 만들거나 Initialize에서 쓸 수 있도록
+			archer.PullStartEvent += PullStart;
+		}
+
 		me.isCombat = true;
 
 		me.animCtrl.SetTrigger("tAttack");
 
+		CalcDrawSpd();
 		
 		
 	}
@@ -42,14 +85,6 @@ public class Archer_Attack_Aiming : cState
 	{
 		base.LateUpdateState();
 
-		if (testSpineTr == null)
-		{		
-			testSpineTr = me.animCtrl.GetBoneTransform(HumanBodyBones.Spine);
-			headTr = me.animCtrl.GetBoneTransform(HumanBodyBones.Head);
-		}
-
-
-
 		//Vector3 UpperDir = me.targetObj.transform.position - testSpineTr.position;
 		//UpperDir.Normalize();
 		////testSpineTr.LookAt(me.targetObj.transform.position);
@@ -61,6 +96,9 @@ public class Archer_Attack_Aiming : cState
 
 		//headTr.forward = me.targetObj.transform.position - headTr.position;
 		me.LookAtSpecificBone(archer.headBoneTr, me.targetObj.transform, Enums.eGizmoDirection.Foward);
+
+		if (isHook)
+		{ archer.bow.stringTr.position = archer.rightIndexFingerBoneTr.position; }
 	}
 	public override void ExitState()
 	{

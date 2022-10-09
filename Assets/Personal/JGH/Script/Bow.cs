@@ -6,18 +6,22 @@ public class Bow : MonoBehaviour
 {
 
     public Arrow arrow;
-    public GameObject bowString;
-    public GameObject indexFinger;
 
-    public Vector3 stringOriginPos;
+    public Transform bowLeverTr;
+    //public GameObject bowString;
+    public Transform rightIndexFingerTr;
+    public Transform stringTr;
 
+    //public Vector3 stringOriginPos;
 
-    public void PullString()
-    {
+    public Animator animCtrl;
 
-    }
+	//public void DrawArrow()
+ //   {
 
-    public void ReturnString()
+ //   }
+
+    public void PullString(float fullTime)
     {
 
     }
@@ -28,6 +32,11 @@ public class Bow : MonoBehaviour
     
     }
 
+    public void ReturnString()
+    {
+
+    }
+
     public IEnumerator StringReturnCoroutine()
     {
         
@@ -35,8 +44,16 @@ public class Bow : MonoBehaviour
 
         yield return null;
     }
-    // Start is called before the first frame update
-    void Start()
+
+	public void Awake()
+	{
+        animCtrl = GetComponent<Animator>();
+
+
+    }
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -47,6 +64,10 @@ public class Bow : MonoBehaviour
         
     }
 
+	private void LateUpdate()
+	{
+		
+	}
 
 	private void OnEnable()
 	{

@@ -6,9 +6,10 @@ public class Arrow : MonoBehaviour, IPoolingObject
 {
 
     public bool isShoot = false;
-    public GameObject hand;
+    
+    public Transform rightIndexFingerBoneTr;
+    public Transform bowLeverTr;
     public GameObject target;
-    public GameObject master;
 
     public float spd;
 
@@ -56,13 +57,12 @@ public class Arrow : MonoBehaviour, IPoolingObject
     // Update is called once per frame
     void Update()
     {
-        if (!isShoot && hand != null)
-        { 
-            
-            transform.position = hand.transform.position;
-            transform.forward = target.transform.position - transform.position;
-        }
-    }
+		if (!isShoot && rightIndexFingerBoneTr != null)
+		{
+			transform.position = rightIndexFingerBoneTr.position;
+			transform.forward = bowLeverTr.position - transform.position;
+		}
+	}
 
     private void OnEnable()
     {

@@ -387,11 +387,6 @@ Transform:
   m_Father: {fileID: 1780353792}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &803455464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1798074416387974, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
-  m_PrefabInstance: {fileID: 16254588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &863259261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dc22881fcd44104b9499be299ab1235, type: 3}
@@ -451,10 +446,11 @@ MonoBehaviour:
   rd: {fileID: 0}
   navAgent: {fileID: 0}
   isEquip: 0
-  rightHand: {fileID: 1103472856}
-  bowString: {fileID: 803455464}
-  bowStringOriginPos: {x: 0, y: 0, z: 0}
-  arrowPrefab: {fileID: 0}
+  headBoneTr: {fileID: 0}
+  spineBoneTr: {fileID: 0}
+  rightIndexFingerBoneTr: {fileID: 0}
+  bowPrefab: {fileID: 0}
+  bow: {fileID: 0}
   arrow: {fileID: 0}
   curState_e: 0
 --- !u!195 &863259263
@@ -747,11 +743,6 @@ Transform:
   m_Father: {fileID: 1780353792}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1103472856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1156334875509381579, guid: 7dc22881fcd44104b9499be299ab1235, type: 3}
-  m_PrefabInstance: {fileID: 1089936129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1203583341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,21 +1522,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1382911637680985912, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1382911637680985912, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: fd8f39746b4b1344cbbc6fee17aceb74, type: 2}
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
       propertyPath: targetObj
       value: 
       objectReference: {fileID: 1403247147}
-    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: status.fovAngle
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}

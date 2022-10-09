@@ -441,8 +441,8 @@ namespace Enums
 
 	public enum ePoolingObj
 	{
+		//Bow,
 		Arrow,
-
 		End
 	}
 
