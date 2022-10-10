@@ -15,12 +15,20 @@ public class Arrow : MonoBehaviour, IPoolingObject
     
     public GameObject head;
     
+    
+
+    public float maxRange;
+    public float spd;// m/s 
+
     public GameObject target;
     public Vector3 destPos;
 
-    
-
-    public float spd;
+    public Vector3 straightDir;
+    public Quaternion beginAngle;
+    public Quaternion endAngle;
+    float curveTime = 0f;
+    public Vector3 curveDir;
+    public float mileage;
 
     public float time = 0;
     public float fullTime = 10f;
@@ -45,6 +53,9 @@ public class Arrow : MonoBehaviour, IPoolingObject
         bowLeverTr = null;
         target = null;
 
+        mileage = 0f;
+        curveTime = 0f;
+
         isShoot = false;
         isHook = false;
 
@@ -68,14 +79,16 @@ public class Arrow : MonoBehaviour, IPoolingObject
         isHook = false;
 
 
+        //transform.LookAt(target.transform);
         //float angle = Vector3.Angle(head.transform.position, target.transform.position);
         Vector3 destPos = target.transform.position;
         //Vector3 vel = GetVelocity(head.transform.position, destPos, angle);
 
-        Vector3 dir = (target.transform.position - head.transform.position).normalized;
+        straightDir = (target.transform.position - head.transform.position).normalized;
+        //Vector3 dir = (target.transform.position - head.transform.position).normalized;
         //rd.velocity = dir * spd;
-       rd.AddForce(dir/**spd*/, ForceMode.Impulse);
-        StartCoroutine(AliveCouroutine());
+        //rd.AddForce(dir/**spd*/, ForceMode.Impulse);
+        StartCoroutine(AliveCoroutine());
     }
 
     //public Vector3 GetVelocity(Vector3 beginPos, Vector3 destPos, float beginAngle)
@@ -103,7 +116,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
 
 
-    public IEnumerator AliveCouroutine()
+    public IEnumerator AliveCoroutine()
     {
         
         isShoot = true;
@@ -119,6 +132,13 @@ public class Arrow : MonoBehaviour, IPoolingObject
         ResetForReturn();
         ObjectPoolingCenter.Instance.ReturnObj(this.gameObject, Enums.ePoolingObj.Arrow);
         //ResetForReturn();
+    }
+
+    public void MoveCoroutine()
+    { 
+        
+    
+    
     }
 
 
@@ -137,19 +157,53 @@ public class Arrow : MonoBehaviour, IPoolingObject
     // Update is called once per frame
     void Update()
     {
-
         if (isHook)
         {
             transform.position = rightIndexFingerBoneTr.position;
             transform.forward = (bowLeverTr.position - transform.position).normalized;
         }
+
+        if (isShoot)
+        {
+            mileage += spd * Time.deltaTime;
+   
+        }
+
+
+       
 	}
 
 	public void FixedUpdate()
 	{
         //Vector3 lookDir = destPos - head.transform.position;
         //transform.rotation = Quaternion.LookRotation(lookDir);
-	}
+
+        if (isShoot)
+        {
+            if (mileage < maxRange)
+            {
+                //float angle = Mathf.Atan2(transform.up, transform.forward) * Mathf.Rad2Deg;
+                rd.MovePosition(transform.position + (straightDir * spd * Time.deltaTime));
+
+                //rd.MovePosition(transform.position + (transform.forward * spd * Time.deltaTime));
+                beginAngle = transform.rotation;
+                endAngle = Quaternion.AngleAxis(90f, transform.right);
+                
+                //endAngle = transform.Rotate()
+                //Quaternion.ro
+            }
+            else 
+            {
+                curveTime += Time.deltaTime;
+                //transform.rotation = Quaternion.Lerp(beginAngle, endAngle, curveTime *0.2f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, endAngle, Time.deltaTime * 9.8f);
+                
+                rd.MovePosition(transform.position + (transform.forward * spd * Time.deltaTime));
+            }
+
+
+        }
+    }
 
 	private void OnEnable()
     {

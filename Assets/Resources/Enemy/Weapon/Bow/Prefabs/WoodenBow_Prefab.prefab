@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 95329518231908724}
   - component: {fileID: -4032048276755821612}
   m_Layer: 0
-  m_Name: Wooden Bow
+  m_Name: WoodenBow_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -757,11 +757,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b73209e901c5b047a6954d435db874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status:
+    name: 
+    type: 0
+    range: 5
+    price: 0
   arrow: {fileID: 0}
   bowLeverTr: {fileID: 3175390870593408774}
   rightIndexFingerTr: {fileID: 0}
   stringTr: {fileID: 4429432022911190}
+  isHook: 0
+  isPull: 0
   animCtrl: {fileID: 0}
+  pullAnimSpd: 0
 --- !u!1 &1793173729035202
 GameObject:
   m_ObjectHideFlags: 0

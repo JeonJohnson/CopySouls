@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Structs;
 public class Bow : MonoBehaviour
 {
+    public WeaponStatus status;
+
     public Arrow arrow;
 
     public Transform bowLeverTr;//활 거는 부분
@@ -22,7 +25,7 @@ public class Bow : MonoBehaviour
         isHook = true;
 
 
-    
+        
     }
 
     public void StartStringPull()
@@ -38,8 +41,10 @@ public class Bow : MonoBehaviour
     {
         isPull = false;
 
+
         animCtrl.SetTrigger("tReturn");
 
+        arrow.maxRange = status.range;
         arrow = null;
     }
    
