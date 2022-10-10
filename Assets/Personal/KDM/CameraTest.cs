@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraTest : MonoBehaviour
 {
     public Transform targetTransform;  // 타겟 위치 (Transform)
-    public Transform cameraPivot;      
+    public Transform cameraPivot;      // CameraPivot
     public Transform cameraTransform;  // CameraManager
 
     public LayerMask collisionLayers;
@@ -15,23 +15,21 @@ public class CameraTest : MonoBehaviour
     private Vector3 cameraFollowVelocity = Vector3.zero;
     private Vector3 cameraVectorPosition;
 
+    public Vector3 cameraInput;
 
     public float cameraFollowSpeed = 0.2f;
     public float cameraLookSpeed = 2;
     public float cameraPivotSpeed = 2;
+    public float ZoomSensitivity = 5;
     public float minimumPivotAngle = -35;
     public float maximumPivotAngle = 35;
-    public float cameraCollisionRadius = 2;
+    public float cameraCollisionRadius = 0.2f;
     public float cameraCollisionOffset = 0.2f;
     public float minimumCollisionOffset = 0.2f;
-    //public float wheelSpeed = 10;
-    //public float distance; // 앞뒤
     public float lookAngle; // 좌우
     public float pivotAngle; // 상하
-    public Vector3 cameraInput;
     public float cameraInputX;
     public float cameraInputY;
-    public float cameraInputZ;
 
     private float defaultPosition;
 
@@ -44,14 +42,13 @@ public class CameraTest : MonoBehaviour
     {
         cameraInputX = cameraInput.x;
         cameraInputY = cameraInput.y;
-        //cameraInputZ = cameraInput.z;
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
     }
 
     void Update()
     {
-        CameraDistanceCtrl();
+        ZoomCamera();
     }
 
      void LateUpdate()
@@ -65,7 +62,7 @@ public class CameraTest : MonoBehaviour
         RotateCamera();
         HandleCameraCollisions();
     }
-    void FollowTarget()
+    private void FollowTarget()
     {
         Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelocity, cameraFollowSpeed);
 
@@ -73,13 +70,12 @@ public class CameraTest : MonoBehaviour
 
     }
 
-    public void RotateCamera()
+    private void RotateCamera()
     {
         Vector3 rotation;
         Quaternion targetRotation;
         cameraInputX = Input.GetAxisRaw("Mouse X");
         cameraInputY = Input.GetAxisRaw("Mouse Y");
-        //cameraInputZ = Input.GetAxisRaw("Mouset ScrollWheel");
 
         lookAngle = lookAngle + (cameraInputX * cameraLookSpeed);
         pivotAngle = pivotAngle - (cameraInputY * cameraPivotSpeed);
@@ -98,16 +94,17 @@ public class CameraTest : MonoBehaviour
 
     }
 
-    void HandleCameraCollisions()
+    private void HandleCameraCollisions()
     {
         float targetPosition = defaultPosition;
         RaycastHit hit;
         Vector3 direction = cameraTransform.position - cameraPivot.position;
+        direction.Normalize();
 
         if (Physics.SphereCast(cameraPivot.transform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetPosition), collisionLayers))
         {
             float distance = Vector3.Distance(cameraPivot.position, hit.point);
-            targetPosition = targetPosition - (distance - cameraCollisionOffset);
+            targetPosition =- (distance - cameraCollisionOffset);
         }
 
         if (Mathf.Abs(targetPosition) < minimumCollisionOffset)
@@ -119,12 +116,10 @@ public class CameraTest : MonoBehaviour
         cameraTransform.localPosition = cameraVectorPosition;
     }
 
-    void CameraDistanceCtrl()
+    void ZoomCamera()
     {
-        Camera.main.transform.localPosition += new Vector3(0, 0, Input.GetAxisRaw("Mouse ScrollWheel") * 2.0f); // 휠로 카메라 거리 조절
-        if (-1 < Camera.main.transform.localPosition.z)
-            Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, Camera.main.transform.localPosition.y, -1);  // 카메라 최대 근접 수치
-        else if (Camera.main.transform.localPosition.z < -5)
-            Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, Camera.main.transform.localPosition.y, -5);  // 카메라 최대 먼 수치
+        defaultPosition += Input.GetAxis("Mouse ScrollWheel") * ZoomSensitivity;
+        if (defaultPosition > -3.0f) defaultPosition = -3.0f;
+        if (defaultPosition < -13.0f) defaultPosition = -13.0f;
     }
 }
