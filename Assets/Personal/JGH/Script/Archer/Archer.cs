@@ -60,8 +60,11 @@ public class Archer : Enemy
 
 
 	public delegate void AttackEventHandler();
-	public AttackEventHandler PullStartEvent;
-	public AttackEventHandler PullEndEvent;
+	public AttackEventHandler DrawArrowEvent;
+	public AttackEventHandler HookArrowEvent;
+	public AttackEventHandler StartStringPullEvent;
+	public AttackEventHandler EndStringPullEvent;
+	public AttackEventHandler ShootArrowEvent;
 
 	public override void InitializeState()
 	{
@@ -79,7 +82,7 @@ public class Archer : Enemy
 		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
 
 		fsm[(int)eArcherState.Attack_Rapid] = new Archer_Attack_Rapid();
-		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming();
+		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming(this);
 		fsm[(int)eArcherState.Attack_Melee] = new Archer_Attack_Melee();
 
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
@@ -105,6 +108,10 @@ public class Archer : Enemy
 		}
 
 		bow.rightIndexFingerTr = rightIndexFingerBoneTr;
+
+		HookArrowEvent += bow.HookArrow;
+		StartStringPullEvent += bow.StartStringPull;
+		ShootArrowEvent += bow.ShootArrow;
 	}
 
 	public void EquippedBow()
@@ -174,37 +181,63 @@ public class Archer : Enemy
 		//일단 몰라~ㅋㅋ 문제생길때 고쳐~
 	}
 
+	#region Events
 
 	public void DrawArrow()
 	{
 		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
 
+		arrow.archer = this;
 		arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
 		arrow.target = targetObj;
 		arrow.bowLeverTr = bow.bowLeverTr;
-	}
-	public void PullEnd()
-	{
-		if (PullEndEvent != null)
-		{ PullEndEvent(); }
-	}
 
 
-	public void PullStart()
+		bow.arrow = arrow;
+
+		HookArrowEvent += arrow.Hooking;
+		ShootArrowEvent += arrow.Shoot;
+	}
+
+	public void HookArrow()
 	{
-		if (PullStartEvent != null)
+		if (HookArrowEvent != null)
 		{
-			PullStartEvent();
+			HookArrowEvent();
+		}
+	}
+
+	public void StartStringPull()
+	{
+		if (StartStringPullEvent != null)
+		{
+			StartStringPullEvent();
+		}
+	}
+
+	public void EndStringPull()
+	{
+		if (EndStringPullEvent != null)
+		{
+			EndStringPullEvent();
 		}
 	}
 
     public void ShootArrow()
 	{
-		StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
+		if (ShootArrowEvent != null)
+		{
+			ShootArrowEvent();
+		}
+
+		arrow = null;
+		//StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
 	}
 
 
-    public override void Hit(DamagedStruct dmgStruct)
+	#endregion
+
+	public override void Hit(DamagedStruct dmgStruct)
     {
         base.Hit(dmgStruct);
     }
@@ -230,10 +263,10 @@ public class Archer : Enemy
 	protected override void Start()
 	{
 		base.Start();
-
-		weapon.SetActive(false);
+		
 		SettingBonesTransform();
-
+		Initializebow();
+		weapon.SetActive(false);
 	}
 
 	protected override void Update()

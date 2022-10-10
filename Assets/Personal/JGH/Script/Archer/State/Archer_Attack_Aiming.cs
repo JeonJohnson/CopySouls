@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class Archer_Attack_Aiming : cState
 {
+	public Archer_Attack_Aiming(Enemy script) : base(script)
+	{ //c# 상속에서의 생성자 
+	  //=> :base() 키워드로 재정의 해줘야 자식의 생성자가 호출됨.
+	  //무~~조건 부모 생성자부터 호출되고나서 자식 생성자 호출됨
+		if (archer == null)
+		{
+			archer = me.GetComponent<Archer>();
+
+			if (archer.StartStringPullEvent == null)
+			{//이거 나중에 cState 생성자 만들거나 Initialize에서 쓸 수 있도록
+				archer.StartStringPullEvent += PullStart;
+				archer.EndStringPullEvent += PullEnd;
+			}
+		}
+
+		//aimingCoroutine = AimingCoroutine();
+		//aimingCoroutine.
+	}
+
 	Archer archer = null;
 
 	//여기서도
@@ -17,35 +36,88 @@ public class Archer_Attack_Aiming : cState
 
 	// aiming 패턴에서 드로우 시간은 고정으로 하고 에이밍 시간을 랜덤으로 가자
 
-	public float aimingTime;
+	public float curAimingTime = 0f;
+	public float maxAimingTime;
 
-	public float drawTime;
-	public float archerDrawAnimSpd;
-	public float bowDrawAnimSpd;
+	public float stringPullTime;
+	public float archerPullAnimSpd;
+	public float bowPullAnimSpd;
 
-	public bool isHook = false;
+	public IEnumerator aimingCoroutine = null;
+	//public bool isHook = false;
 
 	public void PullStart()
 	{
-		archer.bow.animCtrl.SetFloat("fPullSpd", bowDrawAnimSpd);
-		archer.bow.animCtrl.SetTrigger("tPull");
-
-		isHook = true;
+		archer.animCtrl.SetFloat("fDrawSpd", archerPullAnimSpd);
 	}
+
+	public void PullEnd()
+	{
+		CoroutineHelper.Instance.StartCoroutine(AimingCoroutine());
+	}
+
+	//public void PullEnd()
+
+	public IEnumerator AimingCoroutine()
+	{
+		//굳이 코루틴으로 할 필요가? 중간에 화살 발사하는 다른 조건도 생길 수 도 있는디
+		//	중간에 플레이어가 갑작스럽게 가까이 오거나,
+		//뭐 다른 조건들도 생길 수 있음.	
+		aimingCoroutine = AimingCoroutine();
+
+		while (curAimingTime >= maxAimingTime)
+		{
+			curAimingTime += Time.deltaTime;
+
+			//여기 다른 조건 적으면 되지 ㅎㅎ;
+
+			yield return null;
+		}
+
+		curAimingTime = 0f;
+		archer.animCtrl.SetTrigger("tShootArrow");
+		aimingCoroutine = null;
+	}
+
+	//public void Aiming()
+	//{
+	//	if (curAimingTime >= maxAimingTime)
+	//	{ 
+	//	}
+	//}
 
 	public void CalcDrawSpd()
 	{
-		drawTime = 5f;
-		//유닛 드로우 애니메이션 기본 1초
-		//보우 드로우 애니메이션 기본 0.4초
-		//기본 시간 기준 드로우 애니메이션 속도 0.25
-		archerDrawAnimSpd = 1f / drawTime;
-		bowDrawAnimSpd = 0.25f / drawTime;
-		
-		archer.animCtrl.SetFloat("fDrawSpd", archerDrawAnimSpd);
+		stringPullTime = 4f;
 
-		Debug.Log(bowDrawAnimSpd);
-		aimingTime = Random.Range(0.5f, 2f);
+		//시위 당기는건 Draw 애니메이션 20~30프레임 (10프레임, 0.3초)
+		//+ Aiming 애니메이션 0~111프레임 (111프레임, 3.7초)
+		//약 120프레임, 4초
+
+		//1초만에 할려면 spd 4/1;
+		//2초만에 할려면 spd 4/2;
+		//3초만에 할려면 spd 4/3;
+		//4초 만에 할려면 spd 4/4;
+
+		archerPullAnimSpd = 4f / stringPullTime;
+
+		//Bow 시위 당겨지는 애니메이션 5.5프레임부터 13프레임 (0.25초)
+		//0.25초 동안 재생 하려면 spd 1
+		//0.5초 동안 하려면 spd 1/2
+		//1초 동안 하려면 spd 1/4
+		//2초 동안 하려면 spd 1/8
+		//4초 동안 하려면 spd 1/16	
+
+		bowPullAnimSpd = 1f / (stringPullTime * 4f);
+
+		
+		archer.bow.pullAnimSpd = bowPullAnimSpd;
+			
+		//archerPullAnimSpd = 1f / stringPullTime;
+		//bowPullAnimSpd = 0.25f / (drawTime*2f);
+
+		//archer.animCtrl.SetFloat("fDrawSpd", archerDrawAnimSpd);
+		//archer.bow.drawAnimSpd = bowDrawAnimSpd;
 	}
 
 	public override void EnterState(Enemy script)
@@ -55,52 +127,36 @@ public class Archer_Attack_Aiming : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		if (archer.PullStartEvent == null)
-		{//이거 나중에 cState 생성자 만들거나 Initialize에서 쓸 수 있도록
-			archer.PullStartEvent += PullStart;
-		}
-
 		me.isCombat = true;
 
-		me.animCtrl.SetTrigger("tAttack");
-
 		CalcDrawSpd();
+
+		maxAimingTime = Random.Range(0.5f, 2f);
 		
-		
+		me.animCtrl.SetTrigger("tAttack");
 	}
 
 	public override void UpdateState()
 	{
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
         archer.ActingLegWhileTurn();
+		
+		
 
-		//archer.bowString.transform.position = archer.rightHand.transform.position;
-
-
-		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shot"))
-		{
+		//if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shot"))
+		//{
 			
-		}
+		//}
 	}
 
 	public override void LateUpdateState()
 	{
 		base.LateUpdateState();
 
-		//Vector3 UpperDir = me.targetObj.transform.position - testSpineTr.position;
-		//UpperDir.Normalize();
-		////testSpineTr.LookAt(me.targetObj.transform.position);
-		//testSpineTr.forward = -UpperDir;
-		////testSpineTr.rotation = testSpineTr.rotation * Quaternion.Euler(new Vector3(359.621338f, 187.739853f, 197.663208f));
-		//testSpineTr.rotation = testSpineTr.rotation * Quaternion.Euler(0f,0,-90f);
 
 		me.LookAtSpecificBone(archer.spineBoneTr, me.targetObj.transform, Enums.eGizmoDirection.Back, new Vector3(0f,0f,-90f));
-
-		//headTr.forward = me.targetObj.transform.position - headTr.position;
 		me.LookAtSpecificBone(archer.headBoneTr, me.targetObj.transform, Enums.eGizmoDirection.Foward);
 
-		if (isHook)
-		{ archer.bow.stringTr.position = archer.rightIndexFingerBoneTr.position; }
 	}
 	public override void ExitState()
 	{

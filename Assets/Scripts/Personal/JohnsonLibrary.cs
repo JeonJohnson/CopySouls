@@ -443,6 +443,7 @@ namespace Enums
 	{
 		//Bow,
 		Arrow,
+		Arrow_Static,
 		End
 	}
 
@@ -518,11 +519,21 @@ namespace Enums
 
 	public enum eWeaponType
 	{
+		//한손검
+		//두손검
+		//활
+		//방패
+		//마법 촉매
         Melee,
         Range,
         Magic,
         End
     }
+
+	public enum eMeleeDmgType
+	{ 
+	
+	}
 
 
 	public enum ePlayerState
@@ -603,42 +614,14 @@ namespace Structs
 	public struct WeaponStatus
 	{
 
-		//public string name;
+		public string name;
 		//public Enums.eWeaponName eName;
 
-		//public Enums.eWeaponType type;
+		public Enums.eWeaponType type;
 		//public Enums.eWeaponSlot slot;
-		//public Enums.eWeaponFireMode fireMode;//단발,연발 
 
-		//public float zoomX; //줌배율 (fov 줄일꺼)
-
-		//public int fullMag;
-		//public int curMag;
-
-		//public int fullRound;
-		//public int curRound; //현재 총알
-
-		//public int roundCount; //한번 발사시 나가는 총알 개수(샷건용)
-
-
-		//public float accuracy; //명중률
-
-		//public float recoil;
-
-		//public float rpm; // round per minute
-
-		//public float curRapidTime;
-		//public float fullRapidTime;
-
-		//public float dmg; //발당 뎀쥐
-		//public float dmg2; //특수공격 뎀쥐
-
-		//public float reloadSpd; //기본적으로 애니메이션 따라가는데 직업마다 속도 배속다르게
-		//						////Default Status////
-
-		//public int price;
-		//public int bulletPrice;
-
+		public float range;
+		public float price;
 	}
 
 

@@ -6,46 +6,43 @@ public class Bow : MonoBehaviour
 {
     public Arrow arrow;
 
-    public Transform bowLeverTr;
+    public Transform bowLeverTr;//활 거는 부분
     //public GameObject bowString;
     public Transform rightIndexFingerTr;
     public Transform stringTr;
 
     public bool isHook;
-
-    //public Vector3 stringOriginPos;
+    public bool isPull;
 
     public Animator animCtrl;
+    public float pullAnimSpd;
 
-	//public void DrawArrow()
- //   {
-
- //   }
-
-    public void PullString(float fullTime)
+    public void HookArrow()
     {
+        isHook = true;
 
-    }
 
-    public void ShootingArrow()
-    {
-    
     
     }
 
-    public void ReturnString()
+    public void StartStringPull()
     {
+        isPull = true;
 
+
+        animCtrl.SetFloat("fPullSpd", pullAnimSpd);
+        animCtrl.SetTrigger("tPull");
     }
 
-    public IEnumerator StringReturnCoroutine()
+    public void ShootArrow()
     {
-        
+        isPull = false;
 
+        animCtrl.SetTrigger("tReturn");
 
-        yield return null;
+        arrow = null;
     }
-
+   
 	public void Awake()
 	{
         animCtrl = GetComponent<Animator>();
@@ -67,10 +64,12 @@ public class Bow : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		
-	}
 
-	private void OnEnable()
+        if (isPull)
+        { stringTr.position = rightIndexFingerTr.position; }
+    }
+
+    private void OnEnable()
 	{
 		
 

@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1880692188100032373, guid: 03b288a6d33a9504ab5d7749cd557774, type: 3}
+  - {fileID: 1880692188100032373, guid: a92f6bf3e923b5d47b3e8b02505482f0, type: 3}
 --- !u!4 &441031506
 Transform:
   m_ObjectHideFlags: 0
@@ -792,7 +793,7 @@ GameObject:
   - component: {fileID: 1382725792}
   m_Layer: 9
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -888,7 +889,7 @@ GameObject:
   - component: {fileID: 1403247148}
   m_Layer: 0
   m_Name: TempPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -999,7 +1000,7 @@ GameObject:
   - component: {fileID: 1613426567}
   m_Layer: 9
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1225,7 +1226,7 @@ GameObject:
   - component: {fileID: 1807739522}
   m_Layer: 9
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1385,7 +1386,7 @@ GameObject:
   - component: {fileID: 2114882519}
   m_Layer: 9
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1462,7 +1463,7 @@ Transform:
   m_GameObject: {fileID: 2114882518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
