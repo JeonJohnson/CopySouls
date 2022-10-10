@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +6,16 @@ public class Archer_Attack_Aiming : cState
 {
 	Archer archer = null;
 
-	//¿©±â¼­µµ
-	//1. Á¤ÇØÁø ½Ã°£ Áö³ª¸é ½î´Â ÆĞÅÏ
-	//2. Å¸°ÙÀÇ Æ¯Á¤ Çàµ¿ ÇÒ ¶§ ±îÁö ½î´ÂÆĞÅÏ?
-	//3. 1+2 ÆĞÅÏÀ¸·Î Á¤ÇØÁø ½Ã°£ µ¿¾È ½ò¿¹Á¤ÀÎµ¥ Áß°£¿¡ Æ¯Á¤ Çàµ¿ÇÏ¸é ½î´Â°Å
+	//ì—¬ê¸°ì„œë„
+	//1. ì •í•´ì§„ ì‹œê°„ ì§€ë‚˜ë©´ ì˜ëŠ” íŒ¨í„´
+	//2. íƒ€ê²Ÿì˜ íŠ¹ì • í–‰ë™ í•  ë•Œ ê¹Œì§€ ì˜ëŠ”íŒ¨í„´?
+	//3. 1+2 íŒ¨í„´ìœ¼ë¡œ ì •í•´ì§„ ì‹œê°„ ë™ì•ˆ ì ì˜ˆì •ì¸ë° ì¤‘ê°„ì— íŠ¹ì • í–‰ë™í•˜ë©´ ì˜ëŠ”ê±°
 
-	//¶Ç ÇÏ³ª ´õ 
-	//1. ½î±â Àü±îÁö ½Ã°£À» Á¤ÇÏ°í ºñ·ÊÇØ¼­ µå·Î¿ì ½Ã°£ Á¤ÇÏ±â?
-	//2. µå·Î¿ì½Ã°£Àº ¹«Àû±Ç Á¤ÇØÁ®ÀÖ°í ¿¡ÀÌ¹Ö ½Ã°£À» ·£´ı?
+	//ë˜ í•˜ë‚˜ ë” 
+	//1. ì˜ê¸° ì „ê¹Œì§€ ì‹œê°„ì„ ì •í•˜ê³  ë¹„ë¡€í•´ì„œ ë“œë¡œìš° ì‹œê°„ ì •í•˜ê¸°?
+	//2. ë“œë¡œìš°ì‹œê°„ì€ ë¬´ì ê¶Œ ì •í•´ì ¸ìˆê³  ì—ì´ë° ì‹œê°„ì„ ëœë¤?
 
-	// aiming ÆĞÅÏ¿¡¼­ µå·Î¿ì ½Ã°£Àº °íÁ¤À¸·Î ÇÏ°í ¿¡ÀÌ¹Ö ½Ã°£À» ·£´ıÀ¸·Î °¡ÀÚ
+	// aiming íŒ¨í„´ì—ì„œ ë“œë¡œìš° ì‹œê°„ì€ ê³ ì •ìœ¼ë¡œ í•˜ê³  ì—ì´ë° ì‹œê°„ì„ ëœë¤ìœ¼ë¡œ ê°€ì
 
 	public float aimingTime;
 
@@ -36,12 +36,14 @@ public class Archer_Attack_Aiming : cState
 	public void CalcDrawSpd()
 	{
 		drawTime = 5f;
-		//À¯´Ö µå·Î¿ì ¾Ö´Ï¸ŞÀÌ¼Ç ±âÁ¸ 1ÃÊ
-		//±×·¯¸é º¸¿ì µå·Î¿ì ¾Ö´Ï¸ŞÀÌ¼Ç ±âÁ¸ 0.4ÃÊ
-		//ºñÀ² ¸ÂÃâ·Á¸é *25
-		archerDrawAnimSpd = 1 / drawTime;
+		//ìœ ë‹› ë“œë¡œìš° ì• ë‹ˆë©”ì´ì…˜ ê¸°ë³¸ 1ì´ˆ
+		//ë³´ìš° ë“œë¡œìš° ì• ë‹ˆë©”ì´ì…˜ ê¸°ë³¸ 0.4ì´ˆ
+		//ê¸°ë³¸ ì‹œê°„ ê¸°ì¤€ ë“œë¡œìš° ì• ë‹ˆë©”ì´ì…˜ ì†ë„ 0.25
+		archerDrawAnimSpd = 1f / drawTime;
+		bowDrawAnimSpd = 0.25f / drawTime;
+		
 		archer.animCtrl.SetFloat("fDrawSpd", archerDrawAnimSpd);
-		bowDrawAnimSpd = archerDrawAnimSpd * 0.025f;
+
 		Debug.Log(bowDrawAnimSpd);
 		aimingTime = Random.Range(0.5f, 2f);
 	}
@@ -54,7 +56,7 @@ public class Archer_Attack_Aiming : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 		if (archer.PullStartEvent == null)
-		{//ÀÌ°Å ³ªÁß¿¡ cState »ı¼ºÀÚ ¸¸µé°Å³ª Initialize¿¡¼­ ¾µ ¼ö ÀÖµµ·Ï
+		{//ì´ê±° ë‚˜ì¤‘ì— cState ìƒì„±ì ë§Œë“¤ê±°ë‚˜ Initializeì—ì„œ ì“¸ ìˆ˜ ìˆë„ë¡
 			archer.PullStartEvent += PullStart;
 		}
 
@@ -103,6 +105,7 @@ public class Archer_Attack_Aiming : cState
 	public override void ExitState()
 	{
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
+		//ì´ê²ƒë„ ë‚˜ì¤‘ì— ì½”ë£¨í‹´ìœ¼ë¡œ ìì—°ìŠ¤ëŸ½ê²Œ ëŒì•„ê°€ë„ë¡.
 
 		//archer.bowString.transform.localPosition = archer.bowStringOriginPos;
 	}

@@ -66,15 +66,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9978287
-        functionName: PullEnd
+      - time: 0.5878482
+        functionName: PullStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.55723596
-        functionName: PullStart
+      - time: 0.9978287
+        functionName: PullEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

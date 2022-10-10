@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-
     public Arrow arrow;
 
     public Transform bowLeverTr;
     //public GameObject bowString;
     public Transform rightIndexFingerTr;
     public Transform stringTr;
+
+    public bool isHook;
 
     //public Vector3 stringOriginPos;
 

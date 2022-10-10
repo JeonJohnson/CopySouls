@@ -230,8 +230,8 @@ ModelImporter:
       name: String_Pull
       takeName: Wooden Bow_1|Armature.001Action.003
       internalID: 0
-      firstFrame: 0
-      lastFrame: 12
+      firstFrame: 5.5
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
