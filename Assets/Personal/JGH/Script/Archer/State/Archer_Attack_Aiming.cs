@@ -173,7 +173,11 @@ public class Archer_Attack_Aiming : cState
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
 		//이것도 나중에 코루틴으로 자연스럽게 돌아가도록.
 
-
+		if (archer.arrow != null)
+		{
+			archer.arrow.ResetForReturn();
+			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject, ePoolingObj.Arrow);
+		}
 
 	}
 

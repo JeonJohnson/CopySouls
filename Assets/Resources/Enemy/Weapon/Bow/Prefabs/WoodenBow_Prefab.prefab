@@ -759,8 +759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status:
     name: 
-    type: 0
-    range: 5
+    type: 1
+    range: 20
     price: 0
   arrow: {fileID: 0}
   bowLeverTr: {fileID: 3175390870593408774}

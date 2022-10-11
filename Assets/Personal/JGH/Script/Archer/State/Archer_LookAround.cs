@@ -19,8 +19,8 @@ public class Archer_LookAround: cState
 	{
 		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
 		{
-			archer.UnequippedBow();
-			//me.SetState((int)archer.UnequippedBow);
+			//archer.UnequippedBow();
+			me.SetState((int)Enums.eArcherState.Bow_Unequip);
 		}
 	}
 
