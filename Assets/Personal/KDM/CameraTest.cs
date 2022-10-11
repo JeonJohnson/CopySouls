@@ -59,7 +59,7 @@ public class CameraTest : MonoBehaviour
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        RotateCamera();
+        //RotateCamera();
         HandleCameraCollisions();
     }
     private void FollowTarget()
@@ -70,7 +70,7 @@ public class CameraTest : MonoBehaviour
 
     }
 
-    private void RotateCamera()
+    public void RotateCamera()
     {
         Vector3 rotation;
         Quaternion targetRotation;

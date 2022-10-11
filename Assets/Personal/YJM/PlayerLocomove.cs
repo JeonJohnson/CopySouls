@@ -26,6 +26,7 @@ public class PlayerLocomove : MonoBehaviour
     [SerializeField] GameObject playerModel;
     [SerializeField] Transform cameraArm;
     [SerializeField] Transform headPos;
+    [SerializeField] CameraTest cameraManager;
 
     #region singletone
     /// <singletone>    
@@ -147,7 +148,8 @@ public class PlayerLocomove : MonoBehaviour
         }
         else
         {
-            CameraRot();
+            //CameraRot();
+            cameraManager.RotateCamera();
         }
     }
 
@@ -160,6 +162,9 @@ public class PlayerLocomove : MonoBehaviour
         xRot = cameraArm.transform.eulerAngles.y;
         yRot = cameraArm.transform.eulerAngles.z;
         yRot = Mathf.Clamp(yRot, -90, 90);
+        cameraManager.lookAngle = cameraArm.transform.eulerAngles.y;
+        cameraManager.pivotAngle = cameraArm.transform.localEulerAngles.z;
+        print(cameraManager.pivotAngle);
     }
 
     void CameraRot()
