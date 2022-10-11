@@ -12,7 +12,7 @@ public class Player_Atk : Player_cState
     }
     public override void UpdateState()
     {
-        PlayerLocomove.instance.PlayerControlCam();
+
     }
     public override void ExitState()
     {

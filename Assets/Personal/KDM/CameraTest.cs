@@ -59,7 +59,7 @@ public class CameraTest : MonoBehaviour
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        RotateCamera();
+        //RotateCamera();
         HandleCameraCollisions();
     }
     private void FollowTarget()
@@ -67,10 +67,9 @@ public class CameraTest : MonoBehaviour
         Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelocity, cameraFollowSpeed);
 
         transform.position = targetPosition;
-
     }
 
-    private void RotateCamera()
+    public void RotateCamera()
     {
         Vector3 rotation;
         Quaternion targetRotation;

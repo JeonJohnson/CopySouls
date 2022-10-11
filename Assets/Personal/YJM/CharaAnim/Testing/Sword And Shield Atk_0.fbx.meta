@@ -59,13 +59,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.85953176
-        functionName: ComboAttackCheck
-        data: 
-        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.38
         functionName: EnableWeaponMeshCol
         data: 
@@ -75,6 +68,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.536
         functionName: EnableWeaponMeshCol
+        data: 
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6430139
+        functionName: ComboAttackCheck
         data: 
         objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
         floatParameter: 0
