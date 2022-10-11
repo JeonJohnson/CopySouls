@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
+
 public class Archer_Attack_Aiming : cState
 {
 	public Archer_Attack_Aiming(Enemy script) : base(script)
@@ -44,6 +46,9 @@ public class Archer_Attack_Aiming : cState
 	public float bowPullAnimSpd;
 
 	public IEnumerator aimingCoroutine = null;
+
+
+	//public int delayFrame = 0;
 	//public bool isHook = false;
 
 	public void PullStart()
@@ -78,13 +83,6 @@ public class Archer_Attack_Aiming : cState
 		archer.animCtrl.SetTrigger("tShootArrow");
 		aimingCoroutine = null;
 	}
-
-	//public void Aiming()
-	//{
-	//	if (curAimingTime >= maxAimingTime)
-	//	{ 
-	//	}
-	//}
 
 	public void CalcDrawSpd()
 	{
@@ -134,20 +132,32 @@ public class Archer_Attack_Aiming : cState
 		maxAimingTime = Random.Range(0.5f, 2f);
 		
 		me.animCtrl.SetTrigger("tAttack");
+
+		//delayFrame = 0;
 	}
 
 	public override void UpdateState()
 	{
+		
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
         archer.ActingLegWhileTurn();
-		
-		
 
-		//if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shot"))
-		//{
-			
-		//}
-	}
+        if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shoot"))
+        {
+			eArcherState nextState =  archer.Think(archer.curState_e);
+			if (nextState == archer.curState_e)
+			{
+				me.RestartCurState();
+				//이러고 바로 enter들어왔따가 해당 프레임에 바로 Update들어와서
+				//애니메이션 끝난거 맞으니까 다시 Update 들어와서 활 2번뽑음. ㅋㅋ;
+			}
+			else
+			{
+				me.SetState((int)nextState);
+			}
+
+        }
+    }
 
 	public override void LateUpdateState()
 	{
@@ -163,7 +173,8 @@ public class Archer_Attack_Aiming : cState
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
 		//이것도 나중에 코루틴으로 자연스럽게 돌아가도록.
 
-		//archer.bowString.transform.localPosition = archer.bowStringOriginPos;
+
+
 	}
 
 }

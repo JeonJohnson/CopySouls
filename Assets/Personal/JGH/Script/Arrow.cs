@@ -5,30 +5,22 @@ using UnityEngine;
 public class Arrow : MonoBehaviour, IPoolingObject
 {
     public Archer archer;
+
+    public Rigidbody rd;
     
     public Transform rightIndexFingerBoneTr;
     public Transform bowLeverTr;
-
-    
-    public Rigidbody rd;
-    public Vector3 massPivot;
-    
-    public GameObject head;
-    
-    
+    public GameObject arrowHead;
 
     public float maxRange;
     public float spd;// m/s 
 
     public GameObject target;
-    public Vector3 destPos;
 
     public Vector3 straightDir;
     public Quaternion beginAngle;
     public Quaternion endAngle;
-    float curveTime = 0f;
-    public Vector3 curveDir;
-    public float mileage;
+    public float mileage = 0f;
 
     public float time = 0;
     public float fullTime = 10f;
@@ -36,9 +28,6 @@ public class Arrow : MonoBehaviour, IPoolingObject
     public bool isShoot = false;
     public bool isHook = false;
 
-    //public GameObject stuckObj;
-    //public Vector3 stuckPos;
-    //public bool isStuck = false;
 
 
     public void ResetForReturn()
@@ -54,7 +43,6 @@ public class Arrow : MonoBehaviour, IPoolingObject
         target = null;
 
         mileage = 0f;
-        curveTime = 0f;
 
         isShoot = false;
         isHook = false;
@@ -63,7 +51,6 @@ public class Arrow : MonoBehaviour, IPoolingObject
         archer.HookArrowEvent -= Hooking;
         archer.ShootArrowEvent -= Shoot;
         archer = null;
-
     }
 
 
@@ -71,30 +58,23 @@ public class Arrow : MonoBehaviour, IPoolingObject
     public void Hooking()
     {
         isHook = true;
-    
     }
 
     public void Shoot()
     {
         isHook = false;
+        isShoot = true;
 
-
-        //transform.LookAt(target.transform);
-        //float angle = Vector3.Angle(head.transform.position, target.transform.position);
-        Vector3 destPos = target.transform.position;
-        //Vector3 vel = GetVelocity(head.transform.position, destPos, angle);
-
-        straightDir = (target.transform.position - head.transform.position).normalized;
-        //Vector3 dir = (target.transform.position - head.transform.position).normalized;
-        //rd.velocity = dir * spd;
-        //rd.AddForce(dir/**spd*/, ForceMode.Impulse);
+        straightDir = (target.transform.position - arrowHead.transform.position).normalized;
+      
         StartCoroutine(AliveCoroutine());
     }
 
+    #region test
     //public Vector3 GetVelocity(Vector3 beginPos, Vector3 destPos, float beginAngle)
     //{
     //      이거 지금 싀~~발 가끔 Nan~~ 값 나옴.
-            //아마 삼각함수 쪽에서 뭐 문제 생긴거 같은데 일단 패스.
+    //아마 삼각함수 쪽에서 뭐 문제 생긴거 같은데 일단 패스.
     //    float gravity = Physics.gravity.magnitude;
     //    float angle = beginAngle * Mathf.Deg2Rad;
 
@@ -113,46 +93,32 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
     //    return finalVelocity;
     //}
-
+    #endregion
 
 
     public IEnumerator AliveCoroutine()
     {
-        
-        isShoot = true;
-
         while (time < fullTime)
         {
             time += Time.deltaTime;
-            //transform.position += transform.forward * Time.deltaTime * spd;
 
             yield return null;
         }
 
         ResetForReturn();
         ObjectPoolingCenter.Instance.ReturnObj(this.gameObject, Enums.ePoolingObj.Arrow);
-        //ResetForReturn();
     }
-
-    public void MoveCoroutine()
-    { 
-        
-    
-    
-    }
-
 
     public void Awake()
     {
-        //StartCoroutine(AliveCouroutine());
         rd = GetComponent<Rigidbody>();
-        rd.centerOfMass = massPivot;
+
+        if (arrowHead == null)
+        { 
+            arrowHead = Funcs.FindGameObjectInChildrenByName(this.gameObject,"arrowhead");
+        }
     }
 
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -166,42 +132,29 @@ public class Arrow : MonoBehaviour, IPoolingObject
         if (isShoot)
         {
             mileage += spd * Time.deltaTime;
-   
         }
-
-
        
 	}
 
 	public void FixedUpdate()
 	{
-        //Vector3 lookDir = destPos - head.transform.position;
-        //transform.rotation = Quaternion.LookRotation(lookDir);
-
         if (isShoot)
         {
             if (mileage < maxRange)
             {
-                //float angle = Mathf.Atan2(transform.up, transform.forward) * Mathf.Rad2Deg;
-                rd.MovePosition(transform.position + (straightDir * spd * Time.deltaTime));
-
                 //rd.MovePosition(transform.position + (transform.forward * spd * Time.deltaTime));
-                beginAngle = transform.rotation;
-                endAngle = Quaternion.AngleAxis(90f, transform.right);
+                rd.MovePosition(transform.position + (straightDir * spd * Time.deltaTime));
                 
-                //endAngle = transform.Rotate()
-                //Quaternion.ro
+                //나중에 요거 한번만 호출되도록 하기 
+                beginAngle = transform.rotation;
+                endAngle = Quaternion.AngleAxis(90f, Vector3.right);
+                //나중에 요거 한번만 호출되도록 하기 
             }
             else 
             {
-                curveTime += Time.deltaTime;
-                //transform.rotation = Quaternion.Lerp(beginAngle, endAngle, curveTime *0.2f);
-                transform.rotation = Quaternion.Lerp(transform.rotation, endAngle, Time.deltaTime * 9.8f);
-                
+                transform.rotation = Quaternion.Lerp(transform.rotation, endAngle, Time.deltaTime * 4f);
                 rd.MovePosition(transform.position + (transform.forward * spd * Time.deltaTime));
             }
-
-
         }
     }
 
@@ -210,22 +163,21 @@ public class Arrow : MonoBehaviour, IPoolingObject
         
     }
 
-	private void OnDrawGizmos()
-	{
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.black;
         if (target != null)
         {
             Gizmos.DrawLine(transform.position, target.transform.position);
-
-            Gizmos.DrawLine(head.transform.position, target.transform.position);
+            Gizmos.DrawLine(arrowHead.transform.position, target.transform.position);
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position + (transform.rotation * massPivot), 0.1f);
+        Gizmos.DrawSphere(transform.position + (transform.rotation * new Vector3(0f,0f,1f)), 0.075f);
 
     }
 
-	private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
 	{
         if (isShoot
             && (other.CompareTag("Player") || other.CompareTag("Environment")))
@@ -235,16 +187,11 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
             staticArrow.transform.position = transform.position;
             staticArrow.transform.rotation = transform.rotation;
-
             staticArrow.transform.SetParent(other.gameObject.transform);
 
 
             ResetForReturn();
             ObjectPoolingCenter.Instance.ReturnObj(this.gameObject, Enums.ePoolingObj.Arrow);
-            //박히는건 그냥 static 하나 가지고 와서 자식 오브젝트로 넣으면 될듯 일단 패스
-            //rd.velocity = Vector3.zero;
-            ////rd.useGravity 
-            //rd.isKinematic = true;
         }
 
         

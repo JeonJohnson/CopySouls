@@ -506,6 +506,7 @@ namespace Enums
 		Walk_Patrol,
 		Walk_Careful,
 		Walk_Aiming,
+		LookAround,
 		Runaway,
 		Attack_Rapid,
 		Attack_Aiming,
@@ -592,6 +593,8 @@ namespace Structs
 
 		public float moveSpd;
 		public float runSpd;
+
+		public float moveMileage;//어그로 빼기위한 최대 이동 거리
 
 		public float atkRange;
 		public float patrolRange;

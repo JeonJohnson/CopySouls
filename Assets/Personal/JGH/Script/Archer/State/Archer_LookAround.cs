@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer_BowUnequip : cState
+public class Archer_LookAround: cState
 {
 	Archer archer = null;
 	public override void EnterState(Enemy script)
@@ -11,27 +11,22 @@ public class Archer_BowUnequip : cState
 
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
-		
-		me.animCtrl.SetTrigger("tUnequip");
 
-		me.weapon.SetActive(false);
-		
+
+		me.animCtrl.SetTrigger("tLookAround");
 	}
 	public override void UpdateState()
 	{
-		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Unequip"))
+		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
 		{
-			if (archer.isEquip)
-			{
-				archer.isEquip = false;
-			}
-
-			me.SetState((int)archer.defaultPattern);
+			archer.UnequippedBow();
+			//me.SetState((int)archer.UnequippedBow);
 		}
 	}
 
 	public override void ExitState()
 	{
+
 	}
 
 }

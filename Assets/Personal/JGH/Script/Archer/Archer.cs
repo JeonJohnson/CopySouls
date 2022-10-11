@@ -56,6 +56,8 @@ public class Archer : Enemy
 	public Bow bow;
 	public Arrow arrow;
 
+	public eArcherState defaultPattern;
+
 	public eArcherState curState_e;
 
 
@@ -78,19 +80,23 @@ public class Archer : Enemy
 		fsm[(int)eArcherState.Walk_Patrol] = new Archer_Walk_Patrol();
 		fsm[(int)eArcherState.Walk_Careful] = new Archer_Walk_Careful();
 		fsm[(int)eArcherState.Walk_Aiming] = new Archer_Walk_Aiming();
-		
+
+		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
+
 		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
 
 		fsm[(int)eArcherState.Attack_Rapid] = new Archer_Attack_Rapid();
 		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming(this);
 		fsm[(int)eArcherState.Attack_Melee] = new Archer_Attack_Melee();
 
+        
+
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
 
 		fsm[(int)eArcherState.Death] = new Archer_Death();
 
 
-		SetState((int)eArcherState.Idle);
+		SetState((int)defaultPattern);
 	}
 
 	public void SettingBonesTransform()
@@ -181,9 +187,41 @@ public class Archer : Enemy
 		//일단 몰라~ㅋㅋ 문제생길때 고쳐~
 	}
 
-	#region Events
 
-	public void DrawArrow()
+
+    public eArcherState Think(eArcherState curState)
+    {
+
+		eArcherState returnState = eArcherState.End;
+
+        switch (curState)
+        {
+            case eArcherState.Attack_Rapid:
+            case eArcherState.Attack_Aiming:
+                {
+					if (distToTarget >= status.ricognitionRange
+						|| !isAlert)
+					{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
+						returnState = eArcherState.LookAround;
+					}
+					else
+					{
+						returnState = eArcherState.Attack_Aiming;
+					}
+                }
+				break;
+            case eArcherState.Attack_Melee:
+                break;
+            default:
+                break;
+        }
+
+		return returnState;
+    }
+
+    #region Events
+
+    public void DrawArrow()
 	{
 		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
 
@@ -246,7 +284,6 @@ public class Archer : Enemy
     //{
 
     //}
-
 
     protected override void Awake()
 	{

@@ -392,6 +392,32 @@ public abstract class Enemy : MonoBehaviour
         curState.EnterState(this);
     }
 
+    public void RestartCurState()
+    {
+        curState.ExitState();
+
+        preState = curState;
+        
+        int curIndex = System.Array.IndexOf(fsm, curState);
+        preState_i = curIndex;
+
+        curState.EnterState(this);
+    }
+
+    //public IEnumerator DelaySetState(float delayTime, eArcherState state)
+    //{
+    //    float time = 0f;
+    //    while (time <= delayTime)
+    //    {
+    //        time += Time.deltaTime;
+
+    //        yield return null;
+    //    }
+
+
+    //}
+
+
     public void stop()
     {
         StopAllCoroutines();
