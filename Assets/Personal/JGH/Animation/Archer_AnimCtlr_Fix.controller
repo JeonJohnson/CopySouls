@@ -600,7 +600,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Archer_AnimCtlr
+  m_Name: Archer_AnimCtlr_Fix
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: tEquip

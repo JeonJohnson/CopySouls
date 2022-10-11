@@ -31,15 +31,7 @@ public class Archer_Walk_Careful : cState
 
 		if (me.distToTarget <= me.status.atkRange + offsetRange)
 		{
-			int atkRandom = Random.Range(0, 1);
-			if (atkRandom == 0)
-			{
-				me.SetState((int)Enums.eArcherState.Attack_Aiming);
-			}
-			else 
-			{
-				me.SetState((int)Enums.eArcherState.Attack_Rapid);
-			}
+			archer.RandomAttack();
 		}
 		
 	}

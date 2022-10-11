@@ -130,6 +130,20 @@ public class Archer : Enemy
 		SetState((int)eArcherState.Bow_Unequip);
 	}
 
+	public void RandomAttack()
+	{
+		int atkRandom = UnityEngine.Random.Range(0, 1);
+		if (atkRandom == 0)
+		{
+			SetState((int)Enums.eArcherState.Attack_Aiming);
+		}
+		else
+		{
+			SetState((int)Enums.eArcherState.Attack_Rapid);
+		}
+
+	}
+
     public void ActingLegWhileTurn()
     {
 		//코루틴보다 일단 걍 함수로 필요할때 호출하기

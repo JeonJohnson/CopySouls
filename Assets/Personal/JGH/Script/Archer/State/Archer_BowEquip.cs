@@ -38,6 +38,10 @@ public class Archer_BowEquip : cState
 				{
 					me.SetState((int)eArcherState.Walk_Careful);
 				}
+				else 
+				{
+					archer.RandomAttack();
+				}
 			}
 			else
 			{
