@@ -7,6 +7,7 @@ public class Player_Idle : Player_cState
     public override void EnterState(Player script)
     {
         base.EnterState(script);
+        PlayerLocomove.instance.ResetValue();
     }
     public override void UpdateState()
     {

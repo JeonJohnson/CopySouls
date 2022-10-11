@@ -18,14 +18,11 @@ public class PlayerLocomove : MonoBehaviour
 
     [Range(1, 300)] public float mouseSensitivity = 70;
 
-    float rotSpeed;
-    float xRot;
-    float yRot;
-    float curSpeed = 0f;
+    public float curSpeed = 0f;
 
     [SerializeField] GameObject playerModel;
     [SerializeField] Transform cameraArm;
-    [SerializeField] Transform headPos;
+    //[SerializeField] Transform headPos;
     [SerializeField] CameraTest cameraManager;
 
     #region singletone
@@ -65,6 +62,7 @@ public class PlayerLocomove : MonoBehaviour
 
     public void Move()
     {
+        SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         isMove = moveInput.magnitude != 0;
@@ -78,11 +76,11 @@ public class PlayerLocomove : MonoBehaviour
         }
         else
         {
+            ResetValue();
             Player.instance.SetState(Enums.ePlayerState.Idle);
         }
 
         playerModel.transform.position = this.transform.position;
-        SprintInput();
         SetPlayerTrInputHold();
     }
 
@@ -159,24 +157,8 @@ public class PlayerLocomove : MonoBehaviour
         lookDir.y = 0f;
 
         cameraArm.transform.forward = Vector3.Slerp(cameraArm.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
-        xRot = cameraArm.transform.eulerAngles.y;
-        yRot = cameraArm.transform.eulerAngles.z;
-        yRot = Mathf.Clamp(yRot, -90, 90);
         cameraManager.lookAngle = cameraArm.transform.eulerAngles.y;
         cameraManager.pivotAngle = cameraArm.transform.localEulerAngles.z;
-        print(cameraManager.pivotAngle);
-    }
-
-    void CameraRot()
-    {
-        rotSpeed = mouseSensitivity;
-        float h = Input.GetAxis("Mouse X");
-        float v = Input.GetAxis("Mouse Y");
-
-        xRot += h * rotSpeed;
-        yRot += v * rotSpeed;
-        yRot = Mathf.Clamp(yRot, -90, 90);
-        cameraArm.transform.eulerAngles = new Vector3(-yRot, xRot, 0);
     }
 
     public void ResetValue()
@@ -185,16 +167,12 @@ public class PlayerLocomove : MonoBehaviour
         Player.instance.animator.SetFloat("MoveSpeed", 0f);
     }
 
-    public void PlayerControlCam()
-    {
-        cameraArm.transform.position = headPos.transform.position;
-    }
 
     public void PlayerPosFix()
     {
         transform.position = playerModel.transform.position;
         playerModel.transform.localPosition = Vector3.zero;
-        cameraArm.transform.localPosition = headPos.transform.localPosition;
+        //cameraArm.transform.localPosition = headPos.transform.localPosition;
     }
 
     public void SetPlayerTrImt()
@@ -266,13 +244,13 @@ public class PlayerLocomove : MonoBehaviour
         }
         else
         {
-                inputTimer = 0.2f;
+            inputTimer = 0.2f;
         }
     }
 
     IEnumerator SetPlayerTr()
     {
-        float _timer = 0.2f;
+        float _timer = 0.15f;
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
         Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;

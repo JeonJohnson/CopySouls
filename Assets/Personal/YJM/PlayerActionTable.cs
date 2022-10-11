@@ -144,7 +144,7 @@ public class PlayerActionTable : MonoBehaviour
     bool isNextComboInput = false;
     IEnumerator ComboInput()
     {
-        _timer = 0.2f;
+        _timer = 0.4f;
         isPlaying = true;
 
         while (_timer > 0 && isPlaying)
@@ -152,22 +152,17 @@ public class PlayerActionTable : MonoBehaviour
             _timer -= Time.deltaTime;
             if (Input.GetButtonDown("Fire1"))
             {
-                isNextComboInput = true;
+                print("getComboInput");
+                WeakAttack();
+                yield break;
             }
             yield return null;
 
             if (_timer <= 0)
             {
-                if (isNextComboInput == true)
-                {
-                    WeakAttack();
-                    isNextComboInput = false;
-                }
-                else
-                {
-                    combo = 0;
-                    SetPlayerStatus(0);
-                }
+                combo = 0;
+                print("SetPlayerStatus 0");
+                SetPlayerStatus(0);
             }
         }
         #region

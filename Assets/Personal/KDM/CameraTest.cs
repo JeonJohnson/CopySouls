@@ -67,7 +67,6 @@ public class CameraTest : MonoBehaviour
         Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position, ref cameraFollowVelocity, cameraFollowSpeed);
 
         transform.position = targetPosition;
-
     }
 
     public void RotateCamera()
