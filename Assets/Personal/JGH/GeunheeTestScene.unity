@@ -432,6 +432,9 @@ MonoBehaviour:
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
   CoolTime: 0
+  fovCheckLayer:
+    serializedVersion: 2
+    m_Bits: 0
   fovStruct:
     fovAngle: 0
     LeftDir: {x: 0, y: 0, z: 0}
@@ -1525,17 +1528,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1382911637680985912, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: a7fe301bdbcdda94ca39b9569cbc1040, type: 2}
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
       propertyPath: targetObj
       value: 
       objectReference: {fileID: 1403247147}
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
-      propertyPath: defaultPattern
-      value: 3
+      propertyPath: fovCheckLayer.m_Bits
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
+      propertyPath: fovExceptionLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}

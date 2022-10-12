@@ -17,6 +17,12 @@ public class Archer_LookAround: cState
 	}
 	public override void UpdateState()
 	{
+		if (archer.CheckTargetInFov())
+		{
+			//me.animCtrl.SetTrigger("tAttack");
+			archer.RandomAttack();
+		}
+
 		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
 		{
 			//archer.UnequippedBow();
@@ -26,7 +32,7 @@ public class Archer_LookAround: cState
 
 	public override void ExitState()
 	{
-
+		me.isAlert = false;
 	}
 
 }

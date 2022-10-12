@@ -31,6 +31,7 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
 
+    public LayerMask fovCheckLayer;
 
     //// Events
     //public delegate void Al
@@ -275,6 +276,8 @@ public abstract class Enemy : MonoBehaviour
     {
         //22 10 02 fin, 설명해주기
 
+        //지금 요 함수로는 
+
         Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
         if (hitObjs.Length == 0)
@@ -291,7 +294,6 @@ public abstract class Enemy : MonoBehaviour
         {
             if (col.gameObject != targetObj)
             {
-
                 continue;
             }
 
@@ -300,10 +302,10 @@ public abstract class Enemy : MonoBehaviour
             float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
             
-            int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
+            //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
             
             if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
-                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, layerMask))
+                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovCheckLayer))
             {
                 if (!isAlert)
                 {
@@ -465,7 +467,7 @@ public abstract class Enemy : MonoBehaviour
         CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);
-        isAlert = CheckTargetInFov();
+        //isAlert = CheckTargetInFov();
 
         curState.UpdateState();
 

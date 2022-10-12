@@ -214,7 +214,7 @@ public class Archer : Enemy
             case eArcherState.Attack_Aiming:
                 {
 					if (distToTarget >= status.ricognitionRange
-						|| !isAlert)
+						|| !CheckTargetInFov())
 					{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
 						returnState = eArcherState.LookAround;
 					}

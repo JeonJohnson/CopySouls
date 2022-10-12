@@ -138,9 +138,14 @@ public class Archer_Attack_Aiming : cState
 
 	public override void UpdateState()
 	{
-		
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
         archer.ActingLegWhileTurn();
+
+		//if (!archer.CheckTargetInFov())
+		//{
+		//	me.SetState((int)eArcherState.LookAround);
+		//}
+
 
         if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shoot"))
         {
@@ -179,6 +184,7 @@ public class Archer_Attack_Aiming : cState
 			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject, ePoolingObj.Arrow);
 		}
 
+		me.isCombat = false;
 	}
 
 }

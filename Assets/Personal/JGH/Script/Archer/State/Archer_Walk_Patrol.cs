@@ -90,8 +90,8 @@ public class Archer_Walk_Patrol : cState
 		CheckNextDest(curDest);
 
 		//archer.EquipWeapon();
+		me.CheckTargetInFov();
 
-		
 	}
 
 	public override void ExitState()

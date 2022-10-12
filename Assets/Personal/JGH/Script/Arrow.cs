@@ -66,7 +66,9 @@ public class Arrow : MonoBehaviour, IPoolingObject
         isShoot = true;
 
         straightDir = (target.transform.position - arrowHead.transform.position).normalized;
-      
+        transform.forward = straightDir;
+
+
         StartCoroutine(AliveCoroutine());
     }
 

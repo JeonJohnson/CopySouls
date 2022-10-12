@@ -14,9 +14,15 @@ public class Archer_BowEquip : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
+
+		if (archer.isEquip)
+		{ return; }
+
 		me.animCtrl.SetTrigger("tEquip");
 		me.weapon.SetActive(true);
+	
 		
+
 	}
 
 	public override void UpdateState()

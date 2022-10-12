@@ -957,7 +957,7 @@ Animator:
   m_GameObject: {fileID: 1382911637671490830}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: fd8f39746b4b1344cbbc6fee17aceb74, type: 2}
+  m_Controller: {fileID: 9100000, guid: a7fe301bdbcdda94ca39b9569cbc1040, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -990,6 +990,7 @@ MonoBehaviour:
     curMp: 0
     moveSpd: 2
     runSpd: 5
+    moveMileage: 0
     atkRange: 6
     patrolRange: 0
     ricognitionRange: 10
@@ -1004,6 +1005,9 @@ MonoBehaviour:
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
   CoolTime: 0
+  fovCheckLayer:
+    serializedVersion: 2
+    m_Bits: 576
   fovStruct:
     fovAngle: 0
     LeftDir: {x: 0, y: 0, z: 0}
@@ -1026,6 +1030,7 @@ MonoBehaviour:
   bowPrefab: {fileID: 0}
   bow: {fileID: 5433808168865171196}
   arrow: {fileID: 0}
+  defaultPattern: 3
   curState_e: 0
 --- !u!54 &862662284
 Rigidbody:
