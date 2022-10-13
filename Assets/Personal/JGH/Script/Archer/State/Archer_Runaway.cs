@@ -16,6 +16,10 @@ public class Archer_Runaway : cState
 	}
 	public override void UpdateState()
 	{
+		if (!archer.CheckTargetInFov())
+		{
+			me.SetState((int)Enums.eArcherState.LookAround);
+		}
 	}
 
 	public override void ExitState()

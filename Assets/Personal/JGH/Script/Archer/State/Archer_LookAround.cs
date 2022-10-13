@@ -13,14 +13,21 @@ public class Archer_LookAround: cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
+		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+
 		me.animCtrl.SetTrigger("tLookAround");
 	}
 	public override void UpdateState()
 	{
-		if (archer.CheckTargetInFov())
+		if (archer.CheckTargetInFovAndRange())
 		{
 			//me.animCtrl.SetTrigger("tAttack");
-			archer.RandomAttack();
+			if (me.distToTarget <= me.status.atkRange)
+			{ archer.RandomAttack(); }
+			else 
+			{
+				me.SetState((int)Enums.eArcherState.Walk_Careful);
+			}
 		}
 
 		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))

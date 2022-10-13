@@ -141,27 +141,31 @@ public class Archer_Attack_Aiming : cState
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
         archer.ActingLegWhileTurn();
 
-		//if (!archer.CheckTargetInFov())
-		//{
-		//	me.SetState((int)eArcherState.LookAround);
-		//}
+		
 
 
-        if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shoot"))
-        {
-			eArcherState nextState =  archer.Think(archer.curState_e);
-			if (nextState == archer.curState_e)
+		if (!archer.CheckTargetInFov(me.targetObj))
+		{
+			me.SetState((int)eArcherState.LookAround);
+		}
+		else
+		{
+			if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_Atk_Shoot"))
 			{
-				me.RestartCurState();
-				//이러고 바로 enter들어왔따가 해당 프레임에 바로 Update들어와서
-				//애니메이션 끝난거 맞으니까 다시 Update 들어와서 활 2번뽑음. ㅋㅋ;
-			}
-			else
-			{
-				me.SetState((int)nextState);
-			}
+				eArcherState nextState = archer.Think(archer.curState_e);
+				if (nextState == archer.curState_e)
+				{
+					me.RestartCurState();
+					//이러고 바로 enter들어왔따가 해당 프레임에 바로 Update들어와서
+					//애니메이션 끝난거 맞으니까 다시 Update 들어와서 활 2번뽑음. ㅋㅋ;
+				}
+				else
+				{
+					me.SetState((int)nextState);
+				}
 
-        }
+			}
+		}
     }
 
 	public override void LateUpdateState()

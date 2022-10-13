@@ -432,7 +432,7 @@ MonoBehaviour:
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
   CoolTime: 0
-  fovCheckLayer:
+  fovExceptLayer:
     serializedVersion: 2
     m_Bits: 0
   fovStruct:
@@ -1535,6 +1535,14 @@ PrefabInstance:
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
       propertyPath: fovCheckLayer.m_Bits
       value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
+      propertyPath: fovExceptLayer.m_Bits
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
+      propertyPath: fovObstacleLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8222182383997116622, guid: 262eb2306ff5a25429a6ef8e06ea9700, type: 3}
       propertyPath: fovExceptionLayer.m_Bits

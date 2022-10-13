@@ -32,7 +32,7 @@ public class Archer_Idle : cState
 	{
 		//archer.EquipWeapon();
 
-		me.CheckTargetInFov();
+		me.CheckTargetInFovAndRange();
 	}
 
 	public override void LateUpdateState()

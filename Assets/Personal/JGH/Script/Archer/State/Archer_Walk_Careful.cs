@@ -22,6 +22,12 @@ public class Archer_Walk_Careful : cState
 	}
 	public override void UpdateState()
 	{
+
+		if (!archer.CheckTargetInFov())
+		{
+			me.SetState((int)Enums.eArcherState.LookAround);
+		}
+
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
 		if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Archer_Walk_Arm"))

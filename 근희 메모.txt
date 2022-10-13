@@ -227,7 +227,11 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 			=> 지금 fov 판별로는 장애물있는지 없는지만은 판별 불가능
 					따로 함수 만들어야함.
 
+19:08 2022-10-13	공격중에 사거리 밖에 나갔을때는 계속 공격, 
+		대신 물체에 가려지면 LookAround로 가도록 수정.
 
+20:42 2022-10-13	LookAround에서 이리저리 왔다갔다 하면서(어그로 잡히고 풀리고 하면서) 자꾸 Animation Trigger들 밀리면서 고장남.
+		=>  LookAround 를 AnyState에서 가져오고 LookAround들어오면 모든 Trigger Reset해줌!
 
 
 			

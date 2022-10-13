@@ -31,7 +31,7 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
 
-    public LayerMask fovCheckLayer;
+    public LayerMask fovExceptLayer;
 
     //// Events
     //public delegate void Al
@@ -74,9 +74,19 @@ public abstract class Enemy : MonoBehaviour
 
     //    //네브 요원
     //    navAgent.speed = status.moveSpd;
-        
-    
+
+
     //}
+
+
+    public void ResetAllAnimTrigger(string[] triggerStrArr)
+    {
+        for (int i = 0; i < triggerStrArr.Length; ++i)
+        {
+            animCtrl.ResetTrigger(triggerStrArr[i]);
+        }
+
+    }
 
 
     public void CalcAboutTarget()
@@ -272,21 +282,14 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public bool CheckTargetInFov()
+    public bool CheckTargetInFovAndRange()
     {
         //22 10 02 fin, 설명해주기
-
-        //지금 요 함수로는 
 
         Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
         if (hitObjs.Length == 0)
         {
-            //if (isCombat)
-            //{
-            //    combatEndEvent();
-            //}
-
             return false;
         }
 
@@ -304,8 +307,9 @@ public abstract class Enemy : MonoBehaviour
             
             //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
             
-            if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
-                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovCheckLayer))
+            if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
+                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovExceptLayer))
+                // Environment이거나 Enemy인 애는 제외
             {
                 if (!isAlert)
                 {
@@ -317,13 +321,46 @@ public abstract class Enemy : MonoBehaviour
             }
         }
 
-        //if (isCombat)
-        //{
-        //    combatEndEvent();
-        //}
-
         return false;
     }
+
+    public bool CheckTargetInFov()
+    {
+        float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
+
+        RaycastHit hitInfo;
+
+        if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
+            && Physics.Raycast(transform.position, dirToTarget, out hitInfo))
+        {
+            if (hitInfo.transform.gameObject != targetObj)
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public bool CheckTargetInFov(GameObject tempTarget)
+    {
+		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
+		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
+
+        RaycastHit hitInfo;
+
+		if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
+			&& Physics.Raycast(transform.position, dir, out hitInfo))
+		{
+            if (hitInfo.transform.gameObject != targetObj)
+            {
+                return false;
+            }
+			return true;
+		}
+		return false;
+	}
+
 
     public abstract void InitializeState();
 

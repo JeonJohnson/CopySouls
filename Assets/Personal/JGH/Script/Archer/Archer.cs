@@ -133,6 +133,7 @@ public class Archer : Enemy
 	public void RandomAttack()
 	{
 		int atkRandom = UnityEngine.Random.Range(0, 1);
+
 		if (atkRandom == 0)
 		{
 			SetState((int)Enums.eArcherState.Attack_Aiming);
@@ -214,7 +215,7 @@ public class Archer : Enemy
             case eArcherState.Attack_Aiming:
                 {
 					if (distToTarget >= status.ricognitionRange
-						|| !CheckTargetInFov())
+						|| !CheckTargetInFovAndRange())
 					{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
 						returnState = eArcherState.LookAround;
 					}
