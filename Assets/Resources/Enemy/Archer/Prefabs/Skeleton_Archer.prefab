@@ -1005,9 +1005,9 @@ MonoBehaviour:
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
   CoolTime: 0
-  fovCheckLayer:
+  fovExceptLayer:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 640
   fovStruct:
     fovAngle: 0
     LeftDir: {x: 0, y: 0, z: 0}

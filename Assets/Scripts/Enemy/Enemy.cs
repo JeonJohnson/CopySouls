@@ -39,9 +39,12 @@ public abstract class Enemy : MonoBehaviour
     public AlertEventHandler alertStartEvent;
     public AlertEventHandler alertEndEvent;
 
-    public delegate void CombatEventandler();
-	public CombatEventandler combatStartEvent;
-    public CombatEventandler combatEndEvent;
+    public delegate void CombatEventHandler();
+	public CombatEventHandler combatStartEvent;
+    public CombatEventHandler combatEndEvent;
+
+    //public delegate void HitEventHandler();
+    //public HitEventHandler
     //// Events
 
     public FovStruct fovStruct;
@@ -479,7 +482,6 @@ public abstract class Enemy : MonoBehaviour
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
 
-
         //for Test
         patrolPosList = new List<Vector3>();
         patrolPosList.Add(new Vector3());
@@ -518,55 +520,54 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Enemy"))
-    //    {
-    //        Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Weapon"))
+		{
+			Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
 
-    //        Enemy script = other.GetComponent<Enemy>();
-    //        script.Hit(dmg);
-    //    }
-
-    //}
-
-
-    //private void OnDrawGizmos()
-    //{
-
-    //    ////인식범위
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
-    //    ////인식범위
-
-    //    ////시야각
-    //    //프로스텀으로 보여주기
-
-    //    ////시야각
-
-    //    ////공격 사정거리
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, status.atkRange);
-    //    ////공격 사정거리
+			Enemy script = other.GetComponent<Enemy>();
+			script.Hit(dmg);
+		}
+	}
 
 
-    //    ////패트롤 예상 이동 궤적
-    //    Gizmos.color = Color.blue;
+	//private void OnDrawGizmos()
+	//{
 
-    //    for (int i = 0; i < patrolPosList.Count; ++i)
-    //    {
-    //        if (i == (patrolPosList.Count - 1))
-    //        {
-    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
-    //        }
-    //        else
-    //        {
-    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
-    //        }
-    //    }
-    //}
+	//    ////인식범위
+	//    Gizmos.color = Color.yellow;
+	//    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
+	//    ////인식범위
 
-    private void OnDrawGizmosSelected()
+	//    ////시야각
+	//    //프로스텀으로 보여주기
+
+	//    ////시야각
+
+	//    ////공격 사정거리
+	//    Gizmos.color = Color.red;
+	//    Gizmos.DrawWireSphere(transform.position, status.atkRange);
+	//    ////공격 사정거리
+
+
+	//    ////패트롤 예상 이동 궤적
+	//    Gizmos.color = Color.blue;
+
+	//    for (int i = 0; i < patrolPosList.Count; ++i)
+	//    {
+	//        if (i == (patrolPosList.Count - 1))
+	//        {
+	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+	//        }
+	//        else
+	//        {
+	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+	//        }
+	//    }
+	//}
+
+	private void OnDrawGizmosSelected()
 	{
         ////Dir to Target
         Gizmos.color = Color.black;
