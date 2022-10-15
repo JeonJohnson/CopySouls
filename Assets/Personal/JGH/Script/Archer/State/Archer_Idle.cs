@@ -14,7 +14,9 @@ public class Archer_Idle : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		
+
+		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+
 		if (archer.isEquip)
 		{
 			me.animCtrl.SetTrigger("tIdle"); 

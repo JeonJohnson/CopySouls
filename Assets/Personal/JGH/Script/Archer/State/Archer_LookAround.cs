@@ -40,6 +40,7 @@ public class Archer_LookAround: cState
 	public override void ExitState()
 	{
 		me.isAlert = false;
+		
 	}
 
 }

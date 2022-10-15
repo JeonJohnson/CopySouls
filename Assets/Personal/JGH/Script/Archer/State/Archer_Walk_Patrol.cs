@@ -81,6 +81,8 @@ public class Archer_Walk_Patrol : cState
 		//CalcNearDestIndex();
 		SetStartDest();
 
+		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+
 		me.animCtrl.SetTrigger("tWalk");
 
 	}

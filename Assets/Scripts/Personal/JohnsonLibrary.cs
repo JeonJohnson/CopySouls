@@ -433,7 +433,8 @@ public static class Defines
 		"tIdle",
 		"tIdle_Unequip",
 		"tRun",
-		"tDeah",
+		"tHit",
+		"tDeath",
 		"tWalk",
 		"tShootArrow",
 		"tLookAround"

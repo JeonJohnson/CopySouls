@@ -50,16 +50,17 @@ public class Archer_Hit : cState
 
 		rand = Random.Range(1, 3);
 
+		me.animCtrl.SetTrigger("tHit");
 		me.animCtrl.SetInteger("iHit", rand);
 
 		//animName = "Archer_Hit" + $"_0{rand}";
-
+			
 	}
 	public override void UpdateState()
 	{
 		if(Funcs.IsAnimationAlmostFinish(me.animCtrl,$"Archer_Hit_0{rand}"))
 		{
-			me.SetState(me.preState);
+			me.SetState((int)archer.Think(archer.curState_e));
 		}
 	}
 

@@ -31,7 +31,11 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
 
-    public LayerMask fovExceptLayer;
+    public GameObject head; 
+
+
+    public LayerMask fovIgnoreLayer;
+    public LayerMask fovCheckLayer;
 
     //// Events
     //public delegate void Al
@@ -310,9 +314,10 @@ public abstract class Enemy : MonoBehaviour
             
             //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
             
-            if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
-                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovExceptLayer))
-                // Environment이거나 Enemy인 애는 제외
+            if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
+                //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
+                    //=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
             {
                 if (!isAlert)
                 {
@@ -327,41 +332,36 @@ public abstract class Enemy : MonoBehaviour
         return false;
     }
 
-    public bool CheckTargetInFov()
-    {
-        float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
-
-        RaycastHit hitInfo;
-
-        if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
-            && Physics.Raycast(transform.position, dirToTarget, out hitInfo))
-        {
-            if (hitInfo.transform.gameObject != targetObj)
-            {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public bool CheckTargetInFov(GameObject tempTarget)
+    public bool CheckTargetIsHidingInFov(GameObject tempTarget)
     {
 		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
 		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
 
-        RaycastHit hitInfo;
-
-		if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //시야각 안에 있는 경우
-			&& Physics.Raycast(transform.position, dir, out hitInfo))
+		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)) //시야각 안에 있는 경우
 		{
-            if (hitInfo.transform.gameObject != targetObj)
+            RaycastHit hitEnvironmentInfo;
+
+            if (Physics.Raycast(transform.position, dir,  LayerMask.GetMask("Player")))
             {
-                return false;
+                int temp = LayerMask.GetMask("Environment");
+                if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+                {
+                    float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
+
+                    if (distToTarget > dist)
+                    {
+                        //같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
+                        return false;
+                    }
+                    return true;
+                }
+                else 
+                {
+                    return true;
+                }
             }
-			return true;
 		}
-		return false;
+        return false;
 	}
 
 
@@ -468,13 +468,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void Hit(DamagedStruct dmgStruct)
     {
         status.curHp -= (int)dmgStruct.dmg;
-
-        //if (dmgStruct.isBackstab)
-        //{
-        //    transform.forward = player.transform.forward;
-        //}
     }
-    //public abstract void Death();
 
     protected virtual void Awake()
     {
@@ -524,10 +518,12 @@ public abstract class Enemy : MonoBehaviour
 	{
 		if (other.CompareTag("Weapon"))
 		{
-			Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
+            Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
 
-			Enemy script = other.GetComponent<Enemy>();
-			script.Hit(dmg);
+            Hit(dmg);
+            //Debug.Log("한대맞음 으엑");
+            //Enemy script = other.GetComponent<Enemy>();
+            
 		}
 	}
 

@@ -46,6 +46,8 @@ public class Archer : Enemy
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
 
+	public float meleeAtkRange;
+	
 	//public GameObject rightHand;
 	//public GameObject bowString;
 	//public Vector3 bowStringOriginPos;
@@ -145,11 +147,11 @@ public class Archer : Enemy
 
 	}
 
-    public void ActingLegWhileTurn()
+    public float ActingLegWhileTurn(GameObject target)
     {
 		//코루틴보다 일단 걍 함수로 필요할때 호출하기
 		
-		Vector3 tempDir = (targetObj.transform.position - transform.position).normalized;
+		Vector3 tempDir = (target.transform.position - transform.position).normalized;
 		tempDir.y = 0;
 		//이렇게 되면 오르막, 내리막 길에는 어떻게 되지...? 
 
@@ -180,7 +182,7 @@ public class Archer : Enemy
 			Debug.Log("Right");
 			animCtrl.SetBool("bTurn_R", true);
 		}
-		else if(dot > 0.1f)
+		else if(dot > -0.1f)
 		{//왼쪽
 			Debug.Log("Left");
 			animCtrl.SetBool("bTurn_R", false);
@@ -188,18 +190,19 @@ public class Archer : Enemy
 		else
 		{ //가운데
 			Debug.Log("Middle");
-			return;
 		}
 
 		//        Debug.Log(offsetAngle);
 
 		animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
-		
+
 		//221009 이거분명 나중에 길 경사 깔리면 문제생김
 		//ㅋㅋ 2차원으로만 생각하고 짠거라서 ㅋㅋ
 		//그때 일단 tempDir의 up을 몬스터의 up과 같이 만들고
 		//왼쪽,오른쪽 판별할때도 World up 말고 local up 써보던지
 		//일단 몰라~ㅋㅋ 문제생길때 고쳐~
+
+		return dot;
 	}
 
 
@@ -227,6 +230,45 @@ public class Archer : Enemy
 				break;
             case eArcherState.Attack_Melee:
                 break;
+
+			case eArcherState.Hit:
+				{
+					if (distToTarget <= meleeAtkRange)
+					{
+						float random = UnityEngine.Random.Range(0f, 100f);
+						//한 30프로 확률로다가 근접공격
+						//30프로는 이전 상태
+						//40프로는 도망가기 ㅌㅌㅌ
+
+						if (random <= 30f)
+						{
+							//returnState = eArcherState.Attack_Melee; 
+							returnState = eArcherState.Runaway;
+						}
+						else if (random > 30f && random <= 60f)
+						{
+							returnState = (eArcherState)preState_i;
+						}
+						else
+						{
+							returnState = eArcherState.Runaway;
+						}
+					}
+					else
+					{
+						float random = UnityEngine.Random.Range(0, 2);
+
+						if (random == 0)
+						{
+							returnState = (eArcherState)preState_i;
+						}
+						else
+						{
+							returnState = eArcherState.Runaway;
+						}
+					}
+				}
+				break;
             default:
                 break;
         }
@@ -293,6 +335,11 @@ public class Archer : Enemy
 	public override void Hit(DamagedStruct dmgStruct)
     {
         base.Hit(dmgStruct);
+
+		if (!status.isSuperArmor)
+		{
+			SetState((int)eArcherState.Hit);
+		}
     }
 
     //public override void Death()

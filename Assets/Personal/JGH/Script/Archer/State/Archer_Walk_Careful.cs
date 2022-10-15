@@ -23,7 +23,7 @@ public class Archer_Walk_Careful : cState
 	public override void UpdateState()
 	{
 
-		if (!archer.CheckTargetInFov())
+		if (!archer.CheckTargetIsHidingInFov(me.targetObj))
 		{
 			me.SetState((int)Enums.eArcherState.LookAround);
 		}
