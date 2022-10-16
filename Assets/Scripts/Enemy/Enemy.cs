@@ -482,6 +482,8 @@ public abstract class Enemy : MonoBehaviour
     public virtual void Hit(DamagedStruct dmgStruct)
     {
         status.curHp -= (int)dmgStruct.dmg;
+
+        
     }
 
     protected virtual void Awake()
