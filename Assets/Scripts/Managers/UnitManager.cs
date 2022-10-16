@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,9 @@ using Enums;
 
 public class UnitManager : Manager<UnitManager>
 {
+    //오브젝트 풀링에서 빌려오기?
+    //아니면 유닛들은 여기서 관리하기?
+
     //// <Player>
     public GameObject playerObj;
 
@@ -17,6 +20,7 @@ public class UnitManager : Manager<UnitManager>
 
     //// <EnemyVar>
     public int enemyAllCount;
+    public List<GameObject> enemyPrefabList;
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;
 
 

@@ -340,18 +340,27 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
-		if (!status.isSuperArmor)
+
+		if (status.curHp <= 0f)
 		{
-			SetState((int)eArcherState.Hit);
+			SetState((int)eArcherState.Death); 
+
 		}
-    }
+		else
+		{
+			if (!status.isSuperArmor)
+			{
+				SetState((int)eArcherState.Hit);
+			}
+		}
+	}
 
-    //public override void Death()
-    //{
+	//public override void Death()
+	//{
 
-    //}
+	//}
 
-    protected override void Awake()
+	protected override void Awake()
 	{
 		base.Awake();
 

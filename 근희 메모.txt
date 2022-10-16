@@ -254,3 +254,9 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 			0. 맞는순간 무~조건 그 쪽으로 일단 돌기.
 			1. 그리고 무기 꺼내고 공격상태로
 		까지는 됐음.
+
+18:02 2022-10-16	death 스테이트 작업 시작
+
+20:44 2022-10-16	death완료.
+		=> 내일 용석이랑 ObjectPoolingManager / GameManager / UnitManager 요렇게 만들기
+			=> Unit들은 UnitManager에서 관리할지 ObjectPoolingManager에서 관리할지

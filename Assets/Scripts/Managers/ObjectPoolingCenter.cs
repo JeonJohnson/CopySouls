@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +7,20 @@ using Enums;
 public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 {
 
-    public GameObject[] prefabs; //ÇÁ¸®ÆÕµé ´ã¾ÆµÑ°÷
-    GameObject[] objBoxes; //°¢ ¿ÀºêÁ§Æ® ´ã¾Æ ³õÀ» ¹Ú½º
-    //ºó °ÔÀÓ¿ÀºêÁ§Æ®, ÀÎ½ºÆåÅÍÃ¢¿¡ ½ÇÁ¦·Î ¸¸µé²¨ÀÓ
-    //±×´Ï±î °¢ ¿ÀºêÁ§Æ® ÃÖ»óÀ§ EmptyGameObject
+    public GameObject[] prefabs; //í”„ë¦¬íŒ¹ë“¤ ë‹´ì•„ë‘˜ê³³
+
+
+    GameObject[] objBoxes; //ê° ì˜¤ë¸Œì íŠ¸ ë‹´ì•„ ë†“ì„ ë°•ìŠ¤
+    //ë¹ˆ ê²Œì„ì˜¤ë¸Œì íŠ¸, ì¸ìŠ¤í™í„°ì°½ì— ì‹¤ì œë¡œ ë§Œë“¤êº¼ì„
+    //ê·¸ë‹ˆê¹Œ ê° ì˜¤ë¸Œì íŠ¸ ìµœìƒìœ„ EmptyGameObject
 
     Queue<GameObject>[] poolingObjQueue;
-    //¿©±â¿¡ ´ã¾ÆµÎ°í ÇÏ³ª¾¿ »©¾µ²¨ÀÓ
+    //ì—¬ê¸°ì— ë‹´ì•„ë‘ê³  í•˜ë‚˜ì”© ë¹¼ì“¸êº¼ì„
 
 
     public void CreateBoxes()
     {
+        
         for (int i = 0; i < (int)ePoolingObj.End; ++i)
         {
             GameObject tempObj = new GameObject(((ePoolingObj)i).ToString());
@@ -30,7 +33,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
     {
         if (prefabs[(int)objType] == null)
         {
-            Debug.Log("ObjectPoolingCenter Notice!!\n" + Funcs.GetEnumName<ePoolingObj>((int)objType) + "ÀÇ prefabÀÌ ¾ø¶ä´Ï´Ù");
+            Debug.Log("ObjectPoolingCenter Notice!!\n" + Funcs.GetEnumName<ePoolingObj>((int)objType) + "ì˜ prefabì´ ì—†ëœ¸ë‹ˆë‹¤");
             return;
         }
 
@@ -100,14 +103,17 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
         }
 
         objBoxes = new GameObject[(int)ePoolingObj.End];
-
         //prefabs = new GameObject[(int)ePoolingObj.End];
 
 
+        //ë‚˜ì¤‘ì—ëŠ” Enums ìˆœì„œëŒ€ë¡œ prefabsì— ìˆëŠ”ê±° êº¼ë‚´ì„œ ë§ì¶”ê¸°
+   
         CreateBoxes();
         //FindPrefabs();
         FillObject(ePoolingObj.Arrow);
         FillObject(ePoolingObj.Arrow_Static);
+        FillObject(ePoolingObj.Archer_Ragdoll);
+
     }
 
 
