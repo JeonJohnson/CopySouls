@@ -18,7 +18,8 @@ public class Player_Move : Player_cState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-                me.SetState(Enums.ePlayerState.Dodge);
+            PlayerActionTable.instance.Rolling();
+            me.SetState(Enums.ePlayerState.Dodge);
         }
 
         if (Input.GetButtonDown("Fire1"))

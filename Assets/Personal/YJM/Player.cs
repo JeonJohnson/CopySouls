@@ -68,18 +68,13 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
+        RigidBodySetting();
     }
 
     // Update is called once per frame
     private void Update()
     {
         curState.UpdateState();
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            PlayerActionTable.instance.Hit(5);
-        }
     }
 
     void InitializeState()
@@ -91,6 +86,18 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
         fsm[(int)ePlayerState.Atk] = new Player_Atk();
         SetState(Enums.ePlayerState.Idle);
+    }
+
+    void RigidBodySetting()
+    {
+        var rigidBodies = GetComponentsInChildren<Rigidbody>();
+        foreach (var rigidBody in rigidBodies)
+        {
+            if (rigidBody.gameObject.tag != "Weapon")
+            {
+                HitBox hitBox = rigidBody.gameObject.AddComponent<HitBox>();
+            }
+        }
     }
 
     #region PLAYER INVINCIBLE TEST CODE
