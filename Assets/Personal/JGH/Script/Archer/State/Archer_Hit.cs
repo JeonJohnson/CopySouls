@@ -50,17 +50,31 @@ public class Archer_Hit : cState
 
 		rand = Random.Range(1, 3);
 
+		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+
 		me.animCtrl.SetTrigger("tHit");
 		me.animCtrl.SetInteger("iHit", rand);
 
 		//animName = "Archer_Hit" + $"_0{rand}";
-			
 	}
 	public override void UpdateState()
 	{
-		if(Funcs.IsAnimationAlmostFinish(me.animCtrl,$"Archer_Hit_0{rand}"))
+		me.transform.rotation = me.LookAtSlow(archer.transform, me.targetObj.transform, me.status.lookAtSpd);
+		archer.ActingLegWhileTurn(me.targetObj.transform.position);
+
+
+		//1. 히트 애니메이션 들어오면 일단 맞은 쪽 돌아보기
+		//2. 그 담에 전투모드 -> 무기를 꺼낸다거나 밀리 공격을 한다거나
+		//3. 혹은 도망가기
+
+		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Hit_0{rand}"))
 		{
-			me.SetState((int)archer.Think(archer.curState_e));
+			//if (!me.isAlert)
+			//{
+				me.isAlert = true;
+				me.alertStartEvent();
+			//me.SetState((int)eArcher)
+			//me.SetState((int)archer.Think(archer.curState_e));
 		}
 	}
 

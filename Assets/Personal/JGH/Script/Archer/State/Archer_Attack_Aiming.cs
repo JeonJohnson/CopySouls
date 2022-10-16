@@ -139,7 +139,7 @@ public class Archer_Attack_Aiming : cState
 	public override void UpdateState()
 	{
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd * 2);
-        archer.ActingLegWhileTurn(me.targetObj);
+        archer.ActingLegWhileTurn(me.targetObj.transform.position);
 
 		if (!archer.CheckTargetIsHidingInFov(me.targetObj))
 		{

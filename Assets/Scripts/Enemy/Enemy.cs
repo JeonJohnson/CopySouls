@@ -120,9 +120,19 @@ public abstract class Enemy : MonoBehaviour
         return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
 
-	#region LookAt_Animation Bone
+    public Quaternion LookAtSlow(Transform me, Vector3 targetPos, float spd)
+    {
+        Vector3 tempDir = (targetPos - me.position).normalized;
+        tempDir.y = 0;
+
+        Quaternion angle = Quaternion.LookRotation(tempDir);
+
+        return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
+    }
+
+    #region LookAt_Animation Bone
     //LateUpdate에서 써야함!!!
-	public void LookAtSpecificBone(HumanBodyBones boneName, Transform targetTr, Vector3 offsetEulerRotate)
+    public void LookAtSpecificBone(HumanBodyBones boneName, Transform targetTr, Vector3 offsetEulerRotate)
     {
         Transform boneTr = animCtrl.GetBoneTransform(boneName);
         boneTr.LookAt(targetTr);
@@ -411,8 +421,12 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetState(int state)
     {
-        if (fsm[state] == null
-            || curState == fsm[state])
+        if (fsm[state] == null)
+        {
+            return;
+        }
+
+        if (curState == fsm[state])
         {
             return;
         }

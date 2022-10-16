@@ -47,6 +47,7 @@ public class Archer : Enemy
 	public Transform rightIndexFingerBoneTr;
 
 	public float meleeAtkRange;
+	public float runRange;
 	
 	//public GameObject rightHand;
 	//public GameObject bowString;
@@ -90,8 +91,6 @@ public class Archer : Enemy
 		fsm[(int)eArcherState.Attack_Rapid] = new Archer_Attack_Rapid();
 		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming(this);
 		fsm[(int)eArcherState.Attack_Melee] = new Archer_Attack_Melee();
-
-        
 
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
 
@@ -147,11 +146,11 @@ public class Archer : Enemy
 
 	}
 
-    public float ActingLegWhileTurn(GameObject target)
+    public int ActingLegWhileTurn(Vector3 pos)
     {
 		//코루틴보다 일단 걍 함수로 필요할때 호출하기
 		
-		Vector3 tempDir = (target.transform.position - transform.position).normalized;
+		Vector3 tempDir = (pos - transform.position).normalized;
 		tempDir.y = 0;
 		//이렇게 되면 오르막, 내리막 길에는 어떻게 되지...? 
 
@@ -162,7 +161,7 @@ public class Archer : Enemy
 		//1. 포워드와 direction 외적해서 법선 구하기
 		Vector3 DirCrossFoward = Vector3.Cross(tempDir,transform.forward);
 
-		//2. 나온 앵글이랑 Up벡터 내적하기
+		//2. 나온 법선이랑 Up벡터 내적하기
 		float dot = Vector3.Dot(DirCrossFoward, Vector3.up);
 
 		//3. 나온값은 Cos@ 값임. 이게 음수면 오른쪽, 양수면 왼쪽
@@ -177,24 +176,30 @@ public class Archer : Enemy
 		//왼쪽이면 90도 미만이니까(같은 up방향) 양수,
 		//오른쪽이면 90도 초과이니까 음수.
 
-		if (dot < 0.1f)
+		if (dot > 0.1f)
 		{//오른쪽
 			Debug.Log("Right");
 			animCtrl.SetBool("bTurn_R", true);
+			animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
+			return 1;
 		}
-		else if(dot > -0.1f)
+		else if(dot < -0.1f)
 		{//왼쪽
 			Debug.Log("Left");
 			animCtrl.SetBool("bTurn_R", false);
+			animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
+			return -1;
 		}
 		else
 		{ //가운데
 			Debug.Log("Middle");
+			animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
+			return 0;
 		}
 
 		//        Debug.Log(offsetAngle);
 
-		animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, offsetAngle);
+	
 
 		//221009 이거분명 나중에 길 경사 깔리면 문제생김
 		//ㅋㅋ 2차원으로만 생각하고 짠거라서 ㅋㅋ
@@ -202,7 +207,6 @@ public class Archer : Enemy
 		//왼쪽,오른쪽 판별할때도 World up 말고 local up 써보던지
 		//일단 몰라~ㅋㅋ 문제생길때 고쳐~
 
-		return dot;
 	}
 
 
@@ -396,6 +400,13 @@ public class Archer : Enemy
 	//playerChestTr.rotation = playerChestTr.rotation * Quaternion.Euler(ChestOffset);
 
 	//https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본 가져오는거? 
+
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, runRange);
 
 	}
 }

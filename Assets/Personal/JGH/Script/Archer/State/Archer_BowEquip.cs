@@ -15,14 +15,11 @@ public class Archer_BowEquip : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		if (archer.isEquip)
-		{ return; }
-
-		me.animCtrl.SetTrigger("tEquip");
-		me.weapon.SetActive(true);
-	
-		
-
+		if (!archer.isEquip)
+		{
+			me.animCtrl.SetTrigger("tEquip");
+			me.weapon.SetActive(true);
+		}
 	}
 
 	public override void UpdateState()
@@ -30,31 +27,42 @@ public class Archer_BowEquip : cState
 
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
-
-		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
+		if (!archer.isEquip)
 		{
-			if (!archer.isEquip)
+			if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
 			{
-				archer.isEquip = true;
-			}
+				if (!archer.isEquip)
+				{
+					archer.isEquip = true;
+				}
 
-			if (me.isAlert)
+				if (me.isAlert)
+				{
+					if (me.distToTarget > me.status.atkRange)
+					{
+						me.SetState((int)eArcherState.Walk_Careful);
+					}
+					else
+					{
+						archer.RandomAttack();
+					}
+				}
+				else
+				{
+					me.SetState((int)Enums.eArcherState.Idle);
+				}
+			}
+		}
+		else 
+		{
+			if (me.distToTarget > me.status.atkRange)
 			{
-				if (me.distToTarget > me.status.atkRange)
-				{
-					me.SetState((int)eArcherState.Walk_Careful);
-				}
-				else 
-				{
-					archer.RandomAttack();
-				}
+				me.SetState((int)eArcherState.Walk_Careful);
 			}
 			else
 			{
-				me.SetState((int)Enums.eArcherState.Idle);
+				archer.RandomAttack();
 			}
-			
-
 		}
 	}
 

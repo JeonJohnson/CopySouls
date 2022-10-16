@@ -44,8 +44,11 @@ public class Bow : MonoBehaviour
 
         animCtrl.SetTrigger("tReturn");
 
-        arrow.maxRange = status.range;
-        arrow = null;
+        if (arrow != null)
+        {
+            arrow.maxRange = status.range;
+            arrow = null;
+        }
     }
    
 	public void Awake()
