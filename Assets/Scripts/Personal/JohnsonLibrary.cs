@@ -425,6 +425,20 @@ public static class Defines
 		"Archer"
 	};
 
+	public static string[] ArcherAnimTriggerStr =
+	{
+		"tEquip",
+		"tUnequip",
+		"tAttack",
+		"tIdle",
+		"tIdle_Unequip",
+		"tRun",
+		"tHit",
+		"tDeath",
+		"tWalk",
+		"tShootArrow",
+		"tLookAround"
+	};
 
 }
 
@@ -441,7 +455,11 @@ namespace Enums
 
 	public enum ePoolingObj
 	{
+		//Bow,
 		Arrow,
+		Arrow_Static,
+		Archer_Ragdoll,
+
 		End
 	}
 
@@ -465,6 +483,23 @@ namespace Enums
 	
 	}
 
+	public enum eHumanoidAvatarMask
+	{ 
+		Default,
+		Leg,
+		End
+	}
+
+	public enum eGizmoDirection
+	{ 
+		Foward,
+		Back,
+		Right,
+		Left,
+		Up,
+		Down,
+		End
+	}
 
 	public enum eSpiritState
     {
@@ -487,6 +522,7 @@ namespace Enums
 		Walk_Patrol,
 		Walk_Careful,
 		Walk_Aiming,
+		LookAround,
 		Runaway,
 		Attack_Rapid,
 		Attack_Aiming,
@@ -500,11 +536,21 @@ namespace Enums
 
 	public enum eWeaponType
 	{
+		//한손검
+		//두손검
+		//활
+		//방패
+		//마법 촉매
         Melee,
         Range,
         Magic,
         End
     }
+
+	public enum eMeleeDmgType
+	{ 
+	
+	}
 
 
 	public enum ePlayerState
@@ -564,6 +610,8 @@ namespace Structs
 		public float moveSpd;
 		public float runSpd;
 
+		public float moveMileage;//어그로 빼기위한 최대 이동 거리
+
 		public float atkRange;
 		public float patrolRange;
         public float ricognitionRange;
@@ -585,42 +633,14 @@ namespace Structs
 	public struct WeaponStatus
 	{
 
-		//public string name;
+		public string name;
 		//public Enums.eWeaponName eName;
 
-		//public Enums.eWeaponType type;
+		public Enums.eWeaponType type;
 		//public Enums.eWeaponSlot slot;
-		//public Enums.eWeaponFireMode fireMode;//단발,연발 
 
-		//public float zoomX; //줌배율 (fov 줄일꺼)
-
-		//public int fullMag;
-		//public int curMag;
-
-		//public int fullRound;
-		//public int curRound; //현재 총알
-
-		//public int roundCount; //한번 발사시 나가는 총알 개수(샷건용)
-
-
-		//public float accuracy; //명중률
-
-		//public float recoil;
-
-		//public float rpm; // round per minute
-
-		//public float curRapidTime;
-		//public float fullRapidTime;
-
-		//public float dmg; //발당 뎀쥐
-		//public float dmg2; //특수공격 뎀쥐
-
-		//public float reloadSpd; //기본적으로 애니메이션 따라가는데 직업마다 속도 배속다르게
-		//						////Default Status////
-
-		//public int price;
-		//public int bulletPrice;
-
+		public float range;
+		public float price;
 	}
 
 

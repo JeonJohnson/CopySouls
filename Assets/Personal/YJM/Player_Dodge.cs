@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class Player_Dodge : Player_cState
 {
+    public bool isRolling = false;
     public override void EnterState(Player script)
     {
         base.EnterState(script);
+        PlayerActionTable.instance.Rolling();
     }
     public override void UpdateState()
     {
-        PlayerLocomove.instance.PlayerControlCam();
-        if (Funcs.IsAnimationAlmostFinish(me.animator,"Rolling"))
-        {
-            me.SetState(0);
-        }
+
     }
 
     public override void ExitState()

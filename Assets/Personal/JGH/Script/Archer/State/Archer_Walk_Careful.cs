@@ -22,6 +22,12 @@ public class Archer_Walk_Careful : cState
 	}
 	public override void UpdateState()
 	{
+
+		if (!archer.CheckTargetIsHidingInFov(me.targetObj))
+		{
+			me.SetState((int)Enums.eArcherState.LookAround);
+		}
+
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
 		if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Archer_Walk_Arm"))
@@ -31,17 +37,16 @@ public class Archer_Walk_Careful : cState
 
 		if (me.distToTarget <= me.status.atkRange + offsetRange)
 		{
-			int atkRandom = Random.Range(0, 1);
-			if (atkRandom == 0)
-			{
-				me.SetState((int)Enums.eArcherState.Attack_Aiming);
-			}
-			else 
-			{
-				me.SetState((int)Enums.eArcherState.Attack_Rapid);
-			}
+			archer.RandomAttack();
 		}
 		
+	}
+
+	public override void LateUpdateState()
+	{
+		base.LateUpdateState();
+
+		me.LookAtSpecificBone(archer.headBoneTr, me.targetObj.transform, Enums.eGizmoDirection.Foward);
 	}
 
 	public override void ExitState()

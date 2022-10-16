@@ -31,6 +31,11 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
 
+    public GameObject head; 
+
+
+    public LayerMask fovIgnoreLayer;
+    public LayerMask fovCheckLayer;
 
     //// Events
     //public delegate void Al
@@ -38,11 +43,13 @@ public abstract class Enemy : MonoBehaviour
     public AlertEventHandler alertStartEvent;
     public AlertEventHandler alertEndEvent;
 
-    public delegate void CombatEventandler();
-	public CombatEventandler combatStartEvent;
-    public CombatEventandler combatEndEvent;
-    //// Events
+    public delegate void CombatEventHandler();
+	public CombatEventHandler combatStartEvent;
+    public CombatEventHandler combatEndEvent;
 
+    //public delegate void HitEventHandler();
+    //public HitEventHandler
+    //// Events
 
     public FovStruct fovStruct;
     public bool isAlert = false;
@@ -74,9 +81,19 @@ public abstract class Enemy : MonoBehaviour
 
     //    //네브 요원
     //    navAgent.speed = status.moveSpd;
-        
-    
+
+
     //}
+
+
+    public void ResetAllAnimTrigger(string[] triggerStrArr)
+    {
+        for (int i = 0; i < triggerStrArr.Length; ++i)
+        {
+            animCtrl.ResetTrigger(triggerStrArr[i]);
+        }
+
+    }
 
 
     public void CalcAboutTarget()
@@ -103,9 +120,121 @@ public abstract class Enemy : MonoBehaviour
         return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
 
+    public Quaternion LookAtSlow(Transform me, Vector3 targetPos, float spd)
+    {
+        Vector3 tempDir = (targetPos - me.position).normalized;
+        tempDir.y = 0;
+
+        Quaternion angle = Quaternion.LookRotation(tempDir);
+
+        return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
+    }
+
+    #region LookAt_Animation Bone
+    //LateUpdate에서 써야함!!!
+    public void LookAtSpecificBone(HumanBodyBones boneName, Transform targetTr, Vector3 offsetEulerRotate)
+    {
+        Transform boneTr = animCtrl.GetBoneTransform(boneName);
+        boneTr.LookAt(targetTr);
+        boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
+
+    public void LookAtSpecificBone(Transform boneTr, Transform targetTr, eGizmoDirection boneDir)
+    {
+        Vector3 lookDir = (targetTr.position - boneTr.position).normalized;
+
+        switch (boneDir)
+        {
+            case eGizmoDirection.Foward:
+                {
+                    boneTr.forward = lookDir;
+                }
+                break;
+            case eGizmoDirection.Back:
+                {
+                    boneTr.forward = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Right:
+                {
+                    boneTr.right = lookDir;
+                }
+                break;
+            case eGizmoDirection.Left:
+                {
+                    boneTr.right = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Up:
+                {
+                    boneTr.up = lookDir;
+                }
+                break;
+            case eGizmoDirection.Down:
+                {
+                    boneTr.up = -lookDir;
+                }
+                break;
+
+            default:
+                {
+                    Debug.Log("Enemy bone LookAt Error");
+                }
+                break;
+        }
+    }
+
+    public void LookAtSpecificBone(Transform boneTr, Transform targetTr, eGizmoDirection boneDir, Vector3 offsetEulerRotate)
+    {
+
+        Vector3 lookDir = (targetTr.position - boneTr.position).normalized;
+
+        switch (boneDir)
+		{
+			case eGizmoDirection.Foward:
+                {
+                    boneTr.forward = lookDir;
+                }
+				break;
+			case eGizmoDirection.Back:
+                {
+                    boneTr.forward = -lookDir;
+                }
+				break;
+			case eGizmoDirection.Right:
+                {
+                    boneTr.right = lookDir;
+                }
+				break;
+			case eGizmoDirection.Left:
+                {
+                    boneTr.right = -lookDir;
+                }
+				break;
+			case eGizmoDirection.Up:
+                {
+                    boneTr.up = lookDir;
+                }
+				break;
+			case eGizmoDirection.Down:
+                {
+                    boneTr.up = -lookDir;
+                }
+				break;
+
+            default:
+                {
+                    Debug.Log("Enemy bone LookAt Error");
+                }
+				break;
+		}
+
+		boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
+    #endregion
 
 
-	public void MoveOrder(Vector3 dest)
+    public void MoveOrder(Vector3 dest)
 	{//네비 에이전트 움직이는거 편하게
         if (navAgent == null)
         {
@@ -170,7 +299,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public bool CheckTargetInFov()
+    public bool CheckTargetInFovAndRange()
     {
         //22 10 02 fin, 설명해주기
 
@@ -178,11 +307,6 @@ public abstract class Enemy : MonoBehaviour
 
         if (hitObjs.Length == 0)
         {
-            //if (isCombat)
-            //{
-            //    combatEndEvent();
-            //}
-
             return false;
         }
 
@@ -190,7 +314,6 @@ public abstract class Enemy : MonoBehaviour
         {
             if (col.gameObject != targetObj)
             {
-
                 continue;
             }
 
@@ -199,10 +322,12 @@ public abstract class Enemy : MonoBehaviour
             float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
             
-            int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
+            //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
             
-            if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
-                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, layerMask))
+            if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
+                //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
+                    //=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
             {
                 if (!isAlert)
                 {
@@ -214,13 +339,41 @@ public abstract class Enemy : MonoBehaviour
             }
         }
 
-        //if (isCombat)
-        //{
-        //    combatEndEvent();
-        //}
-
         return false;
     }
+
+    public bool CheckTargetIsHidingInFov(GameObject tempTarget)
+    {
+		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
+		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
+
+		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)) //시야각 안에 있는 경우
+		{
+            RaycastHit hitEnvironmentInfo;
+
+            if (Physics.Raycast(transform.position, dir,  LayerMask.GetMask("Player")))
+            {
+                int temp = LayerMask.GetMask("Environment");
+                if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+                {
+                    float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
+
+                    if (distToTarget > dist)
+                    {
+                        //같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
+                        return false;
+                    }
+                    return true;
+                }
+                else 
+                {
+                    return true;
+                }
+            }
+		}
+        return false;
+	}
+
 
     public abstract void InitializeState();
 
@@ -268,8 +421,12 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetState(int state)
     {
-        if (fsm[state] == null
-            || curState == fsm[state])
+        if (fsm[state] == null)
+        {
+            return;
+        }
+
+        if (curState == fsm[state])
         {
             return;
         }
@@ -291,6 +448,32 @@ public abstract class Enemy : MonoBehaviour
         curState.EnterState(this);
     }
 
+    public void RestartCurState()
+    {
+        curState.ExitState();
+
+        preState = curState;
+        
+        int curIndex = System.Array.IndexOf(fsm, curState);
+        preState_i = curIndex;
+
+        curState.EnterState(this);
+    }
+
+    //public IEnumerator DelaySetState(float delayTime, eArcherState state)
+    //{
+    //    float time = 0f;
+    //    while (time <= delayTime)
+    //    {
+    //        time += Time.deltaTime;
+
+    //        yield return null;
+    //    }
+
+
+    //}
+
+
     public void stop()
     {
         StopAllCoroutines();
@@ -300,19 +483,14 @@ public abstract class Enemy : MonoBehaviour
     {
         status.curHp -= (int)dmgStruct.dmg;
 
-        //if (dmgStruct.isBackstab)
-        //{
-        //    transform.forward = player.transform.forward;
-        //}
+        
     }
-    //public abstract void Death();
 
     protected virtual void Awake()
     {
         animCtrl = GetComponent<Animator>();
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
-
 
         //for Test
         patrolPosList = new List<Vector3>();
@@ -338,63 +516,77 @@ public abstract class Enemy : MonoBehaviour
         CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);
-        isAlert = CheckTargetInFov();
+        //isAlert = CheckTargetInFov();
 
         curState.UpdateState();
 
         CoolTime += Time.deltaTime;
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Enemy"))
-    //    {
-    //        Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
-
-    //        Enemy script = other.GetComponent<Enemy>();
-    //        script.Hit(dmg);
-    //    }
-
-    //}
+    protected virtual void LateUpdate()
+    {
+        curState.LateUpdateState();
+    
+    }
 
 
-    //private void OnDrawGizmos()
-    //{
-
-    //    ////인식범위
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
-    //    ////인식범위
-
-    //    ////시야각
-    //    //프로스텀으로 보여주기
-
-    //    ////시야각
-
-    //    ////공격 사정거리
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, status.atkRange);
-    //    ////공격 사정거리
-
-
-    //    ////패트롤 예상 이동 궤적
-    //    Gizmos.color = Color.blue;
-
-    //    for (int i = 0; i < patrolPosList.Count; ++i)
-    //    {
-    //        if (i == (patrolPosList.Count - 1))
-    //        {
-    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
-    //        }
-    //        else
-    //        {
-    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
-    //        }
-    //    }
-    //}
-
-    private void OnDrawGizmosSelected()
+	private void OnTriggerEnter(Collider other)
 	{
+		if (other.CompareTag("Weapon"))
+		{
+            Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
+
+            Hit(dmg);
+            //Debug.Log("한대맞음 으엑");
+            //Enemy script = other.GetComponent<Enemy>();
+            
+		}
+	}
+
+
+	//private void OnDrawGizmos()
+	//{
+
+	//    ////인식범위
+	//    Gizmos.color = Color.yellow;
+	//    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
+	//    ////인식범위
+
+	//    ////시야각
+	//    //프로스텀으로 보여주기
+
+	//    ////시야각
+
+	//    ////공격 사정거리
+	//    Gizmos.color = Color.red;
+	//    Gizmos.DrawWireSphere(transform.position, status.atkRange);
+	//    ////공격 사정거리
+
+
+	//    ////패트롤 예상 이동 궤적
+	//    Gizmos.color = Color.blue;
+
+	//    for (int i = 0; i < patrolPosList.Count; ++i)
+	//    {
+	//        if (i == (patrolPosList.Count - 1))
+	//        {
+	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+	//        }
+	//        else
+	//        {
+	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+	//        }
+	//    }
+	//}
+
+	private void OnDrawGizmosSelected()
+	{
+        ////Dir to Target
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(transform.position, targetObj.transform.position);
+        ////Dir to Target
+
+
 
         ////인식범위
         Color temp = Color.yellow;

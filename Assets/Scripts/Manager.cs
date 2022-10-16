@@ -27,6 +27,29 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 			}
 		}
 	}
+	public static void InstantiateManagerByPrefab(string prefabFolderPath)
+	{
+		if (instance == null)
+		{
+			GameObject prefab = Resources.Load(prefabFolderPath + typeof(T).Name) as GameObject;
+
+			if (prefab == null)
+			{
+				Debug.LogError(typeof(T).Name + "'s prefab is not exist");
+				prefab = new GameObject(typeof(T).Name);
+				instance = prefab.AddComponent<T>();
+			}
+			else
+			{
+				instance = Instantiate(prefab).GetComponent<T>();
+
+				if (instance == null)
+				{
+					Debug.LogError(typeof(T).Name + "'s prefab don't include" + typeof(T).Name + " Script!!");
+				}
+			}
+		}
+	}
 
 	public static T Instance
 	{

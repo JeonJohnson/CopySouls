@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90158131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 822320574}
@@ -215,7 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 822320574}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CameraPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822320572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 90158134}
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 884833354}
   - component: {fileID: 884833353}
   - component: {fileID: 884833352}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1602877249}
   - component: {fileID: 1602877250}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CamerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,22 +589,22 @@ MonoBehaviour:
   cameraTransform: {fileID: 1602877249}
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
-  targetPosition: {x: 0, y: 0, z: 0}
+    m_Bits: 577
+  targetPosition: {x: 0, y: 0, z: -5}
+  cameraInput: {x: 0, y: 0, z: 0}
   cameraFollowSpeed: 0.2
   cameraLookSpeed: 2
   cameraPivotSpeed: 2
+  ZoomSensitivity: 5
   minimumPivotAngle: -35
   maximumPivotAngle: 35
-  cameraCollisionRadius: 2
+  cameraCollisionRadius: 0.2
   cameraCollisionOffset: 0.2
   minimumCollisionOffset: 0.2
   lookAngle: 0
   pivotAngle: 0
-  cameraInput: {x: 0, y: 0, z: 0}
   cameraInputX: 0
   cameraInputY: 0
-  cameraInputZ: 0
 --- !u!1 &1801168769
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 1801168772}
   - component: {fileID: 1801168771}
   - component: {fileID: 1801168770}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ Transform:
   m_GameObject: {fileID: 1801168769}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 2077289916}
   - component: {fileID: 2077289915}
   - component: {fileID: 2077289914}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +790,7 @@ Transform:
   m_GameObject: {fileID: 2077289913}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -15, y: -2, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 30, y: 5, z: 30}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4

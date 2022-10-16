@@ -15,15 +15,19 @@ public class Archer_BowUnequip : cState
 		me.animCtrl.SetTrigger("tUnequip");
 
 		me.weapon.SetActive(false);
-		archer.isEquip = false;
+		
 	}
 	public override void UpdateState()
 	{
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Unequip"))
 		{
-			me.SetState((int)Enums.eArcherState.Idle);
-		}
+			if (archer.isEquip)
+			{
+				archer.isEquip = false;
+			}
 
+			me.SetState((int)archer.defaultPattern);
+		}
 	}
 
 	public override void ExitState()

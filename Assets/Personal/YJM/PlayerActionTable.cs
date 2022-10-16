@@ -68,7 +68,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.animator.SetTrigger("Rolling");
         PlayerLocomove.instance.SetPlayerTrSlow();
-        Player.instance.SetState(Enums.ePlayerState.Dodge);
         StartCoroutine(PlayerInvincible(0.15f, 0.3667f));
     }
 
@@ -90,6 +89,7 @@ public class PlayerActionTable : MonoBehaviour
         {
             combo = 0;
         }
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
     }
 
     public void StrongAttack()
@@ -144,7 +144,7 @@ public class PlayerActionTable : MonoBehaviour
     bool isNextComboInput = false;
     IEnumerator ComboInput()
     {
-        _timer = 0.2f;
+        _timer = 0.4f;
         isPlaying = true;
 
         while (_timer > 0 && isPlaying)
@@ -152,22 +152,17 @@ public class PlayerActionTable : MonoBehaviour
             _timer -= Time.deltaTime;
             if (Input.GetButtonDown("Fire1"))
             {
-                isNextComboInput = true;
+                print("getComboInput");
+                WeakAttack();
+                yield break;
             }
             yield return null;
 
             if (_timer <= 0)
             {
-                if (isNextComboInput == true)
-                {
-                    WeakAttack();
-                    isNextComboInput = false;
-                }
-                else
-                {
-                    combo = 0;
-                    SetPlayerStatus(0);
-                }
+                combo = 0;
+                print("SetPlayerStatus 0");
+                SetPlayerStatus(0);
             }
         }
         #region

@@ -6,6 +6,7 @@ public class Archer_Idle : cState
 {
 
 	Archer archer = null;
+
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -14,8 +15,7 @@ public class Archer_Idle : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-
-		
+		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
 		if (archer.isEquip)
 		{
@@ -26,12 +26,23 @@ public class Archer_Idle : cState
 			me.animCtrl.SetTrigger("tIdle_Unequip"); 
 		}
 
+		me.isAlert = false;
 		
 	}
 
 	public override void UpdateState()
 	{
 		//archer.EquipWeapon();
+
+		me.CheckTargetInFovAndRange();
+
+
+	}
+
+	public override void LateUpdateState()
+	{
+
+
 	}
 
 	public override void ExitState()

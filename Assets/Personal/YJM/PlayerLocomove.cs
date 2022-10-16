@@ -18,14 +18,12 @@ public class PlayerLocomove : MonoBehaviour
 
     [Range(1, 300)] public float mouseSensitivity = 70;
 
-    float rotSpeed;
-    float xRot;
-    float yRot;
-    float curSpeed = 0f;
+    public float curSpeed = 0f;
 
     [SerializeField] GameObject playerModel;
     [SerializeField] Transform cameraArm;
-    [SerializeField] Transform headPos;
+    //[SerializeField] Transform headPos;
+    [SerializeField] CameraTest cameraManager;
 
     #region singletone
     /// <singletone>    
@@ -64,6 +62,7 @@ public class PlayerLocomove : MonoBehaviour
 
     public void Move()
     {
+        SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         isMove = moveInput.magnitude != 0;
@@ -74,27 +73,30 @@ public class PlayerLocomove : MonoBehaviour
             moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
             transform.position += moveDir.normalized * Time.deltaTime * curSpeed;
-            playerModel.transform.position = this.transform.position;
-
-            if (isCameraLock == true)
-            {
-                Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
-                lookDir.y = 0f;
-                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
-            }
-            else if (isCameraLock == false)
-            {
-                Vector3 lookDir = moveDir;
-                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
-            }
         }
         else
         {
+            ResetValue();
             Player.instance.SetState(Enums.ePlayerState.Idle);
-            playerModel.transform.position = this.transform.position;
         }
 
-        SprintInput();
+        playerModel.transform.position = this.transform.position;
+        SetPlayerTrInputHold();
+    }
+
+    void ChangeModelTrInput()
+    {
+        if (isCameraLock == true)
+        {
+            Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
+            lookDir.y = 0f;
+            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
+        }
+        else if (isCameraLock == false)
+        {
+            Vector3 lookDir = moveDir;
+            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
+        }
     }
 
     void SprintInput()
@@ -144,7 +146,8 @@ public class PlayerLocomove : MonoBehaviour
         }
         else
         {
-            CameraRot();
+            //CameraRot();
+            cameraManager.RotateCamera();
         }
     }
 
@@ -154,21 +157,8 @@ public class PlayerLocomove : MonoBehaviour
         lookDir.y = 0f;
 
         cameraArm.transform.forward = Vector3.Slerp(cameraArm.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
-        xRot = cameraArm.transform.eulerAngles.y;
-        yRot = cameraArm.transform.eulerAngles.z;
-        yRot = Mathf.Clamp(yRot, -90, 90);
-    }
-
-    void CameraRot()
-    {
-        rotSpeed = mouseSensitivity;
-        float h = Input.GetAxis("Mouse X");
-        float v = Input.GetAxis("Mouse Y");
-
-        xRot += h * rotSpeed;
-        yRot += v * rotSpeed;
-        yRot = Mathf.Clamp(yRot, -90, 90);
-        cameraArm.transform.eulerAngles = new Vector3(-yRot, xRot, 0);
+        cameraManager.lookAngle = cameraArm.transform.eulerAngles.y;
+        cameraManager.pivotAngle = cameraArm.transform.localEulerAngles.z;
     }
 
     public void ResetValue()
@@ -177,16 +167,12 @@ public class PlayerLocomove : MonoBehaviour
         Player.instance.animator.SetFloat("MoveSpeed", 0f);
     }
 
-    public void PlayerControlCam()
-    {
-        cameraArm.transform.position = headPos.transform.position;
-    }
 
     public void PlayerPosFix()
     {
         transform.position = playerModel.transform.position;
         playerModel.transform.localPosition = Vector3.zero;
-        cameraArm.transform.localPosition = headPos.transform.localPosition;
+        //cameraArm.transform.localPosition = headPos.transform.localPosition;
     }
 
     public void SetPlayerTrImt()
@@ -223,9 +209,58 @@ public class PlayerLocomove : MonoBehaviour
                 _timer -= Time.deltaTime;
                 Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
                 lookDir.y = 0f;
-                playerModel.transform.forward = lookDir.normalized;
+                //playerModel.transform.forward = lookDir.normalized;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
                 yield return null;
             }
         }
+    }
+
+    float inputTimer = 0.2f;
+    Coroutine SetPlayerTrInputCoro;
+    bool isInput = false;
+
+    void SetPlayerTrInputHold()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (inputTimer >= 0f)
+        {
+            if (isInput == false)
+            {
+                SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
+                isInput = true;
+            }
+        }
+        else
+        {
+            StopCoroutine(SetPlayerTrInputCoro);
+            isInput = false;
+            ChangeModelTrInput();
+        }
+
+        if (moveInput != Vector2.zero)
+        {
+            inputTimer -= Time.deltaTime;
+        }
+        else
+        {
+            inputTimer = 0.2f;
+        }
+    }
+
+    IEnumerator SetPlayerTr()
+    {
+        float _timer = 0.15f;
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+        Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+        while (_timer >= 0f)
+        {
+                _timer -= Time.deltaTime;
+                moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+                playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, moveDir, Time.deltaTime * 20f);
+                yield return null;
+        }
+        isInput = false;
     }
 }

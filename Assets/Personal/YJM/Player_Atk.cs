@@ -12,11 +12,10 @@ public class Player_Atk : Player_cState
     }
     public override void UpdateState()
     {
-        PlayerLocomove.instance.PlayerControlCam();
+
     }
     public override void ExitState()
     {
         PlayerLocomove.instance.PlayerPosFix();
-        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
     }
 }
