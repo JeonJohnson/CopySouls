@@ -35,10 +35,6 @@ public class Spirit : Enemy
 	protected override void Awake()
     {
         base.Awake();
-
-        this.rd = GetComponent<Rigidbody>();
-        this.animCtrl = GetComponent<Animator>();
-        this.navAgent = GetComponent<NavMeshAgent>();
     }
 
     protected override void Start()
@@ -56,10 +52,8 @@ public class Spirit : Enemy
         //}
 
         curState_e = GetCurState<Enums.eSpiritState>();
-        //221002 20:23 player -> targetObj
-        distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
 
-        if (!navAgent.isStopped) navAgent.SetDestination(curTargetPos);
+        if(targetObj != null) distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
     }
 
     //애니메이션 이벤트==================================

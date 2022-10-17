@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
 using Enums;
 using Structs;
@@ -31,7 +32,7 @@ public abstract class Enemy : MonoBehaviour
     ////Target
 
 
-    public GameObject head; 
+    public GameObject head;
 
 
     public LayerMask fovIgnoreLayer;
@@ -268,8 +269,86 @@ public abstract class Enemy : MonoBehaviour
         navAgent.isStopped = true;
     }
 
+    //======================================================================
+    //시야각 용도가 조금 다를것 같아서 따로 만듬
+    //Spirit 전용....?
+    //시야 탐색용(단순 거리 계산이 아니라 시야 범위 내에 플레이거 검출 용도)
 
-	public void CalcFovDir(float degreeAngle)
+    public float meshResolution = 0.1f;
+
+    [Range(0, 15)]
+    public float viewRadius;
+    [Range(0, 360)]
+    public float viewAngle;
+    public LayerMask targetMask, obstacleMask;
+    public List<Transform> visibleTargets = new List<Transform>();
+
+    private void OutLineView()
+    {
+        Vector3 left = DirFromAngle(dirToTarget.y - viewAngle / 2f);
+        Vector3 right = DirFromAngle(dirToTarget.y + viewAngle / 2f);
+
+        Debug.DrawRay(transform.position, left * viewRadius * 1.3f, Color.black);
+        Debug.DrawRay(transform.position, right * viewRadius * 1.3f, Color.black);
+    }
+
+    public void DrawFieldOfView(Color color)
+    {
+        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+        float stepAngleSize = viewAngle / stepCount;
+
+        for (int i = 0; i <= stepCount; i++)
+        {
+            float angle = dirToTarget.y - viewAngle / 2 + stepAngleSize * i;
+            Debug.DrawLine(transform.position, transform.position + DirFromAngle(angle) * viewRadius, color);
+        }
+    }
+
+    public void FindVisibleTargets()
+    {
+        visibleTargets.Clear();
+        Collider[] tragetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+
+        for(int i = 0; i < tragetInViewRadius.Length; i++)
+        {
+            Transform target = tragetInViewRadius[i].transform;
+            Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
+            //범위 내라면
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            {
+                float distToTarget = Vector3.Distance(transform.position, target.transform.position);
+                //장애물에 걸리지 않았으면
+                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                {
+                    if(target.gameObject.name == "Player")
+                    {
+                        targetObj = target.gameObject;
+                    }
+                    visibleTargets.Add(target);
+                }
+            }
+            else
+            {
+                targetObj = null;
+            }
+        }
+
+        OutLineView();
+        if(targetObj == null) DrawFieldOfView(Color.black);
+        else DrawFieldOfView(Color.red);
+
+    }
+
+    public Vector3 DirFromAngle(float angleDegree)
+    {
+        angleDegree += transform.eulerAngles.y;
+        return new Vector3(Mathf.Sin(angleDegree * Mathf.Deg2Rad),0,Mathf.Cos(angleDegree * Mathf.Deg2Rad));
+        //return new Vector3(Mathf.Cos((-angleDegree + 90) * Mathf.Deg2Rad), 0, Mathf.Sin((-angleDegree + 90) * Mathf.Deg2Rad));
+    }
+    
+    //======================================================================
+
+    public void CalcFovDir(float degreeAngle)
 	{
         //22 10 02 fin, 설명해주기
 
@@ -515,6 +594,8 @@ public abstract class Enemy : MonoBehaviour
     {
         CalcAboutTarget();
 
+        FindVisibleTargets();
+
         CalcFovDir(status.fovAngle);
         //isAlert = CheckTargetInFov();
 
@@ -526,11 +607,10 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void LateUpdate()
     {
         curState.LateUpdateState();
-    
     }
 
 
-	private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Weapon"))
 		{
@@ -582,18 +662,23 @@ public abstract class Enemy : MonoBehaviour
 	private void OnDrawGizmosSelected()
 	{
         ////Dir to Target
-        Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, targetObj.transform.position);
+        if(targetObj != null)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawLine(transform.position, targetObj.transform.position);
+        }
         ////Dir to Target
 
-
+        //타겟위치
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(curTargetPos + Vector3.up * 0.5f, 0.5f);
 
         ////인식범위
-        Color temp = Color.yellow;
-        temp.a = 0.4f;
+        //Color temp = Color.yellow;
+        //temp.a = 0.4f;
         //Gizmos.color = Color.yellow;
-        Gizmos.color = temp;
-        Gizmos.DrawSphere(transform.position, status.ricognitionRange);
+        //Gizmos.color = temp;
+        //Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
         ////시야각

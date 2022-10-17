@@ -48,14 +48,14 @@ public class Spirit_Patrol : cState
         {
             me.SetState((int)Enums.eSpiritState.Idle);
         }
-        else
-        {
-            //221002 20:23 player -> targetObj
-            if (me.distToTarget <= me.status.ricognitionRange)
-            {
-                me.SetState((int)Enums.eSpiritState.Equipt);
-            }
-        }
+     //   else
+     //   {
+     //       //221002 20:23 player -> targetObj
+     //       if (me.distToTarget <= me.status.ricognitionRange)
+     //       {
+     //           me.SetState((int)Enums.eSpiritState.Equipt);
+     //       }
+     //   }
 
         
     }
@@ -92,7 +92,6 @@ public class Spirit_Patrol : cState
         if (TargetPos != null)
         {
             me.curTargetPos = TargetPos;
-            me.navAgent.isStopped = false;
         }
 
         return TargetPos;
@@ -100,9 +99,9 @@ public class Spirit_Patrol : cState
 
     public void Spirit_StartPatrol()
     {
-        TargetPos = SetTargetPos(6, 10);
-        me.animCtrl.SetBool("isPatrol", true);
         me.navAgent.speed = me.status.moveSpd;
+        me.MoveOrder(SetTargetPos(6, 10));
+        me.animCtrl.SetBool("isPatrol", true);
     }
 
     public void Spirit_StopPatrol()
@@ -110,7 +109,7 @@ public class Spirit_Patrol : cState
         isArrival = false;
         me.animCtrl.SetBool("isPatrol", false);
         me.curTargetPos = me.transform.position;
-        me.navAgent.isStopped = true;
+        me.MoveStop();
     }
 
     public void Spirit_PlayPatrolAnimation()
