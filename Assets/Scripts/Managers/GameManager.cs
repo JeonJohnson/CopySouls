@@ -54,7 +54,8 @@ public class GameManager : Manager<GameManager>
         DontDestroyOnLoad(this.gameObject);
         CheckManagerBox();
 
-        GeunHeeSceneManagersCreate();
+        //여기서 씬체크한뒤에 원하는 방식대로 하면됨.
+        //GeunHeeSceneManagersCreate();
 
 
     }
