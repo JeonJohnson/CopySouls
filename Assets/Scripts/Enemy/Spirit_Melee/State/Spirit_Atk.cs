@@ -28,22 +28,25 @@ public class Spirit_Atk : cState
     {
         //me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
-        if (((Spirit)me).complete_Atk)
+        if(me.targetObj != null)
         {
-            ((Spirit)me).complete_Atk = false;
-            //221002 20:23 player -> targetObj
-            if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
+            if (((Spirit)me).complete_Atk)
             {
-                me.SetState((int)Enums.eSpiritState.Trace);
+                ((Spirit)me).complete_Atk = false;
+                //221002 20:23 player -> targetObj
+                if (me.distToTarget > me.status.atkRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Trace);
+                }
+                else
+                {
+                    Spirit_SelectAtkPattern();
+                }
             }
-            else if (me.distToTarget > me.status.ricognitionRange)
-            {
-                me.SetState((int)Enums.eSpiritState.Unequipt);
-            }
-            else
-            {
-                Spirit_SelectAtkPattern();
-            }
+        }
+        else
+        {
+            me.SetState((int)Enums.eSpiritState.Unequipt);
         }
     }
 

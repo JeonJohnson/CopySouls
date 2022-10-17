@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Patrol -> Idle
+//Patrol -> Equipt
+
 public class Spirit_Patrol : cState
 {
     public float curTime;
@@ -42,22 +46,14 @@ public class Spirit_Patrol : cState
         //test
         ((Spirit)me).Arrival = isArrival;
 
-       
-
-        if (isArrival)
+        if (((Spirit)me).targetObj == null)
         {
-            me.SetState((int)Enums.eSpiritState.Idle);
+            if (isArrival) me.SetState((int)Enums.eSpiritState.Idle);
         }
-     //   else
-     //   {
-     //       //221002 20:23 player -> targetObj
-     //       if (me.distToTarget <= me.status.ricognitionRange)
-     //       {
-     //           me.SetState((int)Enums.eSpiritState.Equipt);
-     //       }
-     //   }
-
-        
+        else
+        {
+            me.SetState((int)Enums.eSpiritState.Equipt);
+        }
     }
 
     public override void ExitState()
@@ -79,18 +75,32 @@ public class Spirit_Patrol : cState
 
     public Vector3 SetTargetPos(int minDis, int maxDis)
     {
+        if (maxDis <= 0 || minDis <= 0)
+        {
+            Debug.Log("잘못된 입력");
+            return Vector3.zero;
+        }
+        //maxRange
+        float maxX = ((Spirit)me).responPos.x + me.status.patrolRange;
+        float maxZ = ((Spirit)me).responPos.z + me.status.patrolRange;
+
+        //순찰범위를 통한 범위비율
+        //float distanceRatio = maxDis / me.status.patrolRange;
+
         Vector3 TargetPos;
 
         int distanceX = Random.Range(minDis, maxDis + 1);
         int distanceZ = Random.Range(minDis, maxDis + 1);
-        int randX = Random.Range(-1, 2) * distanceX;
-        int randZ = Random.Range(-1, 2) * distanceZ;
-        if (randX == 0 && randZ == 0) SetTargetPos(minDis, maxDis);
+        float randX = Random.Range(-1, 2) * distanceX;
+        float randZ = Random.Range(-1, 2) * distanceZ;
+        if ((randX == 0 && randZ == 0) || randX > maxX || randZ > maxZ) SetTargetPos(minDis, maxDis);
         TargetPos = new Vector3(me.transform.position.x + randX, 0, me.transform.position.z + randZ);
-        if (TargetPos == me.preTargetPos) SetTargetPos(minDis, maxDis);
+        //똑같은 위치 값을 뽑거나 //지금 내 위치와 너무 가까우면
+        if ((TargetPos == me.preTargetPos) || ((Vector3.Distance(me.transform.position, TargetPos)) < 3f)) SetTargetPos(minDis, maxDis);
 
         if (TargetPos != null)
         {
+            me.preTargetPos = me.curTargetPos;
             me.curTargetPos = TargetPos;
         }
 
@@ -108,7 +118,7 @@ public class Spirit_Patrol : cState
     {
         isArrival = false;
         me.animCtrl.SetBool("isPatrol", false);
-        me.curTargetPos = me.transform.position;
+        //me.curTargetPos = me.transform.position;
         me.MoveStop();
     }
 

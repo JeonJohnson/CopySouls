@@ -8,6 +8,8 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public Vector3 responPos;
+
     public eSpiritState curState_e;
     public float WaitTimer;     //test
     public float PatrolTimer;   //test
@@ -15,6 +17,7 @@ public class Spirit : Enemy
     public bool complete_Equipt;
     public bool complete_Unequipt;
     public bool complete_Atk;
+    public bool isEquipt;
 
     public override void InitializeState()
 	{
@@ -35,6 +38,7 @@ public class Spirit : Enemy
 	protected override void Awake()
     {
         base.Awake();
+        responPos = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 
     protected override void Start()
@@ -53,7 +57,12 @@ public class Spirit : Enemy
 
         curState_e = GetCurState<Enums.eSpiritState>();
 
-        if(targetObj != null) distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
+        if (targetObj != null)
+        {
+            curTargetPos = targetObj.transform.position;
+            distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
+        }
+
     }
 
     //애니메이션 이벤트==================================
@@ -69,5 +78,20 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleAtk()
     {
         complete_Atk = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        //순찰범위
+        //Color temp_White = Color.white;
+        //temp_White.a = 0.4f;
+        //Gizmos.color = temp_White;
+        //Gizmos.DrawSphere(responPos, status.patrolRange);
+
+        //타겟위치
+        Color temp_Blue = Color.blue;
+        temp_Blue.a = 0.4f;
+        Gizmos.color = temp_Blue;
+        Gizmos.DrawSphere(curTargetPos + Vector3.up * 0.5f, 0.5f);
     }
 }

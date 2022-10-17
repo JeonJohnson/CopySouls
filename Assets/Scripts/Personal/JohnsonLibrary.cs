@@ -613,6 +613,7 @@ namespace Structs
 		public float moveMileage;//어그로 빼기위한 최대 이동 거리
 
 		public float atkRange;
+		[Range(5, 50)]
 		public float patrolRange;
         public float ricognitionRange;
 		[Range(0, 180)]

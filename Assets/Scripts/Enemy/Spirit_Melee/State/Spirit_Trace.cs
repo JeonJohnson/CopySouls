@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Trace -> Unquipt
+//Trace -> Att
+
 public class Spirit_Trace : cState
 {
 
@@ -13,25 +16,21 @@ public class Spirit_Trace : cState
 
     public override void UpdateState()
     {
-        Spirit_PlayTraceAnimation();
 
-        //느리게 회전 추가
-        if (me.targetObj != null)
+        if(me.targetObj != null)
         {
-            me.curTargetPos = me.targetObj.transform.position;
+            me.MoveOrder(me.targetObj.transform.position);
             me.transform.LookAt(me.targetObj.transform);
+
+            if (me.distToTarget <= me.status.atkRange)
+            {
+                me.SetState((int)Enums.eSpiritState.Atk);
+            }
         }
-
-        //221002 20:23 player -> targetObj
-        if (me.distToTarget <= me.status.atkRange)
-       {
-           me.SetState((int)Enums.eSpiritState.Atk);
-       }
-
-       if (me.distToTarget > me.status.ricognitionRange)
-       {
-           me.SetState((int)Enums.eSpiritState.Unequipt);
-       }
+        else
+        {
+            me.SetState((int)Enums.eSpiritState.Unequipt);
+        }
     }
 
     public override void ExitState()
@@ -50,18 +49,16 @@ public class Spirit_Trace : cState
 
     public void Spirit_StartTrace()
     {
-        //221002 20:23 player -> targetObj
-        //me.targetObj = me.player;
-        me.navAgent.isStopped = false;
         me.animCtrl.SetBool("isTrace", true);
         me.animCtrl.SetBool("isRun", true);
         me.navAgent.speed = me.status.runSpd;
+        if(me.targetObj != null) me.MoveOrder(me.targetObj.transform.position);
     }
 
     public void Spirit_StopTrace()
     {
         me.animCtrl.SetBool("isTrace", false);
-        me.navAgent.isStopped = true;
+        me.MoveStop();
     }
 
     public void Spirit_PlayTraceAnimation()

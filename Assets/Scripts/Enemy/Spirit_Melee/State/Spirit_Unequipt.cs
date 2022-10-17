@@ -7,23 +7,22 @@ public class Spirit_Unequipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-
-        me.navAgent.isStopped = true;
+        me.MoveStop();
         me.animCtrl.SetBool("isUnequipt", true);
     }
 
     public override void UpdateState()
     {
-        //221002 20:23 player -> targetObj
-        if (me.distToTarget <= me.status.ricognitionRange)
+
+        if (((Spirit)me).complete_Unequipt)
         {
-            me.SetState((int)Enums.eSpiritState.Equipt);
-        }
-        else
-        {
-            if (((Spirit)me).complete_Unequipt)
+            if (me.targetObj == null)
             {
                 me.SetState((int)Enums.eSpiritState.Idle);
+            }
+            else
+            {
+                me.SetState((int)Enums.eSpiritState.Equipt);
             }
         }
     }

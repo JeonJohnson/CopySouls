@@ -2,34 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Equipt -> Unequipt(범위벗어남) -> Idle
+//Equipt -> Trace(장비후 추격)
+//Equipt -> Att
+
 public class Spirit_Equipt : cState
 {
 
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Spirit_StartEquiptment();
+        me.animCtrl.SetBool("isEquipt", true);
+        me.MoveStop();
+        ((Spirit)me).isEquipt = true;
     }
 
     public override void UpdateState()
     {
-        //me.rd.velocity = Vector3.zero;
-        
-        //221002 20:23 player -> targetObj
         if (((Spirit)me).complete_Equipt)
         {
-            if (me.distToTarget <= me.status.ricognitionRange)
+            if(me.targetObj == null)
             {
-                me.SetState((int)Enums.eSpiritState.Trace);
-            }
-            else if(me.distToTarget <= me.status.atkRange)
-            {
-                me.SetState((int)Enums.eSpiritState.Atk);
-            }
-            else if(me.distToTarget > me.status.ricognitionRange)
-            {
-                //
                 me.SetState((int)Enums.eSpiritState.Unequipt);
+            }
+            else
+            {
+                if (me.distToTarget <= me.status.atkRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Atk);
+                }
+                else
+                {
+                    me.SetState((int)Enums.eSpiritState.Trace);
+                }
             }
         }
     }
@@ -43,8 +48,6 @@ public class Spirit_Equipt : cState
 
     public void Spirit_StartEquiptment()
     {
-        me.navAgent.isStopped = true;
-        me.animCtrl.SetBool("isEquipt", true);
     }
 
     

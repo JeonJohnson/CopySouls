@@ -309,7 +309,9 @@ public abstract class Enemy : MonoBehaviour
         visibleTargets.Clear();
         Collider[] tragetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
-        for(int i = 0; i < tragetInViewRadius.Length; i++)
+        bool isFind = false;
+
+        for (int i = 0; i < tragetInViewRadius.Length; i++)
         {
             Transform target = tragetInViewRadius[i].transform;
             Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
@@ -322,16 +324,15 @@ public abstract class Enemy : MonoBehaviour
                 {
                     if(target.gameObject.name == "Player")
                     {
+                        isFind = true;
                         targetObj = target.gameObject;
                     }
                     visibleTargets.Add(target);
                 }
             }
-            else
-            {
-                targetObj = null;
-            }
+            
         }
+        if (!isFind) targetObj = null;
 
         OutLineView();
         if(targetObj == null) DrawFieldOfView(Color.black);
@@ -669,9 +670,7 @@ public abstract class Enemy : MonoBehaviour
         }
         ////Dir to Target
 
-        //타겟위치
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(curTargetPos + Vector3.up * 0.5f, 0.5f);
+       
 
         ////인식범위
         //Color temp = Color.yellow;
@@ -680,6 +679,8 @@ public abstract class Enemy : MonoBehaviour
         //Gizmos.color = temp;
         //Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
+
+        
 
         ////시야각
         Gizmos.color = Color.green;

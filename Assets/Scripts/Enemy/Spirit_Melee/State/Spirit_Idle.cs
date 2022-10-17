@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Idle -> Patrol
+//Idle -> Equipt
+
 public class Spirit_Idle : cState
 {
     public float curTime = 0;
@@ -30,10 +34,7 @@ public class Spirit_Idle : cState
 
         if(me.targetObj != null)
         {
-            if (me.distToTarget <= me.status.ricognitionRange)
-            {
-                me.SetState((int)Enums.eSpiritState.Equipt);
-            }
+            me.SetState((int)Enums.eSpiritState.Equipt);
         }
 
         //test

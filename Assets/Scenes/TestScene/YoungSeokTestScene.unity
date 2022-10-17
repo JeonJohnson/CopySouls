@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &489951656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -497,7 +497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669899351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 16.63, z: -3.77}
+  m_LocalPosition: {x: 2.3, y: 1.63, z: -12.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -626,7 +626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3055273122480953732, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8632695491392117060, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
       propertyPath: m_Name
@@ -657,12 +657,20 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8866487184774046727, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
+      propertyPath: meshResolution
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866487184774046727, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
       propertyPath: status.fovAngle
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8866487184774046727, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
       propertyPath: targetMask.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866487184774046727, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
+      propertyPath: status.patrolRange
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 8866487184774046727, guid: 17fa3c9f86e1a254483bbde35dbe28ad, type: 3}
       propertyPath: obstacleMask.m_Bits
