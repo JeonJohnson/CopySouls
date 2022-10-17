@@ -63,6 +63,17 @@ public class Spirit : Enemy
             distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
         }
 
+        if(isEquipt)
+        {
+            //weapon.gameObject.SetActive(true);
+            //GameObject.Find("Sword").SetActive(false);
+        }
+        else
+        {
+            //weapon.gameObject.SetActive(false);
+            //GameObject.Find("Sword").SetActive(true);
+        }
+
     }
 
     //애니메이션 이벤트==================================

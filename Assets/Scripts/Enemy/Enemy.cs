@@ -31,6 +31,8 @@ public abstract class Enemy : MonoBehaviour
     public float CoolTime;
     ////Target
 
+    //testSpinATT
+    public Vector3 Destination;
 
     public GameObject head;
 
@@ -300,6 +302,7 @@ public abstract class Enemy : MonoBehaviour
         for (int i = 0; i <= stepCount; i++)
         {
             float angle = dirToTarget.y - viewAngle / 2 + stepAngleSize * i;
+            color.a = 0.2f;
             Debug.DrawLine(transform.position, transform.position + DirFromAngle(angle) * viewRadius, color);
         }
     }
@@ -335,7 +338,7 @@ public abstract class Enemy : MonoBehaviour
         if (!isFind) targetObj = null;
 
         OutLineView();
-        if(targetObj == null) DrawFieldOfView(Color.black);
+        if (targetObj == null) DrawFieldOfView(Color.black);
         else DrawFieldOfView(Color.red);
 
     }
@@ -670,7 +673,7 @@ public abstract class Enemy : MonoBehaviour
         }
         ////Dir to Target
 
-       
+
 
         ////인식범위
         //Color temp = Color.yellow;
@@ -680,7 +683,9 @@ public abstract class Enemy : MonoBehaviour
         //Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
-        
+        //Test SpinAtt
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, Destination);
 
         ////시야각
         Gizmos.color = Color.green;
