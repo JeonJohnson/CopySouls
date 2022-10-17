@@ -31,9 +31,7 @@ public abstract class Enemy : MonoBehaviour
     public float CoolTime;
     ////Target
 
-
     public GameObject head;
-
 
     public LayerMask fovIgnoreLayer;
     public LayerMask fovCheckLayer;
@@ -93,9 +91,7 @@ public abstract class Enemy : MonoBehaviour
         {
             animCtrl.ResetTrigger(triggerStrArr[i]);
         }
-
     }
-
 
     public void CalcAboutTarget()
     {
@@ -595,7 +591,8 @@ public abstract class Enemy : MonoBehaviour
     {
         CalcAboutTarget();
 
-        FindVisibleTargets();
+        //FindVisibleTargets();//221017 2210 지금 Archer TargetObj도 null들어가서 곤란,
+        //Spirit Update에서 돌려줘야할덧,,,?
 
         CalcFovDir(status.fovAngle);
         //isAlert = CheckTargetInFov();
