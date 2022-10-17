@@ -63,7 +63,7 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 			}
 			else 
 			{
-				instance = Instantiate(prefab, box.transform).GetComponent<T>();
+				instance = Instantiate(prefab).GetComponent<T>();
 			}
 
 			if (instance == null)
