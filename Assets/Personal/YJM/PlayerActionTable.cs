@@ -23,7 +23,8 @@ public class PlayerActionTable : MonoBehaviour
 
     #endregion
 
-
+    public bool isCombo = false;
+    bool antiRagTrigger = false;
 
     IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state ,float time)
     {
@@ -54,8 +55,10 @@ public class PlayerActionTable : MonoBehaviour
         yield return null;
     }
 
-    public void Hit(int damage)
+    public void Hit(int damage, Vector3 dir)
     {
+        isCombo = false;
+        EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Hit);
         if (Player.instance.isInteracting == true)
         {
@@ -66,6 +69,11 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Rolling()
     {
+        print("스테이트 롤링");
+        isCombo = false;
+        AntiRagCoro = StartCoroutine(AntiRag());
+        Player.instance.SetState(Enums.ePlayerState.Dodge);
+        EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("Rolling");
         PlayerLocomove.instance.SetPlayerTrSlow();
         StartCoroutine(PlayerInvincible(0.15f, 0.3667f));
@@ -73,6 +81,10 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Backstep()
     {
+        isCombo = false;
+        AntiRagCoro = StartCoroutine(AntiRag());
+        Player.instance.SetState(Enums.ePlayerState.Dodge);
+        EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("Backstep");
         Player.instance.SetState(Enums.ePlayerState.Dodge);
         StartCoroutine(PlayerInvincible(0.25f, 0.3667f));
@@ -81,9 +93,12 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
+        isCombo = false;
+        AntiRagCoro = StartCoroutine(AntiRag());
+        Player.instance.SetState(Enums.ePlayerState.Atk);
+        EnableWeaponMeshCol(0);
         //PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
         Player.instance.animator.SetTrigger("WeakAttack" + "_" + combo.ToString());
-        Player.instance.SetState(Enums.ePlayerState.Atk);
         combo++;
         if(combo >2)
         {
@@ -94,6 +109,9 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StrongAttack()
     {
+        isCombo = false;
+        AntiRagCoro = StartCoroutine(AntiRag());
+        EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
@@ -101,18 +119,28 @@ public class PlayerActionTable : MonoBehaviour
 
     public void DashAttack()
     {
+        isCombo = false;
+        AntiRagCoro = StartCoroutine(AntiRag());
+        EnableWeaponMeshCol(0);
+        Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("DashAttack");
         Player.instance.SetState(Enums.ePlayerState.Atk);
     }
 
     public void RollingAttack()
     {
-        Player.instance.animator.SetTrigger("RollingAttack");
+        AntiRagCoro = StartCoroutine(AntiRag());
+        isCombo = false;
+        combo = 0;
         Player.instance.SetState(Enums.ePlayerState.Atk);
+        EnableWeaponMeshCol(0);
+        Player.instance.animator.SetTrigger("RollingAttack");
     }
 
     public void FrontHoldAttack()
     {
+        AntiRagCoro = StartCoroutine(AntiRag());
+        EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
@@ -120,6 +148,8 @@ public class PlayerActionTable : MonoBehaviour
     
     public void BackHoldAttack()
     {
+        AntiRagCoro = StartCoroutine(AntiRag());
+        EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
@@ -131,70 +161,39 @@ public class PlayerActionTable : MonoBehaviour
 
     public void SetPlayerStatus(int i)
     {
-        Player.instance.SetState((Enums.ePlayerState)i);
-    }
-
-    public void ComboAttackCheck()
-    {
-        StartCoroutine(ComboInput());
-    }
-
-    float _timer;
-    bool isPlaying;
-    bool isNextComboInput = false;
-    IEnumerator ComboInput()
-    {
-        _timer = 0.4f;
-        isPlaying = true;
-
-        while (_timer > 0 && isPlaying)
+        print("SetPlayerStatus 호출" + antiRagTrigger);
+        if (antiRagTrigger == false)
         {
-            _timer -= Time.deltaTime;
-            if (Input.GetButtonDown("Fire1"))
-            {
-                print("getComboInput");
-                WeakAttack();
-                yield break;
-            }
-            yield return null;
-
-            if (_timer <= 0)
-            {
-                combo = 0;
-                print("SetPlayerStatus 0");
-                SetPlayerStatus(0);
-            }
+            print("스테이트 아이들");
+            combo = 0;
+            isCombo = false;
+            Player.instance.SetState((Enums.ePlayerState)i);
         }
-        #region
-        //Combo Input을 실행시키는 코루틴 함수를 팜 밑은 내용
-        //타이머 하나 만들고
-        //타이머 중에 공격버튼이 입력되면
-        //타이머 끝나고 다음콤보가 재생되게
-        //아니면 타이머 끝나면 플레이어 스테이터스를 아이들로
-
-        //그리고 그 코루틴함수를 애니메이션 끝나갈때쯤에 부착! 완성!
-        #endregion
     }
 
-    public void RollingAttackCheck()
+    public void StartComboCheck()
     {
-            StartCoroutine(RollingAttackInput());
+        isCombo = true;
     }
 
-    IEnumerator RollingAttackInput()
+    public void StopComboCheck()
     {
-        _timer = 0.2f;
-        isPlaying = true;
-
-        while (_timer > 0 && isPlaying)
+        if(antiRagTrigger == false)
         {
-            _timer -= Time.deltaTime;
-            if (Input.GetButtonDown("Fire1") && Player.instance.curState_e == Enums.ePlayerState.Dodge)
-            {
-                RollingAttack();
-            }
-            yield return null;
+            print("콤보 off");
+            isCombo = false;
         }
+    }
+
+    Coroutine AntiRagCoro;
+    IEnumerator AntiRag()
+    {
+        antiRagTrigger = true;
+        print(antiRagTrigger);
+        yield return new WaitForSeconds(0.15f);
+        print("끝");
+        antiRagTrigger = false;
+        yield return null;
     }
 
     public void EnableWeaponMeshCol(int i)

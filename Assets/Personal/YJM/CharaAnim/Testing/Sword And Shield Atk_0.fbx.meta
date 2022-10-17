@@ -74,7 +74,21 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.6430139
-        functionName: ComboAttackCheck
+        functionName: StartComboCheck
+        data: 
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: SetPlayerStatus
+        data: 
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9844358
+        functionName: StopComboCheck
         data: 
         objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
         floatParameter: 0
