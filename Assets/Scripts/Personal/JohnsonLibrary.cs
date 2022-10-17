@@ -453,17 +453,14 @@ namespace Enums
 		End
 	}
 
-	public enum ePoolingObj
-	{
-		//Bow,
-		Arrow,
-		Arrow_Static,
-		Archer_Ragdoll,
-
-
-
-		End
-	}
+	//public enum ePoolingObj
+	//{
+	//	//Bow,
+	//	Arrow,
+	//	Arrow_Static,
+	//	Archer_Ragdoll,
+	//	End
+	//}
 
 
 	public enum eEnemyType

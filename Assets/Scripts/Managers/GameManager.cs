@@ -9,10 +9,10 @@ public class GameManager : Manager<GameManager>
 
     public GameObject managerBox;
 
-    public List<GameObject> managerPrefabs;
+    //public List<GameObject> managerPrefabs;
 
     public GameObject objectPoolingManagerPrefab;
-
+    public GameObject soundManagerPrefab;
 
     [RuntimeInitializeOnLoadMethod]
     private static void GameInitialize()
@@ -55,7 +55,7 @@ public class GameManager : Manager<GameManager>
         CheckManagerBox();
 
         //여기서 씬체크한뒤에 원하는 방식대로 하면됨.
-        //GeunHeeSceneManagersCreate();
+        GeunHeeSceneManagersCreate();
 
 
     }

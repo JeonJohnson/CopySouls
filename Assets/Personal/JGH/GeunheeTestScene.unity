@@ -731,6 +731,16 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  meshResolution: 0.1
+  viewRadius: 0
+  viewAngle: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
   isEquip: 0
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}

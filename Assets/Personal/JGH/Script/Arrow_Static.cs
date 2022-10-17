@@ -15,7 +15,7 @@ public class Arrow_Static : MonoBehaviour
         if (curTime >= maxTime)
         {
             curTime = 0f;
-            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject,Enums.ePoolingObj.Arrow_Static);
+            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
             //옵줵 풀링센터로 ㅂㅂ
         }
     }

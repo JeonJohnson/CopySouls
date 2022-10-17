@@ -112,7 +112,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
         }
 
         ResetForReturn();
-        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject, Enums.ePoolingObj.Arrow);
+        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
     }
 
     public void Awake()
@@ -189,7 +189,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
             && (other.CompareTag("Player") || other.CompareTag("Environment")))
         {
             Debug.Log("바닥이나 플레이어한테 박힘");
-            GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj(Enums.ePoolingObj.Arrow_Static);
+            GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
 
             staticArrow.transform.position = transform.position;
             staticArrow.transform.rotation = transform.rotation;
@@ -197,7 +197,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
 
             ResetForReturn();
-            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject, Enums.ePoolingObj.Arrow);
+            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
         }
 
         
