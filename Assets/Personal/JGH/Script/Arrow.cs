@@ -28,7 +28,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
     public bool isShoot = false;
     public bool isHook = false;
 
-
+    public float dmg;
 
     public void ResetForReturn()
     {
@@ -185,21 +185,70 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
     private void OnTriggerEnter(Collider other)
 	{
+
+
+        //if (other.gameObject.transform.root.CompareTag("player"))
+        //{
+        //    other.gameObject.transform.root.GetComponent<Player>().hit();
+        //    float tempDmg = dmg;
+        //    if (other.gameObject.CompareTag("Head"))
+        //    {
+        //        tempDmg *= 2f;
+        //    }
+        //    Structs.DamagedStruct temp = new Structs.DamagedStruct(tempDmg);
+        //    hit()
+        //}
+        //else { other.gameObject.transform.root.CompareTag("Enemy")}
+        //{
+        //    other.gameObject.transform.root.GetComponent<Enemy>().hit();
+        //}
+
+
+
+        if (isShoot)
+        {
+            HitBox tempScript = other.GetComponent<HitBox>();
+
+            if (tempScript != null)
+            {
+                tempScript.OnHit(10f,this.gameObject.transform.forward);
+
+
+                GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
+                staticArrow.transform.position = transform.position;
+                staticArrow.transform.rotation = transform.rotation;
+                staticArrow.transform.SetParent(other.gameObject.transform);
+
+
+
+                ResetForReturn();
+                ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+
+
+            }
+        
+        }
+
+
         if (isShoot
             && (other.CompareTag("Player") || other.CompareTag("Environment")))
         {
             Debug.Log("바닥이나 플레이어한테 박힘");
             GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
 
+
+
+            
             staticArrow.transform.position = transform.position;
             staticArrow.transform.rotation = transform.rotation;
             staticArrow.transform.SetParent(other.gameObject.transform);
 
 
+
             ResetForReturn();
             ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
         }
-
-        
     }
+
+
 }
