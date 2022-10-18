@@ -80,15 +80,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9766537
+      - time: 1
         functionName: StopComboCheck
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.98832685
-        functionName: SetPlayerStatus
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

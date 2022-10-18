@@ -23,10 +23,10 @@ public class PlayerActionTable : MonoBehaviour
 
     #endregion
 
-    public bool isCombo = false;
+    public bool isComboCheck = false;
     bool antiRagTrigger = false;
 
-    IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state ,float time)
+    IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state, float time)
     {
         yield return new WaitForSeconds(time);
         Player.instance.SetState(state);
@@ -34,10 +34,10 @@ public class PlayerActionTable : MonoBehaviour
 
     IEnumerator TakeDamage(int damage, float stunTime = 0.767f)
     {
-            Player.instance.hp -= damage;
-            Player.instance.animator.SetTrigger("Hit");
-            yield return new WaitForSeconds(stunTime);
-            Player.instance.SetState(Enums.ePlayerState.Idle);
+        Player.instance.hp -= damage;
+        Player.instance.animator.SetTrigger("Hit");
+        yield return new WaitForSeconds(stunTime);
+        Player.instance.SetState(Enums.ePlayerState.Idle);
     }
 
     IEnumerator PlayerInvincible(float enterTime, float exitTime)
@@ -57,21 +57,19 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Hit(int damage, Vector3 dir)
     {
-        isCombo = false;
+        isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Hit);
         if (Player.instance.isInteracting == true)
         {
             StopAllCoroutines();
         }
-            StartCoroutine(TakeDamage(damage));
+        StartCoroutine(TakeDamage(damage));
     }
 
     public void Rolling()
     {
-        print("스테이트 롤링");
-        isCombo = false;
-        AntiRagCoro = StartCoroutine(AntiRag());
+        isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Dodge);
         EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("Rolling");
@@ -81,8 +79,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Backstep()
     {
-        isCombo = false;
-        AntiRagCoro = StartCoroutine(AntiRag());
+        isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Dodge);
         EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("Backstep");
@@ -93,14 +90,15 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
-        isCombo = false;
-        AntiRagCoro = StartCoroutine(AntiRag());
+        CurCoroCounter2 = CurCoroCounter1;
+        print("같게함");
+        isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
         //PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
         Player.instance.animator.SetTrigger("WeakAttack" + "_" + combo.ToString());
         combo++;
-        if(combo >2)
+        if (combo > 2)
         {
             combo = 0;
         }
@@ -109,8 +107,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StrongAttack()
     {
-        isCombo = false;
-        AntiRagCoro = StartCoroutine(AntiRag());
+        isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
@@ -119,8 +116,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void DashAttack()
     {
-        isCombo = false;
-        AntiRagCoro = StartCoroutine(AntiRag());
+        isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("DashAttack");
@@ -129,8 +125,9 @@ public class PlayerActionTable : MonoBehaviour
 
     public void RollingAttack()
     {
-        AntiRagCoro = StartCoroutine(AntiRag());
-        isCombo = false;
+        CurCoroCounter2 = CurCoroCounter1;
+        print("같게함");
+        isComboCheck = false;
         combo = 0;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
@@ -139,16 +136,14 @@ public class PlayerActionTable : MonoBehaviour
 
     public void FrontHoldAttack()
     {
-        AntiRagCoro = StartCoroutine(AntiRag());
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
-    
+
     public void BackHoldAttack()
     {
-        AntiRagCoro = StartCoroutine(AntiRag());
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
@@ -157,7 +152,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Parrying()
     {
-        
+
     }
 
 
@@ -166,41 +161,49 @@ public class PlayerActionTable : MonoBehaviour
 
     public void SetPlayerStatus(int i)
     {
-        print("SetPlayerStatus 호출" + antiRagTrigger);
+        print("셋아이들");
         if (antiRagTrigger == false)
         {
-            print("스테이트 아이들");
             combo = 0;
-            isCombo = false;
+            isComboCheck = false;
             Player.instance.SetState((Enums.ePlayerState)i);
         }
     }
 
+    #region 콤보시스템 픽스 함수
+    Coroutine ComboCheckCoro;
+    int CurCoroCounter1 = 0;
+    int CurCoroCounter2 = 0;
+
+    IEnumerator ComboCheck()
+    {
+        print("콤보체크 시작");
+        isComboCheck = true;
+        while (isComboCheck == true)
+        {
+            yield return null;
+        }
+        yield break;
+    }
+
     public void StartComboCheck()
     {
-        isCombo = true;
+        CurCoroCounter1++;
+        ComboCheckCoro = StartCoroutine(ComboCheck());
     }
 
     public void StopComboCheck()
     {
-        if(antiRagTrigger == false)
+        if (ComboCheckCoro != null && CurCoroCounter1 != CurCoroCounter2)
         {
-            print("콤보 off");
-            isCombo = false;
+            print(CurCoroCounter1 + " " + CurCoroCounter2);
+            isComboCheck = false;
+            StopCoroutine(ComboCheckCoro);
+            ComboCheckCoro = null;
+            SetPlayerStatus(0);
         }
     }
-
-    Coroutine AntiRagCoro;
-    IEnumerator AntiRag()
-    {
-        antiRagTrigger = true;
-        print(antiRagTrigger);
-        yield return new WaitForSeconds(0.15f);
-        print("끝");
-        antiRagTrigger = false;
-        yield return null;
-    }
-
+    #endregion
     public void EnableWeaponMeshCol(int i)
     {
         Player.instance.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);

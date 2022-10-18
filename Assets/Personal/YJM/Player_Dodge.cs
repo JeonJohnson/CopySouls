@@ -11,7 +11,7 @@ public class Player_Dodge : Player_cState
     }
     public override void UpdateState()
     {
-        if (PlayerActionTable.instance.isCombo == true)
+        if (PlayerActionTable.instance.isComboCheck == true)
         {
             if ((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
             {
