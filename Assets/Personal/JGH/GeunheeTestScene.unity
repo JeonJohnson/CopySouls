@@ -709,6 +709,7 @@ MonoBehaviour:
   preTargetPos: {x: 0, y: 0, z: 0}
   curTargetPos: {x: 0, y: 0, z: 0}
   CoolTime: 0
+  Destination: {x: 0, y: 0, z: 0}
   head: {fileID: 0}
   fovIgnoreLayer:
     serializedVersion: 2
