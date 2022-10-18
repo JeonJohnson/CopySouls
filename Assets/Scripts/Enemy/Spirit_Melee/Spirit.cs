@@ -50,6 +50,8 @@ public class Spirit : Enemy
     {
         base.Update();
 
+
+
         //if(Input.GetKey("a"))
         //{
         //    status.curHp--;
@@ -73,6 +75,9 @@ public class Spirit : Enemy
             //weapon.gameObject.SetActive(false);
             //GameObject.Find("Sword").SetActive(true);
         }
+
+        FindVisibleTargets();//221017 2210 지금 Archer TargetObj도 null들어가서 곤란,
+        //Spirit Update에서 돌려줘야할덧,,,?
 
     }
 

@@ -595,8 +595,7 @@ public abstract class Enemy : MonoBehaviour
     {
         CalcAboutTarget();
 
-        //FindVisibleTargets();//221017 2210 지금 Archer TargetObj도 null들어가서 곤란,
-        //Spirit Update에서 돌려줘야할덧,,,?
+       
 
         CalcFovDir(status.fovAngle);
         //isAlert = CheckTargetInFov();
