@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,6 +69,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Rolling()
     {
+        CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Dodge);
         EnableWeaponMeshCol(0);
@@ -91,7 +92,7 @@ public class PlayerActionTable : MonoBehaviour
     public void WeakAttack()
     {
         CurCoroCounter2 = CurCoroCounter1;
-        print("∞∞∞‘«‘");
+        print("Í∞ôÍ≤åÌï®");
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
@@ -126,7 +127,7 @@ public class PlayerActionTable : MonoBehaviour
     public void RollingAttack()
     {
         CurCoroCounter2 = CurCoroCounter1;
-        print("∞∞∞‘«‘");
+        print("Í∞ôÍ≤åÌï®");
         isComboCheck = false;
         combo = 0;
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -161,7 +162,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void SetPlayerStatus(int i)
     {
-        print("º¬æ∆¿ÃµÈ");
+        print("ÏÖãÏïÑÏù¥Îì§");
         if (antiRagTrigger == false)
         {
             combo = 0;
@@ -170,36 +171,22 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
-    #region ƒﬁ∫∏Ω√Ω∫≈€ «»Ω∫ «‘ºˆ
-    Coroutine ComboCheckCoro;
+    #region ÏΩ§Î≥¥ÏãúÏä§ÌÖú ÌîΩÏä§ Ìï®Ïàò
     int CurCoroCounter1 = 0;
     int CurCoroCounter2 = 0;
 
-    IEnumerator ComboCheck()
-    {
-        print("ƒﬁ∫∏√º≈© Ω√¿€");
-        isComboCheck = true;
-        while (isComboCheck == true)
-        {
-            yield return null;
-        }
-        yield break;
-    }
-
     public void StartComboCheck()
     {
+        isComboCheck = true;
         CurCoroCounter1++;
-        ComboCheckCoro = StartCoroutine(ComboCheck());
     }
 
     public void StopComboCheck()
     {
-        if (ComboCheckCoro != null && CurCoroCounter1 != CurCoroCounter2)
+        if (CurCoroCounter1 != CurCoroCounter2)
         {
             print(CurCoroCounter1 + " " + CurCoroCounter2);
             isComboCheck = false;
-            StopCoroutine(ComboCheckCoro);
-            ComboCheckCoro = null;
             SetPlayerStatus(0);
         }
     }
