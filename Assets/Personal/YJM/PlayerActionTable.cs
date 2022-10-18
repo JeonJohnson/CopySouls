@@ -155,6 +155,11 @@ public class PlayerActionTable : MonoBehaviour
         StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
+    public void Parrying()
+    {
+        
+    }
+
 
 
     //Funcs
@@ -198,6 +203,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void EnableWeaponMeshCol(int i)
     {
-        Player.instance.Weapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
+        Player.instance.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
     }
 }

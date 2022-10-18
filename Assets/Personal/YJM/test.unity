@@ -2722,7 +2722,8 @@ MonoBehaviour:
   stamina: 100
   preState_e: 6
   curState_e: 6
-  Weapon: {fileID: 8147788437721263718}
+  mainWeapon: {fileID: 8147788437721263718}
+  subWeapon: {fileID: 3927437518877080461}
   testMat_0: {fileID: 2100000, guid: a74b4b0e1ee6ee54d9a80a1a7355896e, type: 2}
   testMat_1: {fileID: 2100000, guid: 3f47b402cd70f124bb78a19b3a7d4e61, type: 2}
 --- !u!114 &52961925

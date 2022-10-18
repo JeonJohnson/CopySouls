@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     public Player_cState curState = null;
     public ePlayerState curState_e = ePlayerState.End;
 
-    public GameObject Weapon;
+    public GameObject mainWeapon;
+    public GameObject subWeapon;
 
     public void SetState(ePlayerState state)
     {
