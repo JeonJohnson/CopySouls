@@ -182,7 +182,7 @@ public class Archer_Attack_Aiming : cState
 		if (archer.arrow != null)
 		{
 			archer.arrow.ResetForReturn();
-			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject, ePoolingObj.Arrow);
+			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject);
 		}
 
 		archer.bow.ShootArrow();

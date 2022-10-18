@@ -29,7 +29,7 @@ public class Archer_Death : cState
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Death_0{rand}",0.25f))
 		{
 			//ObjectPooling Center에 되돌릴 준비
-			GameObject ragdoll = ObjectPoolingCenter.Instance.LentalObj(Enums.ePoolingObj.Archer_Ragdoll);
+			GameObject ragdoll = ObjectPoolingCenter.Instance.LentalObj("Archer_Ragdoll");
 			Funcs.RagdollObjTransformSetting(me.transform, ragdoll.transform);
 			ragdoll.transform.position = me.transform.position;
 

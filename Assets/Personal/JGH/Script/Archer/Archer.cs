@@ -284,7 +284,7 @@ public class Archer : Enemy
 
     public void DrawArrow()
 	{
-		arrow = ObjectPoolingCenter.Instance.LentalObj(ePoolingObj.Arrow).GetComponent<Arrow>();
+		arrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Dynamic").GetComponent<Arrow>();
 
 		arrow.archer = this;
 		arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
