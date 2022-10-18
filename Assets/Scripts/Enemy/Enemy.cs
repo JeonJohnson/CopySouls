@@ -277,6 +277,7 @@ public abstract class Enemy : MonoBehaviour
 
     [Range(0, 15)]
     public float viewRadius;
+
     [Range(0, 360)]
     public float viewAngle;
     public LayerMask targetMask, obstacleMask;
