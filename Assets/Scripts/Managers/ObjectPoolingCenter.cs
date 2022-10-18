@@ -20,7 +20,6 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
     public void CreateBoxes()
     {
-        
         for (int i = 0; i < (int)ePoolingObj.End; ++i)
         {
             GameObject tempObj = new GameObject(((ePoolingObj)i).ToString());
@@ -113,6 +112,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
         FillObject(ePoolingObj.Arrow);
         FillObject(ePoolingObj.Arrow_Static);
         FillObject(ePoolingObj.Archer_Ragdoll);
+        
 
     }
 

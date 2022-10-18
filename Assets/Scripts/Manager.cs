@@ -11,7 +11,6 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 
 	public static void InstantiateManager()
 	{
-
 		if (instance == null)
 		{
 			GameObject obj = GameObject.Find(typeof(T).Name);
@@ -38,6 +37,7 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 				Debug.LogError(typeof(T).Name + "'s prefab is not exist");
 				prefab = new GameObject(typeof(T).Name);
 				instance = prefab.AddComponent<T>();
+
 			}
 			else
 			{
@@ -48,8 +48,33 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 					Debug.LogError(typeof(T).Name + "'s prefab don't include" + typeof(T).Name + " Script!!");
 				}
 			}
+
+			instance.gameObject.name = instance.gameObject.name.Replace("(Clone)", "");
 		}
 	}
+
+	public static void InstantiateManagerByPrefab(GameObject prefab, GameObject box/* = null*/)
+	{
+		if (instance == null)
+		{
+			if (box != null)
+			{
+				instance = Instantiate(prefab, box.transform).GetComponent<T>();
+			}
+			else 
+			{
+				instance = Instantiate(prefab).GetComponent<T>();
+			}
+
+			if (instance == null)
+			{
+				Debug.LogError(typeof(T).Name + "'s prefab don't include" + typeof(T).Name + " Script!!");
+			}
+
+			instance.gameObject.name = instance.gameObject.name.Replace("(Clone)", "");
+		}
+	}
+
 
 	public static T Instance
 	{

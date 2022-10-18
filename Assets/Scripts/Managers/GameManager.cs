@@ -7,7 +7,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : Manager<GameManager>
 {
 
+    public GameObject managerBox;
+
     public List<GameObject> managerPrefabs;
+
+    public GameObject objectPoolingManagerPrefab;
+
 
     [RuntimeInitializeOnLoadMethod]
     private static void GameInitialize()
@@ -23,10 +28,37 @@ public class GameManager : Manager<GameManager>
         //각 씬 별로 다르게 생성 순서, 생성 유무를 정하기
     }
 
+
+    public void CheckManagerBox()
+    {
+        if (managerBox == null)
+        {
+            managerBox = new GameObject("Managers");
+        }
+
+
+    
+    }        
+
+    public void GeunHeeSceneManagersCreate()
+    {
+
+        ObjectPoolingCenter.InstantiateManagerByPrefab(objectPoolingManagerPrefab, managerBox);
+
+
+    }
+
+
     private void Awake()
 	{
-		
-	}
+        DontDestroyOnLoad(this.gameObject);
+        CheckManagerBox();
+
+        //여기서 씬체크한뒤에 원하는 방식대로 하면됨.
+        //GeunHeeSceneManagersCreate();
+
+
+    }
 	// Start is called before the first frame update
 	void Start()
     {
