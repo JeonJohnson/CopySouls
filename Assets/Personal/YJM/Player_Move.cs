@@ -22,6 +22,11 @@ public class Player_Move : Player_cState
             me.SetState(Enums.ePlayerState.Dodge);
         }
 
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            PlayerActionTable.instance.Parrying();
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             if (PlayerLocomove.instance.isMove == true && PlayerLocomove.instance.isRun == true)
@@ -37,6 +42,7 @@ public class Player_Move : Player_cState
         {
             PlayerActionTable.instance.StrongAttack();
         }
+        PlayerActionTable.instance.Guard();
     }
 
     public override void ExitState()

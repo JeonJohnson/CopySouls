@@ -55,6 +55,10 @@ public class PlayerLocomove : MonoBehaviour
     {
         SetAnimation();
         KeyInput();
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            PlayerActionTable.instance.BackHoldAttack();
+        }
     }
 
     [HideInInspector]public bool isMove = false;

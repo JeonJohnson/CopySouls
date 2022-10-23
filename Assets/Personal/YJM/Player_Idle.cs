@@ -18,7 +18,6 @@ public class Player_Idle : Player_cState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("aaaa");
             PlayerActionTable.instance.Backstep();
         }
 
@@ -26,6 +25,13 @@ public class Player_Idle : Player_cState
         {
             PlayerActionTable.instance.WeakAttack();
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            PlayerActionTable.instance.Parrying();
+        }
+
+        PlayerActionTable.instance.Guard();
     }
 
     public override void ExitState()

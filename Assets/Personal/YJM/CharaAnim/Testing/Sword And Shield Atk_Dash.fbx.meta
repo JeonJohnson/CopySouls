@@ -38,7 +38,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 7
       lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 0
@@ -73,8 +73,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9196676
-        functionName: SetPlayerStatus
+      - time: 0.783304
+        functionName: StartComboCheck
+        data: 
+        objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: StopComboCheck
         data: 
         objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
         floatParameter: 0
