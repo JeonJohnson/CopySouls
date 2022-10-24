@@ -159,7 +159,6 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
     public void DashAttack()

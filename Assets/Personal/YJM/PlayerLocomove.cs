@@ -179,6 +179,11 @@ public class PlayerLocomove : MonoBehaviour
         //cameraArm.transform.localPosition = headPos.transform.localPosition;
     }
 
+    public void SetPlayerPos()
+    {
+
+    }
+
     public void SetPlayerTrImt()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

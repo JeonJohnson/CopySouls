@@ -80,7 +80,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: 0.7795698
         functionName: StopComboCheck
         data: 
         objectReferenceParameter: {fileID: 2265835832805523370, guid: ecc3d3b333d077d48ab37ca867c77d65, type: 3}
