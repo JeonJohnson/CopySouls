@@ -33,35 +33,29 @@ public class Spirit_Atk : cState
     public override void UpdateState()
     {
         //me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-
         //Orbit_Rotation(500);
-
-
-        if (me.targetObj != null)
+        if(me.isAlert)
         {
             if (((Spirit)me).complete_Atk)
             {
                 ((Spirit)me).complete_Atk = false;
-                if (me.distToTarget > me.status.atkRange)
-                {
-                    //me.SetState((int)Enums.eSpiritState.Trace);
-                }
-                else
+                if (me.distToTarget <= me.status.atkRange)
                 {
                     //Select(Random.Range(((int)eSpirit_AtkPattern.None) + 1, ((int)eSpirit_AtkPattern.End) + 1));
                     Select(2);
                 }
+                else if(me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Trace);
+                }
+                else if(me.distToTarget > me.status.ricognitionRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Unequipt);
+                }
             }
-            else
-            {
-                Play(CurPattern);
-            }
+            else Play(CurPattern);
         }
-        else
-        {
-            //me.SetState((int)Enums.eSpiritState.Unequipt);
-        }
+        else me.SetState((int)Enums.eSpiritState.Unequipt);
     }
 
     public override void ExitState()
@@ -72,7 +66,7 @@ public class Spirit_Atk : cState
     public void Spirit_StartAtk()
     {
         me.animCtrl.SetBool("isAtk", true);
-        me.navAgent.isStopped = true;
+        me.MoveStop();
     }
 
     public void Spirit_StopAtk()

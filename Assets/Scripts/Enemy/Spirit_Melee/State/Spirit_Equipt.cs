@@ -8,10 +8,11 @@ using UnityEngine;
 
 public class Spirit_Equipt : cState
 {
-
+    
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        //me.GetComponent<FieldOfView>().viewAngle = 360f;
         me.animCtrl.SetBool("isEquipt", true);
         me.MoveStop();
         ((Spirit)me).isEquipt = true;
@@ -21,20 +22,20 @@ public class Spirit_Equipt : cState
     {
         if (((Spirit)me).complete_Equipt)
         {
-            if(me.targetObj == null)
-            {
-                me.SetState((int)Enums.eSpiritState.Unequipt);
-            }
-            else
+            if (me.isAlert)
             {
                 if (me.distToTarget <= me.status.atkRange)
                 {
                     me.SetState((int)Enums.eSpiritState.Atk);
                 }
-                else
+                else if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
                 {
                     me.SetState((int)Enums.eSpiritState.Trace);
                 }
+            }
+            else
+            {
+                me.SetState((int)Enums.eSpiritState.Unequipt);
             }
         }
     }

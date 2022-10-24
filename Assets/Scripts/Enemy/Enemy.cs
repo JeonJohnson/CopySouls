@@ -19,17 +19,19 @@ public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
 
-    
+    public float targetmaxLine;
+
     ////Target
     //public GameObject player;
+    public Vector3 responPos;
+    public Vector3 preTargetPos;
+    public Vector3 curTargetPos;
 
     public GameObject targetObj;
     public float distToTarget;
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
-    public Vector3 preTargetPos;
-    public Vector3 curTargetPos;
+    
     public float CoolTime;
-    ////Target
 
     //testSpinATT
     public Vector3 Destination;
@@ -233,6 +235,11 @@ public abstract class Enemy : MonoBehaviour
     }
     #endregion
 
+    public void SetDestination(Vector3 dest)
+    {
+        if (navAgent == null || navAgent.isStopped) return;
+        navAgent.destination = dest;
+    }
 
     public void MoveOrder(Vector3 dest)
 	{//네비 에이전트 움직이는거 편하게
@@ -267,88 +274,6 @@ public abstract class Enemy : MonoBehaviour
 
         navAgent.isStopped = true;
     }
-
-    //======================================================================
-    //시야각 용도가 조금 다를것 같아서 따로 만듬
-    //Spirit 전용....?
-    //시야 탐색용(단순 거리 계산이 아니라 시야 범위 내에 플레이거 검출 용도)
-
-    public float meshResolution = 0.1f;
-
-    [Range(0, 15)]
-    public float viewRadius;
-
-    [Range(0, 360)]
-    public float viewAngle;
-    public LayerMask targetMask, obstacleMask;
-    public List<Transform> visibleTargets = new List<Transform>();
-
-    private void OutLineView()
-    {
-        Vector3 left = DirFromAngle(dirToTarget.y - viewAngle / 2f);
-        Vector3 right = DirFromAngle(dirToTarget.y + viewAngle / 2f);
-
-        Debug.DrawRay(transform.position, left * viewRadius * 1.3f, Color.black);
-        Debug.DrawRay(transform.position, right * viewRadius * 1.3f, Color.black);
-    }
-
-    public void DrawFieldOfView(Color color)
-    {
-        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
-        float stepAngleSize = viewAngle / stepCount;
-
-        for (int i = 0; i <= stepCount; i++)
-        {
-            float angle = dirToTarget.y - viewAngle / 2 + stepAngleSize * i;
-            color.a = 0.2f;
-            Debug.DrawLine(transform.position, transform.position + DirFromAngle(angle) * viewRadius, color);
-        }
-    }
-
-    public void FindVisibleTargets()
-    {
-        visibleTargets.Clear();
-        Collider[] tragetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-        bool isFind = false;
-
-        for (int i = 0; i < tragetInViewRadius.Length; i++)
-        {
-            Transform target = tragetInViewRadius[i].transform;
-            Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
-            //범위 내라면
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-            {
-                float distToTarget = Vector3.Distance(transform.position, target.transform.position);
-                //장애물에 걸리지 않았으면
-                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
-                {
-                    if(target.gameObject.name == "Player")
-                    {
-                        isFind = true;
-                        targetObj = target.gameObject;
-                    }
-                    visibleTargets.Add(target);
-                }
-            }
-            
-        }
-        if (!isFind) targetObj = null;
-
-        OutLineView();
-        if (targetObj == null) DrawFieldOfView(Color.black);
-        else DrawFieldOfView(Color.red);
-
-    }
-
-    public Vector3 DirFromAngle(float angleDegree)
-    {
-        angleDegree += transform.eulerAngles.y;
-        return new Vector3(Mathf.Sin(angleDegree * Mathf.Deg2Rad),0,Mathf.Cos(angleDegree * Mathf.Deg2Rad));
-        //return new Vector3(Mathf.Cos((-angleDegree + 90) * Mathf.Deg2Rad), 0, Mathf.Sin((-angleDegree + 90) * Mathf.Deg2Rad));
-    }
-    
-    //======================================================================
 
     public void CalcFovDir(float degreeAngle)
 	{
@@ -398,17 +323,17 @@ public abstract class Enemy : MonoBehaviour
                 continue;
             }
 
-           // Vector3 dir = (targetObj.transform.position - transform.position).normalized;
+            // Vector3 dir = (targetObj.transform.position - transform.position).normalized;
 
             float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
-            
+
             //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
-            
+
             if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
                 && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
-                //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
-                    //=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
+            //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
+            //=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
             {
                 if (!isAlert)
                 {
@@ -580,6 +505,9 @@ public abstract class Enemy : MonoBehaviour
         patrolPosList.Add(new Vector3(5,0,-10));
         //for Test
 
+        //test
+        responPos = new Vector3(transform.position.x, 0f, transform.position.z);
+
 
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
@@ -595,8 +523,6 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         CalcAboutTarget();
-
-       
 
         CalcFovDir(status.fovAngle);
         //isAlert = CheckTargetInFov();
@@ -626,42 +552,43 @@ public abstract class Enemy : MonoBehaviour
 	}
 
 
-	//private void OnDrawGizmos()
-	//{
+    //private void OnDrawGizmos()
+    //{
 
-	//    ////인식범위
-	//    Gizmos.color = Color.yellow;
-	//    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
-	//    ////인식범위
+    //    ////인식범위
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, status.ricognitionRange);
+    //    ////인식범위
 
-	//    ////시야각
-	//    //프로스텀으로 보여주기
+    //    ////시야각
+    //    //프로스텀으로 보여주기
 
-	//    ////시야각
+    //    ////시야각
 
-	//    ////공격 사정거리
-	//    Gizmos.color = Color.red;
-	//    Gizmos.DrawWireSphere(transform.position, status.atkRange);
-	//    ////공격 사정거리
+    //    ////공격 사정거리
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, status.atkRange);
+    //    ////공격 사정거리
 
 
-	//    ////패트롤 예상 이동 궤적
-	//    Gizmos.color = Color.blue;
+    //    ////패트롤 예상 이동 궤적
+    //    Gizmos.color = Color.blue;
 
-	//    for (int i = 0; i < patrolPosList.Count; ++i)
-	//    {
-	//        if (i == (patrolPosList.Count - 1))
-	//        {
-	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
-	//        }
-	//        else
-	//        {
-	//            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
-	//        }
-	//    }
-	//}
+    //    for (int i = 0; i < patrolPosList.Count; ++i)
+    //    {
+    //        if (i == (patrolPosList.Count - 1))
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+    //        }
+    //    }
+    //}
 
-	private void OnDrawGizmosSelected()
+
+    private void OnDrawGizmosSelected()
 	{
         ////Dir to Target
         if(targetObj != null)
@@ -670,24 +597,20 @@ public abstract class Enemy : MonoBehaviour
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
         }
         ////Dir to Target
-
-
-
-        ////인식범위
-        //Color temp = Color.yellow;
-        //temp.a = 0.4f;
-        //Gizmos.color = Color.yellow;
-        //Gizmos.color = temp;
-        //Gizmos.DrawSphere(transform.position, status.ricognitionRange);
+        Color temp = Color.yellow;
+        temp.a = 0.4f;
+        Gizmos.color = Color.yellow;
+        Gizmos.color = temp;
+        Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
         //Test SpinAtt
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, Destination);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawLine(transform.position, Destination);
 
         ////시야각
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, fovStruct.LeftDir *status.ricognitionRange);
+        Gizmos.DrawRay(transform.position, fovStruct.LeftDir * status.ricognitionRange);
         Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
         if (isCombat)
         {
@@ -718,3 +641,4 @@ public abstract class Enemy : MonoBehaviour
 		////패트롤 예상 이동 궤적
 	}
 }
+

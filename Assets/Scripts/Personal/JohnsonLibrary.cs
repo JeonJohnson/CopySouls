@@ -390,7 +390,14 @@ public static class Funcs
 		return text;
 	}
 
+   
+    //public static float meToTargetEuler(float )
+    //{
+
+    //}
 }
+
+
 
 public static class Defines
 {
@@ -699,5 +706,6 @@ namespace Structs
 	}
 
 
+    
 }
 

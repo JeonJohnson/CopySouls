@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
-
-
 public class Spirit : Enemy
 {
-    public Vector3 responPos;
+    public float initFOVAngle;
 
     public eSpiritState curState_e;
-    public float WaitTimer;     //test
-    public float PatrolTimer;   //test
-    public bool Arrival;        //test
+    public bool Arrival;
+
+    public Transform[] PatrolPos;
+    public int curPatrol_Index;
+    public int prePatrol_Index;
+
     public bool complete_Equipt;
     public bool complete_Unequipt;
     public bool complete_Atk;
@@ -22,8 +23,6 @@ public class Spirit : Enemy
     public override void InitializeState()
 	{
         fsm = new cState[(int)Enums.eSpiritState.End];
-
-        //limitPatrolRange = new Vector3(transform.position.x + status.patrolRange, transform.position.y + status.patrolRange);
 
         fsm[(int)Enums.eSpiritState.Idle] = new Spirit_Idle();
         fsm[(int)Enums.eSpiritState.Patrol] = new Spirit_Patrol();
@@ -38,19 +37,18 @@ public class Spirit : Enemy
 	protected override void Awake()
     {
         base.Awake();
-        responPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        initFOVAngle = GetComponent<FieldOfView>().viewAngle;
     }
 
     protected override void Start()
     {
         base.Start();
+        targetObj = GameObject.Find("Player");
     }
 
     protected override void Update()
     {
         base.Update();
-
-
 
         //if(Input.GetKey("a"))
         //{
@@ -59,13 +57,22 @@ public class Spirit : Enemy
 
         curState_e = GetCurState<Enums.eSpiritState>();
 
-        if (targetObj != null)
+        if (isAlert)
         {
-            curTargetPos = targetObj.transform.position;
-            distToTarget = Vector3.Distance(targetObj.transform.position, transform.position);
+            if (curState_e != Enums.eSpiritState.Idle || curState_e != Enums.eSpiritState.Patrol)
+            {
+                GetComponent<FieldOfView>().viewAngle = 360f;
+            }
+        }
+        else
+        {
+            if (curState_e == Enums.eSpiritState.Idle || curState_e == Enums.eSpiritState.Patrol)
+            {
+                GetComponent<FieldOfView>().viewAngle = initFOVAngle;
+            }
         }
 
-        if(isEquipt)
+        if (isEquipt)
         {
             //weapon.gameObject.SetActive(true);
             //GameObject.Find("Sword").SetActive(false);
@@ -75,13 +82,14 @@ public class Spirit : Enemy
             //weapon.gameObject.SetActive(false);
             //GameObject.Find("Sword").SetActive(true);
         }
-
-        FindVisibleTargets();//221017 2210 지금 Archer TargetObj도 null들어가서 곤란,
-        //Spirit Update에서 돌려줘야할덧,,,?
-
     }
 
-    //애니메이션 이벤트==================================
+    //=============================================================================
+    //move
+    //=============================================================================
+
+    //=============================================================================
+    //애니메이션 이벤트
 
     public void Spirit_Melee_CompleteEquiptment()
     {
@@ -96,18 +104,9 @@ public class Spirit : Enemy
         complete_Atk = true;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        //순찰범위
-        //Color temp_White = Color.white;
-        //temp_White.a = 0.4f;
-        //Gizmos.color = temp_White;
-        //Gizmos.DrawSphere(responPos, status.patrolRange);
+    //=============================================================================
 
-        //타겟위치
-        Color temp_Blue = Color.blue;
-        temp_Blue.a = 0.4f;
-        Gizmos.color = temp_Blue;
-        Gizmos.DrawSphere(curTargetPos + Vector3.up * 0.5f, 0.5f);
-    }
 }
+
+
+

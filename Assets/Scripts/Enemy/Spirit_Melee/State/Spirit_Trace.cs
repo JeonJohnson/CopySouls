@@ -16,12 +16,11 @@ public class Spirit_Trace : cState
 
     public override void UpdateState()
     {
+        me.SetDestination(me.targetObj.transform.position);
+        me.transform.LookAt(me.targetObj.transform);
 
-        if(me.targetObj != null)
+        if(me.isAlert)
         {
-            me.MoveOrder(me.targetObj.transform.position);
-            me.transform.LookAt(me.targetObj.transform);
-
             if (me.distToTarget <= me.status.atkRange)
             {
                 me.SetState((int)Enums.eSpiritState.Atk);
@@ -30,6 +29,10 @@ public class Spirit_Trace : cState
         else
         {
             me.SetState((int)Enums.eSpiritState.Unequipt);
+        }
+
+        if (me.distToTarget > me.status.ricognitionRange || !me.isAlert)
+        {
         }
     }
 
@@ -52,7 +55,7 @@ public class Spirit_Trace : cState
         me.animCtrl.SetBool("isTrace", true);
         me.animCtrl.SetBool("isRun", true);
         me.navAgent.speed = me.status.runSpd;
-        if(me.targetObj != null) me.MoveOrder(me.targetObj.transform.position);
+        me.MoveOrder(me.targetObj.transform.position);
     }
 
     public void Spirit_StopTrace()
