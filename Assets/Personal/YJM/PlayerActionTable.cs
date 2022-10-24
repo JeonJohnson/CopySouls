@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Structs;
 
 public class PlayerActionTable : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PlayerActionTable : MonoBehaviour
 
     #endregion
 
+    [SerializeField] Player player;
     public bool isComboCheck = false;
     bool antiRagTrigger = false;
 
@@ -34,20 +36,55 @@ public class PlayerActionTable : MonoBehaviour
 
     IEnumerator TakeDamage(int damage, float stunTime = 0.767f)
     {
-        Player.instance.hp -= damage;
-        Player.instance.animator.SetTrigger("Hit");
-        yield return new WaitForSeconds(stunTime);
-        Player.instance.SetState(Enums.ePlayerState.Idle);
+        player.status.curHp -= damage;
+        if (player.status.curHp > 0)
+        {
+            Player.instance.animator.SetTrigger("Hit");
+            yield return new WaitForSeconds(stunTime);
+            Player.instance.SetState(Enums.ePlayerState.Idle);
+        }
+        else
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        Player.instance.SetState(Enums.ePlayerState.Death);
+        Player.instance.animator.SetTrigger("Death");
+        print("사망");
+    }
+
+    public void isParryingCheck(int i)
+    { 
+        if(i == 0)
+        {
+            player.status.isParrying = false;
+        }
+        else
+        {
+            player.status.isParrying = true;
+        }
+    }
+
+    public void Parrying()
+    {
+        Player.instance.SetState(Enums.ePlayerState.Dodge);
+        Player.instance.animator.SetTrigger("Parrying");
+        player.status.isParrying = true;
     }
 
     IEnumerator PlayerInvincible(float enterTime, float exitTime)
     {
         yield return new WaitForSeconds(enterTime);
         Player.instance.SetPlayerMat(0);
-        Player.instance.isInteracting = false;
+        player.status.isInvincible = false;
+        player.SetModelCollider(false);
         yield return new WaitForSeconds(exitTime);
         Player.instance.SetPlayerMat(1);
-        Player.instance.isInteracting = true;
+        player.status.isInvincible = true;
+        player.SetModelCollider(true);
     }
 
     IEnumerator DealDamage(int damage, Enemy enemy)
@@ -55,16 +92,27 @@ public class PlayerActionTable : MonoBehaviour
         yield return null;
     }
 
-    public void Hit(int damage, Vector3 dir)
+    public void Hit(DamagedStruct dmgStruct)
     {
-        isComboCheck = false;
-        EnableWeaponMeshCol(0);
-        Player.instance.SetState(Enums.ePlayerState.Hit);
-        if (Player.instance.isInteracting == true)
+        if(player.status.isParrying == true && dmgStruct.isRiposte == false)
         {
-            StopAllCoroutines();
+            print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
+            //Set Enemy Stun funcs here
         }
-        StartCoroutine(TakeDamage(damage));
+        else if(player.status.isGuard == true)
+        {
+            // dmgStruct에 데미지 방향 or 때린 적이 누군지 필요함. 안그럼 가드를 못만듬
+        }
+        else
+        {
+            player.status.isParrying = false;
+            isComboCheck = false;
+            EnableWeaponMeshCol(0);
+            Player.instance.SetState(Enums.ePlayerState.Hit);
+            StopAllCoroutines();
+            player.SetModelCollider(true);
+            StartCoroutine(TakeDamage((int)dmgStruct.dmg));
+        }
     }
 
     public void Rolling()
@@ -92,14 +140,13 @@ public class PlayerActionTable : MonoBehaviour
     public void WeakAttack()
     {
         CurCoroCounter2 = CurCoroCounter1;
-        print("같게함");
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
         //PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
         Player.instance.animator.SetTrigger("WeakAttack" + "_" + combo.ToString());
         combo++;
-        if (combo > 2)
+        if (combo > 1)
         {
             combo = 0;
         }
@@ -112,7 +159,6 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
 
-        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
     public void DashAttack()
@@ -121,48 +167,65 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("DashAttack");
-        Player.instance.SetState(Enums.ePlayerState.Atk);
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
     }
 
     public void RollingAttack()
     {
         CurCoroCounter2 = CurCoroCounter1;
-        print("같게함");
         isComboCheck = false;
         combo = 0;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("RollingAttack");
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
     }
 
     public void FrontHoldAttack()
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
-
-        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
     }
 
     public void BackHoldAttack()
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
-
-        StartCoroutine(SetPlayerStatusCoroutine(Enums.ePlayerState.Idle, 1.733f));
+        Player.instance.animator.SetTrigger("BackHoldAttack");
     }
 
-    public void Parrying()
+    float guardParam = 0;
+    public void Guard()
     {
-
+        if(Input.GetKey(KeyCode.Mouse1))
+        {
+            guardParam += Time.deltaTime * 10;
+        }    
+        else
+        {
+            guardParam -= Time.deltaTime * 10;
+        }
+        guardParam = Mathf.Clamp(guardParam, 0, 1);
+        if (guardParam >= 0.95)
+        {
+            player.status.isGuard = true;
+        }
+        else
+        {
+            player.status.isGuard = false;
+        }
+        player.animator.SetLayerWeight(1, guardParam);
     }
-
-
+    public void ResetGuardValue()
+    {
+        guardParam = 0;
+        player.animator.SetLayerWeight(1, 0);
+    }
 
     //Funcs
 
     public void SetPlayerStatus(int i)
     {
-        print("셋아이들");
         if (antiRagTrigger == false)
         {
             combo = 0;
@@ -185,7 +248,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (CurCoroCounter1 != CurCoroCounter2)
         {
-            print(CurCoroCounter1 + " " + CurCoroCounter2);
             isComboCheck = false;
             SetPlayerStatus(0);
         }
@@ -193,6 +255,6 @@ public class PlayerActionTable : MonoBehaviour
     #endregion
     public void EnableWeaponMeshCol(int i)
     {
-        Player.instance.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
+        player.status.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
     }
 }

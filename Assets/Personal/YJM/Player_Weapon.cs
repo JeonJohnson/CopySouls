@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Structs;
 
 public class Player_Weapon : MonoBehaviour
 {
-
-    Enums.eWeaponType weaponType = Enums.eWeaponType.Melee;
+    public WeaponStatus status;
     int atk = 10;
 
     MeshCollider meshCollider;

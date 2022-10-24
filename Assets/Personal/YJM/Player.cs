@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Structs;
 using Enums;
 
 public class Player : MonoBehaviour
@@ -10,11 +11,8 @@ public class Player : MonoBehaviour
     public GameObject playerModel;
     public Animator animator;
 
-    public bool isInteracting = true;
-
-    public int hp = 100;
-    public int mp = 100;
-    public float stamina = 100;
+    public List<Collider> modelColliders = new List<Collider>();
+    public PlayerStatus status;
 
     //FSM
     public Player_cState[] fsm;
@@ -22,9 +20,6 @@ public class Player : MonoBehaviour
     public ePlayerState preState_e = ePlayerState.End;
     public Player_cState curState = null;
     public ePlayerState curState_e = ePlayerState.End;
-
-    public GameObject mainWeapon;
-    public GameObject subWeapon;
 
     public void SetState(ePlayerState state)
     {
@@ -62,6 +57,7 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
         InitializeState();
+        ColliderSetting();
     }
 
     #endregion
@@ -69,7 +65,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        RigidBodySetting();
+        //RigidBodySetting();
     }
 
     // Update is called once per frame
@@ -89,6 +85,28 @@ public class Player : MonoBehaviour
         SetState(Enums.ePlayerState.Idle);
     }
 
+    void ColliderSetting()
+    {
+        var colliders = GetComponentsInChildren<Collider>();
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.layer == 14)
+            {
+                modelColliders.Add(collider);
+            }
+        }
+    }
+
+    public void SetModelCollider(bool value)
+    {
+            for (int i = 0; i < modelColliders.Count; i++)
+            {
+                modelColliders[i].enabled = value;
+            }
+    }
+
+    /**
+     * old code
     void RigidBodySetting()
     {
         var rigidBodies = GetComponentsInChildren<Rigidbody>();
@@ -100,7 +118,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    */
     #region PLAYER INVINCIBLE TEST CODE
     [Header("TEST CODE")]
     [SerializeField] Material testMat_0;

@@ -7,6 +7,7 @@ public class Player_Hit : Player_cState
     public override void EnterState(Player script)
     {
         base.EnterState(script);
+        PlayerActionTable.instance.ResetGuardValue();
     }
     public override void UpdateState()
     {

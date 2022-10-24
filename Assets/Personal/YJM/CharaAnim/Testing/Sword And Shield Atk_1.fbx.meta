@@ -73,14 +73,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6363175
+      - time: 0.5933067
         functionName: StartComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: 0.83870965
         functionName: StopComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}

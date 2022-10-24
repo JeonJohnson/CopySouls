@@ -637,6 +637,33 @@ namespace Structs
     }
 
 	[System.Serializable]
+	public struct PlayerStatus
+	{
+		public string name;
+
+		public int maxHp;
+		public int curHp;
+
+		public int maxStamina;
+		public int curStamina;
+
+		public int maxMp;
+		public int curMp;
+
+		public float moveSpd;
+		public float runSpd;
+
+		public bool isInvincible;
+		public bool isParrying;
+		public bool isGuard;
+
+		public GameObject mainWeapon;
+		public GameObject subWeapon;
+		//공격력 -> 무기쪽에서
+
+	}
+
+	[System.Serializable]
 	public struct WeaponStatus
 	{
 

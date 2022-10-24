@@ -55,6 +55,10 @@ public class PlayerLocomove : MonoBehaviour
     {
         SetAnimation();
         KeyInput();
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            PlayerActionTable.instance.BackHoldAttack();
+        }
     }
 
     [HideInInspector]public bool isMove = false;
@@ -173,6 +177,11 @@ public class PlayerLocomove : MonoBehaviour
         transform.position = playerModel.transform.position;
         playerModel.transform.localPosition = Vector3.zero;
         //cameraArm.transform.localPosition = headPos.transform.localPosition;
+    }
+
+    public void SetPlayerPos()
+    {
+
     }
 
     public void SetPlayerTrImt()

@@ -9,6 +9,7 @@ public class Player_Atk : Player_cState
     {
         base.EnterState(script);
         playerTr = Player.instance.playerModel.transform;
+        PlayerActionTable.instance.ResetGuardValue();
     }
     public override void UpdateState()
     {
@@ -19,7 +20,12 @@ public class Player_Atk : Player_cState
                 PlayerActionTable.instance.WeakAttack();
             }
 
-            if((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                PlayerActionTable.instance.Parrying();
+            }
+
+            if ((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
             {
                 PlayerActionTable.instance.Rolling();
             }
