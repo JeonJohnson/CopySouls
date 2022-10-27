@@ -7,7 +7,6 @@ public class Spirit_Unequipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        //me.GetComponent<FieldOfView>().viewAngle = ((Spirit)me).initFOVAngle;
         me.MoveStop();
         me.animCtrl.SetBool("isUnequipt", true);
     }
@@ -16,15 +15,15 @@ public class Spirit_Unequipt : cState
     {
         if (((Spirit)me).complete_Unequipt)
         {
-            me.SetState((int)Enums.eSpiritState.Idle);
-            //if (me.distToTarget <= me.status.ricognitionRange)
-            //{
-            //    me.SetState((int)Enums.eSpiritState.Equipt);
-            //}
-            //if (me.isAlert)
-            //{
-            //    me.SetState((int)Enums.eSpiritState.Equipt);
-            //}
+            me.GetComponent<FieldOfView>().viewAngle = ((Spirit)me).initFOVAngle;
+            if(me.isAlert)
+            {
+                me.SetState((int)Enums.eSpiritState.Equipt);
+            }
+            else
+            {
+                me.SetState((int)Enums.eSpiritState.Idle);
+            }
         }
     }
 

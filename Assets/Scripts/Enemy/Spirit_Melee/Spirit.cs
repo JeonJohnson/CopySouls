@@ -18,7 +18,12 @@ public class Spirit : Enemy
     public bool complete_Equipt;
     public bool complete_Unequipt;
     public bool complete_Atk;
+    public bool complete_AttReturn;
     public bool isEquipt;
+    public bool nav;
+
+    //step
+    public bool stepWait;
 
     public override void InitializeState()
 	{
@@ -49,6 +54,7 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+        nav = !navAgent.isStopped;
 
         //if(Input.GetKey("a"))
         //{
@@ -61,14 +67,14 @@ public class Spirit : Enemy
         {
             if (curState_e != Enums.eSpiritState.Idle || curState_e != Enums.eSpiritState.Patrol)
             {
-                GetComponent<FieldOfView>().viewAngle = 360f;
+                //GetComponent<FieldOfView>().viewAngle = 360f;
             }
         }
         else
         {
             if (curState_e == Enums.eSpiritState.Idle || curState_e == Enums.eSpiritState.Patrol)
             {
-                GetComponent<FieldOfView>().viewAngle = initFOVAngle;
+                //GetComponent<FieldOfView>().viewAngle = initFOVAngle;
             }
         }
 
@@ -91,6 +97,23 @@ public class Spirit : Enemy
     //=============================================================================
     //애니메이션 이벤트
 
+    public IEnumerator Spirit_Step()
+    {
+        yield return new WaitForSeconds(0.1f);
+        MoveStop();
+    }
+
+    public void Spirit_StepWait()
+    {
+        if(!stepWait) stepWait = true;
+    }
+    public void Spirit_StepStart()
+    {
+        if (stepWait) stepWait = false;
+    }
+
+
+
     public void Spirit_Melee_CompleteEquiptment()
     {
         complete_Equipt = true;
@@ -102,6 +125,10 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleAtk()
     {
         complete_Atk = true;
+    }
+    public void Spirit_AttReturn()
+    {
+        if(!complete_AttReturn) complete_AttReturn = true;
     }
 
     //=============================================================================

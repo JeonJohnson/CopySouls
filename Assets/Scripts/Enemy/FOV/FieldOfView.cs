@@ -83,18 +83,33 @@ public class FieldOfView : MonoBehaviour
             Transform target = hitObjs[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
 
-            if(InnerProduct_Rad(transform.forward, dirToTarget,false) < viewAngle / 2)
+            if (viewAngle <= 180f && viewAngle > 0f)
+            {
+                if (InnerProduct_Rad(transform.forward, dirToTarget, false) < viewAngle / 2)
+                {
+                    float distToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+                    if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    {
+                        if (target.gameObject == gameObject) continue;
+                        findObj.Add(target);
+                    }
+                }
+            }
+            else if (viewAngle > 180f && viewAngle <= 360f)
             {
                 float distToTarget = Vector3.Distance(transform.position, target.transform.position);
-
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
+                    if (target.gameObject == gameObject) continue;
                     findObj.Add(target);
                 }
             }
         }
 
         bool isFind = false;
+
+        Debug.Log(findObj.Count);
 
         if (findObj.Count != 0)
         {
@@ -106,8 +121,16 @@ public class FieldOfView : MonoBehaviour
         }
         else isFind = false;
 
-        if (isFind) me.isAlert = true;
-        else  me.isAlert = false;
+        if (isFind)
+        {
+            me.isAlert = true;
+            Debug.Log("적발견!");
+        }
+        else
+        {
+            me.isAlert = false;
+            Debug.Log("적사라짐!");
+        }
     }
     //========================================================================================================================
 

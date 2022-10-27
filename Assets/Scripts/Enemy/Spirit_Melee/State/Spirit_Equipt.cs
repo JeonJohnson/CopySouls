@@ -8,11 +8,10 @@ using UnityEngine;
 
 public class Spirit_Equipt : cState
 {
-    
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        //me.GetComponent<FieldOfView>().viewAngle = 360f;
         me.animCtrl.SetBool("isEquipt", true);
         me.MoveStop();
         ((Spirit)me).isEquipt = true;
@@ -20,8 +19,10 @@ public class Spirit_Equipt : cState
 
     public override void UpdateState()
     {
+        me.MoveStop();
         if (((Spirit)me).complete_Equipt)
         {
+            me.GetComponent<FieldOfView>().viewAngle = 360f;
             if (me.isAlert)
             {
                 if (me.distToTarget <= me.status.atkRange)
@@ -37,6 +38,12 @@ public class Spirit_Equipt : cState
             {
                 me.SetState((int)Enums.eSpiritState.Unequipt);
             }
+        }
+        else
+        {
+            //애니메이션이 발만 떠서 맞춰서 내렸다가 올려줘야함
+            //Vector3 vec = new Vector3(0, me.transform.position.y - Time.deltaTime, 0);
+            //me.transform.position = vec;
         }
     }
 

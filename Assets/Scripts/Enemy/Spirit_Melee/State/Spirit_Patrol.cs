@@ -22,7 +22,7 @@ public class Spirit_Patrol : cState
     {
         ((Spirit)me).Arrival = isArrival;
 
-        Debug.Log(Vector3.Distance(me.transform.position, targetPos));
+        //Debug.Log(Vector3.Distance(me.transform.position, targetPos));
 
         if (me.isAlert) me.SetState((int)Enums.eSpiritState.Equipt);
         else
@@ -30,12 +30,20 @@ public class Spirit_Patrol : cState
             if (Vector3.Distance(me.transform.position, targetPos) < 1f)
             {
                 isArrival = true;
+                me.MoveStop();
                 me.animCtrl.SetBool("isWalk", false);
             }
+
             else isArrival = false;
         }
-        if(isArrival) me.SetState((int)Enums.eSpiritState.Idle);
+        if (isArrival) me.SetState((int)Enums.eSpiritState.Idle);
+        else Spirit_PatrolMoveOder();
+    }
 
+    public void Spirit_PatrolMoveOder()
+    {
+        if(((Spirit)me).stepWait) me.MoveStop();
+        else me.MoveOrder(targetPos);
     }
 
     public override void ExitState()
@@ -71,7 +79,6 @@ public class Spirit_Patrol : cState
         {
             MoveToNextWayPoint();
             me.navAgent.speed = me.status.moveSpd;
-            me.MoveOrder(targetPos);
             me.animCtrl.SetBool("isWalk", true);
             me.animCtrl.SetBool("isPatrol", true);
         }

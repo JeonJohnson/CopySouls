@@ -8,11 +8,11 @@ public enum eSpirit_AtkPattern
 {
     None,
     NoramlAtk,
-    SpinAtk,
-    ConsecutivelyAtk,
-    Strafe_Right,
-    Strafe_Left,
-    Strafe_Back,
+    //SpinAtk,
+    //ConsecutivelyAtk,
+    //Strafe_Right,
+    //Strafe_Left,
+    //Strafe_Back,
     End
 }
 
@@ -21,47 +21,91 @@ public class Spirit_Atk : cState
     //public eSpirit_AtkPattern curAtkPattern;
 
     public eSpirit_AtkPattern CurPattern;
+    public Quaternion initailAngle;
+
     public float SpinSpeed = 500;
 
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
         Spirit_StartAtk();
-        //Spirit_SelectAtkPattern();
+        SelectAttPattern();
+        PlayNormalAtk();
         Select(2);
     }
+
     public override void UpdateState()
     {
         //me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         //Orbit_Rotation(500);
-        if(me.isAlert)
+
+        if (CurPattern == eSpirit_AtkPattern.None) return;
+        //Debug.Log(CurPattern);
+
+        if (((Spirit)me).complete_Atk)
         {
-            if (((Spirit)me).complete_Atk)
+            if(!((Spirit)me).complete_AttReturn)
+            {
+                if(Mathf.Sqrt(me.transform.rotation.y - initailAngle.y) > 0)
+                {
+                    me.transform.rotation = Quaternion.Euler(0, me.transform.rotation.y - Time.deltaTime, 0);
+                }
+                else
+                {
+                    ((Spirit)me).complete_AttReturn = true;
+                }
+            }
+
+            StopNormalAtk();
+            if (me.isAlert)
             {
                 ((Spirit)me).complete_Atk = false;
                 if (me.distToTarget <= me.status.atkRange)
                 {
-                    //Select(Random.Range(((int)eSpirit_AtkPattern.None) + 1, ((int)eSpirit_AtkPattern.End) + 1));
-                    Select(2);
+                    SelectAttPattern();
+                    PlayNormalAtk();
                 }
-                else if(me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
+                else if (me.distToTarget > me.status.atkRange)
                 {
                     me.SetState((int)Enums.eSpiritState.Trace);
                 }
-                else if(me.distToTarget > me.status.ricognitionRange)
-                {
-                    me.SetState((int)Enums.eSpiritState.Unequipt);
-                }
             }
-            else Play(CurPattern);
+            else
+            {
+                me.SetState((int)Enums.eSpiritState.Unequipt);
+            }
         }
-        else me.SetState((int)Enums.eSpiritState.Unequipt);
+           //Select(Random.Range(((int)eSpirit_AtkPattern.None) + 1, ((int)eSpirit_AtkPattern.End) + 1));
+           //Select(2);
     }
 
     public override void ExitState()
     {
         Spirit_StopAtk();
     }
+
+    public void SelectAttPattern()
+    {
+        int AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.None) + 1, ((int)eSpirit_AtkPattern.End));
+        CurPattern = (eSpirit_AtkPattern)AttPatternIndex;
+    }
+
+    public void PlayerCurAttPattern(eSpirit_AtkPattern CurPattern)
+    {
+        switch (CurPattern)
+        {
+            case eSpirit_AtkPattern.None:
+                break;
+            case eSpirit_AtkPattern.NoramlAtk:
+                PlayNormalAtk();
+                break;
+            case eSpirit_AtkPattern.End:
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public void Spirit_StartAtk()
     {
@@ -76,11 +120,19 @@ public class Spirit_Atk : cState
     
 
 
-
+    //움직이면 공격모션 희안하게 나감
 
     public void PlayNormalAtk()
     {
         me.animCtrl.SetTrigger("isNormalAtk");
+        initailAngle = me.transform.rotation;
+        me.animCtrl.applyRootMotion = true;
+    }
+
+    public void StopNormalAtk()
+    {
+        me.animCtrl.applyRootMotion = false;
+        //me.transform.rotation = Quaternion.Euler(initailAngle.x, initailAngle.y, initailAngle.z);
     }
     public void PlaySpinAtk()
     {
@@ -126,21 +178,6 @@ public class Spirit_Atk : cState
                     break;
                 case eSpirit_AtkPattern.NoramlAtk:
                     break;
-                case eSpirit_AtkPattern.SpinAtk:
-                    PlaySpinAtk();
-                    break;
-                case eSpirit_AtkPattern.ConsecutivelyAtk:
-                    break;
-                case eSpirit_AtkPattern.Strafe_Right:
-                    break;
-                case eSpirit_AtkPattern.Strafe_Left:
-                    break;
-                case eSpirit_AtkPattern.Strafe_Back:
-                    break;
-                case eSpirit_AtkPattern.End:
-                    break;
-                default:
-                    break;
             }
         }
     }
@@ -154,14 +191,6 @@ public class Spirit_Atk : cState
                 break;
             case 1:
                 CurPattern = eSpirit_AtkPattern.NoramlAtk;
-                break;
-            case 2:
-                CurPattern = eSpirit_AtkPattern.SpinAtk;
-                break;
-            case 3:
-                CurPattern = eSpirit_AtkPattern.ConsecutivelyAtk;
-                break;
-            default:
                 break;
         }
     }

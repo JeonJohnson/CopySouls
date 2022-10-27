@@ -23,9 +23,9 @@ public abstract class Enemy : MonoBehaviour
 
     ////Target
     //public GameObject player;
-    public Vector3 responPos;
-    public Vector3 preTargetPos;
-    public Vector3 curTargetPos;
+    Vector3 responPos;
+    Vector3 preTargetPos;
+    Vector3 curTargetPos;
 
     public GameObject targetObj;
     public float distToTarget;
@@ -273,6 +273,7 @@ public abstract class Enemy : MonoBehaviour
         }
 
         navAgent.isStopped = true;
+        navAgent.SetDestination(transform.position);
     }
 
     public void CalcFovDir(float degreeAngle)
