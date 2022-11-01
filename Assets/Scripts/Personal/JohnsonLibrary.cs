@@ -651,8 +651,8 @@ namespace Structs
 		public int maxHp;
 		public int curHp;
 
-		public int maxStamina;
-		public int curStamina;
+		public float maxStamina;
+		public float curStamina;
 
 		public int maxMp;
 		public int curMp;

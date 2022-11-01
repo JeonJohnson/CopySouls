@@ -24,7 +24,7 @@ public class UnitManager : Manager<UnitManager>
     public int enemyAllCount;
     public List<GameObject> enemyPrefabList;
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;
-
+    public List<Enemy> allEnemyList = new List<Enemy>();
 
 
     //// <EnemyVar>

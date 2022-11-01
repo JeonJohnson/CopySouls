@@ -115,8 +115,15 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
+    public void UpdateStamina()
+    {
+        Player.instance.status.curStamina += Time.deltaTime * 20;
+        Player.instance.status.curStamina = Mathf.Clamp(Player.instance.status.curStamina, 0, Player.instance.status.maxStamina);
+    }
+
     public void Rolling()
     {
+        Player.instance.status.curStamina -= 20;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Dodge);
@@ -139,6 +146,7 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
+        Player.instance.status.curStamina -= 10;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -150,7 +158,7 @@ public class PlayerActionTable : MonoBehaviour
         {
             combo = 0;
         }
-        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock,0.4f);
     }
 
     public void StrongAttack()
@@ -163,6 +171,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void DashAttack()
     {
+        Player.instance.status.curStamina -= 15;
         isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -172,13 +181,14 @@ public class PlayerActionTable : MonoBehaviour
 
     public void RollingAttack()
     {
+        Player.instance.status.curStamina -= 15;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
         combo = 0;
         Player.instance.SetState(Enums.ePlayerState.Atk);
         EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("RollingAttack");
-        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock);
+        PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock, 0.4f);
     }
 
     public void FrontHoldAttack()
@@ -256,5 +266,17 @@ public class PlayerActionTable : MonoBehaviour
     public void EnableWeaponMeshCol(int i)
     {
         player.status.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
+    }
+    
+    public bool StaminaCheck()
+    {
+        if(Player.instance.status.curStamina <= 0f)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -15,7 +15,7 @@ public class Player_Atk : Player_cState
     {
         if (PlayerActionTable.instance.isComboCheck == true)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && PlayerActionTable.instance.StaminaCheck())
             {
                 PlayerActionTable.instance.WeakAttack();
             }
