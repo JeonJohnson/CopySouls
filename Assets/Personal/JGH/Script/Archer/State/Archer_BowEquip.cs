@@ -18,7 +18,7 @@ public class Archer_BowEquip : cState
 		if (!archer.isEquip)
 		{
 			me.animCtrl.SetTrigger("tEquip");
-			me.weapon.SetActive(true);
+			//me.weapon.SetActive(true);
 		}
 	}
 

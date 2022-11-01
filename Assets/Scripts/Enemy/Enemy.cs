@@ -59,7 +59,7 @@ public abstract class Enemy : MonoBehaviour
     public bool isAlert = false;
     public bool isCombat = false;
 
-    public GameObject weapon;
+    public Weapon weapon;
     public List<Vector3> patrolPosList;
 
     ////FSM
@@ -510,6 +510,7 @@ public abstract class Enemy : MonoBehaviour
         responPos = new Vector3(transform.position.x, 0f, transform.position.z);
 
 
+
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
     }
@@ -517,7 +518,8 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+        weapon = GetComponentInChildren<Weapon>();
+        weapon.owner = gameObject;
     }
 
     // Update is called once per frame

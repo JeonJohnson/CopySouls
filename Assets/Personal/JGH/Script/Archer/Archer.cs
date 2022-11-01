@@ -378,7 +378,7 @@ public class Archer : Enemy
 		
 		SettingBonesTransform();
 		Initializebow();
-		weapon.SetActive(false);
+		//weapon.SetActive(false);
 	}
 
 	protected override void Update()

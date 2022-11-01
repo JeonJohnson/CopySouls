@@ -21,6 +21,7 @@ public class Spirit : Enemy
     public bool complete_AttReturn;
     public bool isEquipt;
     public bool nav;
+    public bool atting;
 
     //step
     public bool stepWait;
@@ -35,6 +36,7 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Unequipt] = new Spirit_Unequipt();
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
+        fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
 
         SetState((int)Enums.eSpiritState.Idle);
 	}
@@ -49,6 +51,7 @@ public class Spirit : Enemy
     {
         base.Start();
         targetObj = GameObject.Find("Player");
+        weapon.Type = eWeaponType.Melee;
     }
 
     protected override void Update()
@@ -56,38 +59,14 @@ public class Spirit : Enemy
         base.Update();
         nav = !navAgent.isStopped;
 
-        //if(Input.GetKey("a"))
-        //{
-        //    status.curHp--;
-        //}
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            status.curHp--;
+        }
 
         curState_e = GetCurState<Enums.eSpiritState>();
 
-        if (isAlert)
-        {
-            if (curState_e != Enums.eSpiritState.Idle || curState_e != Enums.eSpiritState.Patrol)
-            {
-                //GetComponent<FieldOfView>().viewAngle = 360f;
-            }
-        }
-        else
-        {
-            if (curState_e == Enums.eSpiritState.Idle || curState_e == Enums.eSpiritState.Patrol)
-            {
-                //GetComponent<FieldOfView>().viewAngle = initFOVAngle;
-            }
-        }
-
-        if (isEquipt)
-        {
-            //weapon.gameObject.SetActive(true);
-            //GameObject.Find("Sword").SetActive(false);
-        }
-        else
-        {
-            //weapon.gameObject.SetActive(false);
-            //GameObject.Find("Sword").SetActive(true);
-        }
+        if(status.curHp <= 0) SetState((int)Enums.eSpiritState.Death);
     }
 
     //=============================================================================
@@ -129,6 +108,15 @@ public class Spirit : Enemy
     public void Spirit_AttReturn()
     {
         if(!complete_AttReturn) complete_AttReturn = true;
+    }
+
+    public void Spirit_Atting()
+    {
+        if(curState_e == Enums.eSpiritState.Atk)
+        {
+            if (!atting) atting = true;
+            else atting = false;
+        }
     }
 
     //=============================================================================

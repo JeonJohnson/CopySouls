@@ -36,6 +36,9 @@ public class Spirit_Atk : cState
 
     public override void UpdateState()
     {
+
+        if (((Spirit)me).atting) me.weapon.WeaponColliderOnOff(true);
+        else me.weapon.WeaponColliderOnOff(false);
         //me.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         //Orbit_Rotation(500);
 
@@ -82,6 +85,7 @@ public class Spirit_Atk : cState
     public override void ExitState()
     {
         Spirit_StopAtk();
+        ((Spirit)me).atting = false;
     }
 
     public void SelectAttPattern()
@@ -126,12 +130,12 @@ public class Spirit_Atk : cState
     {
         me.animCtrl.SetTrigger("isNormalAtk");
         initailAngle = me.transform.rotation;
-        me.animCtrl.applyRootMotion = true;
+        //me.animCtrl.applyRootMotion = true;
     }
 
     public void StopNormalAtk()
     {
-        me.animCtrl.applyRootMotion = false;
+        //me.animCtrl.applyRootMotion = false;
         //me.transform.rotation = Quaternion.Euler(initailAngle.x, initailAngle.y, initailAngle.z);
     }
     public void PlaySpinAtk()
