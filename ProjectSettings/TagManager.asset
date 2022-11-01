@@ -8,6 +8,8 @@ TagManager:
   - Environment
   - Weapon
   - Obstacle
+  - EnemyWeapon
+  - EnemyRemainder
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Environment
   - Controller
   - Obstacle
-  - 
-  - 
+  - EnemyWeapon
+  - EnemyRemainder
   - Player_Hitbox
   - 
   - 

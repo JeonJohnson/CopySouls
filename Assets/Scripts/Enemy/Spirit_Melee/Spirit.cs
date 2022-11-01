@@ -6,6 +6,7 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public GameObject remainderWeapon;
     public float initFOVAngle;
 
     public eSpiritState curState_e;
@@ -22,6 +23,7 @@ public class Spirit : Enemy
     public bool isEquipt;
     public bool nav;
     public bool atting;
+    public bool existRemainder;
 
     //step
     public bool stepWait;
@@ -70,8 +72,21 @@ public class Spirit : Enemy
     }
 
     //=============================================================================
-    //move
+    //instance
     //=============================================================================
+
+    public void CreateRemainderWeapon(Transform trans)
+    {
+        if (!existRemainder)
+        {
+            Debug.Log("검생성");
+            existRemainder = true;
+            GameObject obj = Instantiate(remainderWeapon);
+            obj.transform.position = trans.position;
+            obj.transform.rotation = trans.rotation;
+        }
+        else return;
+    }
 
     //=============================================================================
     //애니메이션 이벤트

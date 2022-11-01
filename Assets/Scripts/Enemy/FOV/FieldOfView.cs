@@ -92,7 +92,7 @@ public class FieldOfView : MonoBehaviour
                     if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                     {
                         if (target.gameObject == gameObject) continue;
-                        findObj.Add(target);
+                        if(target.tag == "Player") findObj.Add(target);
                     }
                 }
             }
@@ -102,7 +102,7 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
                     if (target.gameObject == gameObject) continue;
-                    findObj.Add(target);
+                    if (target.tag == "Player") findObj.Add(target);
                 }
             }
         }

@@ -17,19 +17,26 @@ public class Spirit_Death : cState
         base.EnterState(script);
         me.animCtrl.enabled = false;
     }
-    
+
     public override void UpdateState()
     {
         timer += Time.deltaTime;
-        if (timer >= 5f) me.enabled = false;
-        else if (R >= -1)
+        if (timer >= 5f)
         {
-            R += Time.deltaTime * -0.01f;
-            G += Time.deltaTime * -0.01f;
-            B += Time.deltaTime * -0.01f;
-            me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(R, G, B);
+            ((Spirit)me).CreateRemainderWeapon(me.weapon.transform);
+            me.gameObject.SetActive(false);
         }
-
+        else
+        {
+            if (R > -1)
+            {
+                R -= Time.deltaTime;
+                G -= Time.deltaTime;
+                B -= Time.deltaTime;
+                me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(R, G, B);
+            }
+        }
+        Debug.Log("ªÁ∏¡¿Ãø‰");
     }
     public override void ExitState()
     {

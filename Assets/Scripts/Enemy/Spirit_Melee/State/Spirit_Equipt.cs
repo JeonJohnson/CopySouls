@@ -12,6 +12,7 @@ public class Spirit_Equipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        me.GetComponent<FieldOfView>().viewAngle = 360f;
         me.animCtrl.SetBool("isEquipt", true);
         me.MoveStop();
         ((Spirit)me).isEquipt = true;
@@ -22,7 +23,6 @@ public class Spirit_Equipt : cState
         me.MoveStop();
         if (((Spirit)me).complete_Equipt)
         {
-            me.GetComponent<FieldOfView>().viewAngle = 360f;
             if (me.isAlert)
             {
                 if (me.distToTarget <= me.status.atkRange)
