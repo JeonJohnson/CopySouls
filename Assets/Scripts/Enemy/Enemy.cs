@@ -543,7 +543,9 @@ public abstract class Enemy : MonoBehaviour
 	{
 		if (other.CompareTag("Weapon"))
 		{
-            Structs.DamagedStruct dmg = new Structs.DamagedStruct(10, false);
+            Structs.DamagedStruct dmg = new Structs.DamagedStruct();
+
+            dmg.dmg = 10f;
 
             Hit(dmg);
             //Debug.Log("한대맞음 으엑");

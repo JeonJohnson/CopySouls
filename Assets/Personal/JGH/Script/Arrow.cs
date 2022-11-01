@@ -224,31 +224,30 @@ public class Arrow : MonoBehaviour, IPoolingObject
                 ResetForReturn();
                 ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
 
-
             }
         
         }
 
 
         if (isShoot
-            && (other.CompareTag("Player") || other.CompareTag("Environment")))
+            && (other.gameObject.layer == LayerMask.GetMask("Player_HitBox") || other.CompareTag("Environment")))
         {
             Debug.Log("바닥이나 플레이어한테 박힘");
             GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
-
-
 
             
             staticArrow.transform.position = transform.position;
             staticArrow.transform.rotation = transform.rotation;
             staticArrow.transform.SetParent(other.gameObject.transform);
 
-
+            //other.gameObject.transform.root.playerAt . Hit(asdf)""
 
             ResetForReturn();
             ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
         }
     }
+
+
 
 
 }

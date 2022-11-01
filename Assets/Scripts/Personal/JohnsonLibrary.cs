@@ -572,6 +572,13 @@ namespace Enums
 	}
 
 
+	public enum eAttackType
+	{ 
+		Week, //가드가능
+		Strong, //가드 불가능 or 가드 풀림
+		End
+	}
+
 }
 
 namespace Structs
@@ -682,52 +689,27 @@ namespace Structs
 	public struct DamagedStruct
 	{
 
-		public DamagedStruct(float _dmg, bool riposte)
-		{
-			dmg = _dmg;
-			isRiposte = riposte;
-			isBackstab = false;
-		}
+        //일단 피룡한거 다 만들고나서 생성자로 생성ㄱㄱㄱㄱ
+        //public DamagedStruct(float _dmg, bool riposte)
+        //{
+        //	dmg = _dmg;
+        //	isRiposte = riposte;
+        //	isBackstab = false;
 
-		public bool isRiposte;
-		public bool isBackstab;
-		public float dmg;
+        //	dmg
 
+        //}
 
-		////폭팔용
-		//public DamagedStruct(float _dmg, Vector3 _explosionPos)
-		//{
-		//	weaponType = Enums.eWeaponType.Explosive;
-		//	dmg = _dmg;
-		//	hitCol = null;
-		//	explosionPos = _explosionPos;
-		//	dmgDir = new Vector3();
-		//}
+        public bool isRiposte; //앞잡
+        public bool isBackstab; //뒤잡
 
-		////일반 공격용
-		//public DamagedStruct(float _dmg, Collider col, Vector3 dir)
-		//{
-		//	weaponType = Enums.eWeaponType.AR;
-		//	dmg = _dmg;
-		//	hitCol = col;
-		//	explosionPos = new Vector3();
-		//	dmgDir = dir;
-		//}
-		//public DamagedStruct(float _dmg)
-		//{
-		//	weaponType = Enums.eWeaponType.AR;
-		//	dmg = _dmg;
-		//	hitCol = null;
-		//	explosionPos = new Vector3();
-		//	dmgDir = new Vector3();
-		//}
+        public float dmg;
 
-		//public Enums.eWeaponType weaponType;
-		//public float dmg;
-		//public Collider hitCol;
-		//public Vector3 explosionPos;
-		//public Vector3 dmgDir;
+		public Vector3 dmgDir;
+		public GameObject attackObj;
 
+		public Enums.eAttackType atkType; //가드 가능, 불가 판단할거
+		
 
 
 	}
