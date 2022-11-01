@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Linq;
+
 using Enums;
 
 public class UnitManager : Manager<UnitManager>
@@ -22,7 +24,7 @@ public class UnitManager : Manager<UnitManager>
     public int enemyAllCount;
     public List<GameObject> enemyPrefabList;
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;
-
+    public List<Enemy> allEnemyList = new List<Enemy>();
 
 
     //// <EnemyVar>
@@ -32,7 +34,7 @@ public class UnitManager : Manager<UnitManager>
     public GameObject SpawnEnemy(eEnemyName name, Vector3 pos, Vector3 rot, int count = 1)
     {
 
-
+        
 
 
         return null;

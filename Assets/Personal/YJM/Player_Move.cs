@@ -43,6 +43,11 @@ public class Player_Move : Player_cState
             PlayerActionTable.instance.StrongAttack();
         }
         PlayerActionTable.instance.Guard();
+
+        if(PlayerLocomove.instance.isRun == false)
+        {
+            PlayerActionTable.instance.UpdateStamina();
+        }
     }
 
     public override void ExitState()

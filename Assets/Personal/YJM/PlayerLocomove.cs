@@ -136,6 +136,7 @@ public class PlayerLocomove : MonoBehaviour
         {
             if (isCameraLock == false && targetEnemy != null)
             {
+                SearchTarget();
                 isCameraLock = true;
             }
             else
@@ -152,6 +153,19 @@ public class PlayerLocomove : MonoBehaviour
         {
             //CameraRot();
             cameraManager.RotateCamera();
+        }
+    }
+
+    void SearchTarget()
+    {
+        float distance = float.MaxValue;
+        for(int i =0; i < UnitManager.Instance.allEnemyList.Count; i++)
+        {
+            if(Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position) < distance)
+            {
+                distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
+                targetEnemy = UnitManager.Instance.allEnemyList[i].transform;
+            }
         }
     }
 
@@ -193,14 +207,13 @@ public class PlayerLocomove : MonoBehaviour
         playerModel.transform.forward = moveDir;
     }
 
-    public void SetPlayerTrSlow(bool isCamLocked = false)
+    public void SetPlayerTrSlow(bool isCamLocked = false, float timer = 0.2f)
     {
-            StartCoroutine(SetPlayerTrSlowCoro(isCamLocked));
+            StartCoroutine(SetPlayerTrSlowCoro(isCamLocked, timer));
     }
 
-    IEnumerator SetPlayerTrSlowCoro(bool isCamLocked = false)
+    IEnumerator SetPlayerTrSlowCoro(bool isCamLocked = false, float _timer = 0.2f)
     {
-        float _timer = 0.2f;
         while (_timer >= 0f)
         {
             if (isCamLocked == false)

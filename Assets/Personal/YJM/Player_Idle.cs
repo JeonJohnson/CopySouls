@@ -32,6 +32,7 @@ public class Player_Idle : Player_cState
         }
 
         PlayerActionTable.instance.Guard();
+        PlayerActionTable.instance.UpdateStamina();
     }
 
     public override void ExitState()
