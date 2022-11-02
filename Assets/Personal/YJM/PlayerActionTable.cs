@@ -115,14 +115,23 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
+    float isActedTimer = 0.5f;
     public void UpdateStamina()
     {
-        Player.instance.status.curStamina += Time.deltaTime * 20;
-        Player.instance.status.curStamina = Mathf.Clamp(Player.instance.status.curStamina, 0, Player.instance.status.maxStamina);
+        if(isActedTimer >= 0f)
+        {
+            isActedTimer -= Time.deltaTime;
+        }
+        else
+        {
+            Player.instance.status.curStamina += Time.deltaTime * 20;
+            Player.instance.status.curStamina = Mathf.Clamp(Player.instance.status.curStamina, 0, Player.instance.status.maxStamina);
+        }
     }
 
     public void Rolling()
     {
+        isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 20;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
@@ -135,6 +144,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Backstep()
     {
+        isActedTimer = 0.5f;
         isComboCheck = false;
         Player.instance.SetState(Enums.ePlayerState.Dodge);
         EnableWeaponMeshCol(0);
@@ -146,6 +156,7 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
+        isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 10;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
@@ -163,6 +174,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StrongAttack()
     {
+        isActedTimer = 0.5f;
         isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -171,6 +183,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void DashAttack()
     {
+        isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 15;
         isComboCheck = false;
         EnableWeaponMeshCol(0);
@@ -181,6 +194,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void RollingAttack()
     {
+        isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 15;
         CurCoroCounter2 = CurCoroCounter1;
         isComboCheck = false;
@@ -270,13 +284,16 @@ public class PlayerActionTable : MonoBehaviour
     
     public bool StaminaCheck()
     {
-        if(Player.instance.status.curStamina <= 0f)
+        print("check start" + Player.instance.status.curStamina);
+        if(Player.instance.status.curStamina <= 1f)
         {
+            print("false");
             return false;
         }
         else
         {
-            return false;
+            print("트루");
+            return true;
         }
     }
 }
