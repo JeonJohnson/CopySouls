@@ -92,7 +92,14 @@ public class FieldOfView : MonoBehaviour
                     if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                     {
                         if (target.gameObject == gameObject) continue;
-                        if(target.tag == "Player") findObj.Add(target);
+
+                        if(target.gameObject.name == "Model") findObj.Add(target);
+
+
+                        //else
+                        //{
+                        //    if (target.gameObject.layer == targetMask) findObj.Add(target);
+                        //}
                     }
                 }
             }
@@ -102,7 +109,12 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
                     if (target.gameObject == gameObject) continue;
-                    if (target.tag == "Player") findObj.Add(target);
+
+                    if (target.gameObject.name == "Model") findObj.Add(target);
+                    //else
+                    //{
+                    //    if (target.gameObject.layer == targetMask) findObj.Add(target);
+                    //}
                 }
             }
         }
@@ -116,7 +128,7 @@ public class FieldOfView : MonoBehaviour
             foreach (Transform target in findObj)
             {
                 GameObject obj = target.gameObject;
-                if (obj.name == "Player") isFind = true;
+                if (obj.layer == 6) isFind = true;
             }
         }
         else isFind = false;

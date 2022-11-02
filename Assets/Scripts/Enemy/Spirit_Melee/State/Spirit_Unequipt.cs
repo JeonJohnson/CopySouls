@@ -7,6 +7,7 @@ public class Spirit_Unequipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        ((Spirit)me).isEquipt = false;
         me.MoveStop();
         me.animCtrl.SetBool("isUnequipt", true);
     }

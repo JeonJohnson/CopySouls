@@ -77,5 +77,13 @@ public class Weapon : MonoBehaviour
                 }
             }
         }
+        else if (owner.gameObject.GetComponent<Player>() != null)
+        {
+            //if (!owner.gameObject.GetComponent<Enemy>().isDead)
+            if (other.gameObject.layer == 7)
+            {
+                Att(other.gameObject);
+            }
+        }
     }
 }

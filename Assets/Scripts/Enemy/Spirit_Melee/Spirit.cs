@@ -6,6 +6,7 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public int preHp;
     public GameObject remainderWeapon;
     public float initFOVAngle;
 
@@ -20,6 +21,7 @@ public class Spirit : Enemy
     public bool complete_Unequipt;
     public bool complete_Atk;
     public bool complete_AttReturn;
+    public bool complete_Damaged;
     public bool isEquipt;
     public bool atting;
     public bool existRemainder;
@@ -37,6 +39,7 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Unequipt] = new Spirit_Unequipt();
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
+        fsm[(int)Enums.eSpiritState.Damaged] = new Spirit_Damaged();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
 
         SetState((int)Enums.eSpiritState.Idle);
@@ -59,22 +62,27 @@ public class Spirit : Enemy
     {
         base.Update();
 
+        //if(Input.GetKeyDown(KeyCode.C))
+        //{
+        //    status.curHp--;
+        //}
 
-        
-
-        if (status.curHp <= 0) isDead = true;
-        if (isDead)
+        if (status.curHp <= 0)
         {
+            isDead = true;
             SetState((int)Enums.eSpiritState.Death);
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
+        else if(status.curHp > 0 && !isDead)
         {
-            status.curHp--;
+            if (preHp > status.curHp && curState_e != Enums.eSpiritState.Damaged)
+            {
+                SetState((int)Enums.eSpiritState.Damaged);
+            }
         }
-
         curState_e = GetCurState<Enums.eSpiritState>();
+
+        if(preHp != status.curHp) preHp = status.curHp;
     }
 
     //=============================================================================
@@ -102,34 +110,16 @@ public class Spirit : Enemy
         MoveStop();
     }
 
-    public void Spirit_StepWait()
-    {
-        if(!stepWait) stepWait = true;
+    public void Spirit_StepWait() { if (!stepWait) stepWait = true; }
+    public void Spirit_StepStart() { if (stepWait) stepWait = false; }
+    public void Spirit_Melee_CompleteEquiptment() { complete_Equipt = true; }
+    public void Spirit_Melee_CompleteUnequiptment() { complete_Unequipt = true; }
+    public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
+    public void Spirit_AttReturn() { if (!complete_AttReturn) complete_AttReturn = true; }
+    public void Spirit_Damaged() {
+        complete_Damaged = true;
+        Debug.Log("ok");
     }
-    public void Spirit_StepStart()
-    {
-        if (stepWait) stepWait = false;
-    }
-
-
-
-    public void Spirit_Melee_CompleteEquiptment()
-    {
-        complete_Equipt = true;
-    }
-    public void Spirit_Melee_CompleteUnequiptment()
-    {
-        complete_Unequipt = true;
-    }
-    public void Spirit_Melee_CompleAtk()
-    {
-        complete_Atk = true;
-    }
-    public void Spirit_AttReturn()
-    {
-        if(!complete_AttReturn) complete_AttReturn = true;
-    }
-
     public void Spirit_Atting()
     {
         if(curState_e == Enums.eSpiritState.Atk)

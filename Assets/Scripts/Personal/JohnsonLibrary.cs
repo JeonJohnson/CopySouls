@@ -515,7 +515,7 @@ namespace Enums
         Unequipt,
         Trace,
         Atk,
-        Hit,
+        Damaged,
         Death,
         End
     }
