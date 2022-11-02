@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Enums;
+using Structs;
 
 public class TestUiScript : MonoBehaviour
 {
@@ -31,7 +33,8 @@ public class TestUiScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        PlayerStatus status = Player.instance.status;
+        TestUiScript.instance.UpdateUI(status.curHp, status.curMp, status.curStamina);
     }
 
     public void UpdateUI(float hpValue, float mpValue, float staminaValue)
