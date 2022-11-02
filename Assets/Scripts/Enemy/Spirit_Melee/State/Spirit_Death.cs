@@ -15,7 +15,10 @@ public class Spirit_Death : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        me.isDead = true;
         me.animCtrl.enabled = false;
+        me.navAgent.enabled = false;
+        me.GetComponent<FieldOfView>().enabled = false;
     }
 
     public override void UpdateState()

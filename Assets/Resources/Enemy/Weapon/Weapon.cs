@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     public Collider col;
     public eWeaponType Type;
     public GameObject owner;
-    public float Dmg;
+    public int Dmg;
 
     void Start()
     {
@@ -47,6 +47,35 @@ public class Weapon : MonoBehaviour
         if (owner != null)
         {
             col.enabled = Funcs.I2B(value);
+        }
+    }
+
+    public void Att(GameObject other)
+    {
+        //¸ÂÀº ³ð : player
+        if(other.GetComponent<Player>() != null)
+        {
+            other.GetComponent<Player>().status.curHp -= Dmg;
+        }
+        //¸ÂÀº ³ð : enemy 
+        else if (other.GetComponent<Enemy>() != null)
+        {
+            other.GetComponent<Enemy>().status.curHp -= Dmg;
+        }
+
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(owner.gameObject.GetComponent<Enemy>() != null)
+        {
+            if(!owner.gameObject.GetComponent<Enemy>().isDead)
+            {
+                if (other.gameObject.layer == owner.gameObject.GetComponent<Enemy>().player_Hitbox)
+                {
+                    Att(other.gameObject);
+                }
+            }
         }
     }
 }

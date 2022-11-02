@@ -21,7 +21,6 @@ public class Spirit : Enemy
     public bool complete_Atk;
     public bool complete_AttReturn;
     public bool isEquipt;
-    public bool nav;
     public bool atting;
     public bool existRemainder;
 
@@ -59,16 +58,23 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
-        nav = !navAgent.isStopped;
 
-        if(Input.GetKeyDown(KeyCode.A))
+
+        
+
+        if (status.curHp <= 0) isDead = true;
+        if (isDead)
+        {
+            SetState((int)Enums.eSpiritState.Death);
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
         {
             status.curHp--;
         }
 
         curState_e = GetCurState<Enums.eSpiritState>();
-
-        if(status.curHp <= 0) SetState((int)Enums.eSpiritState.Death);
     }
 
     //=============================================================================
@@ -79,7 +85,6 @@ public class Spirit : Enemy
     {
         if (!existRemainder)
         {
-            Debug.Log("°Ë»ý¼º");
             existRemainder = true;
             GameObject obj = Instantiate(remainderWeapon);
             obj.transform.position = trans.position;

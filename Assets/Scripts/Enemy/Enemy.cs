@@ -18,8 +18,12 @@ using Structs;
 public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
+    public bool isDead;
 
     public float targetmaxLine;
+
+    //enemy -> player (Att)레이어
+    public LayerMask player_Hitbox;
 
     ////Target
     //public GameObject player;
@@ -486,12 +490,11 @@ public abstract class Enemy : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public virtual void Hit(DamagedStruct dmgStruct)
-    {
-        status.curHp -= (int)dmgStruct.dmg;
+    
 
-        
-    }
+
+
+    
 
     protected virtual void Awake()
     {
@@ -509,8 +512,6 @@ public abstract class Enemy : MonoBehaviour
         //test
         responPos = new Vector3(transform.position.x, 0f, transform.position.z);
 
-
-
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
     }
@@ -518,6 +519,7 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
         weapon = GetComponentInChildren<Weapon>();
         weapon.owner = gameObject;
     }
@@ -525,6 +527,7 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+
         CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);
@@ -541,10 +544,33 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
+    //=============================================================
+    //Damaged함수 --> 조정필요할듯 앞잡뒤잡에 관한...
+
+    //용석 : 트리거를 통한 enemy의 curHP 차감
+    public void Damaged(int dmg)
+    {
+        status.curHp -= dmg;
+    }
+
+    //근희
+    public virtual void Hit(DamagedStruct dmgStruct)
+    {
+        status.curHp -= (int)dmgStruct.dmg;
+    }
+
     private void OnTriggerEnter(Collider other)
-	{
-		if (other.CompareTag("Weapon"))
-		{
+    {
+        if(!isDead)
+        {
+            if (other.gameObject.GetComponent<Weapon>().owner == targetObj)
+            {
+                Damaged(other.gameObject.GetComponent<Weapon>().Dmg);
+            }
+        }
+
+        if (other.CompareTag("Weapon"))
+        {
             Structs.DamagedStruct dmg = new Structs.DamagedStruct();
 
             dmg.dmg = 10f;
@@ -552,9 +578,14 @@ public abstract class Enemy : MonoBehaviour
             Hit(dmg);
             //Debug.Log("한대맞음 으엑");
             //Enemy script = other.GetComponent<Enemy>();
-            
-		}
-	}
+
+        }
+    }
+
+    //=============================================================
+
+
+
 
 
     //private void OnDrawGizmos()
