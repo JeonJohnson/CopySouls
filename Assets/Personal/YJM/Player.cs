@@ -72,7 +72,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         curState.UpdateState();
-        TestUiScript.instance.UpdateUI(status.curHp, status.curMp, status.curStamina);
     }
 
     void InitializeState()
