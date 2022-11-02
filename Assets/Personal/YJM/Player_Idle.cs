@@ -12,26 +12,28 @@ public class Player_Idle : Player_cState
     {
         Player.instance.playerModel.transform.position = Player.instance.transform.position;
         if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
-        {     
+        {
             me.SetState(Enums.ePlayerState.Move);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (PlayerActionTable.instance.StaminaCheck() == true)
         {
-            PlayerActionTable.instance.Backstep();
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerActionTable.instance.Backstep();
+            }
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            PlayerActionTable.instance.WeakAttack();
-        }
+            if (Input.GetButtonDown("Fire1"))
+            {
+                PlayerActionTable.instance.WeakAttack();
+            }
 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            PlayerActionTable.instance.Parrying();
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                PlayerActionTable.instance.Parrying();
+            }
         }
-
-        PlayerActionTable.instance.Guard();
+            PlayerActionTable.instance.Guard();
         PlayerActionTable.instance.UpdateStamina();
     }
 

@@ -13,25 +13,28 @@ public class Player_Atk : Player_cState
     }
     public override void UpdateState()
     {
-        if (PlayerActionTable.instance.isComboCheck == true)
+        if (PlayerActionTable.instance.StaminaCheck() == true)
         {
-            if (Input.GetButtonDown("Fire1") && PlayerActionTable.instance.StaminaCheck())
+            if (PlayerActionTable.instance.isComboCheck == true)
             {
-                PlayerActionTable.instance.WeakAttack();
-            }
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    PlayerActionTable.instance.WeakAttack();
+                }
 
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                PlayerActionTable.instance.Parrying();
-            }
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    PlayerActionTable.instance.Parrying();
+                }
 
-            if ((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
-            {
-                PlayerActionTable.instance.Rolling();
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                PlayerActionTable.instance.Backstep();
+                if ((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
+                {
+                    PlayerActionTable.instance.Rolling();
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    PlayerActionTable.instance.Backstep();
+                }
             }
         }
     }
