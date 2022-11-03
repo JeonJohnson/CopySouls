@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Structs;
@@ -32,7 +32,8 @@ public class Player_Weapon : MonoBehaviour
         if (other.gameObject.layer == 7)
         {
             print("Deal Damage To Enemy Funcs");
+            // 데미지 계산식 : atk * PlyerActionTable.curActAtkValue
         }
-        meshCollider.enabled = false;
+        meshCollider.enabled = false; // <이건 빼야할수도
     }
 }
