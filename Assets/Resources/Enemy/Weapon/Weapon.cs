@@ -23,6 +23,9 @@ public class Weapon : MonoBehaviour
     public eWeaponType Type;
     public GameObject owner;
     public int Dmg;
+    public Transform initPos; //바꾸기 전 위치
+    public Transform transPos; //바꿀 위치
+    public bool isPosChange;
 
     void Start()
     {
@@ -85,5 +88,32 @@ public class Weapon : MonoBehaviour
                 Att(other.gameObject);
             }
         }
+    }
+
+    //특정 애니메이션에서 무기 위치나 각도가 바뀔 상황시 사용
+    public void TransWeaponPos(Weapon weapon)
+    {
+        if (weapon != null)
+        {
+            Debug.Log("바꿀께");
+            weapon.transform.position = weapon.transPos.position;
+            weapon.transform.rotation = weapon.transPos.rotation;
+            isPosChange = true;
+        }
+    }
+
+    public void reTurnWeaponPos(Weapon weapon)
+    {
+        if (weapon != null)
+        {
+            if(isPosChange)
+            {
+                Debug.Log("돌릴께");
+                weapon.transform.position = weapon.initPos.position;
+                weapon.transform.rotation = weapon.initPos.rotation;
+                isPosChange = false;
+            }
+        }
+
     }
 }

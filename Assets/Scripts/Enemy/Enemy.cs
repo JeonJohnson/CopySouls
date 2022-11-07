@@ -527,7 +527,6 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-
         CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);
@@ -536,6 +535,11 @@ public abstract class Enemy : MonoBehaviour
         curState.UpdateState();
 
         CoolTime += Time.deltaTime;
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        curState.FixedUpdateState();
     }
 
     protected virtual void LateUpdate()
@@ -550,36 +554,39 @@ public abstract class Enemy : MonoBehaviour
     //용석 : 트리거를 통한 enemy의 curHP 차감
     public void Damaged(int dmg)
     {
-        status.curHp -= dmg;
+        //status.curHp -= dmg;
     }
 
     //근희
     public virtual void Hit(DamagedStruct dmgStruct)
     {
-        status.curHp -= (int)dmgStruct.dmg;
+        //status.curHp -= (int)dmgStruct.dmg;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(!isDead)
         {
-            if (other.gameObject.GetComponent<Weapon>().owner == targetObj)
+            if(other.gameObject.GetComponent<Weapon>() != null)
             {
-                Damaged(other.gameObject.GetComponent<Weapon>().Dmg);
+                if (other.gameObject.GetComponent<Weapon>().owner == targetObj)
+                {
+                    Damaged(other.gameObject.GetComponent<Weapon>().Dmg);
+                }
             }
         }
 
-        if (other.CompareTag("Weapon"))
-        {
-            Structs.DamagedStruct dmg = new Structs.DamagedStruct();
-
-            dmg.dmg = 10f;
-
-            Hit(dmg);
-            //Debug.Log("한대맞음 으엑");
-            //Enemy script = other.GetComponent<Enemy>();
-
-        }
+        //if (other.CompareTag("Weapon"))
+        //{
+        //    Structs.DamagedStruct dmg = new Structs.DamagedStruct();
+        //
+        //    dmg.dmg = 10f;
+        //
+        //    Hit(dmg);
+        //    //Debug.Log("한대맞음 으엑");
+        //    //Enemy script = other.GetComponent<Enemy>();
+        //
+        //}
     }
 
     //=============================================================
@@ -644,15 +651,18 @@ public abstract class Enemy : MonoBehaviour
         //Gizmos.color = Color.red;
         //Gizmos.DrawLine(transform.position, Destination);
 
+        //정면 
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawRay(transform.position,transform.forward * 1000f);
+
         ////시야각
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, fovStruct.LeftDir * status.ricognitionRange);
-        Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
-        if (isCombat)
-        {
-            Gizmos.DrawRay(transform.position, dirToTarget*distToTarget);
-        }
-        ////시야각
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawRay(transform.position, fovStruct.LeftDir * status.ricognitionRange);
+        //Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
+        //if (isCombat)
+        //{
+        //    Gizmos.DrawRay(transform.position, dirToTarget*distToTarget);
+        //}
 
         ////공격 사정거리
         Gizmos.color = Color.red;
@@ -661,19 +671,19 @@ public abstract class Enemy : MonoBehaviour
 
 
 		////패트롤 예상 이동 궤적
-		Gizmos.color = Color.blue;
-
-		for (int i = 0; i < patrolPosList.Count; ++i)
-		{
-            if (i == (patrolPosList.Count - 1))
-            {
-                Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
-            }
-            else
-            {
-                Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
-			}
-		}
+		//Gizmos.color = Color.blue;
+        //
+		//for (int i = 0; i < patrolPosList.Count; ++i)
+		//{
+        //    if (i == (patrolPosList.Count - 1))
+        //    {
+        //        Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
+        //    }
+        //    else
+        //    {
+        //        Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
+		//	}
+		//}
 		////패트롤 예상 이동 궤적
 	}
 }

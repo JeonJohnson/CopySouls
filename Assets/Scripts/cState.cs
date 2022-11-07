@@ -31,7 +31,10 @@ public abstract class cState
 
 	public abstract void UpdateState();
 
-	public virtual void LateUpdateState()
+    public virtual void FixedUpdateState()
+    { }
+
+    public virtual void LateUpdateState()
 	{ }
 
 	public abstract void ExitState();

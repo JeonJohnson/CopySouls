@@ -6,6 +6,8 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public Collider dashCol;
+    public float dashTime = 3f;
     public int preHp;
     public GameObject remainderWeapon;
     public float initFOVAngle;
@@ -17,6 +19,7 @@ public class Spirit : Enemy
     public int curPatrol_Index;
     public int prePatrol_Index;
 
+
     public bool complete_Equipt;
     public bool complete_Unequipt;
     public bool complete_Atk;
@@ -25,10 +28,12 @@ public class Spirit : Enemy
     public bool isEquipt;
     public bool atting;
     public bool existRemainder;
+    //public bool complete_Combo1;
+    public bool transWeaponPos;
 
     //step
     public bool stepWait;
-
+   
     public override void InitializeState()
 	{
         fsm = new cState[(int)Enums.eSpiritState.End];
@@ -38,6 +43,7 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Equipt] = new Spirit_Equipt();
         fsm[(int)Enums.eSpiritState.Unequipt] = new Spirit_Unequipt();
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
+        fsm[(int)Enums.eSpiritState.Dash] = new Spirit_Dash();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
         fsm[(int)Enums.eSpiritState.Damaged] = new Spirit_Damaged();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
@@ -54,6 +60,7 @@ public class Spirit : Enemy
     protected override void Start()
     {
         base.Start();
+        //dashCol =
         targetObj = GameObject.Find("Player");
         weapon.Type = eWeaponType.Melee;
     }
@@ -62,10 +69,10 @@ public class Spirit : Enemy
     {
         base.Update();
 
-        //if(Input.GetKeyDown(KeyCode.C))
-        //{
-        //    status.curHp--;
-        //}
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            status.curHp--;
+        }
 
         if (status.curHp <= 0)
         {
@@ -84,6 +91,29 @@ public class Spirit : Enemy
 
         if(preHp != status.curHp) preHp = status.curHp;
     }
+
+    //=============================================================================
+    // thinkÇÔ¼ö
+    //=============================================================================
+
+    public void Think_Trace_Dash()
+    {
+        int index = Random.Range(1, 11);
+        if (status.curHp < status.maxHp * 0.3f)
+        {
+            //30%
+            if (index < 7) SetState((int)Enums.eSpiritState.Trace);
+            else SetState((int)Enums.eSpiritState.Dash);
+        }
+        else
+        {
+            //10%
+            if (index < 9) SetState((int)Enums.eSpiritState.Trace);
+            else SetState((int)Enums.eSpiritState.Dash);
+        }
+    }
+    //=============================================================================
+
 
     //=============================================================================
     //instance
@@ -115,11 +145,9 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleteEquiptment() { complete_Equipt = true; }
     public void Spirit_Melee_CompleteUnequiptment() { complete_Unequipt = true; }
     public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
-    public void Spirit_AttReturn() { if (!complete_AttReturn) complete_AttReturn = true; }
-    public void Spirit_Damaged() {
-        complete_Damaged = true;
-        Debug.Log("ok");
-    }
+    //public void Spirit_AttReturn() { if (!complete_AttReturn) complete_AttReturn = true; }
+    //public void Spirit_Melee_CompleCombo1() { complete_Combo1 = true; }
+    public void Spirit_Damaged() { complete_Damaged = true; }
     public void Spirit_Atting()
     {
         if(curState_e == Enums.eSpiritState.Atk)
@@ -128,6 +156,15 @@ public class Spirit : Enemy
             else atting = false;
         }
     }
+    public void Spirit_WeaponTransPos()
+    {
+        if (curState_e == Enums.eSpiritState.Atk)
+        {
+            if (!transWeaponPos) transWeaponPos = true;
+            else transWeaponPos = false;
+        }
+    }
+
 
     //=============================================================================
 

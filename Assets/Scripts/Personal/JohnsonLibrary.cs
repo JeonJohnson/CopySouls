@@ -514,6 +514,7 @@ namespace Enums
         Equipt,
         Unequipt,
         Trace,
+        Dash,
         Atk,
         Damaged,
         Death,

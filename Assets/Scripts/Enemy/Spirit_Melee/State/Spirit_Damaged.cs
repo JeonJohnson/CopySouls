@@ -12,6 +12,9 @@ public class Spirit_Damaged : cState
 
     public override void UpdateState()
     {
+
+
+
         if(((Spirit)me).complete_Damaged)
         {
             Debug.Log("sdjvgspodjgp");
