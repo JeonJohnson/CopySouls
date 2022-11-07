@@ -33,6 +33,8 @@ public class CameraTest : MonoBehaviour
 
     private float defaultPosition;
 
+    public bool isOnShake { set; get; } // 흔들림 효과 재생 체크
+
     void Start()
     {
 
@@ -49,17 +51,19 @@ public class CameraTest : MonoBehaviour
     void Update()
     {
         ZoomCamera();
+
     }
 
      void LateUpdate()
      {
         HandleAllCameraMovement();
-     }
+
+    }
 
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        //RotateCamera();
+        RotateCamera();
         HandleCameraCollisions();
     }
     private void FollowTarget()
