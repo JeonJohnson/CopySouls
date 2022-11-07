@@ -14,7 +14,6 @@ public class Player_Dodge : Player_cState
     {
         if (PlayerActionTable.instance.StaminaCheck() == true)
         {
-            Debug.Log("»ç½Ç");
             if (PlayerActionTable.instance.isComboCheck == true)
             {
                 if ((Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f) && Input.GetKeyDown(KeyCode.Space))
@@ -26,14 +25,13 @@ public class Player_Dodge : Player_cState
                     PlayerActionTable.instance.Backstep();
                 }
 
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Fire1") && Input.GetKey(KeyCode.LeftShift))
+                {
+                    PlayerActionTable.instance.ChargeAttack();
+                }
+                else if (Input.GetButtonDown("Fire1"))
                 {
                     PlayerActionTable.instance.RollingAttack();
-                }
-
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                    PlayerActionTable.instance.Parrying();
                 }
             }
         }

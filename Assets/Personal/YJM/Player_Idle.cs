@@ -23,7 +23,11 @@ public class Player_Idle : Player_cState
                 PlayerActionTable.instance.Backstep();
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && Input.GetKey(KeyCode.LeftShift))
+            {
+                PlayerActionTable.instance.ChargeAttack();
+            }
+            else if(Input.GetButtonDown("Fire1"))
             {
                 PlayerActionTable.instance.WeakAttack();
             }

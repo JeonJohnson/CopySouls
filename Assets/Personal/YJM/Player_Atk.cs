@@ -17,7 +17,11 @@ public class Player_Atk : Player_cState
         {
             if (PlayerActionTable.instance.isComboCheck == true)
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Fire1") && Input.GetKey(KeyCode.LeftShift))
+                {
+                    PlayerActionTable.instance.ChargeAttack();
+                }
+                else if (Input.GetButtonDown("Fire1"))
                 {
                     PlayerActionTable.instance.WeakAttack();
                 }

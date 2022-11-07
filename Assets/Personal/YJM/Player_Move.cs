@@ -29,7 +29,11 @@ public class Player_Move : Player_cState
                 PlayerActionTable.instance.Parrying();
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && Input.GetKey(KeyCode.LeftShift))
+            {
+                PlayerActionTable.instance.ChargeAttack();
+            }
+            else if (Input.GetButtonDown("Fire1"))
             {
                 if (PlayerLocomove.instance.isMove == true && PlayerLocomove.instance.isRun == true)
                 {
@@ -39,10 +43,6 @@ public class Player_Move : Player_cState
                 {
                     PlayerActionTable.instance.WeakAttack();
                 }
-            }
-            if (Input.GetButtonDown("Fire1") && Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                PlayerActionTable.instance.StrongAttack();
             }
             PlayerActionTable.instance.Guard();
         }
