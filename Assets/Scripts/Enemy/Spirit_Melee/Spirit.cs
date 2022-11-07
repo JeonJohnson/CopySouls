@@ -7,7 +7,7 @@ using Enums;
 public class Spirit : Enemy
 {
     public Collider dashCol;
-    public float dashTime = 3f;
+    public float dashTime = 4f;
     public int preHp;
     public GameObject remainderWeapon;
     public float initFOVAngle;
@@ -111,6 +111,12 @@ public class Spirit : Enemy
             if (index < 9) SetState((int)Enums.eSpiritState.Trace);
             else SetState((int)Enums.eSpiritState.Dash);
         }
+    }
+
+    //Dash_Test¿ë
+    public void Think_Trace_Dash(bool value)
+    {
+        if(value) SetState((int)Enums.eSpiritState.Dash);
     }
     //=============================================================================
 

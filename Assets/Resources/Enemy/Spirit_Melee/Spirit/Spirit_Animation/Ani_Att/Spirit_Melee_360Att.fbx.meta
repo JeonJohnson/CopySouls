@@ -105,8 +105,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7634135
-        functionName: Spirit_Melee_CompleCombo1
+      - time: 0.99638987
+        functionName: Spirit_Melee_CompleAtk
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -11,7 +11,6 @@ public class Spirit_Death : cState
     public float R=1;
     public float G=1;
     public float B=1;
-
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
@@ -39,6 +38,7 @@ public class Spirit_Death : cState
                 me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(R, G, B);
             }
         }
+        me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].SetFloat("Cut off", 0.5f);
         Debug.Log("ªÁ∏¡¿Ãø‰");
     }
     public override void ExitState()

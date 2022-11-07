@@ -15,7 +15,6 @@ public enum eSpirit_AtkPattern
     TurnAtt,
     End
 }
-
 public class Spirit_Atk : cState
 {
     public eSpirit_AtkPattern CurPattern;
@@ -166,7 +165,6 @@ public class Spirit_Atk : cState
     {
         if (!me.animCtrl.GetBool("isTurnAtk"))
         {
-            Debug.Log("공격!");
             me.animCtrl.SetBool("isTurnAtk", true);
         }
     }
@@ -175,12 +173,8 @@ public class Spirit_Atk : cState
     {
         if (me.animCtrl.GetBool("isTurnAtk"))
         {
-            Debug.Log("종료!");
             me.animCtrl.SetBool("isTurnAtk", false);
         }
     }
-
-
-
 }
  
