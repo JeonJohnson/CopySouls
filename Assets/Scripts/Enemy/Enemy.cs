@@ -42,6 +42,7 @@ public abstract class Enemy : MonoBehaviour
 
     public GameObject head;
 
+
     public LayerMask fovIgnoreLayer;
     public LayerMask fovCheckLayer;
 
@@ -334,7 +335,9 @@ public abstract class Enemy : MonoBehaviour
             //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
 
             //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
-
+            RaycastHit temp;
+            Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
+            //Physics.Raycast(temp,)
             if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
                 && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
             //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
@@ -520,8 +523,10 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
+        
         weapon = GetComponentInChildren<Weapon>();
-        weapon.owner = gameObject;
+        if (weapon != null)
+        { weapon.owner = gameObject; }
     }
 
     // Update is called once per frame
