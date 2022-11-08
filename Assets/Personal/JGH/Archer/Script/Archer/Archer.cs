@@ -29,10 +29,16 @@ public class Archer : Enemy
 
 	[Header("About Target")]
 	public Transform targetHeadTr;
-	public Transform targetSpine3Tr;
+	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
-	public Vector3 atkDir; //hand to TargetSpine or TargetHead
+	public Vector3 atkDir; //arrowHead to TargetSpine or TargetHead
+
+	//public void ClacDir()
+	//{
+	//	fovDir = (targetHeadTr.position - headBoneTr.position).normalized;
+	//}
 	
+
 	[Header("Me Bones")]
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
@@ -97,8 +103,7 @@ public class Archer : Enemy
 
 	public bool CheckTargetInFovAndRange()
 	{
-		//22 10 02 fin, 설명해주기
-
+		//시야각안에 플레이어 들어왔는지 아닌지 만 판단.
 		Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
 		if (hitObjs.Length == 0)
@@ -118,21 +123,14 @@ public class Archer : Enemy
 			float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
 			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
 
-			//int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
-			RaycastHit temp;
-			Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
-			//Physics.Raycast(temp,)
+			//RaycastHit temp;
+			//Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
+
 			if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
 				&& !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
 			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
 			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
 			{
-				//if (!isAlert)
-				//{
-				//	isAlert = true;
-				//	alertStartEvent();
-				//}
-
 				return true;
 			}
 		}
@@ -466,10 +464,6 @@ public class Archer : Enemy
 	{
 		base.Awake();
 		
-
-
-		//alertStartEvent += EquippedBow;
-		//alertEndEvent += UnequippedBow;
 	}
 
 	protected override void Start()

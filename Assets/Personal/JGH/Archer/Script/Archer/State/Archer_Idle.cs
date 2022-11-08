@@ -17,24 +17,10 @@ public class Archer_Idle : cState
 
 		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
-		//if (archer.isEquip)
-		//{
-		//	me.animCtrl.SetTrigger("tIdle"); 
-		//}
-		//else 
-		//{ 
-		//	me.animCtrl.SetTrigger("tIdle_Unequip"); 
-		//}
-
-		//me.isAlert = false;
-		
 	}
 
 	public override void UpdateState()
 	{
-		//archer.EquipWeapon();
-
-		//me.CheckTargetInFovAndRange();
 
 
 	}

@@ -88,8 +88,6 @@ public abstract class Enemy : MonoBehaviour
 
         distToTarget = Vector3.Distance(transform.position, targetObj.transform.position);
         dirToTarget = (targetObj.transform.position - transform.position).normalized;
-
-        
     }
 
 	public Quaternion LookAtSlow(Transform me, Transform target, float spd)

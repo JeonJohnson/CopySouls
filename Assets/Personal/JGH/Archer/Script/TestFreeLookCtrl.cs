@@ -12,6 +12,9 @@ public class TestFreeLookCtrl : MonoBehaviour
     public float moveSpd;
     Rigidbody rd;
 
+    public Transform headTr;
+    public Transform spineTr;
+
     private Vector2 MouseInput()
     {
         float x = Input.GetAxis("Mouse X");
