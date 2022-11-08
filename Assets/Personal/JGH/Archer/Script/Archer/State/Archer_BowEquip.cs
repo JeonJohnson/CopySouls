@@ -15,11 +15,11 @@ public class Archer_BowEquip : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		if (!archer.isEquip)
-		{
-			me.animCtrl.SetTrigger("tEquip");
-			//me.weapon.SetActive(true);
-		}
+		//if (!archer.isEquip)
+		//{
+		//	me.animCtrl.SetTrigger("tEquip");
+		//	//me.weapon.SetActive(true);
+		//}
 	}
 
 	public override void UpdateState()
@@ -27,55 +27,56 @@ public class Archer_BowEquip : cState
 
 		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
-		if (!archer.isEquip)
-		{
-			if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
-			{
-				if (!archer.isEquip)
-				{
-					archer.isEquip = true;
-				}
+		//	if (!archer.isEquip)
+		//	{
+		//		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
+		//		{
+		//			if (!archer.isEquip)
+		//			{
+		//				archer.isEquip = true;
+		//			}
 
-				//if (me.isAlert)
-				//{
-				//	if (me.distToTarget > me.status.atkRange)
-				//	{
-				//		me.SetState((int)eArcherState.Walk_Careful);
-				//	}
-				//	else
-				//	{
-				//		archer.RandomAttack();
-				//	}
-				//}
-				//else
-				//{
-				//	me.SetState((int)Enums.eArcherState.Idle);
-				//}
-			}
-		}
-		else 
-		{
-			if (me.distToTarget > me.status.atkRange)
-			{
-				me.SetState((int)eArcherState.Walk_Careful);
-			}
-			else
-			{
-				archer.RandomAttack();
-			}
-		}
+		//			//if (me.isAlert)
+		//			//{
+		//			//	if (me.distToTarget > me.status.atkRange)
+		//			//	{
+		//			//		me.SetState((int)eArcherState.Walk_Careful);
+		//			//	}
+		//			//	else
+		//			//	{
+		//			//		archer.RandomAttack();
+		//			//	}
+		//			//}
+		//			//else
+		//			//{
+		//			//	me.SetState((int)Enums.eArcherState.Idle);
+		//			//}
+		//		}
+		//	}
+		//	else 
+		//	{
+		//		if (me.distToTarget > me.status.atkRange)
+		//		{
+		//			me.SetState((int)eArcherState.Walk_Careful);
+		//		}
+		//		else
+		//		{
+		//			archer.RandomAttack();
+		//		}
+		//	}
+		//}
+
+		//public override void LateUpdateState()
+		//{
+		//	base.LateUpdateState();
+
+		//	//if (archer.isEquip)
+		//	//{
+		//	//	Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
+		//	//	me.LookAtSpecificBone(archer.headBoneTr, archer.headBoneTr.forward, dir);
+		//	//}	
+		//}
 	}
-
-	//public override void LateUpdateState()
-	//{
-	//	base.LateUpdateState();
-
-	//	//if (archer.isEquip)
-	//	//{
-	//	//	Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
-	//	//	me.LookAtSpecificBone(archer.headBoneTr, archer.headBoneTr.forward, dir);
-	//	//}	
-	//}
 
 	public override void ExitState()
 	{

@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5057265020130109326}
-  - component: {fileID: 5396497380311517035}
-  - component: {fileID: 6564243396454106519}
-  m_Layer: 12
-  m_Name: Arrow_Dynamic
+  - component: {fileID: -3143491957216334340}
+  m_Layer: 0
+  m_Name: Test_Arrow_Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5396497380311517035
+--- !u!114 &-3143491957216334340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,42 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880692188100032373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e87cbc873461acd42b7af11ecf9eda4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 97759d8f478bea94691887dd8ef01acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  archer: {fileID: 0}
-  rd: {fileID: 0}
-  rightIndexFingerBoneTr: {fileID: 0}
-  bowLeverTr: {fileID: 0}
-  arrowHead: {fileID: 3110849056217853276}
-  maxRange: 0
-  spd: 10
-  target: {fileID: 0}
-  straightDir: {x: 0, y: 0, z: 0}
-  beginAngle: {x: 0, y: 0, z: 0, w: 0}
-  endAngle: {x: 0, y: 0, z: 0, w: 0}
-  mileage: 0
-  time: 0
-  fullTime: 20
-  isShoot: 0
-  isHook: 0
-  dmg: 0
---- !u!54 &6564243396454106519
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880692188100032373}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 5
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 3
+  maxTime: 10
+  curTime: 0
 --- !u!1001 &3111628927735378556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,25 +53,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5057265020130109326}
     m_Modifications:
-    - target: {fileID: 1047567609848626, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493936187531040, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1936848035193434, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
       propertyPath: m_Name
       value: Arrow_Static
-      objectReference: {fileID: 0}
-    - target: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
-      propertyPath: m_Layer
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4115648698905132, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
       propertyPath: m_LocalScale.x
@@ -196,22 +148,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4534147065827568, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
   m_PrefabInstance: {fileID: 3111628927735378556}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3110849056217853276 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1493936187531040, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
-  m_PrefabInstance: {fileID: 3111628927735378556}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &6542885530465062572
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110849056217853276}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.0004772561
-  m_Height: 0.00012850457
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.8189894e-12, z: 0.0004554158}

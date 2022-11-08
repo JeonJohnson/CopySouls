@@ -22,10 +22,10 @@ public class Archer_BowUnequip : cState
 	{
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Unequip"))
 		{
-			if (archer.isEquip)
-			{
-				archer.isEquip = false;
-			}
+			//if (archer.isEquip)
+			//{
+			//	archer.isEquip = false;
+			//}
 
 			me.SetState((int)archer.defaultPattern);
 		}

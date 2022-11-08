@@ -47,14 +47,14 @@ public class Arrow : MonoBehaviour, IPoolingObject
         isShoot = false;
         isHook = false;
 
-        if (archer != null)
-        {
-            if (archer.HookArrowEvent != null)
-            { archer.HookArrowEvent -= Hooking; }
-            if (archer.ShootArrowEvent != null)
-            { archer.ShootArrowEvent -= Shoot; }
-            archer = null;
-        }
+        //if (archer != null)
+        //{
+        //    if (archer.HookArrowEvent != null)
+        //    { archer.HookArrowEvent -= Hooking; }
+        //    if (archer.ShootArrowEvent != null)
+        //    { archer.ShootArrowEvent -= Shoot; }
+        //    archer = null;
+        //}
     }
 
 

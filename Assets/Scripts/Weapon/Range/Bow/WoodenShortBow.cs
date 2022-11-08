@@ -23,9 +23,6 @@ public class WoodenShortBow : Weapon
     public Animator animCtlr;
     public float pullingAnimSpd;
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {

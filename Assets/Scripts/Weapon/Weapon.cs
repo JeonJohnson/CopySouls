@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
 
 using Structs;
 
-//½¯µå´Â ÀÏ´Ü ¸Çµé¶§ ¹èÁ¦
+//ì‰´ë“œëŠ” ì¼ë‹¨ ë§¨ë“¤ë•Œ ë°°ì œ
 public enum eWeaponType
 {
     None,
@@ -14,24 +14,24 @@ public enum eWeaponType
     Arrow,
     Range,
 
-    //³ªÁß°¡¸é
-    //ÇÑ¼Õ°Ë, µÎ¼Õ°Ë
-    //È°, ¹æÆĞ
-    //¸¶¹ı ÃË¸Å µîµîÀ¸·Î ¼¼ºĞÈ­ ÇÏ±â
+    //ë‚˜ì¤‘ê°€ë©´
+    //í•œì†ê²€, ë‘ì†ê²€
+    //í™œ, ë°©íŒ¨
+    //ë§ˆë²• ì´‰ë§¤ ë“±ë“±ìœ¼ë¡œ ì„¸ë¶„í™” í•˜ê¸°
     End
 }
 
 public class Weapon : MonoBehaviour
 {
-    //owner ¿¬°á ÇØÁİ½Ã´ç
-    //¾Æ·¡ ÄÚµå void start()¿¡ ºÙ¿©³Ö±â!!
+    //owner ì—°ê²° í•´ì¤ì‹œë‹¹
+    //ì•„ë˜ ì½”ë“œ void start()ì— ë¶™ì—¬ë„£ê¸°!!
     // weapon = GetComponentInChildren<Weapon>();
     // weapon.owner = gameObject;
-    //WeaponTypeÀº °¢ ºÎ¸ğ¸¦ »ó¼Ó¹ŞÀº ÇÏÀ§°´Ã¼¿¡¼­ °áÁ¤ÇØÁÖ±â~
+    //WeaponTypeì€ ê° ë¶€ëª¨ë¥¼ ìƒì†ë°›ì€ í•˜ìœ„ê°ì²´ì—ì„œ ê²°ì •í•´ì£¼ê¸°~
 
     public Collider col;
 
-    //public WeaponStatus status; //³ªÁß¿¡ Á¤¸®ÇÒ ºÎºĞ
+    //public WeaponStatus status; //ë‚˜ì¤‘ì— ì •ë¦¬í•  ë¶€ë¶„
 
     public eWeaponType Type;
     public GameObject owner;
@@ -39,14 +39,14 @@ public class Weapon : MonoBehaviour
 
     public LayerMask hitLayer;
     //==
-    //°ø¿ë
-    //public bool isColliderEnter; //1È¸Å¸°İ Á¦ÇÑ bool;
+    //ê³µìš©
+    //public bool isColliderEnter; //1íšŒíƒ€ê²© ì œí•œ bool;
     //==
 
 
 
-    //public Transform initPos; //¹Ù²Ù±â Àü À§Ä¡
-    //public Transform transPos; //¹Ù²Ü À§Ä¡
+    //public Transform initPos; //ë°”ê¾¸ê¸° ì „ ìœ„ì¹˜
+    //public Transform transPos; //ë°”ê¿€ ìœ„ì¹˜
     //public bool isPosChange;
 
     void Start()
@@ -77,7 +77,7 @@ public class Weapon : MonoBehaviour
 
     public void Att(GameObject other)
     {
-        //¸ÂÀº ³ğ : player
+        //ë§ì€ ë†ˆ : player
         if(other.GetComponent<Player>() != null)
         {
             Structs.DamagedStruct dmgStruct = new DamagedStruct();
@@ -90,7 +90,7 @@ public class Weapon : MonoBehaviour
             {
                 if(Player.instance.status.isParrying == true)
                 {
-                    //ÀûÀÌ ½ºÅÏµÇ´Â ÇÔ¼ö
+                    //ì ì´ ìŠ¤í„´ë˜ëŠ” í•¨ìˆ˜
                 }
                 else
                 {
@@ -98,7 +98,7 @@ public class Weapon : MonoBehaviour
                 }
             }
         }
-        //¸ÂÀº ³ğ : enemy 
+        //ë§ì€ ë†ˆ : enemy 
         else if (other.GetComponent<Enemy>() != null)
         {
             other.GetComponent<Enemy>().status.curHp -= Dmg;
@@ -127,12 +127,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    //Æ¯Á¤ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡¼­ ¹«±â À§Ä¡³ª °¢µµ°¡ ¹Ù²ğ »óÈ²½Ã »ç¿ë
+    //íŠ¹ì • ì• ë‹ˆë©”ì´ì…˜ì—ì„œ ë¬´ê¸° ìœ„ì¹˜ë‚˜ ê°ë„ê°€ ë°”ë€” ìƒí™©ì‹œ ì‚¬ìš©
     //public void TransWeaponPos(Weapon weapon)
     //{
     //    if (weapon != null)
     //    {
-    //        Debug.Log("¹Ù²Ü²²");
+    //        Debug.Log("ë°”ê¿€ê»˜");
     //        weapon.transform.position = weapon.transPos.position;
     //        weapon.transform.rotation = weapon.transPos.rotation;
     //        isPosChange = true;
@@ -145,7 +145,7 @@ public class Weapon : MonoBehaviour
     //    {
     //        if(isPosChange)
     //        {
-    //            Debug.Log("µ¹¸±²²");
+    //            Debug.Log("ëŒë¦´ê»˜");
     //            weapon.transform.position = weapon.initPos.position;
     //            weapon.transform.rotation = weapon.initPos.rotation;
     //            isPosChange = false;

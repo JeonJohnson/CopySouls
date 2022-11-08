@@ -7,21 +7,6 @@ using UnityEngine;
 using Enums;
 using Structs;
 
-//public enum eCombatState
-//{ 
-//	Idle,
-//	Alert,
-//	Combat,
-//	End
-//}
-
-//public enum eEquipState
-//{ 
-//	None,
-//	Equip,
-//	End
-//}
-
 public class Archer : Enemy
 {
 	//public Test.eStateTest testEnum = new Test.eStateTest();
@@ -37,56 +22,47 @@ public class Archer : Enemy
 	//	(int)Enums.eArcherState.Death,
 	//};
 
-
-	//용석이 쓰니?
-	public GameObject head;
-
+	[Header("Fov System")]
+	public FovStruct fovStruct;
 	public LayerMask fovIgnoreLayer;
 	public LayerMask fovCheckLayer;
 
-	//public delegate void Al
-	public delegate void AlertEventHandler();
-	public AlertEventHandler alertStartEvent;
-	public AlertEventHandler alertEndEvent;
-
-	public delegate void CombatEventHandler();
-	public CombatEventHandler combatStartEvent;
-	public CombatEventHandler combatEndEvent;
-
-	public FovStruct fovStruct;
-
-	//public eCombatState combatState;
-	//public eEquipState equipState;
-
-	public bool isEquip;
-
-
-	public float meleeAtkRange;
-	public float runRange;
+	[Header("About Target")]
+	public Transform targetHeadTr;
+	public Transform targetSpine3Tr;
+	public Vector3 fovDir; //head to TargetSpine
+	public Vector3 atkDir; //hand to TargetSpine or TargetHead
 	
+	[Header("Me Bones")]
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
 
-	public GameObject bowPrefab;
-	public Bow bow;
-	public Arrow arrow;
+	//public GameObject bowPrefab;
+	//public Bow bow;
+	//public Arrow arrow;
 
-	public Transform targetHeadTr;
-	public Transform targetSpine3Tr;
+	public float meleeAtkRange;
+	public float runRange;
 
-	public Vector3 fovDir; //head to TargetSpine
-	public Vector3 atkDir; //hand to TargetSpine or TargetHead
 
 	public eArcherState defaultPattern;
 	public eArcherState curState_e;
 
-	public delegate void AttackEventHandler();
-	public AttackEventHandler DrawArrowEvent;
-	public AttackEventHandler HookArrowEvent;
-	public AttackEventHandler StartStringPullEvent;
-	public AttackEventHandler EndStringPullEvent;
-	public AttackEventHandler ShootArrowEvent;
+
+	////public delegate void Al
+	//public delegate void AlertEventHandler();
+	//public AlertEventHandler alertStartEvent;
+	//public AlertEventHandler alertEndEvent;
+	//public delegate void CombatEventHandler();
+	//public CombatEventHandler combatStartEvent;
+	//public CombatEventHandler combatEndEvent;
+	//public delegate void AttackEventHandler();
+	//public AttackEventHandler DrawArrowEvent;
+	//public AttackEventHandler HookArrowEvent;
+	//public AttackEventHandler StartStringPullEvent;
+	//public AttackEventHandler EndStringPullEvent;
+	//public AttackEventHandler ShootArrowEvent;
 
 
 	public void CalcFovDir(float degreeAngle)
@@ -237,16 +213,16 @@ public class Archer : Enemy
 
 	public void Initializebow()
 	{
-		if (bow == null)
-		{ 
-			//bow = Instantiate(bowPrefab,)
-		}
+		//if (bow == null)
+		//{ 
+		//	//bow = Instantiate(bowPrefab,)
+		//}
 
-		bow.rightIndexFingerTr = rightIndexFingerBoneTr;
+		//bow.rightIndexFingerTr = rightIndexFingerBoneTr;
 
-		HookArrowEvent += bow.HookArrow;
-		StartStringPullEvent += bow.StartStringPull;
-		ShootArrowEvent += bow.ShootArrow;
+		//HookArrowEvent += bow.HookArrow;
+		//StartStringPullEvent += bow.StartStringPull;
+		//ShootArrowEvent += bow.ShootArrow;
 	}
 
 	public void EquippedBow()
@@ -412,53 +388,53 @@ public class Archer : Enemy
 
     public void DrawArrow()
 	{
-		arrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Dynamic").GetComponent<Arrow>();
+		//arrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Dynamic").GetComponent<Arrow>();
 
-		arrow.archer = this;
-		arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
-		arrow.target = targetObj;
-		arrow.bowLeverTr = bow.bowLeverTr;
+		//arrow.archer = this;
+		//arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
+		//arrow.target = targetObj;
+		//arrow.bowLeverTr = bow.bowLeverTr;
 
 
-		bow.arrow = arrow;
+		//bow.arrow = arrow;
 
-		HookArrowEvent += arrow.Hooking;
-		ShootArrowEvent += arrow.Shoot;
+		//HookArrowEvent += arrow.Hooking;
+		//ShootArrowEvent += arrow.Shoot;
 	}
 
 	public void HookArrow()
 	{
-		if (HookArrowEvent != null)
-		{
-			HookArrowEvent();
-		}
+		//if (HookArrowEvent != null)
+		//{
+		//	HookArrowEvent();
+		//}
 	}
 
 	public void StartStringPull()
 	{
-		if (StartStringPullEvent != null)
-		{
-			StartStringPullEvent();
-		}
+		//if (StartStringPullEvent != null)
+		//{
+		//	StartStringPullEvent();
+		//}
 	}
 
 	public void EndStringPull()
 	{
-		if (EndStringPullEvent != null)
-		{
-			EndStringPullEvent();
-		}
+		//if (EndStringPullEvent != null)
+		//{
+		//	EndStringPullEvent();
+		//}
 	}
 
     public void ShootArrow()
 	{
-		if (ShootArrowEvent != null)
-		{
-			ShootArrowEvent();
-		}
+		//if (ShootArrowEvent != null)
+		//{
+		//	ShootArrowEvent();
+		//}
 
-		arrow = null;
-		//StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
+		//arrow = null;
+		////StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
 	}
 
 
@@ -467,7 +443,6 @@ public class Archer : Enemy
 	public override void Hit(DamagedStruct dmgStruct)
     {
         base.Hit(dmgStruct);
-
 
 		if (status.curHp <= 0f)
 		{
@@ -493,8 +468,8 @@ public class Archer : Enemy
 		
 
 
-		alertStartEvent += EquippedBow;
-		alertEndEvent += UnequippedBow;
+		//alertStartEvent += EquippedBow;
+		//alertEndEvent += UnequippedBow;
 	}
 
 	protected override void Start()

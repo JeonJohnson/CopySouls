@@ -14,11 +14,11 @@ public class Archer_Attack_Aiming : cState
 		{
 			archer = me.GetComponent<Archer>();
 
-			if (archer.StartStringPullEvent == null)
-			{//이거 나중에 cState 생성자 만들거나 Initialize에서 쓸 수 있도록
-				archer.StartStringPullEvent += PullStart;
-				archer.EndStringPullEvent += PullEnd;
-			}
+			//if (archer.StartStringPullEvent == null)
+			//{//이거 나중에 cState 생성자 만들거나 Initialize에서 쓸 수 있도록
+			//	archer.StartStringPullEvent += PullStart;
+			//	archer.EndStringPullEvent += PullEnd;
+			//}
 		}
 
 		//aimingCoroutine = AimingCoroutine();
@@ -109,7 +109,7 @@ public class Archer_Attack_Aiming : cState
 		bowPullAnimSpd = 1f / (stringPullTime * 4f);
 
 		
-		archer.bow.pullAnimSpd = bowPullAnimSpd;
+		//archer.bow.pullAnimSpd = bowPullAnimSpd;
 			
 		//archerPullAnimSpd = 1f / stringPullTime;
 		//bowPullAnimSpd = 0.25f / (drawTime*2f);
@@ -179,15 +179,15 @@ public class Archer_Attack_Aiming : cState
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
 		//이것도 나중에 코루틴으로 자연스럽게 돌아가도록.
 
-		if (archer.arrow != null)
-		{
-			archer.arrow.ResetForReturn();
-			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject);
-		}
+		//if (archer.arrow != null)
+		//{
+		//	archer.arrow.ResetForReturn();
+		//	ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject);
+		//}
 
-		archer.bow.ShootArrow();
+		//archer.bow.ShootArrow();
 
-		//me.isCombat = false;
+		////me.isCombat = false;
 	}
 
 }
