@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
+//스턴 상태 만들어야함
+
+// 연속공격? 데미지 모션 -> 랜덤
+//    public float curActAtkValue = 1.0f;
+// 강공 -> 데미지 처리 ()
+// 
+// 
+
 public class Spirit : Enemy
 {
     //enemy -> player (Att)레이어
@@ -15,6 +23,8 @@ public class Spirit : Enemy
     public float dashTime = 4f;
     public int preHp;
     public GameObject remainderWeapon;
+    public Material Material_Disable;
+    public Material Material_Standard;
     public float initFOVAngle;
 
     public eSpiritState curState_e;
@@ -64,7 +74,6 @@ public class Spirit : Enemy
     protected override void Start()
     {
         base.Start();
-        //dashCol =
         targetObj = GameObject.Find("Player");
         weapon.Type = eWeaponType.Melee;
 
@@ -97,6 +106,17 @@ public class Spirit : Enemy
 
         if(preHp != status.curHp) preHp = status.curHp;
     }
+    //=============================================================================
+    // MaterialChange함수
+    //=============================================================================
+    public void Material_Change(Material material)
+    {
+        GetComponentInChildren<SkinnedMeshRenderer>().material = material;
+        //GetComponentInChildren<SkinnedMeshRenderer>().materials[0] = material;
+    }
+
+    //=============================================================================
+
 
     //=============================================================================
     // think함수

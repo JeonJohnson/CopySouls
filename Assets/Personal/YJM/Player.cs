@@ -64,16 +64,37 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    ShakeOnKey shakeOnKey;
+
+
     // Start is called before the first frame update
     private void Start()
     {
         //RigidBodySetting();
+        SetPlayerWeapon();
+        shakeOnKey = GetComponent<ShakeOnKey>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         curState.UpdateState();
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            CameraShake.Instance.AddShakeEvent(this.gameObject);
+        }
+    }
+
+    void SetPlayerWeapon()
+    {
+        if (status.mainWeapon != null)
+        {
+            status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        }
+        if (status.subWeapon != null)
+        {
+            status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        }
     }
 
     void InitializeState()

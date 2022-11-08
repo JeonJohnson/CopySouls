@@ -30,6 +30,9 @@ public class Spirit_Atk : cState
 
     public override void UpdateState()
     {
+
+
+
         if (me.weapon == null || CurPattern == eSpirit_AtkPattern.None || CurPattern == eSpirit_AtkPattern.End) return;
         if (((Spirit)me).atting) me.weapon.WeaponColliderOnOff(true);
         else me.weapon.WeaponColliderOnOff(false);
@@ -133,6 +136,7 @@ public class Spirit_Atk : cState
     {
         if (!me.animCtrl.GetBool("isNormalAtk"))
         {
+            me.animCtrl.SetFloat("AttIndex", 0f);
             me.animCtrl.SetBool("isNormalAtk", true);
         }
     }
@@ -149,6 +153,7 @@ public class Spirit_Atk : cState
     {
         if (!me.animCtrl.GetBool("isSwingAtk"))
         {
+            me.animCtrl.SetFloat("AttIndex", 0.5f);
             me.animCtrl.SetBool("isSwingAtk", true);
         }
     }
@@ -165,6 +170,7 @@ public class Spirit_Atk : cState
     {
         if (!me.animCtrl.GetBool("isTurnAtk"))
         {
+            me.animCtrl.SetFloat("AttIndex", 1f);
             me.animCtrl.SetBool("isTurnAtk", true);
         }
     }
