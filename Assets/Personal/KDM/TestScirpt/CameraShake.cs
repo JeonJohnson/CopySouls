@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    public static CameraShake Instance = null;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     [System.Serializable]
     public class ShakeEvent
     {
@@ -73,6 +83,15 @@ public class CameraShake : MonoBehaviour
     public void AddShakeEvent(CameraShakeEvent data)
     {
         shakeEvents.Add(new ShakeEvent(data));
+    }
+
+    public void AddShakeEvent(GameObject obj)
+    {
+        ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
+
+        if (temp != null)
+        { shakeEvents.Add(new ShakeEvent(temp.data)); }
+        //shakeEvents.Add(new ShakeEvent(go.GetComponent<ShakeEvent>()));
     }
     public void AddShakeEvent(float amplitude, float frequency, float duration, AnimationCurve blendOverLifetime, CameraShakeEvent.Target target)
     {

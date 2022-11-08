@@ -295,11 +295,24 @@ public class PlayerActionTable : MonoBehaviour
     {
         //플레이어 각도랑 적 각도랑 계산
         //적이 스턴인지 or 플레이어를 인식 못했는지 확인
-        EnableWeaponMeshCol(0);
-        Player.instance.SetState(Enums.ePlayerState.Atk);
-        Player.instance.animator.SetTrigger("BackHoldAttack");
-        // 적 스크립트에서 적이 움직이지 못하게 하고 맞는 애니메이션을 재생시키는 함수 재생
-        // ex ) HoldAttackHit(Vector3 Playerpos)
+        Enemy target;
+        float distance = float.MaxValue;
+        for (int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
+        {
+            if (Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position) < distance)
+            {
+                distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
+                target = UnitManager.Instance.allEnemyList[i];
+            }
+        }
+        //if(distance <= 1f && target.isStun == true)
+        //{
+        //    EnableWeaponMeshCol(0);
+        //    Player.instance.SetState(Enums.ePlayerState.Atk);
+        //    Player.instance.animator.SetTrigger("BackHoldAttack");
+        //    // 적 스크립트에서 적이 움직이지 못하게 하고 맞는 애니메이션을 재생시키는 함수 재생
+        //    // ex ) HoldAttackHit(Vector3 Playerpos)
+        //}
     }
 
     float guardParam = 0;
@@ -365,6 +378,7 @@ public class PlayerActionTable : MonoBehaviour
     public void EnableWeaponMeshCol(int i)
     {
         //player.status.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
+        player.status.mainWeapon.GetComponent<Player_Weapon>().WeaponColliderOnOff(i);
     }
     
     public bool StaminaCheck()

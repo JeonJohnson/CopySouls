@@ -6,7 +6,9 @@ using Structs;
 public class Player_Weapon : Weapon
 {
     public WeaponStatus status;
+    
     //int atk = 10;
+    
 
     //MeshCollider meshCollider;
 
