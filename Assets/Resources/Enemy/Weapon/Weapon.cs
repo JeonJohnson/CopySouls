@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
+using Structs;
 
 public enum eWeaponType
 {
@@ -8,6 +11,11 @@ public enum eWeaponType
     Melee,
     Arrow,
     Range,
+
+    //나중가면
+    //한손검, 두손검
+    //활, 방패
+    //마법 촉매 등등으로 세분화 하기
     End
 }
 
@@ -20,12 +28,17 @@ public class Weapon : MonoBehaviour
     //WeaponType은 각 부모를 상속받은 하위객체에서 결정해주기~
 
     public Collider col;
+
+    //public WeaponStatus status; //나중에 정리할 부분
+
     public eWeaponType Type;
     public GameObject owner;
     public int Dmg;
     public Transform initPos; //바꾸기 전 위치
     public Transform transPos; //바꿀 위치
     public bool isPosChange;
+
+    
 
     void Start()
     {
@@ -65,7 +78,6 @@ public class Weapon : MonoBehaviour
         {
             other.GetComponent<Enemy>().status.curHp -= Dmg;
         }
-
     }
 
     public void OnTriggerEnter(Collider other)

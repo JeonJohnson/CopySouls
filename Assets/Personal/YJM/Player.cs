@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public GameObject playerModel;
     public Animator animator;
 
+    public Transform spine2Tr;
+
     public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 

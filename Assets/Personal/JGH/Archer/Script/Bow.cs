@@ -24,7 +24,6 @@ public class Bow : MonoBehaviour
     {
         isHook = true;
 
-
         
     }
 

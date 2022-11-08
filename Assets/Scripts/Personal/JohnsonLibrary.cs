@@ -674,13 +674,8 @@ namespace Structs
 	[System.Serializable]
 	public struct WeaponStatus
 	{
-
 		public string name;
-		//public Enums.eWeaponName eName;
-
 		public Enums.eWeaponType type;
-		//public Enums.eWeaponSlot slot;
-
 		public float range;
 		public float price;
 	}
