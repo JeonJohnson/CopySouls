@@ -11,9 +11,14 @@ public class Spirit_Death : cState
     public float R=1;
     public float G=1;
     public float B=1;
+    public bool Complete_Black;
+    public float value;
+    public float per = 0.3f;
+
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        Debug.Log("ªÁ∏¡¿Ãø‰");
         me.isDead = true;
         me.animCtrl.enabled = false;
         me.navAgent.enabled = false;
@@ -23,25 +28,35 @@ public class Spirit_Death : cState
     public override void UpdateState()
     {
         timer += Time.deltaTime;
-        if (timer >= 5f)
+        if (!Complete_Black)
         {
-            ((Spirit)me).CreateRemainderWeapon(me.weapon.transform);
-            me.gameObject.SetActive(false);
+            if (R < -1)
+            {
+                Complete_Black = true;
+                timer = 0;
+                ((Spirit)me).Material_Change(((Spirit)me).Material_Disable);
+            }
+            R -= Time.deltaTime;
+            G -= Time.deltaTime;
+            B -= Time.deltaTime;
+            me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(R, G, B);
         }
         else
         {
-            if (R > -1)
+            value = 1 - (timer * per);
+            if (value > 0)
             {
-                R -= Time.deltaTime;
-                G -= Time.deltaTime;
-                B -= Time.deltaTime;
-                me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(R, G, B);
+                me.GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_FresnelPower", value);
+            }
+            else if (value <= 0)
+            {
+                ((Spirit)me).CreateRemainderWeapon(me.weapon.transform);
+                me.gameObject.SetActive(false);
             }
         }
-        me.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].SetFloat("Cut off", 0.5f);
-        Debug.Log("ªÁ∏¡¿Ãø‰");
     }
     public override void ExitState()
     {
+        
     }
 }

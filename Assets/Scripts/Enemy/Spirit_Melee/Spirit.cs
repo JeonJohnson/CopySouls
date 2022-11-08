@@ -10,6 +10,8 @@ public class Spirit : Enemy
     public float dashTime = 4f;
     public int preHp;
     public GameObject remainderWeapon;
+    public Material Material_Disable;
+    public Material Material_Standard;
     public float initFOVAngle;
 
     public eSpiritState curState_e;
@@ -18,7 +20,6 @@ public class Spirit : Enemy
     public Transform[] PatrolPos;
     public int curPatrol_Index;
     public int prePatrol_Index;
-
 
     public bool complete_Equipt;
     public bool complete_Unequipt;
@@ -60,7 +61,6 @@ public class Spirit : Enemy
     protected override void Start()
     {
         base.Start();
-        //dashCol =
         targetObj = GameObject.Find("Player");
         weapon.Type = eWeaponType.Melee;
     }
@@ -91,6 +91,17 @@ public class Spirit : Enemy
 
         if(preHp != status.curHp) preHp = status.curHp;
     }
+    //=============================================================================
+    // MaterialChange함수
+    //=============================================================================
+    public void Material_Change(Material material)
+    {
+        GetComponentInChildren<SkinnedMeshRenderer>().material = material;
+        //GetComponentInChildren<SkinnedMeshRenderer>().materials[0] = material;
+    }
+
+    //=============================================================================
+
 
     //=============================================================================
     // think함수

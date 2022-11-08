@@ -10,14 +10,13 @@ public class Spirit_Damaged : cState
         me.animCtrl.SetBool("isDamaged", true);
     }
 
+    //연속 데미지 주기
+    //애니메이션 바꾸기
+
     public override void UpdateState()
     {
-
-
-
         if(((Spirit)me).complete_Damaged)
         {
-            Debug.Log("sdjvgspodjgp");
             if (me.isAlert)
             {
                 if (((Spirit)me).isEquipt)
