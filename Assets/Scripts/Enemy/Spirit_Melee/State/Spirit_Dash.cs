@@ -37,7 +37,7 @@ public class Spirit_Dash : cState
         {
             timer = 0;
 
-            if (me.isAlert)
+            if (me.combatState == eCombatState.Alert)
             {
                 if (me.distToTarget <= me.status.atkRange)
                 {

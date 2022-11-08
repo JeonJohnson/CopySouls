@@ -19,7 +19,7 @@ public class Spirit_Trace : cState
         me.SetDestination(me.targetObj.transform.position);
         me.transform.LookAt(me.targetObj.transform);
 
-        if(me.isAlert)
+        if(me.combatState == eCombatState.Alert)
         {
             if (me.distToTarget <= me.status.atkRange)
             {
@@ -31,7 +31,7 @@ public class Spirit_Trace : cState
             me.SetState((int)Enums.eSpiritState.Unequipt);
         }
 
-        if (me.distToTarget > me.status.ricognitionRange || !me.isAlert)
+        if (me.distToTarget > me.status.ricognitionRange || me.combatState != eCombatState.Alert)
         {
         }
     }

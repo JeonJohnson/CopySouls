@@ -184,7 +184,7 @@ public class Arrow : MonoBehaviour, IPoolingObject
     }
 
     private void OnTriggerEnter(Collider other)
-	{
+    {
 
 
         //if (other.gameObject.transform.root.CompareTag("player"))
@@ -207,45 +207,75 @@ public class Arrow : MonoBehaviour, IPoolingObject
 
         if (isShoot)
         {
-            HitBox tempScript = other.GetComponent<HitBox>();
+            //HitBox tempScript = other.GetComponent<HitBox>();
 
-            if (tempScript != null)
+
+
+            //if (tempScript != null)
+            //{
+            //    tempScript.OnHit(10f, this.gameObject.transform.forward);
+
+
+
+
+            PlayerActionTable temp = other.transform.root.GetComponentInChildren<PlayerActionTable>();
+
+
+            if (temp != null)
             {
-                tempScript.OnHit(10f,this.gameObject.transform.forward);
+                Structs.DamagedStruct dmgStruct = new Structs.DamagedStruct();
+                dmgStruct.dmg = 1;
+                dmgStruct.attackObj = archer.gameObject;
 
+                temp.Hit(dmgStruct);
 
                 GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
                 staticArrow.transform.position = transform.position;
                 staticArrow.transform.rotation = transform.rotation;
                 staticArrow.transform.SetParent(other.gameObject.transform);
 
-
-
                 ResetForReturn();
                 ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
 
             }
-        
-        }
+            // other.transform.root
 
 
-        if (isShoot
-            && (other.gameObject.layer == LayerMask.GetMask("Player_HitBox") || other.CompareTag("Environment")))
-        {
-            Debug.Log("바닥이나 플레이어한테 박힘");
-            GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
+
 
             
-            staticArrow.transform.position = transform.position;
-            staticArrow.transform.rotation = transform.rotation;
-            staticArrow.transform.SetParent(other.gameObject.transform);
 
-            //other.gameObject.transform.root.playerAt . Hit(asdf)""
+            //}
 
-            ResetForReturn();
-            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
         }
+
+
+        //if (isShoot
+        //    && other.gameObject.layer == LayerMask.GetMask("Player_HitBox"))
+        //{
+        //    Debug.Log("asdf");
+
+        //}
     }
+
+
+    //    if (isShoot
+    //        && (other.gameObject.layer == LayerMask.GetMask("Player_HitBox") || other.CompareTag("Environment")))
+    //    {
+    //        Debug.Log("바닥이나 플레이어한테 박힘");
+    //        GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Static");
+
+
+    //        staticArrow.transform.position = transform.position;
+    //        staticArrow.transform.rotation = transform.rotation;
+    //        staticArrow.transform.SetParent(other.gameObject.transform);
+
+    //        //other.gameObject.transform.root.playerAt . Hit(asdf)""
+
+    //        ResetForReturn();
+    //        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+    //    }
+    //}
 
 
 

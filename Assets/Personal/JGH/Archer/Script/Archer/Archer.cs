@@ -1,68 +1,85 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
 using Enums;
 using Structs;
 
-//namespace Test
-//{
-//public override void InitializeState()
-//{
-//	fsm = new cState[(int)eArcherState.End];
-//	//Idle - 활 장착 / 장착 안했을 때 두가지
-//	//Bow_Equip - 아이들에서 전투태세 시작되면
-//	//Bow_Unequip - 전투상태에서 돌아가면
-//	//Walk_Patrol - 전투전 돌아다니는거
-//	//Walk_Careful - 무기장착은 하고 있지만 그냥 간보는거(위치 이동)
-//	//Walk_Aiming - 조준하면서 간보는거
-//	//Run - 거리벌릴려고 ㅌㅌ하는거
-//	//Attack_Rapid - 여러발 빨리 쏘기
-//	//Attack_Aiming - 한발 신중히 쏘기
-//	//Attack_Melee - 가까이 왔을때
-//	//Hit - 쳐맞는거
-//	//Death - 죽는거
+//public enum eCombatState
+//{ 
+//	Idle,
+//	Alert,
+//	Combat,
+//	End
 //}
+
+//public enum eEquipState
+//{ 
+//	None,
+//	Equip,
+//	End
 //}
 
 public class Archer : Enemy
 {
 	//public Test.eStateTest testEnum = new Test.eStateTest();
-	int[] iTestArr = 
-	{ 
-		(int)Enums.eArcherState.Idle,
-		(int)Enums.eArcherState.Bow_Equip,
-		(int)Enums.eArcherState.Bow_Unequip,
-		(int)Enums.eArcherState.Walk_Patrol,
-		(int)Enums.eArcherState.Runaway,
-		(int)Enums.eArcherState.Attack_Aiming,
-		(int)Enums.eArcherState.Hit,
-		(int)Enums.eArcherState.Death,
-	};
-	
+	//int[] iTestArr = 
+	//{ 
+	//	(int)Enums.eArcherState.Idle,
+	//	(int)Enums.eArcherState.Bow_Equip,
+	//	(int)Enums.eArcherState.Bow_Unequip,
+	//	(int)Enums.eArcherState.Walk_Patrol,
+	//	(int)Enums.eArcherState.Runaway,
+	//	(int)Enums.eArcherState.Attack_Aiming,
+	//	(int)Enums.eArcherState.Hit,
+	//	(int)Enums.eArcherState.Death,
+	//};
+
+
+	//용석이 쓰니?
+	public GameObject head;
+
+	public LayerMask fovIgnoreLayer;
+	public LayerMask fovCheckLayer;
+
+	//public delegate void Al
+	public delegate void AlertEventHandler();
+	public AlertEventHandler alertStartEvent;
+	public AlertEventHandler alertEndEvent;
+
+	public delegate void CombatEventHandler();
+	public CombatEventHandler combatStartEvent;
+	public CombatEventHandler combatEndEvent;
+
+	public FovStruct fovStruct;
+
+	//public eCombatState combatState;
+	//public eEquipState equipState;
+
 	public bool isEquip;
 
-	public Transform headBoneTr;
-	public Transform spineBoneTr;
-	public Transform rightIndexFingerBoneTr;
 
 	public float meleeAtkRange;
 	public float runRange;
 	
-	//public GameObject rightHand;
-	//public GameObject bowString;
-	//public Vector3 bowStringOriginPos;
-
-	//public GameObject arrowPrefab;
+	public Transform headBoneTr;
+	public Transform spineBoneTr;
+	public Transform rightIndexFingerBoneTr;
 
 	public GameObject bowPrefab;
 	public Bow bow;
 	public Arrow arrow;
 
+	public Transform targetHeadTr;
+	public Transform targetSpine3Tr;
+
+	public Vector3 fovDir; //head to TargetSpine
+	public Vector3 atkDir; //hand to TargetSpine or TargetHead
+
 	public eArcherState defaultPattern;
-
 	public eArcherState curState_e;
-
 
 	public delegate void AttackEventHandler();
 	public AttackEventHandler DrawArrowEvent;
@@ -70,6 +87,117 @@ public class Archer : Enemy
 	public AttackEventHandler StartStringPullEvent;
 	public AttackEventHandler EndStringPullEvent;
 	public AttackEventHandler ShootArrowEvent;
+
+
+	public void CalcFovDir(float degreeAngle)
+	{
+		//22 10 02 fin, 설명해주기
+
+		//시야각도를 이용해서 ㄹㅇ 시야각 구하기
+
+		//f=Forward
+		// A   f    B
+		// \   |   /
+		//  \  |  /
+		//   \ | /
+		//-----0-------
+
+		//forward와 A사이의 각도 @1
+		//=> @1 = Dot(f,A) * aCos;
+
+		//forword와 B 사이의 각도 @2
+		//=> @2 = Dot(f,B) * aCos;
+
+		//판별기준은 몬스터와 0의 각도를 구한다음
+		//그게 fov/2 보다 작으면 시야각 내에 있는거.
+
+		//여기서는 A와 B의 Direction 구하는거
+		fovStruct.fovAngle = degreeAngle;
+		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
+		fovStruct.LookDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y);
+		fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
+	}
+
+
+	public bool CheckTargetInFovAndRange()
+	{
+		//22 10 02 fin, 설명해주기
+
+		Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
+
+		if (hitObjs.Length == 0)
+		{
+			return false;
+		}
+
+		foreach (Collider col in hitObjs)
+		{
+			if (col.gameObject != targetObj)
+			{
+				continue;
+			}
+
+			// Vector3 dir = (targetObj.transform.position - transform.position).normalized;
+
+			float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
+			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+
+			//int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
+			RaycastHit temp;
+			Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
+			//Physics.Raycast(temp,)
+			if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+				&& !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
+			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
+			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
+			{
+				//if (!isAlert)
+				//{
+				//	isAlert = true;
+				//	alertStartEvent();
+				//}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool CheckTargetIsHidingInFov(GameObject tempTarget)
+	{
+		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
+		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
+
+		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)) //시야각 안에 있는 경우
+		{
+			RaycastHit hitEnvironmentInfo;
+
+			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
+			{
+				int temp = LayerMask.GetMask("Environment");
+				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+				{
+					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
+
+					if (distToTarget > dist)
+					{
+						//같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
+						return false;
+					}
+					return true;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+
 
 	public override void InitializeState()
 	{
@@ -344,7 +472,6 @@ public class Archer : Enemy
 		if (status.curHp <= 0f)
 		{
 			SetState((int)eArcherState.Death); 
-
 		}
 		else
 		{
@@ -363,10 +490,8 @@ public class Archer : Enemy
 	protected override void Awake()
 	{
 		base.Awake();
+		
 
-		//testTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
-
-		//bowStringOriginPos = new Vector3(0f, -0.01f, 0f);
 
 		alertStartEvent += EquippedBow;
 		alertEndEvent += UnequippedBow;
@@ -385,16 +510,16 @@ public class Archer : Enemy
 	{
 		base.Update();
 
-		
+		CalcFovDir(status.fovAngle);
 
-		for (int i = (int)KeyCode.Alpha0; i < iTestArr.Length+48; ++i)
-		{
-			if (Input.GetKeyDown((KeyCode)i))
-			{
-				int iTest = i - 48;
-				SetState(iTestArr[iTest]);
-			}
-		}
+		//for (int i = (int)KeyCode.Alpha0; i < iTestArr.Length+48; ++i)
+		//{
+		//	if (Input.GetKeyDown((KeyCode)i))
+		//	{
+		//		int iTest = i - 48;
+		//		SetState(iTestArr[iTest]);
+		//	}
+		//}
 
 
 		curState_e = (eArcherState)curState_i;
@@ -412,10 +537,10 @@ public class Archer : Enemy
 
 	}
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, runRange);
+	//private void OnDrawGizmos()
+	//{
+	//	Gizmos.color = Color.red;
+	//	Gizmos.DrawWireSphere(transform.position, runRange);
+	//}
 
-	}
 }

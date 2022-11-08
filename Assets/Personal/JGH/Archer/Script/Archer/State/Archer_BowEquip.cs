@@ -36,21 +36,21 @@ public class Archer_BowEquip : cState
 					archer.isEquip = true;
 				}
 
-				if (me.isAlert)
-				{
-					if (me.distToTarget > me.status.atkRange)
-					{
-						me.SetState((int)eArcherState.Walk_Careful);
-					}
-					else
-					{
-						archer.RandomAttack();
-					}
-				}
-				else
-				{
-					me.SetState((int)Enums.eArcherState.Idle);
-				}
+				//if (me.isAlert)
+				//{
+				//	if (me.distToTarget > me.status.atkRange)
+				//	{
+				//		me.SetState((int)eArcherState.Walk_Careful);
+				//	}
+				//	else
+				//	{
+				//		archer.RandomAttack();
+				//	}
+				//}
+				//else
+				//{
+				//	me.SetState((int)Enums.eArcherState.Idle);
+				//}
 			}
 		}
 		else 

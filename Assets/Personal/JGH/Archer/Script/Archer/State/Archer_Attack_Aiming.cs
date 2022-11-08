@@ -125,7 +125,7 @@ public class Archer_Attack_Aiming : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		me.isCombat = true;
+		//me.isCombat = true;
 
 		CalcDrawSpd();
 
@@ -187,7 +187,7 @@ public class Archer_Attack_Aiming : cState
 
 		archer.bow.ShootArrow();
 
-		me.isCombat = false;
+		//me.isCombat = false;
 	}
 
 }

@@ -26,7 +26,7 @@ public class Archer_Idle : cState
 			me.animCtrl.SetTrigger("tIdle_Unequip"); 
 		}
 
-		me.isAlert = false;
+		//me.isAlert = false;
 		
 	}
 
@@ -34,7 +34,7 @@ public class Archer_Idle : cState
 	{
 		//archer.EquipWeapon();
 
-		me.CheckTargetInFovAndRange();
+		//me.CheckTargetInFovAndRange();
 
 
 	}

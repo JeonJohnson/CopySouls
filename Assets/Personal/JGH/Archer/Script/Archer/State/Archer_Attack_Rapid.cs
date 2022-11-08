@@ -12,7 +12,7 @@ public class Archer_Attack_Rapid : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		me.isCombat = true;
+		//me.isCombat = true;
 
 		me.animCtrl.SetTrigger("tAttack");
 	}

@@ -20,7 +20,7 @@ public class Spirit_Idle : cState
 
     public override void UpdateState()
     {
-        if (me.isAlert) me.SetState((int)Enums.eSpiritState.Equipt);
+        if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         curTime += Time.deltaTime;
         if (curTime >= patrolWaitTime)
         {

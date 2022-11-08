@@ -12,7 +12,7 @@ public class Archer_Attack_Melee : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		me.isCombat = true;
+		//me.isCombat = true;
 	}
 
 

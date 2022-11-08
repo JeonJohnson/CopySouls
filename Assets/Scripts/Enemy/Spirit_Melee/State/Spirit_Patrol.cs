@@ -24,7 +24,7 @@ public class Spirit_Patrol : cState
 
         //Debug.Log(Vector3.Distance(me.transform.position, targetPos));
 
-        if (me.isAlert) me.SetState((int)Enums.eSpiritState.Equipt);
+        if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         else
         {
             if (Vector3.Distance(me.transform.position, targetPos) < 1f)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5057265020130109326}
   - component: {fileID: 5396497380311517035}
   - component: {fileID: 6564243396454106519}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow_Dynamic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,7 @@ MonoBehaviour:
   fullTime: 20
   isShoot: 0
   isHook: 0
+  dmg: 0
 --- !u!54 &6564243396454106519
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,9 +85,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5057265020130109326}
     m_Modifications:
+    - target: {fileID: 1047567609848626, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493936187531040, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936848035193434, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
       propertyPath: m_Name
       value: Arrow_Static
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4115648698905132, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
       propertyPath: m_LocalScale.x

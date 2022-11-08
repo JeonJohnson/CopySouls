@@ -71,8 +71,8 @@ public class Archer_Hit : cState
 		{
 			//if (!me.isAlert)
 			//{
-				me.isAlert = true;
-				me.alertStartEvent();
+				//me.isAlert = true;
+			//me.alertStartEvent();//2201108
 			//me.SetState((int)eArcher)
 			//me.SetState((int)archer.Think(archer.curState_e));
 		}

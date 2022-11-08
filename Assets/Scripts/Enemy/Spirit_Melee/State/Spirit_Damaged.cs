@@ -18,7 +18,7 @@ public class Spirit_Damaged : cState
         if(((Spirit)me).complete_Damaged)
         {
             Debug.Log("sdjvgspodjgp");
-            if (me.isAlert)
+            if (me.combatState == eCombatState.Alert)
             {
                 if (((Spirit)me).isEquipt)
                 {

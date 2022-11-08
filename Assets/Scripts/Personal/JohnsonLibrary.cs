@@ -612,6 +612,8 @@ namespace Structs
 
 		public Enums.eEnemyType type;
 
+		public bool isDead;
+
 		public int maxHp;
 		public int curHp;
 

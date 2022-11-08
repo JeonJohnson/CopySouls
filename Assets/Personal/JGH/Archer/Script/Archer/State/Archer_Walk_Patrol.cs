@@ -38,7 +38,7 @@ public class Archer_Walk_Patrol : cState
 		}
 		else 
 		{
-			curDest = me.patrolPosList[destIndex];
+			//curDest = me.patrolPosList[destIndex];
 		}
 
 		me.MoveOrder(curDest);
@@ -58,12 +58,12 @@ public class Archer_Walk_Patrol : cState
 			{
 				++destIndex;
 
-				if (destIndex >= me.patrolPosList.Count)
-				{
-					destIndex = 0;
-				}
+				//if (destIndex >= me.patrolPosList.Count)
+				//{
+				//	destIndex = 0;
+				//}
 
-				curDest = me.patrolPosList[destIndex];
+				//curDest = me.patrolPosList[destIndex];
 			}
 			me.MoveOrder(curDest);
 		}
@@ -92,7 +92,7 @@ public class Archer_Walk_Patrol : cState
 		CheckNextDest(curDest);
 
 		//archer.EquipWeapon();
-		me.CheckTargetInFovAndRange();
+		//me.CheckTargetInFovAndRange();
 
 	}
 

@@ -43,7 +43,7 @@ public class Spirit_Atk : cState
         else if (((Spirit)me).complete_Atk)
         {
             stop(CurPattern);
-            if (me.isAlert)
+            if (me.combatState == eCombatState.Alert)
             {
                 ((Spirit)me).complete_Atk = false;
                 if (me.distToTarget <= me.status.atkRange)

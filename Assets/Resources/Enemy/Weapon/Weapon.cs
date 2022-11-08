@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
     public Transform transPos; //¹Ù²Ü À§Ä¡
     public bool isPosChange;
 
-    
+    public LayerMask hitLayer;
 
     void Start()
     {
@@ -84,9 +84,9 @@ public class Weapon : MonoBehaviour
     {
         if(owner.gameObject.GetComponent<Enemy>() != null)
         {
-            if(!owner.gameObject.GetComponent<Enemy>().isDead)
+            if(!owner.gameObject.GetComponent<Enemy>().status.isDead)
             {
-                if (other.gameObject.layer == owner.gameObject.GetComponent<Enemy>().player_Hitbox)
+                if (other.gameObject.layer == hitLayer/*owner.gameObject.GetComponent<Enemy>().player_Hitbox*/)
                 {
                     Att(other.gameObject);
                 }

@@ -6,6 +6,11 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    //enemy -> player (Att)·¹ÀÌ¾î
+    public LayerMask player_Hitbox;
+
+
+
     public Collider dashCol;
     public float dashTime = 4f;
     public int preHp;
@@ -15,10 +20,9 @@ public class Spirit : Enemy
     public eSpiritState curState_e;
     public bool Arrival;
 
-    public Transform[] PatrolPos;
+    //public Transform[] PatrolPos;
     public int curPatrol_Index;
     public int prePatrol_Index;
-
 
     public bool complete_Equipt;
     public bool complete_Unequipt;
@@ -63,24 +67,26 @@ public class Spirit : Enemy
         //dashCol =
         targetObj = GameObject.Find("Player");
         weapon.Type = eWeaponType.Melee;
+
+        player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             status.curHp--;
         }
 
         if (status.curHp <= 0)
         {
-            isDead = true;
+            status.isDead = true;
             SetState((int)Enums.eSpiritState.Death);
             return;
         }
-        else if(status.curHp > 0 && !isDead)
+        else if(status.curHp > 0 && !status.isDead)
         {
             if (preHp > status.curHp && curState_e != Enums.eSpiritState.Damaged)
             {

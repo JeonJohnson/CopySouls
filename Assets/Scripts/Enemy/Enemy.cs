@@ -15,66 +15,47 @@ using Structs;
 //앞잡 뒤잡 시 몬스터가 그 방향으로 회전
 //
 
+public enum eCombatState
+{
+    Idle, //암것도 아님
+    Alert, //경계 상태
+    Combat, //전투 모드
+    End
+}
+
+public enum eEquipState
+{
+    None, //무기 안낌
+    Equip, //무기 낌
+    End
+}
+
 public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
-    public bool isDead;
-
-    public float targetmaxLine;
-
-    //enemy -> player (Att)레이어
-    public LayerMask player_Hitbox;
-
-    ////Target
-    //public GameObject player;
-    Vector3 responPos;
-    Vector3 preTargetPos;
-    Vector3 curTargetPos;
+    
 
     public GameObject targetObj;
+    public Player targetScript;
     public float distToTarget;
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
-    
-    public float CoolTime;
 
-    //testSpinATT
-    public Vector3 Destination;
-
-    public GameObject head;
-
-
-    public LayerMask fovIgnoreLayer;
-    public LayerMask fovCheckLayer;
-
-    //// Events
-    //public delegate void Al
-    public delegate void AlertEventHandler();
-    public AlertEventHandler alertStartEvent;
-    public AlertEventHandler alertEndEvent;
-
-    public delegate void CombatEventHandler();
-	public CombatEventHandler combatStartEvent;
-    public CombatEventHandler combatEndEvent;
-
-    //public delegate void HitEventHandler();
-    //public HitEventHandler
-    //// Events
-
-    public FovStruct fovStruct;
-    public bool isAlert = false;
-    public bool isCombat = false;
+    public eCombatState combatState = eCombatState.Idle;
+    public eEquipState weaponEquipState = eEquipState.None;
+    //public bool isAlert = false;
+    //public bool isCombat = false;
 
     public Weapon weapon;
-    public List<Vector3> patrolPosList;
+
+    public Transform[] PatrolPos;
+    //public List<Vector3> patrolPosList; //에너미에서 Transform으로 합치기
 
     ////FSM
     public cState[] fsm;
     public cState preState = null;
     public int preState_i = -1;
-    //public eEnmeyState preState_e = eEnmeyState.End;
     public cState curState = null;
     public int curState_i = -1;
-    //public eEnmeyState curState_e = eEnmeyState.End;
     ////FSM
 
     ////default Components
@@ -85,14 +66,6 @@ public abstract class Enemy : MonoBehaviour
     ////default Components
 
 
-    //public void UpdateStatus()
-    //{ //스테이터스 수치들 각종 컴포넌트에 연동 되도록.
-
-    //    //네브 요원
-    //    navAgent.speed = status.moveSpd;
-
-
-    //}
 
 
     public void ResetAllAnimTrigger(string[] triggerStrArr)
@@ -113,9 +86,8 @@ public abstract class Enemy : MonoBehaviour
         distToTarget = Vector3.Distance(transform.position, targetObj.transform.position);
         dirToTarget = (targetObj.transform.position - transform.position).normalized;
 
-        preTargetPos = curTargetPos;
-        curTargetPos = targetObj.transform.position;
-	}
+        
+    }
 
 	public Quaternion LookAtSlow(Transform me, Transform target, float spd)
 	{
@@ -247,28 +219,16 @@ public abstract class Enemy : MonoBehaviour
     }
 
     public void MoveOrder(Vector3 dest)
-	{//네비 에이전트 움직이는거 편하게
+    {//네비 에이전트 움직이는거 편하게
         if (navAgent == null)
         {
             return;
         }
 
-        navAgent.isStopped = true;
+        //navAgent.isStopped = true;
         navAgent.destination = dest;
-        navAgent.isStopped = false;
-	}
-
-    //public void MoveOrder(Vector3 dir)
-    //{
-    //    if (navAgent == null)
-    //    {
-    //        return;
-    //    }
-
-    //    navAgent.isStopped = true;
-    //    navAgent.Move(dir);
-    //    navAgent.isStopped = false;
-    //}
+        //navAgent.isStopped = false;
+    }
 
     public void MoveStop()
     {
@@ -281,112 +241,7 @@ public abstract class Enemy : MonoBehaviour
         navAgent.SetDestination(transform.position);
     }
 
-    public void CalcFovDir(float degreeAngle)
-	{
-        //22 10 02 fin, 설명해주기
-
-        //시야각도를 이용해서 ㄹㅇ 시야각 구하기
-
-        //f=Forward
-        // A   f    B
-        // \   |   /
-        //  \  |  /
-        //   \ | /
-        //-----0-------
-
-        //forward와 A사이의 각도 @1
-        //=> @1 = Dot(f,A) * aCos;
-
-        //forword와 B 사이의 각도 @2
-        //=> @2 = Dot(f,B) * aCos;
-
-        //판별기준은 몬스터와 0의 각도를 구한다음
-        //그게 fov/2 보다 작으면 시야각 내에 있는거.
-
-        //여기서는 A와 B의 Direction 구하는거
-        fovStruct.fovAngle = degreeAngle;
-        fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
-        fovStruct.LookDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y);
-        fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
-    }
-
-
-    public bool CheckTargetInFovAndRange()
-    {
-        //22 10 02 fin, 설명해주기
-
-        Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
-
-        if (hitObjs.Length == 0)
-        {
-            return false;
-        }
-
-        foreach (Collider col in hitObjs)
-        {
-            if (col.gameObject != targetObj)
-            {
-                continue;
-            }
-
-            // Vector3 dir = (targetObj.transform.position - transform.position).normalized;
-
-            float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
-            //내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
-
-            //int layerMask = (1 << LayerMask.NameToLayer("Environment")) | (1<< LayerMask.NameToLayer("Enemy"));
-            RaycastHit temp;
-            Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
-            //Physics.Raycast(temp,)
-            if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
-                && !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
-            //Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
-            //=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
-            {
-                if (!isAlert)
-                {
-                    isAlert = true;
-                    alertStartEvent();
-                }
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public bool CheckTargetIsHidingInFov(GameObject tempTarget)
-    {
-		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
-		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
-
-		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)) //시야각 안에 있는 경우
-		{
-            RaycastHit hitEnvironmentInfo;
-
-            if (Physics.Raycast(transform.position, dir,  LayerMask.GetMask("Player")))
-            {
-                int temp = LayerMask.GetMask("Environment");
-                if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
-                {
-                    float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
-
-                    if (distToTarget > dist)
-                    {
-                        //같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
-                        return false;
-                    }
-                    return true;
-                }
-                else 
-                {
-                    return true;
-                }
-            }
-		}
-        return false;
-	}
+ 
 
 
     public abstract void InitializeState();
@@ -474,30 +329,10 @@ public abstract class Enemy : MonoBehaviour
         curState.EnterState(this);
     }
 
-    //public IEnumerator DelaySetState(float delayTime, eArcherState state)
-    //{
-    //    float time = 0f;
-    //    while (time <= delayTime)
-    //    {
-    //        time += Time.deltaTime;
-
-    //        yield return null;
-    //    }
-
-
-    //}
-
-
     public void stop()
     {
         StopAllCoroutines();
     }
-
-    
-
-
-
-    
 
     protected virtual void Awake()
     {
@@ -506,14 +341,11 @@ public abstract class Enemy : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
 
         //for Test
-        patrolPosList = new List<Vector3>();
-        patrolPosList.Add(new Vector3());
-        patrolPosList.Add(new Vector3(10,0,10));
-        patrolPosList.Add(new Vector3(5,0,-10));
+        //patrolPosList = new List<Vector3>();
+        //patrolPosList.Add(new Vector3());
+        //patrolPosList.Add(new Vector3(10,0,10));
+        //patrolPosList.Add(new Vector3(5,0,-10));
         //for Test
-
-        //test
-        responPos = new Vector3(transform.position.x, 0f, transform.position.z);
 
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
@@ -522,8 +354,6 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
-        
         weapon = GetComponentInChildren<Weapon>();
         if (weapon != null)
         { weapon.owner = gameObject; }
@@ -534,12 +364,11 @@ public abstract class Enemy : MonoBehaviour
     {
         CalcAboutTarget();
 
-        CalcFovDir(status.fovAngle);
+        
         //isAlert = CheckTargetInFov();
 
         curState.UpdateState();
 
-        CoolTime += Time.deltaTime;
     }
 
     protected virtual void FixedUpdate()
@@ -570,7 +399,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!isDead)
+        if(!status.isDead)
         {
             if(other.gameObject.GetComponent<Weapon>() != null)
             {

@@ -106,9 +106,8 @@ public class PlayerActionTable : MonoBehaviour
         else if(player.status.isGuard == true)
         {
             player.status.curStamina -= 10f;
-                float dot = Vector3.Dot(dmgStruct.attackObj.transform.forward, transform.forward);
+                float dot = Vector3.Dot(dmgStruct.attackObj.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
                 if (theta <= 35f)
                 {
                     if (dmgStruct.atkType == eAttackType.Week && player.status.curStamina > 0f)
@@ -120,6 +119,7 @@ public class PlayerActionTable : MonoBehaviour
                     {
                         player.animator.SetTrigger("GuardFail");
                         SetPlayerStatus((int)ePlayerState.Hit);
+                    print("방어실패");
                     }
                 }
                 else

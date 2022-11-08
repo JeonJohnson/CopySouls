@@ -24,7 +24,7 @@ public class Spirit_Equipt : cState
         me.MoveStop();
         if (((Spirit)me).complete_Equipt)
         {
-            if (me.isAlert)
+            if (me.combatState == eCombatState.Alert)
             {
                 if (me.distToTarget <= me.status.atkRange)
                 {
