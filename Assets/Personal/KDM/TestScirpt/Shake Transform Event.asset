@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: 0
   amplitude: 1
-  frequency: 1
-  duration: 1
+  frequency: 15
+  duration: 2
   blendOverLifetime:
     serializedVersion: 2
     m_Curve:
@@ -23,14 +23,14 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 12.566371
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.2
-      value: 1
+      time: 0.22083588
+      value: 0.93867874
       inSlope: 0
       outSlope: 0
       tangentMode: 0
