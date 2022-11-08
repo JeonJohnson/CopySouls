@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//Idle -> Patrol
-//Idle -> Equipt
-
 public class Spirit_Idle : cState
 {
     public float curTime = 0;

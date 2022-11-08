@@ -12,11 +12,11 @@ public class Spirit_Equipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        ((Spirit)me).isEquipt = true;
-        me.GetComponent<FieldOfView>().viewAngle = 360f;
-        me.animCtrl.SetBool("isEquipt", true);
         me.MoveStop();
         ((Spirit)me).isEquipt = true;
+        me.weaponEquipState = eEquipState.Equip;
+        me.GetComponent<FieldOfView>().viewAngle = 360f;
+        me.animCtrl.SetBool("isEquipt", true);
     }
 
     public override void UpdateState()
@@ -26,6 +26,7 @@ public class Spirit_Equipt : cState
         {
             if (me.combatState == eCombatState.Alert)
             {
+                me.animCtrl.SetBool("isEquipt", false);
                 if (me.distToTarget <= me.status.atkRange)
                 {
                     me.SetState((int)Enums.eSpiritState.Atk);
@@ -35,16 +36,10 @@ public class Spirit_Equipt : cState
                     me.SetState((int)Enums.eSpiritState.Trace);
                 }
             }
-            else
-            {
-                me.SetState((int)Enums.eSpiritState.Unequipt);
-            }
+            else me.SetState((int)Enums.eSpiritState.Unequipt);
         }
         else
         {
-            //애니메이션이 발만 떠서 맞춰서 내렸다가 올려줘야함
-            //Vector3 vec = new Vector3(0, me.transform.position.y - Time.deltaTime, 0);
-            //me.transform.position = vec;
         }
     }
 
@@ -53,12 +48,4 @@ public class Spirit_Equipt : cState
         ((Spirit)me).complete_Equipt = false;
         me.animCtrl.SetBool("isEquipt", false);
     }
-
-
-    public void Spirit_StartEquiptment()
-    {
-    }
-
-    
- 
 }

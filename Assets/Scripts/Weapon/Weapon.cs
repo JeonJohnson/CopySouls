@@ -37,13 +37,13 @@ public class Weapon : MonoBehaviour
     public GameObject owner;
     public int Dmg;
 
-    public LayerMask hitLayer;
+    public LayerMask PlayerLayer;
+    public LayerMask EnemyLayer;
+
     //==
     //공용
     //public bool isColliderEnter; //1회타격 제한 bool;
     //==
-
-
 
     //public Transform initPos; //바꾸기 전 위치
     //public Transform transPos; //바꿀 위치
@@ -52,6 +52,8 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         col = GetComponent<Collider>();
+        PlayerLayer = 1 << LayerMask.GetMask("Player");
+        EnemyLayer = 1 << LayerMask.GetMask("Enemy");
     }
 
     // Update is called once per frame
@@ -101,29 +103,25 @@ public class Weapon : MonoBehaviour
         //맞은 놈 : enemy 
         else if (other.GetComponent<Enemy>() != null)
         {
-            other.GetComponent<Enemy>().status.curHp -= Dmg;
+            if (!other.GetComponent<Enemy>().status.isDead) other.GetComponent<Enemy>().status.curHp -= Dmg;
+            else return;
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if(owner.gameObject.GetComponent<Enemy>() != null)
+        //Enemy -> Player
+        if (owner.gameObject.GetComponent<Enemy>() != null)
         {
             if(!owner.gameObject.GetComponent<Enemy>().status.isDead)
             {
-                if (other.gameObject.layer == hitLayer/*owner.gameObject.GetComponent<Enemy>().player_Hitbox*/)
-                {
-                    Att(other.gameObject);
-                }
+                if (other.gameObject.layer == PlayerLayer) Att(other.gameObject);
             }
         }
+        //Player -> Enemy
         else if (owner.gameObject.GetComponent<Player>() != null)
         {
-            //if (!owner.gameObject.GetComponent<Enemy>().isDead)
-            if (other.gameObject.layer == 7)
-            {
-                Att(other.gameObject);
-            }
+            if (other.gameObject.layer == EnemyLayer) Att(other.gameObject);
         }
     }
 

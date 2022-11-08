@@ -11,13 +11,16 @@ public class Spirit_Trace : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Spirit_StartTrace();
+        me.animCtrl.SetBool("isTrace", true);
+        me.animCtrl.SetBool("isRun", true);
+        me.navAgent.speed = me.status.runSpd;
+        me.MoveOrder(me.targetObj.transform.position);
     }
 
     public override void UpdateState()
     {
-        me.SetDestination(me.targetObj.transform.position);
         me.transform.LookAt(me.targetObj.transform);
+        me.SetDestination(me.targetObj.transform.position);
 
         if(me.combatState == eCombatState.Alert)
         {
@@ -25,55 +28,18 @@ public class Spirit_Trace : cState
             {
                 me.SetState((int)Enums.eSpiritState.Atk);
             }
+            else if (me.distToTarget > me.status.ricognitionRange)
+            {
+                me.SetState((int)Enums.eSpiritState.Unequipt);
+            }
         }
-        else
-        {
-            me.SetState((int)Enums.eSpiritState.Unequipt);
-        }
-
-        if (me.distToTarget > me.status.ricognitionRange || me.combatState != eCombatState.Alert)
-        {
-        }
+        else me.SetState((int)Enums.eSpiritState.Unequipt);
     }
 
     public override void ExitState()
     {
-        Spirit_StopTraceAnimation();
-        Spirit_StopTrace();
-    }
-
-
-
-
-
-
-
-
-
-    public void Spirit_StartTrace()
-    {
-        me.animCtrl.SetBool("isTrace", true);
-        me.animCtrl.SetBool("isRun", true);
-        me.navAgent.speed = me.status.runSpd;
-        me.MoveOrder(me.targetObj.transform.position);
-    }
-
-    public void Spirit_StopTrace()
-    {
         me.animCtrl.SetBool("isTrace", false);
+        me.animCtrl.SetBool("isRun", false);
         me.MoveStop();
     }
-
-    public void Spirit_PlayTraceAnimation()
-    {
-    }
-    public void Spirit_StopTraceAnimation()
-    {
-        me.animCtrl.SetBool("isRun", false);
-    }
-
-
-
-
-
 }

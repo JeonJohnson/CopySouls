@@ -17,12 +17,7 @@ public class Spirit : Enemy
     //enemy -> player (Att)레이어
     public LayerMask player_Hitbox;
 
-
-
-    public Collider dashCol;
-    public float dashTime = 4f;
     public int preHp;
-    public GameObject remainderWeapon;
     public Material Material_Disable;
     public Material Material_Standard;
     public float initFOVAngle;
@@ -42,8 +37,8 @@ public class Spirit : Enemy
     public bool isEquipt;
     public bool atting;
     public bool existRemainder;
-    //public bool complete_Combo1;
     public bool transWeaponPos;
+    public int HitCount;
 
     //step
     public bool stepWait;
@@ -57,7 +52,6 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Equipt] = new Spirit_Equipt();
         fsm[(int)Enums.eSpiritState.Unequipt] = new Spirit_Unequipt();
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
-        fsm[(int)Enums.eSpiritState.Dash] = new Spirit_Dash();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
         fsm[(int)Enums.eSpiritState.Damaged] = new Spirit_Damaged();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
@@ -83,28 +77,33 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+        curState_e = GetCurState<Enums.eSpiritState>();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
+            preHp = status.curHp;
             status.curHp--;
+            HitCount++;
         }
 
         if (status.curHp <= 0)
         {
             status.isDead = true;
             SetState((int)Enums.eSpiritState.Death);
-            return;
         }
         else if(status.curHp > 0 && !status.isDead)
         {
-            if (preHp > status.curHp && curState_e != Enums.eSpiritState.Damaged)
+            if (HitCount > 0 && curState_e != eSpiritState.Damaged)
             {
                 SetState((int)Enums.eSpiritState.Damaged);
             }
         }
-        curState_e = GetCurState<Enums.eSpiritState>();
 
-        if(preHp != status.curHp) preHp = status.curHp;
+        //모종의 이유로 무기해제시
+        if (curState_e == eSpiritState.Atk || curState_e == eSpiritState.Trace)
+        {
+            if (weaponEquipState == eEquipState.None) SetState((int)Enums.eSpiritState.Idle);
+        }
     }
     //=============================================================================
     // MaterialChange함수
@@ -117,36 +116,6 @@ public class Spirit : Enemy
 
     //=============================================================================
 
-
-    //=============================================================================
-    // think함수
-    //=============================================================================
-
-    public void Think_Trace_Dash()
-    {
-        int index = Random.Range(1, 11);
-        if (status.curHp < status.maxHp * 0.3f)
-        {
-            //30%
-            if (index < 7) SetState((int)Enums.eSpiritState.Trace);
-            else SetState((int)Enums.eSpiritState.Dash);
-        }
-        else
-        {
-            //10%
-            if (index < 9) SetState((int)Enums.eSpiritState.Trace);
-            else SetState((int)Enums.eSpiritState.Dash);
-        }
-    }
-
-    //Dash_Test용
-    public void Think_Trace_Dash(bool value)
-    {
-        if(value) SetState((int)Enums.eSpiritState.Dash);
-    }
-    //=============================================================================
-
-
     //=============================================================================
     //instance
     //=============================================================================
@@ -156,21 +125,15 @@ public class Spirit : Enemy
         if (!existRemainder)
         {
             existRemainder = true;
-            GameObject obj = Instantiate(remainderWeapon);
-            obj.transform.position = trans.position;
-            obj.transform.rotation = trans.rotation;
+            //GameObject obj = Instantiate(remainderWeapon);
+            //obj.transform.position = trans.position;
+            //obj.transform.rotation = trans.rotation;
         }
         else return;
     }
 
     //=============================================================================
     //애니메이션 이벤트
-
-    public IEnumerator Spirit_Step()
-    {
-        yield return new WaitForSeconds(0.1f);
-        MoveStop();
-    }
 
     public void Spirit_StepWait() { if (!stepWait) stepWait = true; }
     public void Spirit_StepStart() { if (stepWait) stepWait = false; }
@@ -196,10 +159,7 @@ public class Spirit : Enemy
             else transWeaponPos = false;
         }
     }
-
-
     //=============================================================================
-
 }
 
 
