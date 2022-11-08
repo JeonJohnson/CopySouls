@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: UnitManager
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0138433c0ebcaae40bfea62956158ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObj: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  playerScript: {fileID: 0}
+  playerAT: {fileID: 0}
   enemyAllCount: 0
   enemyPrefabList:
   - {fileID: 0}
+  allEnemyList: []
