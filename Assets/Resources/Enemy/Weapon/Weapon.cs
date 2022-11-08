@@ -5,10 +5,12 @@ using UnityEngine;
 
 using Structs;
 
+//쉴드는 일단 맨들때 배제
 public enum eWeaponType
 {
     None,
     Melee,
+    Sheild,
     Arrow,
     Range,
 
@@ -34,11 +36,17 @@ public class Weapon : MonoBehaviour
     public eWeaponType Type;
     public GameObject owner;
     public int Dmg;
-    public Transform initPos; //바꾸기 전 위치
-    public Transform transPos; //바꿀 위치
-    public bool isPosChange;
 
-    
+    //==
+    //공용
+    //public bool isColliderEnter; //1회타격 제한 bool;
+    //==
+
+
+
+    //public Transform initPos; //바꾸기 전 위치
+    //public Transform transPos; //바꿀 위치
+    //public bool isPosChange;
 
     void Start()
     {
@@ -71,7 +79,23 @@ public class Weapon : MonoBehaviour
         //맞은 놈 : player
         if(other.GetComponent<Player>() != null)
         {
-            other.GetComponent<Player>().status.curHp -= Dmg;
+            Structs.DamagedStruct dmgStruct = new DamagedStruct();
+
+            dmgStruct.dmg = Dmg;
+            dmgStruct.attackObj = owner;
+
+            PlayerActionTable temp = other.transform.root.GetComponent<PlayerActionTable>();
+            if(temp != null)
+            {
+                if(Player.instance.status.isParrying == true)
+                {
+                    //적이 스턴되는 함수
+                }
+                else
+                {
+                    temp.Hit(dmgStruct);
+                }
+            }
         }
         //맞은 놈 : enemy 
         else if (other.GetComponent<Enemy>() != null)
@@ -103,29 +127,29 @@ public class Weapon : MonoBehaviour
     }
 
     //특정 애니메이션에서 무기 위치나 각도가 바뀔 상황시 사용
-    public void TransWeaponPos(Weapon weapon)
-    {
-        if (weapon != null)
-        {
-            Debug.Log("바꿀께");
-            weapon.transform.position = weapon.transPos.position;
-            weapon.transform.rotation = weapon.transPos.rotation;
-            isPosChange = true;
-        }
-    }
+    //public void TransWeaponPos(Weapon weapon)
+    //{
+    //    if (weapon != null)
+    //    {
+    //        Debug.Log("바꿀께");
+    //        weapon.transform.position = weapon.transPos.position;
+    //        weapon.transform.rotation = weapon.transPos.rotation;
+    //        isPosChange = true;
+    //    }
+    //}
 
-    public void reTurnWeaponPos(Weapon weapon)
-    {
-        if (weapon != null)
-        {
-            if(isPosChange)
-            {
-                Debug.Log("돌릴께");
-                weapon.transform.position = weapon.initPos.position;
-                weapon.transform.rotation = weapon.initPos.rotation;
-                isPosChange = false;
-            }
-        }
-
-    }
+    //public void reTurnWeaponPos(Weapon weapon)
+    //{
+    //    if (weapon != null)
+    //    {
+    //        if(isPosChange)
+    //        {
+    //            Debug.Log("돌릴께");
+    //            weapon.transform.position = weapon.initPos.position;
+    //            weapon.transform.rotation = weapon.initPos.rotation;
+    //            isPosChange = false;
+    //        }
+    //    }
+    //
+    //}
 }

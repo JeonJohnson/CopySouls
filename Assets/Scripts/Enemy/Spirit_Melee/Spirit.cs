@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
+//스턴 상태 만들어야함
+
+// 연속공격? 데미지 모션 -> 랜덤
+//    public float curActAtkValue = 1.0f;
+// 강공 -> 데미지 처리 ()
+// 
+// 
+
 public class Spirit : Enemy
 {
     public Collider dashCol;

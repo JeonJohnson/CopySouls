@@ -14,6 +14,9 @@ using Structs;
 //적이 데미지 입는 함수
 //앞잡 뒤잡 시 몬스터가 그 방향으로 회전
 //
+//잡기시 몬스터 데미지 입는함수
+// 적 스크립트에서 적이 움직이지 못하게 하고 맞는 애니메이션을 재생시키는 함수 재생
+// ex ) HoldAttackHit(Vector3 Playerpos, Vector3 rotation)
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -529,9 +532,20 @@ public abstract class Enemy : MonoBehaviour
         { weapon.owner = gameObject; }
     }
 
+    public void GetPlayerState()
+    {
+
+
+
+    }
+
+
+
     // Update is called once per frame
     protected virtual void Update()
     {
+        GetPlayerState();
+        
         CalcAboutTarget();
 
         CalcFovDir(status.fovAngle);

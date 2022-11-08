@@ -30,6 +30,9 @@ public class Spirit_Atk : cState
 
     public override void UpdateState()
     {
+
+
+
         if (me.weapon == null || CurPattern == eSpirit_AtkPattern.None || CurPattern == eSpirit_AtkPattern.End) return;
         if (((Spirit)me).atting) me.weapon.WeaponColliderOnOff(true);
         else me.weapon.WeaponColliderOnOff(false);

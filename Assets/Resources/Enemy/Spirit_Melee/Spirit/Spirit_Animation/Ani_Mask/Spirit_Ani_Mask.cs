@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//
+
 public enum eAnimationLayer
 {
     Base_Layer,
@@ -35,7 +38,6 @@ public class Spirit_Ani_Mask : MonoBehaviour
 
         if(ani.GetBool("isIdle") || ani.GetBool("isPatrol") || ani.GetBool("isTrace"))
         {
-            ani.GetL
         }
         else if (ani.GetBool("isDash"))
         {

@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //RigidBodySetting();
+        status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
     }
 
     // Update is called once per frame
