@@ -15,17 +15,18 @@ public class Archer_BowEquip : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		//if (!archer.isEquip)
-		//{
-		//	me.animCtrl.SetTrigger("tEquip");
-		//	//me.weapon.SetActive(true);
-		//}
+
+		archer.combatState = eCombatState.Alert;
+
+		archer.animCtrl.SetTrigger("tEquip");
+		archer.animCtrl.SetBool("bEquip", true);
+
 	}
 
 	public override void UpdateState()
 	{
 
-		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
+		//me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
 		//	if (!archer.isEquip)
 		//	{

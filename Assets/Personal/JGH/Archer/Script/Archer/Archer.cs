@@ -32,21 +32,12 @@ public class Archer : Enemy
 	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
 	public Vector3 atkDir; //arrowHead to TargetSpine or TargetHead
-
-	//public void ClacDir()
-	//{
-	//	fovDir = (targetHeadTr.position - headBoneTr.position).normalized;
-	//}
 	
 
 	[Header("Me Bones")]
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
-
-	//public GameObject bowPrefab;
-	//public Bow bow;
-	//public Arrow arrow;
 
 	public float meleeAtkRange;
 	public float runRange;
@@ -93,17 +84,19 @@ public class Archer : Enemy
 		//판별기준은 몬스터와 0의 각도를 구한다음
 		//그게 fov/2 보다 작으면 시야각 내에 있는거.
 
-		//여기서는 A와 B의 Direction 구하는거
+	
 		fovStruct.fovAngle = degreeAngle;
+		fovDir = (targetSpineTr.position - headBoneTr.position).normalized;
+		fovStruct.LookDir = headBoneTr.forward;
 		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
-		fovStruct.LookDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y);
 		fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
 	}
 
 
-	public bool CheckTargetInFovAndRange()
+	public bool CheckTargetInFov()
 	{
 		//시야각안에 플레이어 들어왔는지 아닌지 만 판단.
+
 		Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
 
 		if (hitObjs.Length == 0)
@@ -113,24 +106,24 @@ public class Archer : Enemy
 
 		foreach (Collider col in hitObjs)
 		{
-			if (col.gameObject != targetObj)
+			if (col.transform.root.gameObject != targetObj)
 			{
 				continue;
 			}
 
-			// Vector3 dir = (targetObj.transform.position - transform.position).normalized;
+			//float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, dirToTarget)) * Mathf.Rad2Deg;
+			//float angleToTarget = Mathf.Acos(Vector3.Dot(targetHeadTr.forward, fovDir)) * Mathf.Rad2Deg;
+			float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, fovDir)) * Mathf.Rad2Deg;
+			//왜 head의 forward랑은 안돼는거냐?
+			//Debug.Log(angleToTarget);
 
-			float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dirToTarget)) * Mathf.Rad2Deg;
 			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
-
-			//RaycastHit temp;
-			//Physics.Raycast(transform.position, dirToTarget, out temp, status.ricognitionRange, fovIgnoreLayer);
-
 			if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
-				&& !Physics.Raycast(transform.position, dirToTarget, status.ricognitionRange, fovIgnoreLayer))
+				&& !Physics.Raycast(transform.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
 			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
 			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
 			{
+				//Debug.Log($"{angleToTarget}도로 시야각 안에 들어옴");
 				return true;
 			}
 		}
@@ -138,7 +131,7 @@ public class Archer : Enemy
 		return false;
 	}
 
-	public bool CheckTargetIsHidingInFov(GameObject tempTarget)
+	public bool CheckTargetIsHiding(GameObject tempTarget)
 	{
 		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
 		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
@@ -211,6 +204,11 @@ public class Archer : Enemy
 
 	public void Initializebow()
 	{
+
+		if (weapon != null)
+		{
+			weapon.gameObject.SetActive(false);
+		}
 		//if (bow == null)
 		//{ 
 		//	//bow = Instantiate(bowPrefab,)
@@ -223,15 +221,15 @@ public class Archer : Enemy
 		//ShootArrowEvent += bow.ShootArrow;
 	}
 
-	public void EquippedBow()
-	{
-		SetState((int)eArcherState.Bow_Equip);
-	}
+	//public void EquippedBow()
+	//{
+	//	SetState((int)eArcherState.Bow_Equip);
+	//}
 
-	public void UnequippedBow()
-	{
-		SetState((int)eArcherState.Bow_Unequip);
-	}
+	//public void UnequippedBow()
+	//{
+	//	SetState((int)eArcherState.Bow_Unequip);
+	//}
 
 	public void RandomAttack()
 	{
@@ -320,63 +318,63 @@ public class Archer : Enemy
 
         switch (curState)
         {
-            case eArcherState.Attack_Rapid:
-            case eArcherState.Attack_Aiming:
-                {
-					if (distToTarget >= status.ricognitionRange
-						|| !CheckTargetInFovAndRange())
-					{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
-						returnState = eArcherState.LookAround;
-					}
-					else
-					{
-						returnState = eArcherState.Attack_Aiming;
-					}
-                }
-				break;
-            case eArcherState.Attack_Melee:
-                break;
+   //         case eArcherState.Attack_Rapid:
+   //         case eArcherState.Attack_Aiming:
+   //             {
+			//		if (distToTarget >= status.ricognitionRange
+			//			|| !CheckTargetInFovAndRange())
+			//		{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
+			//			returnState = eArcherState.LookAround;
+			//		}
+			//		else
+			//		{
+			//			returnState = eArcherState.Attack_Aiming;
+			//		}
+   //             }
+			//	break;
+   //         case eArcherState.Attack_Melee:
+   //             break;
 
-			case eArcherState.Hit:
-				{
-					if (distToTarget <= meleeAtkRange)
-					{
-						float random = UnityEngine.Random.Range(0f, 100f);
-						//한 30프로 확률로다가 근접공격
-						//30프로는 이전 상태
-						//40프로는 도망가기 ㅌㅌㅌ
+			//case eArcherState.Hit:
+			//	{
+			//		if (distToTarget <= meleeAtkRange)
+			//		{
+			//			float random = UnityEngine.Random.Range(0f, 100f);
+			//			//한 30프로 확률로다가 근접공격
+			//			//30프로는 이전 상태
+			//			//40프로는 도망가기 ㅌㅌㅌ
 
-						if (random <= 30f)
-						{
-							//returnState = eArcherState.Attack_Melee; 
-							returnState = eArcherState.Runaway;
-						}
-						else if (random > 30f && random <= 60f)
-						{
-							returnState = (eArcherState)preState_i;
-						}
-						else
-						{
-							returnState = eArcherState.Runaway;
-						}
-					}
-					else
-					{
-						float random = UnityEngine.Random.Range(0, 2);
+			//			if (random <= 30f)
+			//			{
+			//				//returnState = eArcherState.Attack_Melee; 
+			//				returnState = eArcherState.Runaway;
+			//			}
+			//			else if (random > 30f && random <= 60f)
+			//			{
+			//				returnState = (eArcherState)preState_i;
+			//			}
+			//			else
+			//			{
+			//				returnState = eArcherState.Runaway;
+			//			}
+			//		}
+			//		else
+			//		{
+			//			float random = UnityEngine.Random.Range(0, 2);
 
-						if (random == 0)
-						{
-							returnState = (eArcherState)preState_i;
-						}
-						else
-						{
-							returnState = eArcherState.Runaway;
-						}
-					}
-				}
-				break;
-            default:
-                break;
+			//			if (random == 0)
+			//			{
+			//				returnState = (eArcherState)preState_i;
+			//			}
+			//			else
+			//			{
+			//				returnState = eArcherState.Runaway;
+			//			}
+			//		}
+			//	}
+			//	break;
+   //         default:
+   //             break;
         }
 
 		return returnState;
@@ -506,10 +504,29 @@ public class Archer : Enemy
 
 	}
 
-	//private void OnDrawGizmos()
-	//{
-	//	Gizmos.color = Color.red;
-	//	Gizmos.DrawWireSphere(transform.position, runRange);
-	//}
+	protected override void OnDrawGizmosSelected()
+	{
+		base.OnDrawGizmosSelected();
+		
+		if (headBoneTr != null)
+		{
+			Gizmos.color = Color.yellow;
+
+			
+			Gizmos.DrawRay(headBoneTr.position, fovStruct.LookDir * status.ricognitionRange);
+			Gizmos.DrawRay(headBoneTr.position, fovStruct.LeftDir * status.ricognitionRange);
+			Gizmos.DrawRay(headBoneTr.position, fovStruct.RightDir * status.ricognitionRange);
+
+			Gizmos.color = Color.red;
+			Gizmos.DrawRay(headBoneTr.position, fovDir * status.ricognitionRange);
+		}
+
+		//if (headBoneTr != null)
+		//{ Gizmos.DrawFrustum(headBoneTr.position, status.fovAngle, status.ricognitionRange, 0.1f, 1f); }
+
+
+
+
+	}
 
 }

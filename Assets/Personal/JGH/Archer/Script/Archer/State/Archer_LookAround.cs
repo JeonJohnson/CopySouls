@@ -19,22 +19,22 @@ public class Archer_LookAround: cState
 	}
 	public override void UpdateState()
 	{
-		if (archer.CheckTargetInFovAndRange())
-		{
-			//me.animCtrl.SetTrigger("tAttack");
-			if (me.distToTarget <= me.status.atkRange)
-			{ archer.RandomAttack(); }
-			else 
-			{
-				me.SetState((int)Enums.eArcherState.Walk_Careful);
-			}
-		}
+		//if (archer.CheckTargetInFovAndRange())
+		//{
+		//	//me.animCtrl.SetTrigger("tAttack");
+		//	if (me.distToTarget <= me.status.atkRange)
+		//	{ archer.RandomAttack(); }
+		//	else 
+		//	{
+		//		me.SetState((int)Enums.eArcherState.Walk_Careful);
+		//	}
+		//}
 
-		if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
-		{
-			//archer.UnequippedBow();
-			me.SetState((int)Enums.eArcherState.Bow_Unequip);
-		}
+		//if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
+		//{
+		//	//archer.UnequippedBow();
+		//	me.SetState((int)Enums.eArcherState.Bow_Unequip);
+		//}
 	}
 
 	public override void ExitState()

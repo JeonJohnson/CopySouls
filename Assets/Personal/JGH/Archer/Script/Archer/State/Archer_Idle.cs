@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
 public class Archer_Idle : cState
 {
 
@@ -17,10 +18,17 @@ public class Archer_Idle : cState
 
 		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
+		me.animCtrl.SetTrigger("tIdle");
 	}
 
 	public override void UpdateState()
 	{
+		archer.CalcFovDir(me.status.fovAngle);
+
+		if (archer.CheckTargetInFov() == true)
+		{
+			archer.SetState((int)eArcherState.Bow_Equip);
+		}
 
 
 	}

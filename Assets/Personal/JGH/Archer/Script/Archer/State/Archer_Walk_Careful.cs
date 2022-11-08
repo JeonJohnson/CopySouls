@@ -23,22 +23,22 @@ public class Archer_Walk_Careful : cState
 	public override void UpdateState()
 	{
 
-		if (!archer.CheckTargetIsHidingInFov(me.targetObj))
-		{
-			me.SetState((int)Enums.eArcherState.LookAround);
-		}
+		//if (!archer.CheckTargetIsHidingInFov(me.targetObj))
+		//{
+		//	me.SetState((int)Enums.eArcherState.LookAround);
+		//}
 
-		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
+		//me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
-		if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Archer_Walk_Arm"))
-		{
-			me.navAgent.Move(me.dirToTarget * Time.deltaTime * me.status.moveSpd);
-		}
+		//if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Archer_Walk_Arm"))
+		//{
+		//	me.navAgent.Move(me.dirToTarget * Time.deltaTime * me.status.moveSpd);
+		//}
 
-		if (me.distToTarget <= me.status.atkRange + offsetRange)
-		{
-			archer.RandomAttack();
-		}
+		//if (me.distToTarget <= me.status.atkRange + offsetRange)
+		//{
+		//	archer.RandomAttack();
+		//}
 		
 	}
 
