@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//Patrol -> Idle
-//Patrol -> Equipt
-
 public class Spirit_Patrol : cState
 {
     public float curTime;
@@ -15,15 +11,17 @@ public class Spirit_Patrol : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Spirit_StartPatrol();
+        if (!isArrival)
+        {
+            MoveToNextWayPoint();
+            me.navAgent.speed = me.status.moveSpd;
+            me.animCtrl.SetBool("isWalk", true);
+            me.animCtrl.SetBool("isPatrol", true);
+        }
     }
 
     public override void UpdateState()
     {
-        ((Spirit)me).Arrival = isArrival;
-
-        //Debug.Log(Vector3.Distance(me.transform.position, targetPos));
-
         if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         else
         {
@@ -48,13 +46,11 @@ public class Spirit_Patrol : cState
 
     public override void ExitState()
     {
-        Spirit_StopPatrol();
-        Spirit_StopPatrolAnimation();
+        isArrival = false;
+        me.animCtrl.SetBool("isPatrol", false);
+        me.animCtrl.SetBool("isWalk", false);
+        me.MoveStop();
     }
-
-
-
-
 
     public void MoveToNextWayPoint()
     {
@@ -72,33 +68,4 @@ public class Spirit_Patrol : cState
         }
         else MoveToNextWayPoint();
     }
-    
-    public void Spirit_StartPatrol()
-    {
-        if (!isArrival)
-        {
-            MoveToNextWayPoint();
-            me.navAgent.speed = me.status.moveSpd;
-            me.animCtrl.SetBool("isWalk", true);
-            me.animCtrl.SetBool("isPatrol", true);
-        }
-    }
-
-    public void Spirit_StopPatrol()
-    {
-        isArrival = false;
-        me.animCtrl.SetBool("isPatrol", false);
-        me.animCtrl.SetBool("isWalk", false);
-        me.MoveStop();
-    }
-
-    public void Spirit_PlayPatrolAnimation()
-    {
-        
-    }
-    public void Spirit_StopPatrolAnimation()
-    {
-        me.animCtrl.SetBool("isWalk", false);
-    }
-
 }

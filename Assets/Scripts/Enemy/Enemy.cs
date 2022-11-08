@@ -228,9 +228,9 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
-        //navAgent.isStopped = true;
+        navAgent.isStopped = true;
         navAgent.destination = dest;
-        //navAgent.isStopped = false;
+        navAgent.isStopped = false;
     }
 
     public void MoveStop()

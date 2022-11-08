@@ -8,45 +8,49 @@ public class Spirit_Damaged : cState
     {
         base.EnterState(script);
         me.animCtrl.SetBool("isDamaged", true);
+        me.animCtrl.SetBool("ChangeDamaged", true);
     }
-
-    //연속 데미지 주기
-    //애니메이션 바꾸기
 
     public override void UpdateState()
     {
-        if(((Spirit)me).complete_Damaged)
+        if (((Spirit)me).HitCount > 1)
         {
-            Debug.Log("sdjvgspodjgp");
-            if (me.combatState == eCombatState.Alert)
+            if (me.animCtrl.GetBool("isDamaged")) me.animCtrl.SetBool("isDamaged", false);
+            else me.animCtrl.SetBool("isDamaged", true);
+            ((Spirit)me).HitCount--;
+        }
+        else
+        {
+            if (((Spirit)me).complete_Damaged)
+            {
+                ((Spirit)me).HitCount--;
+                me.animCtrl.SetBool("ChangeDamaged", false);
 
-            {
-                if (((Spirit)me).isEquipt)
+                if (me.combatState == eCombatState.Alert)
                 {
-                    if (me.distToTarget <= me.status.atkRange)
+                    if (me.weaponEquipState == eEquipState.Equip)
                     {
-                        me.SetState((int)Enums.eSpiritState.Atk);
+                        if (me.distToTarget <= me.status.atkRange)
+                        {
+                            me.SetState((int)Enums.eSpiritState.Atk);
+                        }
+                        else if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
+                        {
+                            me.SetState((int)Enums.eSpiritState.Trace);
+                        }
                     }
-                    else if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
-                    {
-                        me.SetState((int)Enums.eSpiritState.Trace);
-                    }
+                    else me.SetState((int)Enums.eSpiritState.Equipt);
                 }
-                else
-                {
-                    me.SetState((int)Enums.eSpiritState.Equipt);
-                }
-            }
-            else 
-            {
-                me.SetState((int)Enums.eSpiritState.Unequipt);
+                else me.SetState((int)Enums.eSpiritState.Unequipt);
             }
         }
     }
 
     public override void ExitState()
     {
+        me.animCtrl.SetBool("ChangeDamaged", false);
         me.animCtrl.SetBool("isDamaged", false);
         ((Spirit)me).complete_Damaged = false;
+        ((Spirit)me).HitCount = 0;
     }
 }

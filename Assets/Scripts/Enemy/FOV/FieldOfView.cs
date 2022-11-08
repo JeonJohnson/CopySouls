@@ -136,12 +136,12 @@ public class FieldOfView : MonoBehaviour
         if (isFind)
         {
             me.combatState = eCombatState.Alert;
-            Debug.Log("적발견!");
+            //Debug.Log("적발견!");
         }
         else
         {
             me.combatState = eCombatState.Idle;
-            Debug.Log("적사라짐!");
+            //Debug.Log("적사라짐!");
         }
     }
     //========================================================================================================================

@@ -8,6 +8,7 @@ public class Spirit_Unequipt : cState
     {
         base.EnterState(script);
         ((Spirit)me).isEquipt = false;
+        me.weaponEquipState = eEquipState.None;
         me.MoveStop();
         me.animCtrl.SetBool("isUnequipt", true);
     }

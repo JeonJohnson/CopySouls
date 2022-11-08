@@ -47,15 +47,6 @@ public class Spirit_Ani_Mask : MonoBehaviour
         {
 
         }
-
-        if(ani.GetBool("isDash"))
-        {
-            if (temp <= 1)
-            {
-                temp += ((1 / me.dashTime) * Time.deltaTime);
-            }
-        }
-        else temp = 0f;
-        ani.SetLayerWeight((int)eAnimationLayer.Mask_Layer, temp);
+        //ani.SetLayerWeight((int)eAnimationLayer.Mask_Layer, temp);
     }
 }
