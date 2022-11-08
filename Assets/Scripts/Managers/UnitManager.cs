@@ -41,7 +41,7 @@ public class UnitManager : Manager<UnitManager>
         }
 
         playerScript = playerObj.GetComponent<Player>();
-        playerAT = playerObj.GetComponent<PlayerActionTable>();
+        playerAT = playerScript.playerAt;
     }
     //// <Player>
 
