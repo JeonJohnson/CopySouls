@@ -3075,8 +3075,8 @@ MonoBehaviour:
   playerAt: {fileID: 7030777312502341704}
   playerLocomove: {fileID: 0}
   animator: {fileID: 7030777313876229777}
-  spine3Tr: {fileID: 0}
-  headTr: {fileID: 0}
+  spine3Tr: {fileID: 7030777313883107055}
+  headTr: {fileID: 7030777313883104995}
   modelColliders: []
   status:
     name: player

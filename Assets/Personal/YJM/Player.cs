@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     public PlayerLocomove playerLocomove;
     public Animator animator;
 
-    [HideInInspector] public Transform spine3Tr;
-    [HideInInspector] public Transform headTr;
+    public Transform spine3Tr;
+    public Transform headTr;
     [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
@@ -113,17 +113,9 @@ public class Player : MonoBehaviour
         var colliders = GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.layer == 14)
+            if (collider.gameObject.layer == LayerMask.GetMask("Player_Hitbox"))
             {
                 modelColliders.Add(collider);
-                if (collider.gameObject.name == "Spine_03")
-                {
-                    spine3Tr = collider.transform;
-                }
-                else if(collider.gameObject.name == "Head")
-                {
-                    headTr = collider.transform;
-                }
             }
         }
     }

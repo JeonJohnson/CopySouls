@@ -23,7 +23,7 @@ public class Archer_Idle : cState
 
 	public override void UpdateState()
 	{
-		archer.CalcFovDir(me.status.fovAngle);
+		
 
 		if (archer.CheckTargetInFov() == true)
 		{

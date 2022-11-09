@@ -596,7 +596,6 @@ namespace Structs
 	[System.Serializable]
 	public struct FovStruct
 	{
-		public float fovAngle;
 		public Vector3 LeftDir;
 		public Vector3 LookDir;
 		public Vector3 RightDir;

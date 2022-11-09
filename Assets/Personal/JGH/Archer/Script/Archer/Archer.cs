@@ -62,6 +62,25 @@ public class Archer : Enemy
 	//public AttackEventHandler ShootArrowEvent;
 
 
+	public void TempSettingPlayer()
+	{
+		if (targetObj == null)
+		{
+			GameObject tempObj = GameObject.FindGameObjectWithTag("Player");
+
+			if (tempObj != null)
+			{
+				targetObj = tempObj;
+				Player script = tempObj.GetComponent<Player>();
+				if (script != null)
+				{
+					targetHeadTr = script.headTr;
+					targetSpineTr = script.spine3Tr;
+				}
+			}
+		}
+	}
+
 	public void CalcFovDir(float degreeAngle)
 	{
 		//22 10 02 fin, 설명해주기
@@ -85,7 +104,6 @@ public class Archer : Enemy
 		//그게 fov/2 보다 작으면 시야각 내에 있는거.
 
 	
-		fovStruct.fovAngle = degreeAngle;
 		fovDir = (targetSpineTr.position - headBoneTr.position).normalized;
 		fovStruct.LookDir = headBoneTr.forward;
 		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
@@ -118,12 +136,14 @@ public class Archer : Enemy
 			//Debug.Log(angleToTarget);
 
 			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
-			if (angleToTarget <= (fovStruct.fovAngle * 0.5f) //타겟이 시야각 안에 있고
-				&& !Physics.Raycast(transform.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
+			//if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+			//	&& !Physics.Raycast(transform.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
+			if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+				&& !Physics.Raycast(headBoneTr.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
 			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
 			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
 			{
-				//Debug.Log($"{angleToTarget}도로 시야각 안에 들어옴");
+				Debug.Log($"{angleToTarget}도로 시야각 안에 들어옴");
 				return true;
 			}
 		}
@@ -136,7 +156,7 @@ public class Archer : Enemy
 		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
 		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
 
-		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)) //시야각 안에 있는 경우
+		if (angleToTarget <= (status.fovAngle * 0.5f)) //시야각 안에 있는 경우
 		{
 			RaycastHit hitEnvironmentInfo;
 
@@ -470,14 +490,15 @@ public class Archer : Enemy
 		
 		SettingBonesTransform();
 		Initializebow();
+
+		TempSettingPlayer();
 		//weapon.SetActive(false);
 	}
 
 	protected override void Update()
 	{
 		base.Update();
-
-		CalcFovDir(status.fovAngle);
+        CalcFovDir(status.fovAngle);
 
 		//for (int i = (int)KeyCode.Alpha0; i < iTestArr.Length+48; ++i)
 		//{
@@ -511,8 +532,6 @@ public class Archer : Enemy
 		if (headBoneTr != null)
 		{
 			Gizmos.color = Color.yellow;
-
-			
 			Gizmos.DrawRay(headBoneTr.position, fovStruct.LookDir * status.ricognitionRange);
 			Gizmos.DrawRay(headBoneTr.position, fovStruct.LeftDir * status.ricognitionRange);
 			Gizmos.DrawRay(headBoneTr.position, fovStruct.RightDir * status.ricognitionRange);

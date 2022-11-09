@@ -488,7 +488,7 @@ public abstract class Enemy : MonoBehaviour
         ////Dir to Target
         Color temp = Color.yellow;
         temp.a = 0.4f;
-        Gizmos.color = Color.yellow;
+        //Gizmos.color = Color.yellow;
         Gizmos.color = temp;
         Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
