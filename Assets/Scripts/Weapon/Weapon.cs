@@ -118,8 +118,15 @@ public abstract class Weapon : MonoBehaviour
         //맞은 놈 : enemy 
         else if (other.GetComponent<Enemy>() != null)
         {
-            if (!other.GetComponent<Enemy>().status.isDead) other.GetComponent<Enemy>().status.curHp -= Dmg;
-            else return;
+            if (!other.GetComponent<Enemy>().status.isDead)
+            {
+                //other.GetComponent<Enemy>().status.curHp -= Dmg;
+                //other.GetComponent<Enemy>().Hit()
+            }
+            else
+            {
+                return;
+            }
         }
     }
 

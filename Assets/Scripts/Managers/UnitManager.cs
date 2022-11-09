@@ -12,15 +12,44 @@ public class UnitManager : Manager<UnitManager>
     //아니면 유닛들은 여기서 관리하기?
 
     //// <Player>
-    public GameObject playerObj;
+    [Header("Player Vars")]
+    [SerializeField]
+    private GameObject playerPrefab;
+    [SerializeField]
+    private Player playerScript;
+    public PlayerActionTable playerAT;
 
+    public Player GetPlayer
+    {
+        get
+        {
+            if (playerScript == null)
+            {
+                CreatePlayer();
+            }
+            return playerScript;
+        }
+    }
 
+    private void CreatePlayer()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
+        if (playerObj == null && playerPrefab)
+        {
+            playerObj = Instantiate(playerPrefab);
+        }
+
+        playerScript = playerObj.GetComponent<Player>();
+        playerAT = playerScript.playerAt;
+    }
     //// <Player>
 
 
 
+
     //// <EnemyVar>
+    [Header("Enemy Vars")]
     public int enemyAllCount;
     public List<GameObject> enemyPrefabList;
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;

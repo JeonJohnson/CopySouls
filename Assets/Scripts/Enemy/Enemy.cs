@@ -88,8 +88,6 @@ public abstract class Enemy : MonoBehaviour
 
         distToTarget = Vector3.Distance(transform.position, targetObj.transform.position);
         dirToTarget = (targetObj.transform.position - transform.position).normalized;
-
-        
     }
 
 	public Quaternion LookAtSlow(Transform me, Transform target, float spd)
@@ -477,7 +475,7 @@ public abstract class Enemy : MonoBehaviour
     //}
 
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
 	{
         ////Dir to Target
         if(targetObj != null)
@@ -488,49 +486,18 @@ public abstract class Enemy : MonoBehaviour
         ////Dir to Target
         Color temp = Color.yellow;
         temp.a = 0.4f;
-        Gizmos.color = Color.yellow;
+        //Gizmos.color = Color.yellow;
         Gizmos.color = temp;
         Gizmos.DrawSphere(transform.position, status.ricognitionRange);
         ////인식범위
 
-        //Test SpinAtt
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawLine(transform.position, Destination);
-
-        //정면 
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawRay(transform.position,transform.forward * 1000f);
-
-        ////시야각
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawRay(transform.position, fovStruct.LeftDir * status.ricognitionRange);
-        //Gizmos.DrawRay(transform.position, fovStruct.RightDir * status.ricognitionRange);
-        //if (isCombat)
-        //{
-        //    Gizmos.DrawRay(transform.position, dirToTarget*distToTarget);
-        //}
-
+        
         ////공격 사정거리
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, status.atkRange);
 		////공격 사정거리
 
 
-		////패트롤 예상 이동 궤적
-		//Gizmos.color = Color.blue;
-        //
-		//for (int i = 0; i < patrolPosList.Count; ++i)
-		//{
-        //    if (i == (patrolPosList.Count - 1))
-        //    {
-        //        Gizmos.DrawLine(patrolPosList[i], patrolPosList[0]);
-        //    }
-        //    else
-        //    {
-        //        Gizmos.DrawLine(patrolPosList[i], patrolPosList[i + 1]);
-		//	}
-		//}
-		////패트롤 예상 이동 궤적
 	}
 }
 

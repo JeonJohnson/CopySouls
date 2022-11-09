@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
 public class Archer_Idle : cState
 {
 
@@ -17,24 +18,17 @@ public class Archer_Idle : cState
 
 		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
-		//if (archer.isEquip)
-		//{
-		//	me.animCtrl.SetTrigger("tIdle"); 
-		//}
-		//else 
-		//{ 
-		//	me.animCtrl.SetTrigger("tIdle_Unequip"); 
-		//}
-
-		//me.isAlert = false;
-		
+		me.animCtrl.SetTrigger("tIdle");
 	}
 
 	public override void UpdateState()
 	{
-		//archer.EquipWeapon();
+		
 
-		//me.CheckTargetInFovAndRange();
+		if (archer.CheckTargetInFov() == true)
+		{
+			archer.SetState((int)eArcherState.Bow_Equip);
+		}
 
 
 	}

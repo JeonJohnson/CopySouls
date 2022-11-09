@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -40,6 +41,7 @@ public class PlayerLocomove : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        //LinkCamera();
     }
 
     #endregion
@@ -60,6 +62,18 @@ public class PlayerLocomove : MonoBehaviour
             PlayerActionTable.instance.BackHoldAttack();
         }
     }
+    
+    public void LinkCamera()
+    {
+        cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
+        if(cameraManager == null)
+        {
+            Debug.LogWarning("Can't Find CameraManager!!");
+        }
+        cameraArm = cameraManager.transform.Find("CameraPivot");
+        cameraManager.targetTransform = Player.instance.playerModel.transform;
+    }
+
 
     [HideInInspector]public bool isMove = false;
     Vector3 moveDir;

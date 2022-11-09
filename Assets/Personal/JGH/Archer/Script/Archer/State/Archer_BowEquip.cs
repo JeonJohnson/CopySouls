@@ -15,17 +15,38 @@ public class Archer_BowEquip : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		//if (!archer.isEquip)
-		//{
-		//	me.animCtrl.SetTrigger("tEquip");
-		//	//me.weapon.SetActive(true);
-		//}
+
+		archer.combatState = eCombatState.Alert;
+
+		archer.animCtrl.SetTrigger("tEquip");
+		archer.animCtrl.SetBool("bEquip", true);
+		archer.weapon.gameObject.SetActive(true);
+
+
+		if (me.distToTarget > me.status.atkRange)
+		{
+			archer.curSpd = Random.Range(1f, me.status.moveSpd);
+			me.navAgent.speed = archer.curSpd;
+			me.navAgent.SetDestination(me.targetObj.transform.position);
+		}
+		else
+		{
+			archer.curSpd = Random.Range(1f, me.status.moveSpd);
+			me.navAgent.speed = archer.curSpd;
+			me.navAgent.updateRotation = false;
+			me.navAgent.updatePosition = false;
+			me.navAgent.Move(-me.dirToTarget * archer.curSpd);
+		}
+
+		me.animCtrl.SetTrigger("tWalk");
+		me.animCtrl.SetFloat("fWalkSpd", archer.curSpd);
+		me.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
 	}
 
 	public override void UpdateState()
 	{
 
-		me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
+		//me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
 
 		//	if (!archer.isEquip)
 		//	{
@@ -66,19 +87,20 @@ public class Archer_BowEquip : cState
 		//	}
 		//}
 
-		//public override void LateUpdateState()
-		//{
-		//	base.LateUpdateState();
 
-		//	//if (archer.isEquip)
-		//	//{
-		//	//	Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
-		//	//	me.LookAtSpecificBone(archer.headBoneTr, archer.headBoneTr.forward, dir);
-		//	//}	
-		//}
 	}
 
-	public override void ExitState()
+    public override void LateUpdateState()
+    {
+        base.LateUpdateState();
+
+		//Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
+		//me.LookAtSpecificBone(archer.headBoneTr, archer.targetSpineTr, dir);
+
+		me.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+    }
+
+    public override void ExitState()
 	{
 	}
 

@@ -82,15 +82,32 @@ public class CameraShake : MonoBehaviour
 
     public void AddShakeEvent(CameraShakeEvent data)
     {
+        //Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
         shakeEvents.Add(new ShakeEvent(data));
     }
 
     public void AddShakeEvent(GameObject obj)
     {
-        ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
 
-        if (temp != null)
-        { shakeEvents.Add(new ShakeEvent(temp.data)); }
+        CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
+        Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
+        if (data != null)
+        {
+            shakeEvents.Add(new ShakeEvent(data));
+        }
+
+        //CameraShakeEvent temp = obj.GetComponent<CameraShakeEvent>();
+
+        //if (temp != null)
+        //{
+        //    shakeEvents.Add(new ShakeEvent(temp.data));
+        //}
+
+        //ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
+
+        //if (temp != null)
+        //{ shakeEvents.Add(new ShakeEvent(temp.data)); }
+
         //shakeEvents.Add(new ShakeEvent(go.GetComponent<ShakeEvent>()));
     }
     public void AddShakeEvent(float amplitude, float frequency, float duration, AnimationCurve blendOverLifetime, CameraShakeEvent.Target target)
@@ -104,7 +121,7 @@ public class CameraShake : MonoBehaviour
     void LateUpdate()
     {
         Vector3 positionOffset = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Vector3 rotationOffset = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Vector3 rotationOffset = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 
         for (int i = shakeEvents.Count - 1; i != -1; i--)
         {

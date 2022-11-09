@@ -7,13 +7,14 @@ using Enums;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody rb;
     public GameObject playerModel;
+    public PlayerActionTable playerAt;
+    public PlayerLocomove playerLocomove;
     public Animator animator;
 
-    public Transform spine2Tr;
-
-    public List<Collider> modelColliders = new List<Collider>();
+    public Transform spine3Tr;
+    public Transform headTr;
+    [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
     //FSM
@@ -29,7 +30,6 @@ public class Player : MonoBehaviour
         {
             return;
         }
-
         if (curState_e != ePlayerState.End)
         { curState.ExitState(); }
 
@@ -61,8 +61,8 @@ public class Player : MonoBehaviour
         InitializeState();
         ColliderSetting();
     }
-
     #endregion
+
 
     ShakeOnKey shakeOnKey;
 
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         var colliders = GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.layer == 14)
+            if (collider.gameObject.layer == LayerMask.GetMask("Player_Hitbox"))
             {
                 modelColliders.Add(collider);
             }
