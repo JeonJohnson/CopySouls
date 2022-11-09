@@ -7,6 +7,13 @@ using UnityEngine;
 using Enums;
 using Structs;
 
+
+public enum eMoveDirection
+{ 
+	Right,
+	Left,
+}
+
 public class Archer : Enemy
 {
 	//public Test.eStateTest testEnum = new Test.eStateTest();
@@ -39,6 +46,7 @@ public class Archer : Enemy
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
 
+	public float curSpd;
 	public float meleeAtkRange;
 	public float runRange;
 

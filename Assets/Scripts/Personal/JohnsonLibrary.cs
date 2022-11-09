@@ -490,7 +490,7 @@ namespace Enums
 	}
 
 	public enum eHumanoidAvatarMask
-	{ 
+	{
 		Default,
 		Leg,
 		End
