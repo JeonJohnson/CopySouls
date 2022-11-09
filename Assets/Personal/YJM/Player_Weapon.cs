@@ -6,6 +6,7 @@ using Structs;
 public class Player_Weapon : Weapon
 {
     public WeaponStatus status;
+    public List<Enemy> hittedEnemyList = new List<Enemy>();
 
     //int atk = 10;
 
@@ -35,6 +36,30 @@ public class Player_Weapon : Weapon
     protected override void LateUpdate()
     {
         base.LateUpdate();
+    }
+
+    new private void OnTriggerEnter(Collider other)
+    {
+        DamagedStruct dmgStruct = new DamagedStruct();
+        dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
+        dmgStruct.attackObj = owner;
+
+        if (owner.gameObject.GetComponent<Player>() != null)
+        {
+            Enemy hittedEnemy = other.transform.root.GetComponent<Enemy>();
+            if (hittedEnemy != null)
+            {
+                if(hittedEnemyList.Contains(hittedEnemy) == false)
+                {
+                    if (!other.GetComponent<Enemy>().status.isDead)
+                    {
+                        hittedEnemyList.Add(hittedEnemy);
+                        hittedEnemy.Hit(dmgStruct);
+                        print("deal Damage");
+                    }
+                }
+            }
+        }
     }
 
     //public void EnableWeaponMeshCollider(int i)
