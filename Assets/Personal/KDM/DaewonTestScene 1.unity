@@ -550,8 +550,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1602877249}
   - component: {fileID: 1602877250}
-  - component: {fileID: 1602877251}
   - component: {fileID: 1602877252}
+  - component: {fileID: 1602877251}
   m_Layer: 10
   m_Name: CamerManager
   m_TagString: Untagged
@@ -616,11 +616,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1602877248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21296a50e71be964495eb6ca21177a8f, type: 3}
+  m_Script: {fileID: 11500000, guid: cd171f3a8efcc91428943168ba255acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  st: {fileID: 1602877252}
-  data: {fileID: 11400000, guid: 08858db24cb7fa84ca85a999a45503ed, type: 2}
+  data: {fileID: 0}
 --- !u!114 &1602877252
 MonoBehaviour:
   m_ObjectHideFlags: 0

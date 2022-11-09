@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShakeOnKey : MonoBehaviour
+public class ShakeT : MonoBehaviour
 {
-    public CameraShake st;
     public CameraShakeEvent data;
+    private CameraShake st;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,8 +17,7 @@ public class ShakeOnKey : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
-            //CameraShake.Instance.AddShakeEvent(data);
+            CameraShake.Instance.AddShakeEvent(this.gameObject);
         }
     }
 }
