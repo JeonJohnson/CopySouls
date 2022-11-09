@@ -91,14 +91,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9620231
-        functionName: Spirit_Melee_CompleAtk
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.33360296
+      - time: 0.33852908
         functionName: Spirit_Atting
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -107,6 +100,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.51562667
         functionName: Spirit_Atting
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9620231
+        functionName: Spirit_Melee_CompleAtk
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

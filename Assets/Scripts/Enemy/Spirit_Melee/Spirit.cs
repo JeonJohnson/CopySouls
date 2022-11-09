@@ -14,6 +14,7 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public Spirit_Weapon weapon;
     //enemy -> player (Att)·¹ÀÌ¾î
     public LayerMask player_Hitbox;
 
@@ -69,6 +70,9 @@ public class Spirit : Enemy
     {
         base.Start();
         targetObj = GameObject.Find("Player");
+        weapon = GetComponentInChildren<Spirit_Weapon>();
+        if (weapon != null)
+        { weapon.owner = gameObject; }
         weapon.Type = eWeaponType.Melee;
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
@@ -159,6 +163,12 @@ public class Spirit : Enemy
             else transWeaponPos = false;
         }
     }
+
+    public bool isCurrentAnimationOver(Animator animator)
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;
+    }
+
     //=============================================================================
 }
 

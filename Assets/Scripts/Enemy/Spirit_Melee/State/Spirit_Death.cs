@@ -51,7 +51,7 @@ public class Spirit_Death : cState
             }
             else if (value <= 0)
             {
-                ((Spirit)me).CreateRemainderWeapon(me.weapon.transform);
+                //((Spirit)me).CreateRemainderWeapon(me.weapon.transform);
                 me.gameObject.SetActive(false);
             }
         }

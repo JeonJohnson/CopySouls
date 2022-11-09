@@ -21,18 +21,17 @@ public enum eWeaponType
     End
 }
 
-public class Weapon : MonoBehaviour
+
+//owner 연결 해줍시당
+//weapon 상속받은거 각자 필요한 유닛에게 적용시키기
+//weapon = GetComponentInChildren<Spirit_Weapon>();
+//if (weapon != null)
+//{ weapon.owner = gameObject; }
+//weapon.Type = eWeaponType.Melee;
+
+public abstract class Weapon : MonoBehaviour
 {
-    //owner 연결 해줍시당
-    //아래 코드 void start()에 붙여넣기!!
-    // weapon = GetComponentInChildren<Weapon>();
-    // weapon.owner = gameObject;
-    //WeaponType은 각 부모를 상속받은 하위객체에서 결정해주기~
-
     public Collider col;
-
-    //public WeaponStatus status; //나중에 정리할 부분
-
     public eWeaponType Type;
     public GameObject owner;
     public int Dmg;
@@ -40,26 +39,37 @@ public class Weapon : MonoBehaviour
     public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;
 
-    //==
     //공용
     //public bool isColliderEnter; //1회타격 제한 bool;
-    //==
 
-    //public Transform initPos; //바꾸기 전 위치
-    //public Transform transPos; //바꿀 위치
-    //public bool isPosChange;
+    //protected abstract void weaponInitialize();
 
-    void Start()
+    protected virtual void Awake()
+    {
+        //weaponInitialize();
+    }
+
+    protected virtual void Start()
     {
         col = GetComponent<Collider>();
         PlayerLayer = 1 << LayerMask.GetMask("Player");
         EnemyLayer = 1 << LayerMask.GetMask("Enemy");
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
     }
+
+    protected virtual void FixedUpdate()
+    {
+    }
+
+    protected virtual void LateUpdate()
+    {
+    }
+
+    //===============================================================================================================================
+    // ColliderOnOff
 
     public void WeaponColliderOnOff(bool value)
     {
@@ -76,6 +86,11 @@ public class Weapon : MonoBehaviour
             col.enabled = Funcs.I2B(value);
         }
     }
+
+    //===============================================================================================================================
+    
+    //===============================================================================================================================
+    // 데미지 주고받기
 
     public void Att(GameObject other)
     {
@@ -108,6 +123,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    //===============================================================================================================================
+
+
+    //===============================================================================================================================
+    // trigger
+
     public void OnTriggerEnter(Collider other)
     {
         //Enemy -> Player
@@ -125,30 +146,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    //특정 애니메이션에서 무기 위치나 각도가 바뀔 상황시 사용
-    //public void TransWeaponPos(Weapon weapon)
-    //{
-    //    if (weapon != null)
-    //    {
-    //        Debug.Log("바꿀께");
-    //        weapon.transform.position = weapon.transPos.position;
-    //        weapon.transform.rotation = weapon.transPos.rotation;
-    //        isPosChange = true;
-    //    }
-    //}
+    //===============================================================================================================================
 
-    //public void reTurnWeaponPos(Weapon weapon)
-    //{
-    //    if (weapon != null)
-    //    {
-    //        if(isPosChange)
-    //        {
-    //            Debug.Log("돌릴께");
-    //            weapon.transform.position = weapon.initPos.position;
-    //            weapon.transform.rotation = weapon.initPos.rotation;
-    //            isPosChange = false;
-    //        }
-    //    }
-    //
-    //}
 }

@@ -48,7 +48,7 @@ public abstract class Enemy : MonoBehaviour
     //public bool isAlert = false;
     //public bool isCombat = false;
 
-    public Weapon weapon;
+    //public Weapon weapon;
 
     public Transform[] PatrolPos;
     //public List<Vector3> patrolPosList; //에너미에서 Transform으로 합치기
@@ -357,9 +357,7 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        weapon = GetComponentInChildren<Weapon>();
-        if (weapon != null)
-        { weapon.owner = gameObject; }
+        
     }
 
     public void GetPlayerState()
