@@ -8,14 +8,17 @@ using Enums;
 using Structs;
 
 
-public enum eMoveDirection
+public enum eSideDirection
 { 
-	Right,
-	Left,
+	Left = -1,
+	Straight, //Forward or Backward
+	Right = 1
+		
 }
 
 public class Archer : Enemy
 {
+	
     //weapon수정 from용석to근희
     public WoodenShortBow weapon;
 
@@ -32,6 +35,8 @@ public class Archer : Enemy
 	//	(int)Enums.eArcherState.Death,
 	//};
 
+	public Archer_ActionTable act;
+
 	[Header("Fov System")]
 	public FovStruct fovStruct;
 	public LayerMask fovIgnoreLayer;
@@ -42,7 +47,7 @@ public class Archer : Enemy
 	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
 	public Vector3 atkDir; //arrowHead to TargetSpine or TargetHead
-	
+	public float angle;
 
 	[Header("Me Bones")]
 	public Transform headBoneTr;
@@ -90,108 +95,6 @@ public class Archer : Enemy
 				}
 			}
 		}
-	}
-
-	public void CalcFovDir(float degreeAngle)
-	{
-		//22 10 02 fin, 설명해주기
-
-		//시야각도를 이용해서 ㄹㅇ 시야각 구하기
-
-		//f=Forward
-		// A   f    B
-		// \   |   /
-		//  \  |  /
-		//   \ | /
-		//-----0-------
-
-		//forward와 A사이의 각도 @1
-		//=> @1 = Dot(f,A) * aCos;
-
-		//forword와 B 사이의 각도 @2
-		//=> @2 = Dot(f,B) * aCos;
-
-		//판별기준은 몬스터와 0의 각도를 구한다음
-		//그게 fov/2 보다 작으면 시야각 내에 있는거.
-
-	
-		fovDir = (targetSpineTr.position - headBoneTr.position).normalized;
-		fovStruct.LookDir = headBoneTr.forward;
-		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
-		fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
-	}
-
-
-	public bool CheckTargetInFov()
-	{
-		//시야각안에 플레이어 들어왔는지 아닌지 만 판단.
-
-		Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
-
-		if (hitObjs.Length == 0)
-		{
-			return false;
-		}
-
-		foreach (Collider col in hitObjs)
-		{
-			if (col.transform.root.gameObject != targetObj)
-			{
-				continue;
-			}
-
-			//float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, dirToTarget)) * Mathf.Rad2Deg;
-			//float angleToTarget = Mathf.Acos(Vector3.Dot(targetHeadTr.forward, fovDir)) * Mathf.Rad2Deg;
-			float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, fovDir)) * Mathf.Rad2Deg;
-			//왜 head의 forward랑은 안돼는거냐?
-			//Debug.Log(angleToTarget);
-
-			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
-			//if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
-			//	&& !Physics.Raycast(transform.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
-			if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
-				&& !Physics.Raycast(headBoneTr.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
-			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
-			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
-			{
-				Debug.Log($"{angleToTarget}도로 시야각 안에 들어옴");
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool CheckTargetIsHiding(GameObject tempTarget)
-	{
-		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
-		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
-
-		if (angleToTarget <= (status.fovAngle * 0.5f)) //시야각 안에 있는 경우
-		{
-			RaycastHit hitEnvironmentInfo;
-
-			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
-			{
-				int temp = LayerMask.GetMask("Environment");
-				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
-				{
-					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
-
-					if (distToTarget > dist)
-					{
-						//같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
-						return false;
-					}
-					return true;
-				}
-				else
-				{
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 
@@ -277,7 +180,133 @@ public class Archer : Enemy
 
 	}
 
-    public int ActingLegWhileTurn(Vector3 pos)
+
+	public void CalcFovDir(float degreeAngle)
+	{
+		//22 10 02 fin, 설명해주기
+
+		//시야각도를 이용해서 ㄹㅇ 시야각 구하기
+
+		//f=Forward
+		// A   f    B
+		// \   |   /
+		//  \  |  /
+		//   \ | /
+		//-----0-------
+
+		//forward와 A사이의 각도 @1
+		//=> @1 = Dot(f,A) * aCos;
+
+		//forword와 B 사이의 각도 @2
+		//=> @2 = Dot(f,B) * aCos;
+
+		//판별기준은 몬스터와 0의 각도를 구한다음
+		//그게 fov/2 보다 작으면 시야각 내에 있는거.
+
+
+		fovDir = (targetSpineTr.position - headBoneTr.position).normalized;
+		fovStruct.LookDir = headBoneTr.forward;
+		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
+		fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
+	}
+
+
+
+
+	public bool CheckTargetInFov()
+	{
+		//시야각안에 플레이어 들어왔는지 아닌지 만 판단.
+
+		Collider[] hitObjs = Physics.OverlapSphere(transform.position, status.ricognitionRange);
+
+		if (hitObjs.Length == 0)
+		{
+			return false;
+		}
+
+		foreach (Collider col in hitObjs)
+		{
+			if (col.transform.root.gameObject != targetObj)
+			{
+				continue;
+			}
+
+			//float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, dirToTarget)) * Mathf.Rad2Deg;
+			//float angleToTarget = Mathf.Acos(Vector3.Dot(targetHeadTr.forward, fovDir)) * Mathf.Rad2Deg;
+			float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, fovDir)) * Mathf.Rad2Deg;
+			//왜 head의 forward랑은 안돼는거냐?
+			//Debug.Log(angleToTarget);
+
+			//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+			//if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+			//	&& !Physics.Raycast(transform.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
+			if (angleToTarget <= (status.fovAngle * 0.5f) //타겟이 시야각 안에 있고
+				&& !Physics.Raycast(headBoneTr.position, fovDir, status.ricognitionRange, fovIgnoreLayer))
+			//Environment이거나 Enemy인 애만 인식을 하는 Ray에 잡히지 않을 때!
+			//=> 즉 시야각 안에있는 오브젝트가 Environment || Enemy가 아닐 때
+			{
+				Debug.Log($"{angleToTarget}도로 시야각 안에 들어옴");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool CheckTargetIsHiding(GameObject tempTarget)
+	{
+		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
+		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
+
+		if (angleToTarget <= (status.fovAngle * 0.5f)) //시야각 안에 있는 경우
+		{
+			RaycastHit hitEnvironmentInfo;
+
+			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
+			{
+				int temp = LayerMask.GetMask("Environment");
+				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+				{
+					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
+
+					if (distToTarget > dist)
+					{
+						//같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
+						return false;
+					}
+					return true;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	public eSideDirection TargetOnWhichSide(Vector3 forward, Vector3 dir, Vector3 up, float offset = 0f)
+	{
+		Vector3 dirCrossForward = Vector3.Cross(forward, dir);
+		float dot = Vector3.Dot(dirCrossForward, up);
+
+		if (dot > 0f + offset)
+		{
+			return eSideDirection.Right;
+		}
+		else if (dot < 0f + offset)
+		{
+			return eSideDirection.Left;
+		}
+		else
+		{
+			return eSideDirection.Straight;
+		}
+	}
+
+
+	public int ActingLegWhileTurn(Vector3 pos)
     {
 		//코루틴보다 일단 걍 함수로 필요할때 호출하기
 		
@@ -503,6 +532,9 @@ public class Archer : Enemy
 		Initializebow();
 
 		TempSettingPlayer();
+
+		act = gameObject.AddComponent<Archer_ActionTable>();
+		act.SetArcher = this;
 		//weapon.SetActive(false);
 	}
 

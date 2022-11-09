@@ -296,6 +296,15 @@ public static class Funcs
 		return false;
 	}
 
+	public static bool IsAnimationPlay(Animator animCtrl, string animationName, int animationLayer)
+	{
+		if (animCtrl.GetCurrentAnimatorStateInfo(animationLayer).IsName(animationName))
+		{//여기서 IsName은 애니메이션클립 이름이 아니라 애니메이터 안에 있는 노드이름임
+			return true;
+		}
+		return false;
+	}
+
 	public static T FindResourceFile<T>(string path) where T : UnityEngine.Object
 	{
 		T temp = Resources.Load<T>(path);

@@ -16,7 +16,7 @@ public class Archer_Runaway : cState
 	 //2. 원래 있던 곳 바라보기
 		while (true)
 		{
-			archer.transform.rotation = archer.LookAtSlow(me.transform, runStartPos, me.status.lookAtSpd);
+			//archer.transform.rotation = archer.LookAtSlow(me.transform, runStartPos, me.status.lookAtSpd);
 			
 			int dot = archer.ActingLegWhileTurn(runStartPos);
 
