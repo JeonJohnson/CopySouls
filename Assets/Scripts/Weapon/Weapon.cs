@@ -42,11 +42,11 @@ public abstract class Weapon : MonoBehaviour
     //공용
     //public bool isColliderEnter; //1회타격 제한 bool;
 
-    //protected abstract void weaponInitialize();
+    protected abstract void weaponInitialize();
 
     protected virtual void Awake()
     {
-        //weaponInitialize();
+        weaponInitialize();
     }
 
     protected virtual void Start()

@@ -6,15 +6,35 @@ using Structs;
 public class Player_Weapon : Weapon
 {
     public WeaponStatus status;
-    
+
     //int atk = 10;
-    
 
-    //MeshCollider meshCollider;
-
-    private void Awake()
+    protected override void weaponInitialize()
     {
-        //meshCollider = GetComponent<MeshCollider>();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
     }
 
     //public void EnableWeaponMeshCollider(int i)

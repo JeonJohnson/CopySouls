@@ -16,6 +16,9 @@ public enum eMoveDirection
 
 public class Archer : Enemy
 {
+    //weapon수정 from용석to근희
+    public WoodenShortBow weapon;
+
 	//public Test.eStateTest testEnum = new Test.eStateTest();
 	//int[] iTestArr = 
 	//{ 

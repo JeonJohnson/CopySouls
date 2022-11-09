@@ -9,9 +9,13 @@ public class Spirit_Weapon : Weapon
     public Transform transPos;
     public bool changePos;
 
-    //protected override void weaponInitialize()
-    //{
-    //}
+    protected override void weaponInitialize()
+    {
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     protected override void Start()
     {
@@ -31,6 +35,14 @@ public class Spirit_Weapon : Weapon
         }
     }
 
+    protected override void FixedUpdate()
+    {
+    }
+
+    protected override void LateUpdate()
+    {
+    }
+
     public void TransWeaponPos()
     {
         
@@ -42,3 +54,4 @@ public class Spirit_Weapon : Weapon
 
     
 }
+

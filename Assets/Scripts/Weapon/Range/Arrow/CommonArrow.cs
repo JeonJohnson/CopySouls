@@ -10,19 +10,31 @@ public class CommonArrow : Weapon, IPoolingObject
 
     }
 
-    private void Awake()
+    protected override void weaponInitialize()
     {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
     }
 }

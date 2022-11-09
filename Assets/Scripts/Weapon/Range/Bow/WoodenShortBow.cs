@@ -23,15 +23,31 @@ public class WoodenShortBow : Weapon
     public Animator animCtlr;
     public float pullingAnimSpd;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void weaponInitialize()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
     }
 }
