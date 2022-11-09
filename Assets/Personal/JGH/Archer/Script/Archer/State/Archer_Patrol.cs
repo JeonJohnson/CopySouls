@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Archer_Walk_Patrol : cState
+public class Archer_Patrol : cState
 {
 	Archer archer = null;
 

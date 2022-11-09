@@ -28,7 +28,7 @@ public enum eCombatState
 
 public enum eEquipState
 {
-    None, //무기 안낌
+    UnEquip, //무기 안낌
     Equip, //무기 낌
     End
 }
@@ -44,7 +44,7 @@ public abstract class Enemy : MonoBehaviour
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
 
     public eCombatState combatState = eCombatState.Idle;
-    public eEquipState weaponEquipState = eEquipState.None;
+    public eEquipState weaponEquipState = eEquipState.UnEquip;
     //public bool isAlert = false;
     //public bool isCombat = false;
 

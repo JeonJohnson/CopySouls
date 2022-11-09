@@ -532,18 +532,28 @@ namespace Enums
     public enum eArcherState
 	{
 		Idle,
+		Patrol,
+
 		Bow_Equip,
 		Bow_Unequip,
-		Walk_Patrol,
-		Walk_Careful,
-		Walk_Aiming,
+
+		//Walk_Careful,
+		//Walk_Aiming,
+
+		Attack_Precision,
+		Attack_Rushed,
+		//Attack_Rapid,
+		//Attack_Aiming,
+
+		Chase,
 		LookAround,
 		Runaway,
-		Attack_Rapid,
-		Attack_Aiming,
-		Attack_Melee,
+
+
 		Hit,
+
 		Death,
+
 		End
 	}
 	
