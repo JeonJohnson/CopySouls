@@ -100,13 +100,9 @@ public abstract class Weapon : MonoBehaviour
             Structs.DamagedStruct dmgStruct = new DamagedStruct();
 
             dmgStruct.dmg = Dmg;
-            Debug.Log(dmgStruct.dmg);
             dmgStruct.attackObj = owner;
-            Debug.Log(dmgStruct.attackObj);
 
             PlayerActionTable temp = other.transform.root.GetComponent<Player>().playerAt;
-
-            Debug.Log(temp);
 
             if (temp != null)
             {

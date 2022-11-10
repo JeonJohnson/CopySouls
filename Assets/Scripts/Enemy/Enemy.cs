@@ -43,6 +43,9 @@ public abstract class Enemy : MonoBehaviour
     public float distToTarget;
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
 
+    //++
+    public int HitCount;
+
     public eCombatState combatState = eCombatState.Idle;
     public eEquipState weaponEquipState = eEquipState.UnEquip;
     //public bool isAlert = false;
@@ -408,7 +411,8 @@ public abstract class Enemy : MonoBehaviour
     //용석 : 트리거를 통한 enemy의 curHP 차감
     public void Damaged(int dmg)
     {
-        //status.curHp -= dmg;
+        HitCount++;
+        status.curHp -= dmg;
     }
 
     //근희

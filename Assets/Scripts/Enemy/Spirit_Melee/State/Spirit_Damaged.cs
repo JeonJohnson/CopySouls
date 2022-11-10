@@ -7,6 +7,7 @@ public class Spirit_Damaged : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        Debug.Log("¸ÂÀ½");
         me.animCtrl.SetBool("isDamaged", true);
         me.animCtrl.SetBool("ChangeDamaged", true);
     }

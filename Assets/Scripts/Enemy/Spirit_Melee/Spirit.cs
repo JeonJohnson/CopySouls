@@ -39,7 +39,6 @@ public class Spirit : Enemy
     public bool atting;
     public bool existRemainder;
     public bool preChangeWeaponPos;
-    public int HitCount;
 
     //step
     public bool stepWait;
