@@ -95,7 +95,7 @@ public abstract class Weapon : MonoBehaviour
     public void Att(GameObject other)
     {
         //맞은 놈 : player
-        if(other.GetComponent<Player>() != null)
+        if(other.transform.root.GetComponent<Player>() != null)
         {
             Structs.DamagedStruct dmgStruct = new DamagedStruct();
 
