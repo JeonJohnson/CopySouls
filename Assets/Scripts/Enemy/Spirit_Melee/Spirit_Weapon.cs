@@ -42,7 +42,6 @@ public class Spirit_Weapon : Weapon
         if (transPos == null) return;
         if(!me.preChangeWeaponPos)
         {
-            Debug.Log("위치 교체");
             TransPos();
             me.preChangeWeaponPos = true;
         }
@@ -54,7 +53,6 @@ public class Spirit_Weapon : Weapon
 
         if (me.preChangeWeaponPos)
         {
-            Debug.Log("위치 원점");
             ReturnPos();
             me.preChangeWeaponPos = false;
         }

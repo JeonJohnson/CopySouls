@@ -148,13 +148,16 @@ public abstract class Weapon : MonoBehaviour
         {
             if(!owner.gameObject.GetComponent<Enemy>().status.isDead)
             {
-
-                //other.transform.root.GetComponent<PlayerActionTable>();
-
-                if (other.gameObject.layer == PlayerLayer)
+                if(other.transform.root.GetComponent<Player>() != null)
                 {
-                    Debug.Log(other.name);
+                    other.transform.root.GetComponent<Player>().status.curHp -= Dmg;
                 }
+
+
+                //if (other.gameObject.layer == PlayerLayer)
+                //{
+                //    
+                //}
 
                 //Att(other.gameObject);
             }
