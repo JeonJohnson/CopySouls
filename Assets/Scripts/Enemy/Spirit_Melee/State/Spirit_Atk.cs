@@ -33,7 +33,8 @@ public class Spirit_Atk : cState
 
         if (!((Spirit)me).complete_Atk)
         {
-            Play(CurPattern);
+            if(me.status.isGroggy) me.SetState((int)Enums.eSpiritState.Groggy);
+            else Play(CurPattern);
         }
         else if(((Spirit)me).complete_Atk)
         {

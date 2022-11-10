@@ -4,13 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Enums;
 
-//스턴 상태 만들어야함
 
-// 연속공격? 데미지 모션 -> 랜덤
-//    public float curActAtkValue = 1.0f;
-// 강공 -> 데미지 처리 ()
-// 
-// 
+
 
 public class Spirit : Enemy
 {
@@ -35,6 +30,7 @@ public class Spirit : Enemy
     public bool complete_Atk;
     public bool complete_AttReturn;
     public bool complete_Damaged;
+    public bool complete_Groggy;
     public bool isEquipt;
     public bool atting;
     public bool existRemainder;
@@ -54,6 +50,7 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Trace] = new Spirit_Trace();
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
         fsm[(int)Enums.eSpiritState.Damaged] = new Spirit_Damaged();
+        fsm[(int)Enums.eSpiritState.Groggy] = new Spirit_Groggy();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
 
         SetState((int)Enums.eSpiritState.Idle);
@@ -83,12 +80,28 @@ public class Spirit : Enemy
         base.Update();
         curState_e = GetCurState<Enums.eSpiritState>();
 
+        //=======================================
+        //TestCtrl
+
+        //-->Hit
         if (Input.GetKeyDown(KeyCode.C))
         {
             preHp = status.curHp;
             status.curHp--;
             HitCount++;
         }
+
+        //->Groggy
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (curState_e == eSpiritState.Atk)
+            {
+                status.isGroggy = true;
+            }
+        }
+        //=======================================
+
+
 
         if (status.curHp <= 0)
         {
@@ -102,6 +115,8 @@ public class Spirit : Enemy
                 SetState((int)Enums.eSpiritState.Damaged);
             }
         }
+        
+
 
         //모종의 이유로 무기해제시
         if (curState_e == eSpiritState.Atk || curState_e == eSpiritState.Trace)
@@ -144,9 +159,8 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleteEquiptment() { complete_Equipt = true; }
     public void Spirit_Melee_CompleteUnequiptment() { complete_Unequipt = true; }
     public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
-    //public void Spirit_AttReturn() { if (!complete_AttReturn) complete_AttReturn = true; }
-    //public void Spirit_Melee_CompleCombo1() { complete_Combo1 = true; }
     public void Spirit_Damaged() { complete_Damaged = true; }
+    public void Spirit_Groggy() { complete_Groggy = true; }
     public void Spirit_Atting()
     {
         if(curState_e == Enums.eSpiritState.Atk)
@@ -155,9 +169,9 @@ public class Spirit : Enemy
             else atting = false;
         }
     }
-    public bool isCurrentAnimationOver(Animator animator)
+    public bool isCurrentAnimationOver(Animator animator,float time)
     {
-        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > time;
     }
 
     //=============================================================================

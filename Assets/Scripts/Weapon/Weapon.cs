@@ -5,6 +5,11 @@ using UnityEngine;
 
 using Structs;
 
+
+//몬스터 연속딜 차단
+
+
+
 //쉴드는 일단 맨들때 배제
 public enum eWeaponType
 {
@@ -90,6 +95,15 @@ public abstract class Weapon : MonoBehaviour
 
     //===============================================================================================================================
 
+    // 딜은 두상태모두 씨게박히게
+    
+    // 패링시 -> 스턴 + 데미지
+    // 압잡뒤잡조건 -> 스턴이 걸린상태에서 딜을 넣는 기술
+    // 적이 플레이어 타격시 연속딜 들어가는거 수정
+
+    // 몬스터 강공처리
+    // dmgStruct.atkType = Enums.eAttackType.Strong;
+
     //===============================================================================================================================
     // 데미지 주고받기
     public void Att(GameObject other)
@@ -109,6 +123,7 @@ public abstract class Weapon : MonoBehaviour
                 if(Player.instance.status.isParrying == true)
                 {
                     //적이 스턴되는 함수
+                    //->패딩
                 }
                 else
                 {
@@ -154,7 +169,9 @@ public abstract class Weapon : MonoBehaviour
             }
         }
     }
-
     //===============================================================================================================================
 
 }
+
+// 비대면 온라인 채팅
+//용석 : dsgjsfg;

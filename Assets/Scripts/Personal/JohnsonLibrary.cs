@@ -525,6 +525,7 @@ namespace Enums
         Trace,
         Atk,
         Damaged,
+        Groggy,
         Death,
         End
     }

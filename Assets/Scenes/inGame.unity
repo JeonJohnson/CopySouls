@@ -1936,6 +1936,10 @@ PrefabInstance:
       value: TransPos
       objectReference: {fileID: 0}
     - target: {fileID: 5600872718405526369, guid: 4a95cb6b8ae515b48bc2ec6ae757ab76, type: 3}
+      propertyPath: status.curHp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600872718405526369, guid: 4a95cb6b8ae515b48bc2ec6ae757ab76, type: 3}
       propertyPath: PatrolPos.Array.data[0]
       value: 
       objectReference: {fileID: 364414325}
