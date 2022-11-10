@@ -414,7 +414,7 @@ public abstract class Enemy : MonoBehaviour
     //근희
     public virtual void Hit(DamagedStruct dmgStruct)
     {
-        //status.curHp -= (int)dmgStruct.dmg;
+        status.curHp -= (int)dmgStruct.dmg;
     }
 
     private void OnTriggerEnter(Collider other)

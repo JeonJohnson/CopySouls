@@ -89,10 +89,9 @@ public abstract class Weapon : MonoBehaviour
     }
 
     //===============================================================================================================================
-    
+
     //===============================================================================================================================
     // 데미지 주고받기
-
     public void Att(GameObject other)
     {
         //맞은 놈 : player
@@ -101,10 +100,15 @@ public abstract class Weapon : MonoBehaviour
             Structs.DamagedStruct dmgStruct = new DamagedStruct();
 
             dmgStruct.dmg = Dmg;
+            Debug.Log(dmgStruct.dmg);
             dmgStruct.attackObj = owner;
+            Debug.Log(dmgStruct.attackObj);
 
-            PlayerActionTable temp = other.transform.root.GetComponent<PlayerActionTable>();
-            if(temp != null)
+            PlayerActionTable temp = other.transform.root.GetComponent<Player>().playerAt;
+
+            Debug.Log(temp);
+
+            if (temp != null)
             {
                 if(Player.instance.status.isParrying == true)
                 {
@@ -125,8 +129,7 @@ public abstract class Weapon : MonoBehaviour
         {
             if (!other.GetComponent<Enemy>().status.isDead)
             {
-                //other.GetComponent<Enemy>().status.curHp -= Dmg;
-                //other.GetComponent<Enemy>().Hit()
+                other.GetComponent<Enemy>().status.curHp -= Dmg;
             }
             else
             {
@@ -150,7 +153,7 @@ public abstract class Weapon : MonoBehaviour
             {
                 if(other.transform.root.GetComponent<Player>() != null)
                 {
-                    other.transform.root.GetComponent<Player>().status.curHp -= Dmg;
+                    Att(other.gameObject);
                 }
             }
         }
