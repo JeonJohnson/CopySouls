@@ -71,7 +71,7 @@ public class PlayerLocomove : MonoBehaviour
             Debug.LogWarning("Can't Find CameraManager!!");
         }
         cameraArm = cameraManager.transform.Find("CameraPivot").transform;
-        cameraManager.targetTransform = Player.instance.playerModel.transform;
+        //cameraManager.targetTransform = Player.instance.playerModel.transform;
     }
 
 
