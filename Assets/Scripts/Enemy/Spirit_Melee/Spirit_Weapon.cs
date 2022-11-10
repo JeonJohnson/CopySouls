@@ -45,13 +45,13 @@ public class Spirit_Weapon : Weapon
 
     public void TransWeaponPos()
     {
-        
+        Debug.Log("위치 바꾸기");
     }
     public void ReturnWeaponPos()
     {
-
+        Debug.Log("위치 돌리기");
     }
 
-    
+
 }
 

@@ -160,7 +160,13 @@ public class Spirit : Enemy
         if (curState_e == Enums.eSpiritState.Atk)
         {
             if (!transWeaponPos) transWeaponPos = true;
-            else transWeaponPos = false;
+        }
+    }
+    public void Spirit_WeaponReturnPos()
+    {
+        if (curState_e == Enums.eSpiritState.Atk)
+        {
+            if (transWeaponPos) transWeaponPos = false;
         }
     }
 
