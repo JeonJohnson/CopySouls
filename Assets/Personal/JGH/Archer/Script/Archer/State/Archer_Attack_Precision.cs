@@ -35,48 +35,8 @@ public class Archer_Attack_Precision : cState
 
 	public override void UpdateState()
 	{
+		archer.actTable.AttackCycle(ref atkState, pullAnimSpd);
 
-		switch (atkState)
-		{
-			case eArcherAttackState.DrawArrow:
-				{
-					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_DrawArrow"))
-					{
-						atkState = eArcherAttackState.HangArrow;
-						
-					}
-				}
-				break;
-			case eArcherAttackState.HangArrow:
-				{
-					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_HangArrow"))
-					{
-						atkState = eArcherAttackState.PullString;
-					}
-				}
-				break;
-			case eArcherAttackState.PullString:
-				{
-					archer.animCtrl.speed = pullAnimSpd;
-
-					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_PullString"))
-					{
-						archer.animCtrl.speed = 1;
-						atkState = eArcherAttackState.Shoot;
-					}
-				}
-				break;
-			case eArcherAttackState.Shoot:
-				{ 
-					
-				}
-				break;
-			case eArcherAttackState.End:
-				break;
-			default:
-				break;
-		}
-		archer.animCtrl.SetInteger("iAttackState", (int)atkState);
 
 		if (moveType == eArcherAttackMoveType.Kiting)
 		{
@@ -102,38 +62,46 @@ public class Archer_Attack_Precision : cState
 			}
 			else if (archer.distToTarget <= archer.backwardRange)
 			{ //뒤로 걸어갈 것
-				archer.navAgent.updatePosition = false;
-				archer.navAgent.updateRotation = false;
-				archer.navAgent.Move(archer.transform.forward * -Time.deltaTime * archer.status.moveSpd);
+			 // //archer.navAgent.updatePosition = false;
+			 // archer.navAgent.updateRotation = false;
+			 // //archer.navAgent.Move(archer.transform.forward * -Time.deltaTime * archer.status.moveSpd);
+				//Vector3 nextPos = archer.transform.position +
+					
+				//	(-archer.transform.forward * /*Time.deltaTime **/ archer.status.moveSpd);
+				//archer.navAgent.SetDestination(nextPos);
 
-				if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
-				{
-					archer.animCtrl.SetBool("bMoveDir", false);
-				}
-				else
-				{
-					archer.animCtrl.SetBool("bMoveDir", true);
-				}
-				archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-				archer.animCtrl.SetInteger("iMoveDir", 3);
+				//if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
+				//{
+				//	archer.animCtrl.SetBool("bMoveDir", false);
+				//}
+				//else
+				//{
+				//	archer.animCtrl.SetBool("bMoveDir", true);
+				//}
+				//archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+				//archer.animCtrl.SetInteger("iMoveDir", 3);
 			}
 			else
 			{ //옆으로 움직이면서 간보기
-				archer.navAgent.updatePosition = false;
-				archer.navAgent.updateRotation = false;
-				archer.navAgent.Move(archer.transform.right * Time.deltaTime* archer.status.moveSpd);
+			 // //archer.navAgent.updatePosition = false;
+			 // archer.navAgent.updateRotation = false;
+				////archer.navAgent.Move(archer.transform.right * Time.deltaTime* archer.status.moveSpd);
+				//Vector3 nextPos = archer.transform.position + 
+				//	(archer.transform.right * /*Time.deltaTime **/ archer.status.moveSpd);
+				//archer.navAgent.SetDestination(nextPos);
 
-				if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Right"))
-				{
-					archer.animCtrl.SetBool("bMoveDir", false);
-				}
-				else
-				{
-					archer.animCtrl.SetBool("bMoveDir", true);
-				}
 
-				archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-				archer.animCtrl.SetInteger("iMoveDir", 1);
+				//if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Right"))
+				//{
+				//	archer.animCtrl.SetBool("bMoveDir", false);
+				//}
+				//else
+				//{
+				//	archer.animCtrl.SetBool("bMoveDir", true);
+				//}
+
+				//archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+				//archer.animCtrl.SetInteger("iMoveDir", 1);
 			}
 		}
 	}

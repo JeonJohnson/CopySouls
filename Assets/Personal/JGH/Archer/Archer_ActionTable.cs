@@ -84,10 +84,51 @@ public class Archer_ActionTable : MonoBehaviour
 		return 3.7f/pullingTime;
 	}
 
-	public void AttackCycle()
-	{ 
-		
-	
+	public void AttackCycle(ref  eArcherAttackState  atkState, float pullAnimSpd )
+	{
+		switch (atkState)
+		{
+			case eArcherAttackState.DrawArrow:
+				{
+					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_DrawArrow"))
+					{
+						atkState = eArcherAttackState.HangArrow;
+
+					}
+				}
+				break;
+			case eArcherAttackState.HangArrow:
+				{
+					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_HangArrow"))
+					{
+						atkState = eArcherAttackState.PullString;
+					}
+				}
+				break;
+			case eArcherAttackState.PullString:
+				{
+					archer.animCtrl.speed = pullAnimSpd;
+
+					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_PullString"))
+					{
+						archer.animCtrl.speed = 1;
+						atkState = eArcherAttackState.Shoot;
+					}
+				}
+				break;
+			case eArcherAttackState.Shoot:
+				{
+
+				}
+				break;
+			case eArcherAttackState.End:
+				break;
+			default:
+				break;
+		}
+
+		archer.animCtrl.SetInteger("iAttackState", (int)atkState);
+
 	}
 
 	public void MoveWhileAttack()
@@ -112,9 +153,14 @@ public class Archer_ActionTable : MonoBehaviour
 		//=> 발 애니메이션이 있기에 그냥 NavMeshAgent의 rotate로 해도 딱히 안 이상함.
 		//=> 대신 이것도 각도 차이가 많이 나면 회전 애니메이션 재생함.
 
+
+		float archerAgentCurSpd = Vector3.Magnitude(archer.navAgent.velocity);
+		Debug.Log(archerAgentCurSpd);
+
 		float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, archer.dirToTarget)) * Mathf.Rad2Deg;
 		
-		if (archer.navAgent.velocity != Vector3.zero)
+		//if (archer.navAgent.velocity != Vector3.zero)
+		if(archerAgentCurSpd > 0f)
 		{ //움직임이 있는 경우 
 			
 			//1. 얼굴만 돌리기
@@ -182,6 +228,15 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.animCtrl.SetInteger("iRotateDir", (int)dirNum);
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, angle / archer.status.fovAngle);
 	}
+
+	private void HeadRotate(float campAngle)
+	{ //몸의 forward랑 head의 Forward랑 내적해서 90도 이상이면 더 못 돌리도록.
+		//그 이상이 되면 몸이 돌아갸아함.
+		
+	
+	
+	}
+
 
     public void Walk(eCombatState combatState)
     {
