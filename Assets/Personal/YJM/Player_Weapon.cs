@@ -51,7 +51,7 @@ public class Player_Weapon : Weapon
             {
                 if(hittedEnemyList.Contains(hittedEnemy) == false)
                 {
-                    if (!other.GetComponent<Enemy>().status.isDead)
+                    if (hittedEnemy.status.isDead)
                     {
                         hittedEnemyList.Add(hittedEnemy);
                         hittedEnemy.Hit(dmgStruct);
