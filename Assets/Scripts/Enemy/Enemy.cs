@@ -36,7 +36,7 @@ public enum eEquipState
 public abstract class Enemy : MonoBehaviour
 {
     public Structs.EnemyStatus status;
-    
+    public Collider DamagedCollider;
 
     public GameObject targetObj;
     public Player targetScript;

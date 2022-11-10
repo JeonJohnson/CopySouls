@@ -46,12 +46,13 @@ public class Player_Weapon : Weapon
 
         if (owner.gameObject.GetComponent<Player>() != null)
         {
-            Enemy hittedEnemy = other.transform.root.GetComponent<Enemy>();
+            var hittedEnemy = other.transform.root.GetComponent<Enemy>();
+            Debug.Log(hittedEnemy);
             if (hittedEnemy != null)
             {
                 if(hittedEnemyList.Contains(hittedEnemy) == false)
                 {
-                    if (hittedEnemy.status.isDead)
+                    if (!hittedEnemy.status.isDead)
                     {
                         hittedEnemyList.Add(hittedEnemy);
                         hittedEnemy.Hit(dmgStruct);

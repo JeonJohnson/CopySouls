@@ -152,23 +152,7 @@ public abstract class Weapon : MonoBehaviour
                 {
                     other.transform.root.GetComponent<Player>().status.curHp -= Dmg;
                 }
-
-
-                //if (other.gameObject.layer == PlayerLayer)
-                //{
-                //    
-                //}
-
-                //Att(other.gameObject);
             }
-        }
-
-
-
-        //Player -> Enemy
-        else if (owner.gameObject.GetComponent<Player>() != null)
-        {
-            if (other.gameObject.layer == EnemyLayer) Att(other.gameObject);
         }
     }
 
