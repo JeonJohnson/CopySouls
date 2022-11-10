@@ -38,7 +38,7 @@ public class Spirit : Enemy
     public bool isEquipt;
     public bool atting;
     public bool existRemainder;
-    public bool transWeaponPos;
+    public bool preChangeWeaponPos;
     public int HitCount;
 
     //step
@@ -64,16 +64,17 @@ public class Spirit : Enemy
     {
         base.Awake();
         initFOVAngle = GetComponent<FieldOfView>().viewAngle;
+
+        weapon = GetComponentInChildren<Spirit_Weapon>();
+        if (weapon != null)
+        { weapon.owner = gameObject; }
     }
 
     protected override void Start()
     {
         base.Start();
         targetObj = GameObject.Find("Player");
-        weapon = GetComponentInChildren<Spirit_Weapon>();
-        if (weapon != null)
-        { weapon.owner = gameObject; }
-        weapon.Type = eWeaponType.Melee;
+        
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
     }
@@ -155,21 +156,6 @@ public class Spirit : Enemy
             else atting = false;
         }
     }
-    public void Spirit_WeaponTransPos()
-    {
-        if (curState_e == Enums.eSpiritState.Atk)
-        {
-            if (!transWeaponPos) transWeaponPos = true;
-        }
-    }
-    public void Spirit_WeaponReturnPos()
-    {
-        if (curState_e == Enums.eSpiritState.Atk)
-        {
-            if (transWeaponPos) transWeaponPos = false;
-        }
-    }
-
     public bool isCurrentAnimationOver(Animator animator)
     {
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;

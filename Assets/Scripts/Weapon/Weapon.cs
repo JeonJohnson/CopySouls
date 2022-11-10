@@ -47,13 +47,14 @@ public abstract class Weapon : MonoBehaviour
     protected virtual void Awake()
     {
         weaponInitialize();
+        col = GetComponent<Collider>();
+        PlayerLayer = LayerMask.GetMask("Player_Hit");
+        EnemyLayer = LayerMask.GetMask("Enemy");
     }
 
     protected virtual void Start()
     {
-        col = GetComponent<Collider>();
-        PlayerLayer = 1 << LayerMask.GetMask("Player");
-        EnemyLayer = 1 << LayerMask.GetMask("Enemy");
+       
     }
 
     protected virtual void Update()
@@ -112,9 +113,13 @@ public abstract class Weapon : MonoBehaviour
                 else
                 {
                     temp.Hit(dmgStruct);
+                    Debug.Log("Hit");
                 }
             }
         }
+
+
+
         //맞은 놈 : enemy 
         else if (other.GetComponent<Enemy>() != null)
         {
@@ -143,9 +148,20 @@ public abstract class Weapon : MonoBehaviour
         {
             if(!owner.gameObject.GetComponent<Enemy>().status.isDead)
             {
-                if (other.gameObject.layer == PlayerLayer) Att(other.gameObject);
+
+                //other.transform.root.GetComponent<PlayerActionTable>();
+
+                if (other.gameObject.layer == PlayerLayer)
+                {
+                    Debug.Log(other.name);
+                }
+
+                //Att(other.gameObject);
             }
         }
+
+
+
         //Player -> Enemy
         else if (owner.gameObject.GetComponent<Player>() != null)
         {

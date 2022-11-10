@@ -31,19 +31,6 @@ public class Spirit_Atk : cState
         else ((Spirit)me).weapon.WeaponColliderOnOff(false);
 
 
-        //1회성으로
-        //이대로 사용 ㄴㄴ
-
-        if (me.animCtrl.GetBool("isDoubleAtk") || me.animCtrl.GetBool("TurnAtk"))
-        {
-            ((Spirit)me).Spirit_WeaponTransPos();
-        }
-        else
-        {
-
-        }
-
-
         if (!((Spirit)me).complete_Atk)
         {
             Play(CurPattern);
@@ -66,6 +53,7 @@ public class Spirit_Atk : cState
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;
+        ((Spirit)me).weapon.ReturnWeaponPos();
     }
 
     public void Select()
@@ -78,6 +66,10 @@ public class Spirit_Atk : cState
 
             CurPattern = (eSpirit_AtkPattern)AttPatternIndex;
             me.transform.LookAt(me.targetObj.transform);
+
+            if (CurPattern == eSpirit_AtkPattern.DoubleAtk || CurPattern == eSpirit_AtkPattern.TurnAtt)  ((Spirit)me).weapon.TransWeaponPos();
+            else ((Spirit)me).weapon.ReturnWeaponPos();
+
             startPattern = true;
         }
     }

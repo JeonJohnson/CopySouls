@@ -7,10 +7,11 @@ public class Spirit_Weapon : Weapon
     public Spirit me;
     public Transform initPos;
     public Transform transPos;
-    public bool changePos;
 
     protected override void weaponInitialize()
     {
+        Type = eWeaponType.Melee;
+        Dmg = 1;
     }
     protected override void Awake()
     {
@@ -20,19 +21,12 @@ public class Spirit_Weapon : Weapon
     protected override void Start()
     {
         base.Start();
-        me = owner.GetComponent<Spirit>();
-        if (me == null) Debug.Log("Get Script Error");
+        if (owner != null) me = owner.GetComponent<Spirit>();
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if (me.curState_e == Enums.eSpiritState.Atk)
-        {
-            if (me.transWeaponPos) TransWeaponPos();
-            else ReturnWeaponPos();
-        }
     }
 
     protected override void FixedUpdate()
@@ -45,13 +39,35 @@ public class Spirit_Weapon : Weapon
 
     public void TransWeaponPos()
     {
-        Debug.Log("위치 바꾸기");
+        if (transPos == null) return;
+        if(!me.preChangeWeaponPos)
+        {
+            Debug.Log("위치 교체");
+            TransPos();
+            me.preChangeWeaponPos = true;
+        }
     }
+
     public void ReturnWeaponPos()
     {
-        Debug.Log("위치 돌리기");
+        if (initPos == null) return;
+
+        if (me.preChangeWeaponPos)
+        {
+            Debug.Log("위치 원점");
+            ReturnPos();
+            me.preChangeWeaponPos = false;
+        }
     }
 
+    public void TransPos()
+    {
+        transform.rotation = transPos.rotation;
+    }
 
+    public void ReturnPos()
+    {
+        transform.rotation = initPos.rotation;
+    }
 }
 
