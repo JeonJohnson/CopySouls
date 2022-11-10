@@ -59,7 +59,7 @@ public class Archer_Hit : cState
 	}
 	public override void UpdateState()
 	{
-		me.transform.rotation = me.LookAtSlow(archer.transform, me.targetObj.transform, me.status.lookAtSpd);
+		//me.transform.rotation = me.LookAtSlow(archer.transform, me.targetObj.transform, me.status.lookAtSpd);
 		archer.ActingLegWhileTurn(me.targetObj.transform.position);
 
 

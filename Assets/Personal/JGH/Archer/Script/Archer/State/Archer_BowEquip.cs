@@ -14,79 +14,58 @@ public class Archer_BowEquip : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-
+		//me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
 		archer.combatState = eCombatState.Alert;
 
 		archer.animCtrl.SetTrigger("tEquip");
 		archer.animCtrl.SetBool("bEquip", true);
-		archer.weapon.gameObject.SetActive(true);
-
-
-		if (me.distToTarget > me.status.atkRange)
-		{
-			archer.curSpd = Random.Range(1f, me.status.moveSpd);
-			me.navAgent.speed = archer.curSpd;
-			me.navAgent.SetDestination(me.targetObj.transform.position);
-		}
-		else
-		{
-			archer.curSpd = Random.Range(1f, me.status.moveSpd);
-			me.navAgent.speed = archer.curSpd;
-			me.navAgent.updateRotation = false;
-			me.navAgent.updatePosition = false;
-			me.navAgent.Move(-me.dirToTarget * archer.curSpd);
-		}
-
-		me.animCtrl.SetTrigger("tWalk");
-		me.animCtrl.SetFloat("fWalkSpd", archer.curSpd);
-		me.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
 	}
 
 	public override void UpdateState()
 	{
+		//archer.LookAtSlow(archer.transform, archer.targetObj.transform, 1f, false);
 
-		//me.transform.rotation = me.LookAtSlow(me.transform, me.targetObj.transform, me.status.lookAtSpd);
+		if (archer.weaponEquipState == eEquipState.Equip)
+		{
+			if (me.distToTarget > me.status.atkRange)
+			{
+				//archer.curSpd = Random.Range(1f, me.status.moveSpd);
+				//me.navAgent.speed = archer.curSpd;
+				//me.navAgent.SetDestination(me.targetObj.transform.position);
 
-		//	if (!archer.isEquip)
-		//	{
-		//		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, "Archer_Equip", 0.7f))
-		//		{
-		//			if (!archer.isEquip)
-		//			{
-		//				archer.isEquip = true;
-		//			}
+				archer.SetState((int)Enums.eArcherState.Attack_Precision);
+			}
+			else
+			{
+				//archer.curSpd = Random.Range(1f, me.status.moveSpd);
+				//me.navAgent.speed = archer.curSpd;
+				//me.navAgent.updateRotation = false;
+				//me.navAgent.updatePosition = false;
+				//me.navAgent.Move(-me.dirToTarget * archer.curSpd);
+			}
+		}
 
-		//			//if (me.isAlert)
-		//			//{
-		//			//	if (me.distToTarget > me.status.atkRange)
-		//			//	{
-		//			//		me.SetState((int)eArcherState.Walk_Careful);
-		//			//	}
-		//			//	else
-		//			//	{
-		//			//		archer.RandomAttack();
-		//			//	}
-		//			//}
-		//			//else
-		//			//{
-		//			//	me.SetState((int)Enums.eArcherState.Idle);
-		//			//}
-		//		}
-		//	}
-		//	else 
-		//	{
-		//		if (me.distToTarget > me.status.atkRange)
-		//		{
-		//			me.SetState((int)eArcherState.Walk_Careful);
-		//		}
-		//		else
-		//		{
-		//			archer.RandomAttack();
-		//		}
-		//	}
+
+
+		//if (me.distToTarget > me.status.atkRange)
+		//{
+		//	archer.curSpd = Random.Range(1f, me.status.moveSpd);
+		//	me.navAgent.speed = archer.curSpd;
+		//	me.navAgent.SetDestination(me.targetObj.transform.position);
+		//}
+		//else
+		//{
+		//	archer.curSpd = Random.Range(1f, me.status.moveSpd);
+		//	me.navAgent.speed = archer.curSpd;
+		//	me.navAgent.updateRotation = false;
+		//	me.navAgent.updatePosition = false;
+		//	me.navAgent.Move(-me.dirToTarget * archer.curSpd);
 		//}
 
+
+		//me.animCtrl.SetFloat("fWalkSpd", archer.curSpd);
+		//me.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
 
 	}
 
@@ -94,14 +73,19 @@ public class Archer_BowEquip : cState
     {
         base.LateUpdateState();
 
+
+
 		//Vector3 dir = me.targetObj.transform.position - archer.headBoneTr.position;
 		//me.LookAtSpecificBone(archer.headBoneTr, archer.targetSpineTr, dir);
 
-		me.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+		//me.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+
+		archer.actTable.LookTargetRotate();
     }
 
     public override void ExitState()
 	{
+		
 	}
 
 }

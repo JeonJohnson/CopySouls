@@ -1423,7 +1423,6 @@ MonoBehaviour:
   dirToTarget: {x: 0, y: 0, z: 0}
   combatState: 0
   weaponEquipState: 0
-  weapon: {fileID: 2029199770}
   PatrolPos: []
   preState_i: -1
   curState_i: -1
@@ -1431,6 +1430,8 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  weapon: {fileID: 2029199770}
+  actTable: {fileID: 0}
   fovStruct:
     LeftDir: {x: 0, y: 0, z: 0}
     LookDir: {x: 0, y: 0, z: 0}
@@ -1445,11 +1446,12 @@ MonoBehaviour:
   targetSpineTr: {fileID: 0}
   fovDir: {x: 0, y: 0, z: 0}
   atkDir: {x: 0, y: 0, z: 0}
+  angle: 0
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}
   rightIndexFingerBoneTr: {fileID: 0}
-  meleeAtkRange: 0
-  runRange: 0
+  curSpd: 0
+  backwardRange: 0
   defaultPattern: 0
   curState_e: 0
 --- !u!195 &863259263
@@ -4737,7 +4739,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -15598,7 +15600,7 @@ MonoBehaviour:
     moveSpd: 2
     runSpd: 5
     moveMileage: 0
-    atkRange: 6
+    atkRange: 7
     patrolRange: 0
     ricognitionRange: 10
     fovAngle: 100
@@ -15612,7 +15614,6 @@ MonoBehaviour:
   dirToTarget: {x: 0, y: 0, z: 0}
   combatState: 0
   weaponEquipState: 0
-  weapon: {fileID: 1717405917317381}
   PatrolPos: []
   preState_i: -1
   curState_i: -1
@@ -15620,6 +15621,8 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  weapon: {fileID: 1717405917317381}
+  actTable: {fileID: 0}
   fovStruct:
     LeftDir: {x: 0, y: 0, z: 0}
     LookDir: {x: 0, y: 0, z: 0}
@@ -15634,11 +15637,12 @@ MonoBehaviour:
   targetSpineTr: {fileID: 0}
   fovDir: {x: 0, y: 0, z: 0}
   atkDir: {x: 0, y: 0, z: 0}
+  angle: 0
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}
   rightIndexFingerBoneTr: {fileID: 0}
-  meleeAtkRange: 2
-  runRange: 1.5
+  curSpd: 0
+  backwardRange: 2
   defaultPattern: 0
   curState_e: 0
 --- !u!1 &8203273708964079402

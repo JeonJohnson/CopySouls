@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Archer_Atk_Draw
+    second: Archer_Atk_DrawArrow
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Archer_Atk_Draw
+      name: Archer_Atk_DrawArrow
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -59,22 +59,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.32113597
-        functionName: DrawArrow
+      - time: 0.5851016
+        functionName: PullOutArrowAnimEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.54737705
-        functionName: HookArrow
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.67346936
-        functionName: StartStringPull
+      - time: 0.9935263
+        functionName: DrawArrowEndAnimEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

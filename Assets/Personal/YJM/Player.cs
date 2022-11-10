@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
         }
         InitializeState();
         ColliderSetting();
+        status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
     }
     #endregion
 

@@ -8,14 +8,27 @@ using Enums;
 using Structs;
 
 
-public enum eMoveDirection
+public enum eSideDirection
 { 
-	Right,
-	Left,
+	Left = -1,
+	Straight, //Forward or Backward
+	Right = 1
+		
 }
+
+//public enum eAttackState
+//{
+//	None,
+//	DrawArrow,
+//	HangArrow,
+//	PullString,
+
+
+//}
 
 public class Archer : Enemy
 {
+	
     //weapon수정 from용석to근희
     public WoodenShortBow weapon;
 
@@ -32,6 +45,8 @@ public class Archer : Enemy
 	//	(int)Enums.eArcherState.Death,
 	//};
 
+	public Archer_ActionTable actTable;
+
 	[Header("Fov System")]
 	public FovStruct fovStruct;
 	public LayerMask fovIgnoreLayer;
@@ -42,37 +57,58 @@ public class Archer : Enemy
 	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
 	public Vector3 atkDir; //arrowHead to TargetSpine or TargetHead
-	
+	public float angle;
 
 	[Header("Me Bones")]
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
 	public Transform rightIndexFingerBoneTr;
 
+	[Header("Other Vars")]
 	public float curSpd;
-	public float meleeAtkRange;
-	public float runRange;
+	//public float meleeAtkRange;
+	public float backwardRange;
 
 
 	public eArcherState defaultPattern;
 	public eArcherState curState_e;
 
 
-	////public delegate void Al
-	//public delegate void AlertEventHandler();
-	//public AlertEventHandler alertStartEvent;
-	//public AlertEventHandler alertEndEvent;
-	//public delegate void CombatEventHandler();
-	//public CombatEventHandler combatStartEvent;
-	//public CombatEventHandler combatEndEvent;
-	//public delegate void AttackEventHandler();
-	//public AttackEventHandler DrawArrowEvent;
-	//public AttackEventHandler HookArrowEvent;
-	//public AttackEventHandler StartStringPullEvent;
-	//public AttackEventHandler EndStringPullEvent;
-	//public AttackEventHandler ShootArrowEvent;
 
 
+
+	public override void InitializeState()
+	{
+		fsm = new cState[(int)eArcherState.End];
+
+		fsm[(int)eArcherState.Idle] = new Archer_Idle();
+		fsm[(int)eArcherState.Patrol] = new Archer_Patrol();
+		
+		fsm[(int)eArcherState.Bow_Equip] = new Archer_BowEquip();
+		fsm[(int)eArcherState.Bow_Unequip] = new Archer_BowUnequip();
+
+		fsm[(int)eArcherState.Attack_Precision] = new Archer_Attack_Precision();
+		fsm[(int)eArcherState.Attack_Rushed] = new Archer_Attack_Rushed();
+
+		fsm[(int)eArcherState.Chase] = new Archer_Chase();
+		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
+		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
+
+
+		fsm[(int)eArcherState.Hit] = new Archer_Hit();
+
+		fsm[(int)eArcherState.Death] = new Archer_Death();
+
+
+		SetState((int)defaultPattern);
+	}
+
+	public void SettingBonesTransform()
+	{
+		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+		spineBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
+		rightIndexFingerBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightIndexDistal);
+	}
 	public void TempSettingPlayer()
 	{
 		if (targetObj == null)
@@ -91,6 +127,16 @@ public class Archer : Enemy
 			}
 		}
 	}
+
+	public void Initializebow()
+	{
+		if (weapon != null)
+		{
+			weapon.gameObject.SetActive(false);
+		}
+		//나중ㅇ에 풀링센터에서 가져오기
+	}
+
 
 	public void CalcFovDir(float degreeAngle)
 	{
@@ -114,12 +160,14 @@ public class Archer : Enemy
 		//판별기준은 몬스터와 0의 각도를 구한다음
 		//그게 fov/2 보다 작으면 시야각 내에 있는거.
 
-	
+
 		fovDir = (targetSpineTr.position - headBoneTr.position).normalized;
 		fovStruct.LookDir = headBoneTr.forward;
 		fovStruct.LeftDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y - (status.fovAngle * 0.5f));
 		fovStruct.RightDir = Funcs.DegreeAngle2Dir(transform.eulerAngles.y + (status.fovAngle * 0.5f));
 	}
+
+
 
 
 	public bool CheckTargetInFov()
@@ -195,89 +243,27 @@ public class Archer : Enemy
 	}
 
 
-
-
-	public override void InitializeState()
+	public eSideDirection TargetOnWhichSide(Vector3 forward, Vector3 dir, Vector3 up, float offset = 0f)
 	{
-		fsm = new cState[(int)eArcherState.End];
+		Vector3 dirCrossForward = Vector3.Cross(forward, dir);
+		float dot = Vector3.Dot(dirCrossForward, up);
 
-		fsm[(int)eArcherState.Idle] = new Archer_Idle();
-		
-		fsm[(int)eArcherState.Bow_Equip] = new Archer_BowEquip();
-		fsm[(int)eArcherState.Bow_Unequip] = new Archer_BowUnequip();
-		
-		fsm[(int)eArcherState.Walk_Patrol] = new Archer_Walk_Patrol();
-		fsm[(int)eArcherState.Walk_Careful] = new Archer_Walk_Careful();
-		fsm[(int)eArcherState.Walk_Aiming] = new Archer_Walk_Aiming();
-
-		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
-
-		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
-
-		fsm[(int)eArcherState.Attack_Rapid] = new Archer_Attack_Rapid();
-		fsm[(int)eArcherState.Attack_Aiming] = new Archer_Attack_Aiming(this);
-		fsm[(int)eArcherState.Attack_Melee] = new Archer_Attack_Melee();
-
-		fsm[(int)eArcherState.Hit] = new Archer_Hit();
-
-		fsm[(int)eArcherState.Death] = new Archer_Death();
-
-
-		SetState((int)defaultPattern);
-	}
-
-	public void SettingBonesTransform()
-	{
-		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
-		spineBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
-		rightIndexFingerBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightIndexDistal);
-	}
-
-	public void Initializebow()
-	{
-
-		if (weapon != null)
+		if (dot > 0f + offset)
 		{
-			weapon.gameObject.SetActive(false);
+			return eSideDirection.Right;
 		}
-		//if (bow == null)
-		//{ 
-		//	//bow = Instantiate(bowPrefab,)
-		//}
-
-		//bow.rightIndexFingerTr = rightIndexFingerBoneTr;
-
-		//HookArrowEvent += bow.HookArrow;
-		//StartStringPullEvent += bow.StartStringPull;
-		//ShootArrowEvent += bow.ShootArrow;
-	}
-
-	//public void EquippedBow()
-	//{
-	//	SetState((int)eArcherState.Bow_Equip);
-	//}
-
-	//public void UnequippedBow()
-	//{
-	//	SetState((int)eArcherState.Bow_Unequip);
-	//}
-
-	public void RandomAttack()
-	{
-		int atkRandom = UnityEngine.Random.Range(0, 1);
-
-		if (atkRandom == 0)
+		else if (dot < 0f + offset)
 		{
-			SetState((int)Enums.eArcherState.Attack_Aiming);
+			return eSideDirection.Left;
 		}
 		else
 		{
-			SetState((int)Enums.eArcherState.Attack_Rapid);
+			return eSideDirection.Straight;
 		}
-
 	}
 
-    public int ActingLegWhileTurn(Vector3 pos)
+
+	public int ActingLegWhileTurn(Vector3 pos)
     {
 		//코루틴보다 일단 걍 함수로 필요할때 호출하기
 		
@@ -411,61 +397,6 @@ public class Archer : Enemy
 		return returnState;
     }
 
-    #region Events
-
-    public void DrawArrow()
-	{
-		//arrow = ObjectPoolingCenter.Instance.LentalObj("Arrow_Dynamic").GetComponent<Arrow>();
-
-		//arrow.archer = this;
-		//arrow.rightIndexFingerBoneTr = rightIndexFingerBoneTr;
-		//arrow.target = targetObj;
-		//arrow.bowLeverTr = bow.bowLeverTr;
-
-
-		//bow.arrow = arrow;
-
-		//HookArrowEvent += arrow.Hooking;
-		//ShootArrowEvent += arrow.Shoot;
-	}
-
-	public void HookArrow()
-	{
-		//if (HookArrowEvent != null)
-		//{
-		//	HookArrowEvent();
-		//}
-	}
-
-	public void StartStringPull()
-	{
-		//if (StartStringPullEvent != null)
-		//{
-		//	StartStringPullEvent();
-		//}
-	}
-
-	public void EndStringPull()
-	{
-		//if (EndStringPullEvent != null)
-		//{
-		//	EndStringPullEvent();
-		//}
-	}
-
-    public void ShootArrow()
-	{
-		//if (ShootArrowEvent != null)
-		//{
-		//	ShootArrowEvent();
-		//}
-
-		//arrow = null;
-		////StartCoroutine(arrow.GetComponent<Arrow>().AliveCouroutine());
-	}
-
-
-	#endregion
 
 	public override void Hit(DamagedStruct dmgStruct)
     {
@@ -503,6 +434,9 @@ public class Archer : Enemy
 		Initializebow();
 
 		TempSettingPlayer();
+
+		actTable = gameObject.AddComponent<Archer_ActionTable>();
+		actTable.SetArcher = this;
 		//weapon.SetActive(false);
 	}
 
@@ -551,12 +485,22 @@ public class Archer : Enemy
 			Gizmos.DrawRay(headBoneTr.position, fovDir * status.ricognitionRange);
 		}
 
+		{
+			Gizmos.color = Color.black;
+
+			Gizmos.DrawWireSphere(transform.position, backwardRange);
+		}
 		//if (headBoneTr != null)
 		//{ Gizmos.DrawFrustum(headBoneTr.position, status.fovAngle, status.ricognitionRange, 0.1f, 1f); }
 
 
 
 
+	}
+
+	public void OnDrawGizmos()
+	{
+		
 	}
 
 }

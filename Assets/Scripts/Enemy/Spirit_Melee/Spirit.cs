@@ -106,7 +106,7 @@ public class Spirit : Enemy
         //모종의 이유로 무기해제시
         if (curState_e == eSpiritState.Atk || curState_e == eSpiritState.Trace)
         {
-            if (weaponEquipState == eEquipState.None) SetState((int)Enums.eSpiritState.Idle);
+            if (weaponEquipState == eEquipState.UnEquip) SetState((int)Enums.eSpiritState.Idle);
         }
     }
     //=============================================================================

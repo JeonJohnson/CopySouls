@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 50cae09beeb1fb041963a769e44512d4
+guid: 2283ff9212cb6b14ca1adb8e24e4f540
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Right Turn_NoRot
+    second: Leg_Rotate_InPlace_Right
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Right Turn_NoRot
+      name: Leg_Rotate_InPlace_Right
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0

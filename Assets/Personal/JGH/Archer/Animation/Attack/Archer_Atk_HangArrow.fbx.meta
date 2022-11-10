@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: fc7e6bd3db6d106409e13c100f43265c
+guid: 798f5b7becb23e34092e74cc55c8441f
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Archer_Atk_Aming
+    second: Archer_Atk_HangArrow
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Archer_Atk_Aming
+      name: Archer_Atk_HangArrow
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 111
+      firstFrame: 18
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,14 +58,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.99953437
-        functionName: EndStringPull
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

@@ -28,7 +28,7 @@ public enum eCombatState
 
 public enum eEquipState
 {
-    None, //무기 안낌
+    UnEquip, //무기 안낌
     Equip, //무기 낌
     End
 }
@@ -44,7 +44,7 @@ public abstract class Enemy : MonoBehaviour
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
 
     public eCombatState combatState = eCombatState.Idle;
-    public eEquipState weaponEquipState = eEquipState.None;
+    public eEquipState weaponEquipState = eEquipState.UnEquip;
     //public bool isAlert = false;
     //public bool isCombat = false;
 
@@ -90,7 +90,7 @@ public abstract class Enemy : MonoBehaviour
         dirToTarget = (targetObj.transform.position - transform.position).normalized;
     }
 
-	public Quaternion LookAtSlow(Transform me, Transform target, float spd)
+	public Quaternion LookAtSlow_Rotation(Transform me, Transform target, float spd)
 	{
         Vector3 tempDir = dirToTarget;
         tempDir.y = 0;
@@ -99,8 +99,7 @@ public abstract class Enemy : MonoBehaviour
 
         return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
-
-    public Quaternion LookAtSlow(Transform me, Vector3 targetPos, float spd)
+    public Quaternion LookAtSlow_Rotation(Transform me, Vector3 targetPos, float spd)
     {
         Vector3 tempDir = (targetPos - me.position).normalized;
         tempDir.y = 0;
@@ -109,6 +108,17 @@ public abstract class Enemy : MonoBehaviour
 
         return Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
     }
+
+    public void LookAtSlow(Transform me, Transform target, float spd)
+    {
+        Vector3 tempDir = dirToTarget;
+        tempDir.y = 0;
+
+        Quaternion angle = Quaternion.LookRotation(tempDir);
+        
+        transform.rotation = Quaternion.Lerp(me.rotation, angle, Time.deltaTime * spd);
+    }
+
 
     #region LookAt_Animation Bone
     //LateUpdate에서 써야함!!!

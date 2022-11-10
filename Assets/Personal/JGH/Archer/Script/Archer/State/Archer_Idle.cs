@@ -16,21 +16,18 @@ public class Archer_Idle : cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+		//me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
-		me.animCtrl.SetTrigger("tIdle");
+
+		//me.animCtrl.SetTrigger("tIdle");
 	}
 
 	public override void UpdateState()
 	{
-		
-
 		if (archer.CheckTargetInFov() == true)
 		{
 			archer.SetState((int)eArcherState.Bow_Equip);
 		}
-
-
 	}
 
 	public override void LateUpdateState()

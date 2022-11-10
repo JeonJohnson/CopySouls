@@ -186,6 +186,7 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
+        Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().hittedEnemyList.Clear();
         curActAtkValue = 1.0f;
         isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 10;
@@ -367,7 +368,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StopComboCheck()
     {
-        print(CurCoroCounter1 + " " + CurCoroCounter2);
+        //print(CurCoroCounter1 + " " + CurCoroCounter2);
         if (CurCoroCounter1 != CurCoroCounter2)
         {
             isComboCheck = false;
