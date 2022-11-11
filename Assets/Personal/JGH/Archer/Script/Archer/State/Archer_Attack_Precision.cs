@@ -12,8 +12,12 @@ public class Archer_Attack_Precision : cState
 	eArcherAttackMoveType moveType;
 	eArcherAttackState atkState;
 
+	//float moveRandMaxTime;
+
 	float pullTime = 5f;
 	float pullAnimSpd;
+
+	float randBackRangeOffset;
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -23,11 +27,10 @@ public class Archer_Attack_Precision : cState
 
 		archer.combatState = eCombatState.Combat;
 
-
 		moveType = archer.actTable.RandAttackMoveType();
+		randBackRangeOffset = Random.Range(0.5f, 1.5f);
 
 		pullAnimSpd = archer.actTable.CalcPullStringSpd(pullTime);
-		
 
 		atkState = eArcherAttackState.DrawArrow;
 		archer.animCtrl.SetTrigger("tAttack");
@@ -37,72 +40,36 @@ public class Archer_Attack_Precision : cState
 	{
 		archer.actTable.AttackCycle(ref atkState, pullAnimSpd);
 
-
-		if (moveType == eArcherAttackMoveType.Kiting)
+		switch (moveType)
 		{
-			if (archer.distToTarget > archer.status.atkRange)
-			{ //앞으로 걸어가야 함
-				archer.navAgent.updatePosition = true;
-				archer.navAgent.updateRotation = true;
-
-				archer.navAgent.SetDestination(archer.targetObj.transform.position);
-
-				if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Forward"))
+			case eArcherAttackMoveType.Siege:
 				{
-					archer.animCtrl.SetBool("bMoveDir", false);
+					archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
+					//archer.actTable.StartLegLayerWeightCoroutine(-2f);
 				}
-				else
+				break;
+			case eArcherAttackMoveType.Kiting:
 				{
-					archer.animCtrl.SetBool("bMoveDir", true);
+					if (archer.distToTarget > archer.status.atkRange)
+					{
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.Forward);
+					}
+					else if (archer.distToTarget <= archer.status.atkRange + randBackRangeOffset
+						&& archer.distToTarget >= archer.backwardRange + randBackRangeOffset)
+					{
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
+						//archer.actTable.StartLegLayerWeightCoroutine(-2f);
+					}
+					else if (archer.distToTarget < archer.backwardRange)
+					{
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.Backward);
+					}
 				}
-
-
-				archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-				archer.animCtrl.SetInteger("iMoveDir", 0);
-			}
-			else if (archer.distToTarget <= archer.backwardRange)
-			{ //뒤로 걸어갈 것
-			 // //archer.navAgent.updatePosition = false;
-			 // archer.navAgent.updateRotation = false;
-			 // //archer.navAgent.Move(archer.transform.forward * -Time.deltaTime * archer.status.moveSpd);
-				//Vector3 nextPos = archer.transform.position +
-					
-				//	(-archer.transform.forward * /*Time.deltaTime **/ archer.status.moveSpd);
-				//archer.navAgent.SetDestination(nextPos);
-
-				//if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
-				//{
-				//	archer.animCtrl.SetBool("bMoveDir", false);
-				//}
-				//else
-				//{
-				//	archer.animCtrl.SetBool("bMoveDir", true);
-				//}
-				//archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-				//archer.animCtrl.SetInteger("iMoveDir", 3);
-			}
-			else
-			{ //옆으로 움직이면서 간보기
-			 // //archer.navAgent.updatePosition = false;
-			 // archer.navAgent.updateRotation = false;
-				////archer.navAgent.Move(archer.transform.right * Time.deltaTime* archer.status.moveSpd);
-				//Vector3 nextPos = archer.transform.position + 
-				//	(archer.transform.right * /*Time.deltaTime **/ archer.status.moveSpd);
-				//archer.navAgent.SetDestination(nextPos);
-
-
-				//if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Right"))
-				//{
-				//	archer.animCtrl.SetBool("bMoveDir", false);
-				//}
-				//else
-				//{
-				//	archer.animCtrl.SetBool("bMoveDir", true);
-				//}
-
-				//archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-				//archer.animCtrl.SetInteger("iMoveDir", 1);
-			}
+				break;
+			case eArcherAttackMoveType.End:
+				break;
+			default:
+				break;
 		}
 	}
 

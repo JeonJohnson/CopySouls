@@ -16,6 +16,16 @@ public enum eSideDirection
 		
 }
 
+//public enum eLegState
+//{
+//	Idle,
+//	Move,
+//	Rotate_InPlace,
+//	Rotate_90,
+//	End
+//}
+
+
 //public enum eAttackState
 //{
 //	None,
@@ -31,6 +41,9 @@ public class Archer : Enemy
 	
     //weapon수정 from용석to근희
     public WoodenShortBow weapon;
+
+	//public cState[] legFsm;
+
 
 	//public Test.eStateTest testEnum = new Test.eStateTest();
 	//int[] iTestArr = 
@@ -69,11 +82,14 @@ public class Archer : Enemy
 	//public float meleeAtkRange;
 	public float backwardRange;
 
+	public bool isMove = false;
 
 	public eArcherState defaultPattern;
 	public eArcherState curState_e;
 
 
+	//[Header("legLayer Fsm")]
+	//public cState[] legFsm;
 
 
 
@@ -102,6 +118,12 @@ public class Archer : Enemy
 
 		SetState((int)defaultPattern);
 	}
+
+	//public void InitializeLegLayerState()
+	//{ 
+	//	legFsm = new cState[]	
+	
+	//}
 
 	public void SettingBonesTransform()
 	{

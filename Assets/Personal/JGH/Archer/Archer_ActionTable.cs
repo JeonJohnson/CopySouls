@@ -8,7 +8,6 @@ public enum eArcherAttackMoveType
 {
 	Siege, //가만히 서서 쏘는거
 	Kiting, //앞,뒤로 거리 조절만 하면서 쏘는거
-
 	End
 }
 
@@ -41,6 +40,9 @@ public class Archer_ActionTable : MonoBehaviour
             archer = value;
         }
     }
+
+	
+
 
 	#region Animation Events
 	public void BowEquipAnimEvent()
@@ -131,16 +133,144 @@ public class Archer_ActionTable : MonoBehaviour
 
 	}
 
-	public void MoveWhileAttack()
-	{ 
-	
+	public void MoveWhileAttack(eArcherMoveDir direction)
+	{
+		switch (direction)
+		{
+			case eArcherMoveDir.Forward:
+				{
+					archer.isMove = true;
+
+					archer.navAgent.enabled = true;
+					archer.navAgent.updatePosition = true;
+					archer.navAgent.updateRotation = true;
+
+					archer.navAgent.SetDestination(archer.targetObj.transform.position);
+
+					if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Forward"))
+					{
+						archer.animCtrl.SetBool("bMoveDir", false);
+					}
+					else
+					{
+						archer.animCtrl.SetBool("bMoveDir", true);
+					}
+
+					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+					archer.animCtrl.SetInteger("iMoveDir", 0);
+				}
+				break;
+			case eArcherMoveDir.Right:
+				break;
+			case eArcherMoveDir.Left:
+				break;
+			case eArcherMoveDir.Backward:
+				{
+					Vector3 nextPos = archer.transform.position +(-archer.dirToTarget * archer.status.moveSpd /** Time.deltaTime*/);
+
+					
+
+					if (IsCanMove(nextPos))
+					{
+						archer.isMove = true;
+
+						//archer.navAgent.enabled = false;
+						//archer.curSpd = archer.status.moveSpd;
+						archer.navAgent.updateRotation = false;
+						archer.navAgent.SetDestination(nextPos);
+						//archer.rd.MovePosition(nextPos);
+
+						if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
+						{
+							archer.animCtrl.SetBool("bMoveDir", false);
+						}
+						else
+						{
+							archer.animCtrl.SetBool("bMoveDir", true);
+						}
+						archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+						archer.animCtrl.SetInteger("iMoveDir", 3);
+					}
+				}
+				break;
+			case eArcherMoveDir.End:
+				{
+					//archer.navAgent.enabled = true;
+					archer.isMove = false;
+					archer.animCtrl.SetBool("bMoveDir", false);
+					archer.navAgent.SetDestination(archer.transform.position);
+				}
+				break;
+			default:
+				break;
+		}
+
+		
+
+
+
 	}
-	//public IEnumerator LegLayerWeightCoroutine(int amount)
-	//{
 
-	//	yield return null;
+	public bool IsCanMove(Vector3 destPos)
+	{
+		Vector3 dir = (destPos - archer.transform.position);
 
-	//}
+		//Ray ray = new Ray();
+		//ray.origin = archer.transform.position;
+		//ray.direction = dir;
+		RaycastHit hitInfo;
+
+		if (Physics.Raycast(archer.transform.position, dir, out hitInfo))
+		{
+			if (hitInfo.collider.gameObject.layer == LayerMask.GetMask("Environment"))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+
+
+	public void StartLegLayerWeightCoroutine(float spd)
+	{
+		StartCoroutine(LegLayerWeightCoroutine(spd));
+	}
+
+	public IEnumerator LegLayerWeightCoroutine(float spd)
+	{
+		float amount = archer.animCtrl.GetLayerWeight((int)eHumanoidAvatarMask.Leg);
+
+		while (true)
+		{
+			amount += spd * Time.deltaTime;
+
+			archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, amount);
+
+			if (spd > 0f)
+			{
+				if (amount >= 1f)
+				{
+					break;
+				}
+			}
+			else if ( spd < 0f)
+			{
+				if (amount <= 0f)
+				{
+					break;
+				}
+			}
+			else
+			{
+				break;
+			}
+
+			yield return null;
+		}
+	}
 
 	public void LookTargetRotate(float bodyRotSpd = 1f)
 	{//Use at LateUpdate!!!
@@ -153,19 +283,19 @@ public class Archer_ActionTable : MonoBehaviour
 		//=> 발 애니메이션이 있기에 그냥 NavMeshAgent의 rotate로 해도 딱히 안 이상함.
 		//=> 대신 이것도 각도 차이가 많이 나면 회전 애니메이션 재생함.
 
+		//archer.navAgent.updateRotation = true;
 
 		float archerAgentCurSpd = Vector3.Magnitude(archer.navAgent.velocity);
-		Debug.Log(archerAgentCurSpd);
 
 		float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, archer.dirToTarget)) * Mathf.Rad2Deg;
-		
+		//Debug.Log(angleToTarget);
 		//if (archer.navAgent.velocity != Vector3.zero)
-		if(archerAgentCurSpd > 0f)
+		if (archer.isMove)
 		{ //움직임이 있는 경우 
 			
 			//1. 얼굴만 돌리기
 			archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
-
+			archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
 			//2. 얼굴이랑 몸이랑 각도가 너무 차이 날 경우
 
 		}
@@ -174,36 +304,45 @@ public class Archer_ActionTable : MonoBehaviour
 			if (angleToTarget < 90f)
 			{
 				//차이가 90도 안일 경우
-				
+
 				//얼굴 그쪽으로 바라보면서 몸 돌리기 + 제자리 발 애니메이션
+				//HeadRotate();
 				archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
 				archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
 
 
-				LegRotateInPlace(angleToTarget);
+				LegRotateInPlaceLayerWieght(angleToTarget);
 			}
 			else
 			{
 				//차이가 90도 보다 클 경우
 
 				//animator apply root motion 키고 애니메이션 재생
-				eSideDirection dirNum = archer.TargetOnWhichSide(transform.forward,archer.dirToTarget,transform.up);
-				if (dirNum == eSideDirection.Left)
-				{
-					
-				}
-				else if (dirNum == eSideDirection.Right)
-				{ 
-				
-				}
+				//eSideDirection dirNum = archer.TargetOnWhichSide(transform.forward,archer.dirToTarget,transform.up);
+				//if (dirNum == eSideDirection.Left)
+				//{
 
+				//}
+				//else if (dirNum == eSideDirection.Right)
+				//{ 
+
+				//}
+				archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+				archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd*2);
+
+
+				LegRotateInPlaceLayerWieght(angleToTarget);
 			}
-
 		}
 	}
 
-	private void LegRotateInPlace(float angle)
+	private void LegRotateInPlaceLayerWieght(float angle)
 	{
+		if (archer.isMove)
+		{
+			return;
+		}
+
 		eSideDirection dirNum = archer.TargetOnWhichSide(transform.forward, archer.dirToTarget, transform.up);
 		string animName = "Leg_Rotate_InPlace_";
 
@@ -226,15 +365,13 @@ public class Archer_ActionTable : MonoBehaviour
 		}
 
 		archer.animCtrl.SetInteger("iRotateDir", (int)dirNum);
-		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, angle / archer.status.fovAngle);
+		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, angle / (archer.status.fovAngle *0.5f));
 	}
 
-	private void HeadRotate(float campAngle)
+	private void HeadRotate(float campAngle = 90f)
 	{ //몸의 forward랑 head의 Forward랑 내적해서 90도 이상이면 더 못 돌리도록.
-		//그 이상이 되면 몸이 돌아갸아함.
-		
-	
-	
+	  //그 이상이 되면 몸이 돌아갸아함.
+
 	}
 
 

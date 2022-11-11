@@ -1417,10 +1417,12 @@ MonoBehaviour:
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
+  DamagedCollider: {fileID: 0}
   targetObj: {fileID: 0}
   targetScript: {fileID: 0}
   distToTarget: 0
   dirToTarget: {x: 0, y: 0, z: 0}
+  HitCount: 0
   combatState: 0
   weaponEquipState: 0
   PatrolPos: []
@@ -1452,6 +1454,7 @@ MonoBehaviour:
   rightIndexFingerBoneTr: {fileID: 0}
   curSpd: 0
   backwardRange: 0
+  isMove: 0
   defaultPattern: 0
   curState_e: 0
 --- !u!195 &863259263
@@ -15608,10 +15611,12 @@ MonoBehaviour:
     isSuperArmor: 0
     isGroggy: 0
     slashCoolTime: 0
+  DamagedCollider: {fileID: 0}
   targetObj: {fileID: 0}
   targetScript: {fileID: 0}
   distToTarget: 0
   dirToTarget: {x: 0, y: 0, z: 0}
+  HitCount: 0
   combatState: 0
   weaponEquipState: 0
   PatrolPos: []
@@ -15642,7 +15647,8 @@ MonoBehaviour:
   spineBoneTr: {fileID: 0}
   rightIndexFingerBoneTr: {fileID: 0}
   curSpd: 0
-  backwardRange: 2
+  backwardRange: 3.5
+  isMove: 0
   defaultPattern: 0
   curState_e: 0
 --- !u!1 &8203273708964079402
