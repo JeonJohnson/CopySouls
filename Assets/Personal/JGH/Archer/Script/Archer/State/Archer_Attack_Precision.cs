@@ -9,15 +9,27 @@ public class Archer_Attack_Precision : cState
 {
 	Archer archer = null;
 
-	eArcherAttackMoveType moveType;
-	eArcherAttackState atkState;
+
 
 	//float moveRandMaxTime;
 
-	float pullTime = 5f;
+	float pullTime = 2f;
 	float pullAnimSpd;
 
 	float randBackRangeOffset;
+
+	public void AttackStartSetting()
+	{
+		archer.combatState = eCombatState.Combat;
+		archer.moveType = archer.actTable.RandAttackMoveType();
+		randBackRangeOffset = Random.Range(0.5f, 1.5f);
+
+		pullAnimSpd = archer.actTable.CalcPullStringSpd(pullTime);
+
+		archer.atkState = eArcherAttackState.DrawArrow;
+		archer.animCtrl.SetTrigger("tAttack");
+	}
+
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -25,27 +37,25 @@ public class Archer_Attack_Precision : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-		archer.combatState = eCombatState.Combat;
-
-		moveType = archer.actTable.RandAttackMoveType();
-		randBackRangeOffset = Random.Range(0.5f, 1.5f);
-
-		pullAnimSpd = archer.actTable.CalcPullStringSpd(pullTime);
-
-		atkState = eArcherAttackState.DrawArrow;
-		archer.animCtrl.SetTrigger("tAttack");
+		AttackStartSetting();
 	}
 
 	public override void UpdateState()
 	{
-		archer.actTable.AttackCycle(ref atkState, pullAnimSpd);
+		if (archer.actTable.AttackCycle(ref archer.atkState, pullAnimSpd))
+		{
+			AttackStartSetting();
+		}
 
-		switch (moveType)
+		//Vector3 playerMoveDir = archer.targetObj.GetComponent<PlayerLocomove>().moveDir;
+		//Debug.Log(playerMoveDir);
+
+		switch (archer.moveType)
 		{
 			case eArcherAttackMoveType.Siege:
 				{
 					archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
-					//archer.actTable.StartLegLayerWeightCoroutine(-2f);
+					archer.moveType = eArcherAttackMoveType.End;
 				}
 				break;
 			case eArcherAttackMoveType.Kiting:
@@ -58,7 +68,6 @@ public class Archer_Attack_Precision : cState
 						&& archer.distToTarget >= archer.backwardRange + randBackRangeOffset)
 					{
 						archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
-						//archer.actTable.StartLegLayerWeightCoroutine(-2f);
 					}
 					else if (archer.distToTarget < archer.backwardRange)
 					{
@@ -66,9 +75,33 @@ public class Archer_Attack_Precision : cState
 					}
 				}
 				break;
-			case eArcherAttackMoveType.End:
+
+			case eArcherAttackMoveType.Side:
+				{
+					if (archer.distToTarget > archer.status.atkRange)
+					{
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.Forward);
+					}
+					else if (archer.distToTarget <= archer.status.atkRange + randBackRangeOffset
+						&& archer.distToTarget >= archer.backwardRange + randBackRangeOffset)
+					{
+						//플레이어 움직임에 따라서로 바꿔주기?
+						//아니면 갈 수 있는곳 아닌곳 판단해서 왓다리 갔다리?
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.Right);
+					}
+					else if (archer.distToTarget < archer.backwardRange)
+					{
+						archer.actTable.MoveWhileAttack(eArcherMoveDir.Backward);
+					}
+				}
 				break;
-			default:
+
+			case eArcherAttackMoveType.End:
+				{
+
+				}
+				break;
+			 default:
 				break;
 		}
 	}

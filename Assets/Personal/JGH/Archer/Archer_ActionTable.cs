@@ -8,6 +8,7 @@ public enum eArcherAttackMoveType
 {
 	Siege, //가만히 서서 쏘는거
 	Kiting, //앞,뒤로 거리 조절만 하면서 쏘는거
+	Side,
 	End
 }
 
@@ -41,8 +42,6 @@ public class Archer_ActionTable : MonoBehaviour
         }
     }
 
-	
-
 
 	#region Animation Events
 	public void BowEquipAnimEvent()
@@ -74,20 +73,26 @@ public class Archer_ActionTable : MonoBehaviour
 
 	public eArcherAttackMoveType RandAttackMoveType()
 	{
-		//return (eArcherAttackMoveType)Random.Range((int)eArcherAttackMoveType.Siege, (int)eArcherAttackMoveType.End);
+		return (eArcherAttackMoveType)Random.Range((int)eArcherAttackMoveType.Siege, (int)eArcherAttackMoveType.Side);
 		//return eArcherAttackMoveType.Siege;
-		return eArcherAttackMoveType.Kiting;
+		//return eArcherAttackMoveType.Kiting;
 	}
 
 	public float CalcPullStringSpd(float pullingTime)
 	{
 		//pulling String Animation Max Frame = 0 ~ 111 => Total 111 Frame / About 3.7 sec
 
+		if (pullingTime <= 0f)
+		{
+			Debug.LogError("활 쏘는 애니메이션 시간이 왜 0 이하냐 수정해!!");
+		}
+
 		return 3.7f/pullingTime;
 	}
 
-	public void AttackCycle(ref  eArcherAttackState  atkState, float pullAnimSpd )
+	public bool AttackCycle(ref  eArcherAttackState  atkState, float pullAnimSpd )
 	{
+		bool returnBoolVal = false;
 		switch (atkState)
 		{
 			case eArcherAttackState.DrawArrow:
@@ -95,7 +100,6 @@ public class Archer_ActionTable : MonoBehaviour
 					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_DrawArrow"))
 					{
 						atkState = eArcherAttackState.HangArrow;
-
 					}
 				}
 				break;
@@ -120,10 +124,24 @@ public class Archer_ActionTable : MonoBehaviour
 				break;
 			case eArcherAttackState.Shoot:
 				{
-
+					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_Shoot"))
+					{
+						archer.atkRefCoolTime = Random.Range(archer.atkMinCoolTime, archer.atkMaxCoolTime);
+						archer.moveType = eArcherAttackMoveType.Side;
+						atkState = eArcherAttackState.End;
+					}
 				}
 				break;
 			case eArcherAttackState.End:
+				{
+					archer.atkCurCoolTime += Time.deltaTime;
+
+					if (archer.atkCurCoolTime >= archer.atkRefCoolTime)
+					{
+						archer.atkCurCoolTime = 0f;
+						   returnBoolVal = true;
+					}
+				}
 				break;
 			default:
 				break;
@@ -131,6 +149,7 @@ public class Archer_ActionTable : MonoBehaviour
 
 		archer.animCtrl.SetInteger("iAttackState", (int)atkState);
 
+		return returnBoolVal;
 	}
 
 	public void MoveWhileAttack(eArcherMoveDir direction)
@@ -157,40 +176,52 @@ public class Archer_ActionTable : MonoBehaviour
 					}
 
 					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-					archer.animCtrl.SetInteger("iMoveDir", 0);
+					archer.animCtrl.SetInteger("iMoveDir", (int)direction);
 				}
 				break;
 			case eArcherMoveDir.Right:
-				break;
 			case eArcherMoveDir.Left:
+				{
+					Vector3 nextPos = archer.transform.position + (archer.transform.right * (archer.status.moveSpd * 0.75f)/** Time.deltaTime*/);
+					if (direction == eArcherMoveDir.Left)
+					{ nextPos *= -1f; }
+
+					archer.isMove = true;
+
+					archer.navAgent.updateRotation = false;
+					archer.navAgent.SetDestination(nextPos);
+
+					//if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Right"))
+					//{
+						archer.animCtrl.SetBool("bMoveDir", !archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Right"));
+					//}
+					//else
+					//{
+					//	archer.animCtrl.SetBool("bMoveDir", true);
+					//}
+					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+					archer.animCtrl.SetInteger("iMoveDir", (int)direction);
+				}
 				break;
 			case eArcherMoveDir.Backward:
 				{
-					Vector3 nextPos = archer.transform.position +(-archer.dirToTarget * archer.status.moveSpd /** Time.deltaTime*/);
+					Vector3 nextPos = archer.transform.position +(-archer.dirToTarget * (archer.status.moveSpd *0.75f)/** Time.deltaTime*/);
 
-					
+					archer.isMove = true;
 
-					if (IsCanMove(nextPos))
+					archer.navAgent.updateRotation = false;
+					archer.navAgent.SetDestination(nextPos);
+
+					if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
 					{
-						archer.isMove = true;
-
-						//archer.navAgent.enabled = false;
-						//archer.curSpd = archer.status.moveSpd;
-						archer.navAgent.updateRotation = false;
-						archer.navAgent.SetDestination(nextPos);
-						//archer.rd.MovePosition(nextPos);
-
-						if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Back"))
-						{
-							archer.animCtrl.SetBool("bMoveDir", false);
-						}
-						else
-						{
-							archer.animCtrl.SetBool("bMoveDir", true);
-						}
-						archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
-						archer.animCtrl.SetInteger("iMoveDir", 3);
+						archer.animCtrl.SetBool("bMoveDir", false);
 					}
+					else
+					{
+						archer.animCtrl.SetBool("bMoveDir", true);
+					}
+					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
+					archer.animCtrl.SetInteger("iMoveDir", (int)direction);
 				}
 				break;
 			case eArcherMoveDir.End:
@@ -204,33 +235,31 @@ public class Archer_ActionTable : MonoBehaviour
 			default:
 				break;
 		}
+	}
+
+	//public bool IsCanMove(Vector3 destPos)
+	//{
 
 		
+	//	//Vector3 dir = (destPos - archer.transform.position);
 
+	//	////Ray ray = new Ray();
+	//	////ray.origin = archer.transform.position;
+	//	////ray.direction = dir;
+	//	//RaycastHit hitInfo;
 
+	//	//if (Physics.Raycast(archer.transform.position, dir, out hitInfo))
+	//	//{
+	//	//	if (hitInfo.collider.gameObject.layer == LayerMask.GetMask("Environment"))
+	//	//	{
+	//	//		return false;
+	//	//	}
+	//	//}
 
-	}
+	//	//return true;
 
-	public bool IsCanMove(Vector3 destPos)
-	{
-		Vector3 dir = (destPos - archer.transform.position);
-
-		//Ray ray = new Ray();
-		//ray.origin = archer.transform.position;
-		//ray.direction = dir;
-		RaycastHit hitInfo;
-
-		if (Physics.Raycast(archer.transform.position, dir, out hitInfo))
-		{
-			if (hitInfo.collider.gameObject.layer == LayerMask.GetMask("Environment"))
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
+		
+	//}
 
 
 
@@ -283,63 +312,63 @@ public class Archer_ActionTable : MonoBehaviour
 		//=> 발 애니메이션이 있기에 그냥 NavMeshAgent의 rotate로 해도 딱히 안 이상함.
 		//=> 대신 이것도 각도 차이가 많이 나면 회전 애니메이션 재생함.
 
-		//archer.navAgent.updateRotation = true;
+		//221111 1428 걍 다 기각하고 움직임 없을 때 머리랑 몸 다 도는걸루~
 
 		float archerAgentCurSpd = Vector3.Magnitude(archer.navAgent.velocity);
 
 		float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, archer.dirToTarget)) * Mathf.Rad2Deg;
-		//Debug.Log(angleToTarget);
-		//if (archer.navAgent.velocity != Vector3.zero)
-		if (archer.isMove)
-		{ //움직임이 있는 경우 
-			
-			//1. 얼굴만 돌리기
-			archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
-			archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
-			//2. 얼굴이랑 몸이랑 각도가 너무 차이 날 경우
 
-		}
-		else 
-		{ //움직임이 없는 경우
-			if (angleToTarget < 90f)
-			{
-				//차이가 90도 안일 경우
+		archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+		archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
+		LegRotateInPlaceLayerWieght(angleToTarget);
 
-				//얼굴 그쪽으로 바라보면서 몸 돌리기 + 제자리 발 애니메이션
-				//HeadRotate();
-				archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
-				archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
+		#region theOldThings
+		//if (!archer.isMove)
+		//{
+
+		//}
 
 
-				LegRotateInPlaceLayerWieght(angleToTarget);
-			}
-			else
-			{
-				//차이가 90도 보다 클 경우
+		//if (archer.isMove)
+		//{ //움직임이 있는 경우 
+		//	////1. 얼굴만 돌리기
+		//	////2. 얼굴이랑 몸이랑 각도가 너무 차이 날 경우
+		//	////ㄴㄴ 그냥 발만 조절해주기
+		//}
+		//else 
+		//{ //움직임이 없는 경우
+		//	if (angleToTarget < 90f)
+		//	{
+		//		//차이가 90도 안일 경우
+		//		//얼굴 그쪽으로 바라보면서 몸 돌리기 + 제자리 발 애니메이션
+		//		//HeadRotate();
+		//		LegRotateInPlaceLayerWieght(angleToTarget);
+		//	}
+		//	else
+		//	{
+		//		//차이가 90도 보다 클 경우
 
-				//animator apply root motion 키고 애니메이션 재생
-				//eSideDirection dirNum = archer.TargetOnWhichSide(transform.forward,archer.dirToTarget,transform.up);
-				//if (dirNum == eSideDirection.Left)
-				//{
-
-				//}
-				//else if (dirNum == eSideDirection.Right)
-				//{ 
-
-				//}
-				archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
-				archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd*2);
-
-
-				LegRotateInPlaceLayerWieght(angleToTarget);
-			}
-		}
+		//		//animator apply root motion 키고 애니메이션 재생
+		//		//eSideDirection dirNum = archer.TargetOnWhichSide(transform.forward,archer.dirToTarget,transform.up);
+		//		//if (dirNum == eSideDirection.Left)
+		//		//{
+		//		//}
+		//		//else if (dirNum == eSideDirection.Right)
+		//		//{ 
+		//		//}
+		//		archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+		//		archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd*2);
+		//		LegRotateInPlaceLayerWieght(angleToTarget);
+		//	}
+		//}
+		#endregion
 	}
 
 	private void LegRotateInPlaceLayerWieght(float angle)
 	{
 		if (archer.isMove)
 		{
+			archer.animCtrl.SetBool("bRotate", false);
 			return;
 		}
 
@@ -375,47 +404,46 @@ public class Archer_ActionTable : MonoBehaviour
 	}
 
 
-    public void Walk(eCombatState combatState)
-    {
-		switch (combatState)
-		{
-			case eCombatState.Idle:
-				{ 
+//    public void Walk(eCombatState combatState)
+//    {
+//		switch (combatState)
+//		{
+//			case eCombatState.Idle:
+//				{ 
 					
 
 
 				
-				}
-				break;
-			case eCombatState.Alert:
-				{
-					if (archer.distToTarget > archer.status.atkRange)
-					{
-						archer.curSpd = Random.Range(1f, archer.status.moveSpd);
-						archer.navAgent.speed = archer.curSpd;
-						archer.navAgent.SetDestination(archer.targetObj.transform.position);
-					}
-					else
-					{
-						archer.curSpd = Random.Range(1f, archer.status.moveSpd);
-						archer.navAgent.speed = archer.curSpd;
-						archer.navAgent.updateRotation = false;
-						archer.navAgent.updatePosition = false;
-						archer.navAgent.Move(-archer.dirToTarget * archer.curSpd);
-					}
-				}
-				break;
-			case eCombatState.Combat:
-				{ 
+//				}
+//				break;
+//			case eCombatState.Alert:
+//				{
+//					if (archer.distToTarget > archer.status.atkRange)
+//					{
+//						archer.curSpd = Random.Range(1f, archer.status.moveSpd);
+//						archer.navAgent.speed = archer.curSpd;
+//						archer.navAgent.SetDestination(archer.targetObj.transform.position);
+//					}
+//					else
+//					{
+//						archer.curSpd = Random.Range(1f, archer.status.moveSpd);
+//						archer.navAgent.speed = archer.curSpd;
+//						archer.navAgent.updateRotation = false;
+//						archer.navAgent.updatePosition = false;
+//						archer.navAgent.Move(-archer.dirToTarget * archer.curSpd);
+//					}
+//				}
+//				break;
+//			case eCombatState.Combat:
+//				{ 
 				
 
 
 				
-				}
-				break;
-			default:
-				break;
-		}
-
-	}
+//				}
+//				break;
+//			default:
+//				break;
+//		}
+//	}
 }

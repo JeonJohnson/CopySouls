@@ -1444,6 +1444,7 @@ MonoBehaviour:
   fovCheckLayer:
     serializedVersion: 2
     m_Bits: 0
+  targetLastTr: {fileID: 0}
   targetHeadTr: {fileID: 0}
   targetSpineTr: {fileID: 0}
   fovDir: {x: 0, y: 0, z: 0}
@@ -1452,10 +1453,16 @@ MonoBehaviour:
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}
   rightIndexFingerBoneTr: {fileID: 0}
-  curSpd: 0
   backwardRange: 0
   isMove: 0
+  atkCurCoolTime: 0
+  atkRefCoolTime: 0
+  atkMinCoolTime: 0
+  atkMaxCoolTime: 0
+  moveType: 0
+  atkState: 0
   defaultPattern: 0
+  preState_e: 0
   curState_e: 0
 --- !u!195 &863259263
 NavMeshAgent:
@@ -4741,7 +4748,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1176174010546473686}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -15638,6 +15645,7 @@ MonoBehaviour:
   fovCheckLayer:
     serializedVersion: 2
     m_Bits: 16705
+  targetLastTr: {fileID: 0}
   targetHeadTr: {fileID: 0}
   targetSpineTr: {fileID: 0}
   fovDir: {x: 0, y: 0, z: 0}
@@ -15646,11 +15654,17 @@ MonoBehaviour:
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}
   rightIndexFingerBoneTr: {fileID: 0}
-  curSpd: 0
   backwardRange: 3.5
   isMove: 0
-  defaultPattern: 0
-  curState_e: 0
+  atkCurCoolTime: 0
+  atkRefCoolTime: 0
+  atkMinCoolTime: 1
+  atkMaxCoolTime: 3
+  moveType: 0
+  atkState: 0
+  defaultPattern: 1
+  preState_e: 12
+  curState_e: 12
 --- !u!1 &8203273708964079402
 GameObject:
   m_ObjectHideFlags: 0

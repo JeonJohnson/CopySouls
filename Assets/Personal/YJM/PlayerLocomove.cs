@@ -76,9 +76,9 @@ public class PlayerLocomove : MonoBehaviour
 
 
     [HideInInspector]public bool isMove = false;
-    Vector3 moveDir;
+	public Vector3 moveDir;
 
-    public void Move()
+	public void Move()
     {
         SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

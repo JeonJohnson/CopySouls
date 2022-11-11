@@ -532,6 +532,9 @@ namespace Enums
 
     public enum eArcherState
 	{
+		Think,
+
+
 		Idle,
 		Patrol,
 

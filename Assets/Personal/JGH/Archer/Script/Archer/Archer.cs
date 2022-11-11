@@ -66,6 +66,7 @@ public class Archer : Enemy
 	public LayerMask fovCheckLayer;
 
 	[Header("About Target")]
+	public Transform targetLastTr;
 	public Transform targetHeadTr;
 	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
@@ -78,13 +79,22 @@ public class Archer : Enemy
 	public Transform rightIndexFingerBoneTr;
 
 	[Header("Other Vars")]
-	public float curSpd;
+	//public float curSpd;
 	//public float meleeAtkRange;
 	public float backwardRange;
-
 	public bool isMove = false;
+	
+	[HideInInspector] public float atkCurCoolTime;
+	//[HideInInspector]
+	public float atkRefCoolTime;
+	public float atkMinCoolTime;
+	public float atkMaxCoolTime;
+
+	public eArcherAttackMoveType moveType;
+	public eArcherAttackState atkState;
 
 	public eArcherState defaultPattern;
+	public eArcherState preState_e;
 	public eArcherState curState_e;
 
 
@@ -96,6 +106,8 @@ public class Archer : Enemy
 	public override void InitializeState()
 	{
 		fsm = new cState[(int)eArcherState.End];
+
+		fsm[(int)eArcherState.Think] = new Archer_Think();
 
 		fsm[(int)eArcherState.Idle] = new Archer_Idle();
 		fsm[(int)eArcherState.Patrol] = new Archer_Patrol();
@@ -476,7 +488,7 @@ public class Archer : Enemy
 		//	}
 		//}
 
-
+		preState_e = (eArcherState)preState_i;
 		curState_e = (eArcherState)curState_i;
 	}
 

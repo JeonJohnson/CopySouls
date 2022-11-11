@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Enums;
-public class Archer_Idle : cState
+public class Archer_Think : cState
 {
-
 	Archer archer = null;
-
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -15,25 +12,26 @@ public class Archer_Idle : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
+
+
+
 	}
 
 	public override void UpdateState()
 	{
-		if (archer.CheckTargetInFov() == true)
-		{
-			archer.SetState((int)eArcherState.Bow_Equip);
-		}
-	}
 
+
+
+	}
 	public override void LateUpdateState()
 	{
-
-
+		base.LateUpdateState();
 	}
-
+	public override void FixedUpdateState()
+	{
+		base.FixedUpdateState();
+	}
 	public override void ExitState()
 	{
 	}
-
-
 }
