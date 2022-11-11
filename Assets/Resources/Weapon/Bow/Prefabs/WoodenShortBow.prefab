@@ -391,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484512513291602}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.21823844, y: 0.29749483, z: -0.0024048486}
-  m_LocalScale: {x: 100, y: 100, z: 99.999985}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4620178347958848}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!137 &137055807757603264
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 0}
-  Type: 0
+  type: 0
   Dmg: 0
   owner: {fileID: 0}
   PlayerLayer:
@@ -769,8 +769,8 @@ MonoBehaviour:
     m_Bits: 0
   arrow: {fileID: 0}
   state: 0
-  leverTr: {fileID: 0}
-  stringTr: {fileID: 0}
+  leverTr: {fileID: 3175390870593408774}
+  stringTr: {fileID: 4429432022911190}
   animCtlr: {fileID: 0}
   pullingAnimSpd: 0
   range: 0
@@ -1044,15 +1044,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993315901191570}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.21827647, y: 0.29749483, z: 0.0010070229}
-  m_LocalScale: {x: 9.044061, y: 9.044061, z: 9.044061}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4162163098961802}
   - {fileID: 3175390870593408774}
   m_Father: {fileID: 4620178347958848}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &2072951741054205793
 GameObject:
   m_ObjectHideFlags: 0

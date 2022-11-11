@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainTitle.unity
+    guid: 1a08aaade30d8bc4fafce06d347e2d7a
+  - enabled: 1
+    path: Assets/Scenes/inGame.unity
+    guid: cef91a34d9c299b45bb52293c0ed1a3d
+  - enabled: 1
+    path: Assets/Personal/KDM/DaewonTestScene 1.unity
+    guid: 5229e8137f87ca444a453c048c32c391
+  - enabled: 1
+    path: Assets/Scenes/TestScene/GeunheeTestScene.unity
+    guid: f28d2ce7c3b10dd43bcb3ddd3bedbf5d
+  - enabled: 1
+    path: Assets/Scenes/TestScene/Jeongmin TestScene.unity
+    guid: ee98a5106958c62418815cc677f373ca
+  - enabled: 1
+    path: Assets/Scenes/TestScene/YoungSeokTestScene.unity
+    guid: 880f6cb69f58bc0488c0c73dd44741dc
   m_configObjects: {}

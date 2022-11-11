@@ -4,6 +4,16 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 
+public enum eSceneChangeTestIndex
+{
+    Title,
+    InGame,
+    Daewon,
+    Geunhee,
+    Jeongmin,
+    Youngseok,
+    End
+}
 public class GameManager : Manager<GameManager>
 {
     [Header("Manager Boxes")]
@@ -34,9 +44,11 @@ public class GameManager : Manager<GameManager>
         destroyBox.transform.SetAsFirstSibling();
     }
 
-    public void GeunHeeSceneManagersCreate()
+    public void GeunheeSceneManagersInit()
     {
-        ObjectPoolingCenter.InstantiateManager(false); ;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
         //ObjectPoolingCenter.InstantiateManagerByPrefab(objectPoolingManagerPrefab, managerBox);
     }
@@ -47,9 +59,7 @@ public class GameManager : Manager<GameManager>
         DontDestroyOnLoad(this.gameObject);
         InstantiateManagerBoxes(out managerBox, out managerBox_Destory);
 
-        //여기서 씬체크한뒤에 원하는 방식대로 하면됨.
-        GeunHeeSceneManagersCreate();
-        Cursor.lockState = CursorLockMode.Locked;
+
 
     }
 	// Start is called before the first frame update
@@ -78,6 +88,40 @@ public class GameManager : Manager<GameManager>
 
     public override void OnSceneChanged(Scene scene, LoadSceneMode mode)
     {
+		switch (scene.buildIndex)
+		{
+			case (int)eSceneChangeTestIndex.Title:
+                {
 
-    }
+                }
+				break;
+			case (int)eSceneChangeTestIndex.InGame:
+                { 
+                
+                }
+				break;
+			case (int)eSceneChangeTestIndex.Daewon:
+                { 
+                
+                }
+				break;
+			case (int)eSceneChangeTestIndex.Geunhee:
+                {
+                    GeunheeSceneManagersInit();
+                }
+				break;
+			case (int)eSceneChangeTestIndex.Jeongmin:
+                { 
+                
+                }
+				break;
+			case (int)eSceneChangeTestIndex.Youngseok:
+                { 
+                
+                }
+				break;
+			default:
+				break;
+		}
+	}
 }

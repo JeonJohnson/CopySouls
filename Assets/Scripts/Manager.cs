@@ -8,8 +8,8 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 {
 	//제네뤽 클래스
 	//C++의 템플릿 클래스 비슷한거임
-
 	private static T instance = null;
+	public bool isDontDestory;
 
 	public static T Instance
 	{
@@ -36,7 +36,6 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 
 			if (!managerObj)
 			{
-				
 				GameObject prefab = Resources.Load(Defines.managerPrfabFolderPath + typeof(T).Name) as GameObject;
 
 				if (prefab)

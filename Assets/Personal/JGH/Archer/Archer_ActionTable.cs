@@ -50,26 +50,43 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.weaponEquipState = eEquipState.Equip;
 	}
 
-	public void PullOutArrowAnimEvent()
+	public void DrawArrowAnimEvent()
 	{ //화살통에서 화살 뽑았을 때 
-		//화살 생성해야함
-	
+	  //화살 생성해야함
+		archer.arrow = ObjectPoolingCenter.Instance.LentalObj(archer.arrowName).GetComponent<CommonArrow>();
+		archer.arrow.owner = archer.gameObject;
+
+		archer.arrow.transform.SetParent(archer.rightIndexFingerBoneTr);
+		archer.arrow.transform.localPosition = Vector3.zero;
+
+		archer.arrow.rightHandTr = archer.rightHandTr;
+
+		archer.arrow.state = eArrowState.Draw;
+
+		//archer.arrow.transform.forward = archer.animCtrl.GetBoneTransform(HumanBodyBones.RightHand).right;
+		//archer.arrow.transform.localRotation = Quaternion.identity;
 	}
 
-	public void DrawArrowEndAnimEvent()
-	{ //
+	public void HookArrowAnimEvent()
+	{ //화살에 걸었을때,
+	  //이때부터 화살 걸이부분으로 forward맞춰주기
+
+		archer.arrow.state = eArrowState.Hook;
 
 	}
 	public void StartPullStringAnimEvent()
-	{ 
-		
+	{
+		archer.weapon.state = eBowState.Pull;
 	}
 
 	public void ShootArrowAnimEvent()
-	{ 
-	
+	{
+		archer.weapon.state = eBowState.Shoot;
+		archer.arrow.state = eArrowState.Shoot;
 	}
 	#endregion
+
+
 
 	public eArcherAttackMoveType RandAttackMoveType()
 	{
@@ -397,11 +414,12 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, angle / (archer.status.fovAngle *0.5f));
 	}
 
-	private void HeadRotate(float campAngle = 90f)
-	{ //몸의 forward랑 head의 Forward랑 내적해서 90도 이상이면 더 못 돌리도록.
-	  //그 이상이 되면 몸이 돌아갸아함.
-
-	}
+	//private void HeadRotate(float campAngle = 90f)
+	//{ //몸의 forward랑 head의 Forward랑 내적해서 90도 이상이면 더 못 돌리도록.
+	//  //그 이상이 되면 몸이 돌아갸아함.
+	//	int a = 2;
+	//	a = 15;
+	//}
 
 
 //    public void Walk(eCombatState combatState)

@@ -109,6 +109,11 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 		//무~~주건 밖에서 리지드바디나 뭐 트랜스폼들 초기화 시키고 보내셈
 		//아니면 반품처리함
 
+		obj.transform.position = Vector3.zero;
+		obj.transform.rotation = Quaternion.identity;
+		obj.transform.localScale = new Vector3(1f, 1f, 1f);
+
+
 		for (int i = 0; i < objBoxes.Length; ++i)
 		{
 			string realName = obj.name.Replace("(Clone)", "");
