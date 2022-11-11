@@ -84,11 +84,11 @@ public class PlayerActionTable : MonoBehaviour
     {
         yield return new WaitForSeconds(enterTime);
         Player.instance.SetPlayerMat(0);
-        player.status.isInvincible = false;
+        player.status.isInvincible = true;
         player.SetModelCollider(false);
         yield return new WaitForSeconds(exitTime);
         Player.instance.SetPlayerMat(1);
-        player.status.isInvincible = true;
+        player.status.isInvincible = false;
         player.SetModelCollider(true);
     }
 
@@ -126,6 +126,10 @@ public class PlayerActionTable : MonoBehaviour
                 {
                     TakeDamage((int)dmgStruct.dmg);
                 }
+        }
+        else if(player.status.isInvincible == true)
+        {
+            print("회피함");
         }
         else
         {
@@ -286,17 +290,14 @@ public class PlayerActionTable : MonoBehaviour
         PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock, 0.4f);
     }
 
-    public void FrontHoldAttack()
+    public bool HoldAttackCheck()
     {
-        EnableWeaponMeshCol(0);
-        Player.instance.SetState(Enums.ePlayerState.Atk);
-    }
+        //1. 적 리스트 돌아서 가장 인근한 적 확인
+        //2. 거리가 1f 이내이고,  적이 스턴인지 or 플레이어를 인식 못했는지 확인
+        //3. 각도 계산해서 30도 이내이면 거기에 맞는 앞잡/뒤잡 실행
+        bool isAct = false;
 
-    public void BackHoldAttack()
-    {
-        //플레이어 각도랑 적 각도랑 계산
-        //적이 스턴인지 or 플레이어를 인식 못했는지 확인
-        Enemy target;
+        Enemy target = null;
         float distance = float.MaxValue;
         for (int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
         {
@@ -306,14 +307,50 @@ public class PlayerActionTable : MonoBehaviour
                 target = UnitManager.Instance.allEnemyList[i];
             }
         }
-        //if(distance <= 1f && target.isStun == true)
-        //{
-        //    EnableWeaponMeshCol(0);
-        //    Player.instance.SetState(Enums.ePlayerState.Atk);
-        //    Player.instance.animator.SetTrigger("BackHoldAttack");
-        //    // 적 스크립트에서 적이 움직이지 못하게 하고 맞는 애니메이션을 재생시키는 함수 재생
-        //    // ex ) HoldAttackHit(Vector3 Playerpos)
-        //}
+        if (target != null)
+        {
+            if (distance <= 1f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            {
+                float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
+                float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
+                if(theta < 30)
+                {
+                    FrontHoldAttack();
+                    isAct = true;
+                }
+                else if(theta > 150)
+                {
+                    BackHoldAttack();
+                    isAct = true;
+                }
+                else
+                {
+                    print("각도 :" + theta + "잡기실패");
+                    isAct = true;
+                }
+            }
+        }
+        else
+        {
+            isAct = false;
+        }
+        return isAct;
+    }
+
+    public void FrontHoldAttack()
+    {
+        EnableWeaponMeshCol(0);
+        Player.instance.SetState(Enums.ePlayerState.Atk);
+        Player.instance.animator.SetTrigger("BackHoldAttack");
+        //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
+    }
+
+    public void BackHoldAttack()
+    {
+        EnableWeaponMeshCol(0);
+        Player.instance.SetState(Enums.ePlayerState.Atk);
+        Player.instance.animator.SetTrigger("BackHoldAttack");
+        //여기 적 뒤잡함수
     }
 
     float guardParam = 0;

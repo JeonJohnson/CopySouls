@@ -41,7 +41,10 @@ public class Player_Move : Player_cState
                 }
                 else
                 {
-                    PlayerActionTable.instance.WeakAttack();
+                    if (!PlayerActionTable.instance.HoldAttackCheck())
+                    {
+                        PlayerActionTable.instance.WeakAttack();
+                    }
                 }
             }
             PlayerActionTable.instance.Guard();

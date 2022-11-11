@@ -261,10 +261,17 @@ public class PlayerLocomove : MonoBehaviour
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (inputTimer >= 0f)
         {
-            if (isInput == false)
+            if(isCameraLock == false)
             {
-                SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
-                isInput = true;
+                if (isInput == false)
+                {
+                    SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
+                    isInput = true;
+                }
+            }
+            else
+            {
+                ChangeModelTrInput(); 
             }
         }
         else
