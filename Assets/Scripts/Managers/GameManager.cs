@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
-
+    [Header("Manager Boxes")]
     public GameObject managerBox;
+    public GameObject managerBox_Destory;
 
-    //public List<GameObject> managerPrefabs;
 
     public GameObject objectPoolingManagerPrefab;
     public GameObject soundManagerPrefab;
@@ -18,47 +18,39 @@ public class GameManager : Manager<GameManager>
     private static void GameInitialize()
     {    //게임시작시 호출되는 어트리뷰트
          //static 함수만 호출 가능함.
+         
+        //여기서는 GameManager만 만들도록 합시다
+
+        GameManager.InstantiateManager();
+        //InstantiateManagerByPrefabPath(Defines.managerPrfabFolderPath);
         
-        InstantiateManagerByPrefab("ManagerPrefabs/");
-        //게임 시작하면 이 함수 호출하면서 GameManager의 prefab찾아서 생성.
-
-
-        //그 이후에
-        //우리가 각 씬별 테스트 할때
-        //각 씬 별로 다르게 생성 순서, 생성 유무를 정하기
     }
-
-
-    public void CheckManagerBox()
+    public void InstantiateManagerBoxes(out GameObject box, out GameObject destroyBox)
     {
-        if (managerBox == null)
-        {
-            managerBox = new GameObject("Managers");
-        }
+        box = Funcs.CheckGameObjectExist("ManagerBox");
+        DontDestroyOnLoad(box);
 
-
-    
-    }        
+        destroyBox = Funcs.CheckGameObjectExist("ManagerBox_Destory");
+        destroyBox.transform.SetAsFirstSibling();
+    }
 
     public void GeunHeeSceneManagersCreate()
     {
-
-        ObjectPoolingCenter.InstantiateManagerByPrefab(objectPoolingManagerPrefab, managerBox);
-
-
+        ObjectPoolingCenter.InstantiateManager(false); ;
+        UnitManager.InstantiateManager(false);
+        //ObjectPoolingCenter.InstantiateManagerByPrefab(objectPoolingManagerPrefab, managerBox);
     }
 
 
     private void Awake()
 	{
         DontDestroyOnLoad(this.gameObject);
-        CheckManagerBox();
+        InstantiateManagerBoxes(out managerBox, out managerBox_Destory);
 
         //여기서 씬체크한뒤에 원하는 방식대로 하면됨.
         GeunHeeSceneManagersCreate();
-
-
         Cursor.lockState = CursorLockMode.Locked;
+
     }
 	// Start is called before the first frame update
 	void Start()
@@ -70,5 +62,22 @@ public class GameManager : Manager<GameManager>
     void Update()
     {
         
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+
+
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+    }
+
+    public override void OnSceneChanged(Scene scene, LoadSceneMode mode)
+    {
+
     }
 }

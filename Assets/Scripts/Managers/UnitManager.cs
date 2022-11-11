@@ -15,11 +15,22 @@ public class UnitManager : Manager<UnitManager>
     [Header("Player Vars")]
     [SerializeField]
     private GameObject playerPrefab;
-    [SerializeField]
     private Player playerScript;
-    public PlayerActionTable playerAT;
+    private PlayerActionTable playerActTable;
 
-    public Player GetPlayer
+	public GameObject GetPlayerObj
+    {
+        get
+        {
+            if (playerScript == null)
+            {
+                CreatePlayer();
+            }
+            return playerScript.gameObject;
+        }
+    }
+
+    public Player GetPlayerScript
     {
         get
         {
@@ -31,17 +42,31 @@ public class UnitManager : Manager<UnitManager>
         }
     }
 
+    public PlayerActionTable GetPlayerActTable
+    {
+        get
+        {
+            if (playerScript == null)
+            {
+                CreatePlayer();
+            }
+            return playerActTable;
+        }
+    }
+
     private void CreatePlayer()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObj == null && playerPrefab)
         {
+            //난중에 여기서 카메라들도 세팅해주셈
             playerObj = Instantiate(playerPrefab);
+            
         }
 
         playerScript = playerObj.GetComponent<Player>();
-        playerAT = playerScript.playerAt;
+        playerActTable = playerScript.playerAt;
     }
     //// <Player>
 
@@ -83,7 +108,7 @@ public class UnitManager : Manager<UnitManager>
             enemyDic.Add((eEnemyName)i, new List<Enemy>());
         }
 
-
+        CreatePlayer();
 
     }
     void Start()

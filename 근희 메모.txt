@@ -364,3 +364,5 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 
 16:27 2022-11-11	다시 공격하는거 + 공격 대기 중일 땐 일단 오른쪽으로도 가끔 움직임!
 	=> 화살, 활 코드 완성하고 실제로 발사 ㄱㄱ
+
+21:12 2022-11-11	Manager 클래스, ObjectPooling, UnitManager 정리

@@ -166,9 +166,10 @@ public class Archer : Enemy
 	{
 		if (weapon != null)
 		{
+
 			weapon.gameObject.SetActive(false);
 		}
-		//나중ㅇ에 풀링센터에서 가져오기
+		//나중에 풀링센터에서 가져오기
 	}
 
 

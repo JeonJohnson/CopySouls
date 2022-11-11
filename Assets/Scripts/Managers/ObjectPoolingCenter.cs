@@ -28,8 +28,13 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 		objBoxes = new GameObject[prefabs.Length];
 
 		for(int i = 0; i<prefabs.Length; ++i)
-		{ 
-			GameObject box = new GameObject(prefabs[i].name);
+		{
+			if (prefabs[i] == null)
+			{
+				continue;
+			}
+
+			GameObject box = new GameObject(prefabs[i].name + "_Box");
 			box.transform.SetParent(this.gameObject.transform);
 			objBoxes[i] = box;
 		}
@@ -42,6 +47,11 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 //		foreach (var prefab in prefabs)
 		for(int i = 0; i<prefabs.Length; ++i)
 		{
+			if (prefabs[i] == null)
+			{
+				continue;
+			}
+
 			GameObject prefab = prefabs[i];
 
 			Queue<GameObject> tempQueue = new Queue<GameObject>();
@@ -96,7 +106,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
 	public void ReturnObj(GameObject obj)
 	{
-		//무~~주건 밖에서 리지드바디나 뭐 위치 초기화 시키고 보내셈
+		//무~~주건 밖에서 리지드바디나 뭐 트랜스폼들 초기화 시키고 보내셈
 		//아니면 반품처리함
 
 		for (int i = 0; i < objBoxes.Length; ++i)

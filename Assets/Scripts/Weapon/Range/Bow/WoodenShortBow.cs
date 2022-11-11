@@ -22,9 +22,13 @@ public class WoodenShortBow : Weapon
 
     public Animator animCtlr;
     public float pullingAnimSpd;
+    
+    public float range;
+
 
     protected override void weaponInitialize()
     {
+
     }
 
     protected override void Awake()

@@ -38,8 +38,8 @@ public abstract class Weapon : MonoBehaviour
 {
     public Collider col;
     public eWeaponType Type;
-    public GameObject owner;
     public int Dmg;
+    public GameObject owner;
 
     public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;
