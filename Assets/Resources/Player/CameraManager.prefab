@@ -106,7 +106,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348691162375049623}
-  m_LocalRotation: {x: 0.29070264, y: 0, z: 0, w: 0.95681345}
+  m_LocalRotation: {x: -0.10799945, y: 0, z: 0, w: 0.994151}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -138,7 +138,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348691163088468843}
-  m_LocalRotation: {x: 0, y: -0.99981457, z: 0, w: 0.019257503}
+  m_LocalRotation: {x: 0, y: -0.9884845, z: 0, w: 0.15132219}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -175,7 +175,7 @@ MonoBehaviour:
   cameraCollisionRadius: 0.2
   cameraCollisionOffset: 0.2
   minimumCollisionOffset: 0.2
-  lookAngle: -177.79312
-  pivotAngle: 33.800056
+  lookAngle: -162.59288
+  pivotAngle: -12.40001
   cameraInputX: 0
   cameraInputY: 0
