@@ -51,6 +51,36 @@ public class CommonArrow : Weapon, IPoolingObject
         rd.velocity = Vector3.zero;
     }
 
+    private void StuckArrow(Transform tr)
+    {
+        //Transform tempTr = other.gameObject.transform;
+
+        GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("CommonArrow_Static");
+
+        staticArrow.transform.position = transform.position;
+        staticArrow.transform.rotation = transform.rotation;
+        staticArrow.transform.SetParent(tr);
+
+
+        WeaponColliderOnOff(false);
+        ResetForReturn();
+        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+    }
+
+    private void BounceArrow()
+    {
+        //GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("CommonArrow_Static");
+        //staticArrow.transform.position = transform.position;
+        //staticArrow.transform.rotation = transform.rotation;
+        //ResetForReturn();
+        //ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+
+        WeaponColliderOnOff(false);
+
+        //Funcs.Vec3_Random(-5f, 5f);
+        transform.Rotate(Funcs.Vec3_Random(-100f, 100f));
+    }
+
     protected override void weaponInitialize()
     {
         rd = GetComponent<Rigidbody>();
@@ -117,19 +147,34 @@ public class CommonArrow : Weapon, IPoolingObject
 	{
 		base.OnTriggerEnter(other);
 
+            //int tempLayerIndex = LayerMask.NameToLayer("Player");
+            //int tempLayerBit = 1 << LayerMask.GetMask("Player");
+
         if (((1 << other.gameObject.layer) & colLayer) != 0)
         {
-            //((1 << other.gameObject.layer) & includeLayers) != 0
-            Transform tempTr = other.gameObject.transform;
+            LayerMask playerLayers =
+                LayerMask.GetMask("Player_Hitbox")
+                | LayerMask.GetMask("PlayerWeapon");
+                //| LayerMask.GetMask("Player");
 
-            GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("CommonArrow_Static");
+            if (((1 << other.gameObject.layer) & playerLayers) != 0)
+            {
+                if (Player.instance.status.isGuard)
+                {
+                    float degree =
+                        Mathf.Acos(Vector3.Dot(transform.forward, -Player.instance.playerModel.transform.forward))
+                        * Mathf.Rad2Deg;
+                    //Debug.Log($"화살 방어각 : {degree}");
+                    if (degree <= 35f)
+                    {
+                        //Debug.Log("화살 튕겨나감 ㅅㄱ ㅋㅋ");
+                        BounceArrow();
+                        return;
+                    }
+                }
+            }
 
-            staticArrow.transform.position = transform.position;
-            staticArrow.transform.rotation = transform.rotation;
-            staticArrow.transform.SetParent(tempTr);
-
-            ResetForReturn();
-            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+            StuckArrow(other.gameObject.transform);
         }
     }
 }

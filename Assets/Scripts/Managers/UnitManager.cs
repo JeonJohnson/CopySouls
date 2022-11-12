@@ -77,7 +77,7 @@ public class UnitManager : Manager<UnitManager>
         cameraObj.GetComponent<CameraTest>().targetTransform = playerScript.playerModel.transform;
         playerActTable = playerScript.playerAt;
         playerScript.playerLocomove.cameraArm = cameraObj.transform.GetChild(0).gameObject.transform;
-        playerScript.playerLocomove.cameraManager = cameraPrefab.GetComponent<CameraTest>();
+        playerScript.playerLocomove.cameraManager = cameraObj.GetComponent<CameraTest>();
     }
     //// <Player>
 
