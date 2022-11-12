@@ -15,6 +15,8 @@ public class UnitManager : Manager<UnitManager>
     [Header("Player Vars")]
     [SerializeField]
     private GameObject playerPrefab;
+    [SerializeField]
+    private GameObject cameraPrefab;
     private Player playerScript;
     private PlayerActionTable playerActTable;
 
@@ -57,6 +59,7 @@ public class UnitManager : Manager<UnitManager>
     private void CreatePlayer()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject cameraObj = GameObject.FindGameObjectWithTag("CameraManager");
 
         if (playerObj == null && playerPrefab)
         {
@@ -65,8 +68,17 @@ public class UnitManager : Manager<UnitManager>
             
         }
 
+        if (cameraObj == null && cameraPrefab)
+        {
+            cameraObj = Instantiate(cameraPrefab);
+        }
+
         playerScript = playerObj.GetComponent<Player>();
         playerActTable = playerScript.playerAt;
+        playerScript.playerLocomove.cameraArm = cameraObj.transform.GetChild(0).gameObject.transform;
+        playerScript.playerLocomove.cameraManager = cameraPrefab.GetComponent<CameraTest>();
+
+        cameraPrefab.GetComponent<CameraTest>().targetTransform = playerScript.playerModel.transform;
     }
     //// <Player>
 

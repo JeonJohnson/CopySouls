@@ -22,9 +22,9 @@ public class PlayerLocomove : MonoBehaviour
     public float curSpeed = 0f;
 
     [SerializeField] GameObject playerModel;
-    [SerializeField] Transform cameraArm;
+    public Transform cameraArm;
     //[SerializeField] Transform headPos;
-    [SerializeField] CameraTest cameraManager;
+    public CameraTest cameraManager;
 
     #region singletone
     /// <singletone>    

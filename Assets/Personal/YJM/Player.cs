@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         }
         InitializeState();
         ColliderSetting();
-        status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        SetPlayerWeapon();
     }
     #endregion
 
@@ -72,7 +72,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //RigidBodySetting();
-        SetPlayerWeapon();
         shakeOnKey = GetComponent<ShakeOnKey>();
     }
 
