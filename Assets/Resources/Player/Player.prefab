@@ -197,9 +197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 0}
-  Type: 0
-  owner: {fileID: 0}
+  type: 0
   Dmg: 0
+  owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
     type: 0
     range: 0
     price: 10
+  hittedEnemyList: []
 --- !u!64 &1189113979338820137
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -340,9 +341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 0}
-  Type: 0
-  owner: {fileID: 0}
+  type: 0
   Dmg: 0
+  owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -354,6 +355,7 @@ MonoBehaviour:
     type: 0
     range: 0
     price: 5
+  hittedEnemyList: []
 --- !u!1 &7030777312299352009
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,7 +3075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModel: {fileID: 7030777313883339369}
   playerAt: {fileID: 7030777312502341704}
-  playerLocomove: {fileID: 0}
+  playerLocomove: {fileID: 7030777313930249931}
   animator: {fileID: 7030777313876229777}
   spine3Tr: {fileID: 7030777313883107055}
   headTr: {fileID: 7030777313883104995}
@@ -3123,6 +3125,7 @@ MonoBehaviour:
   cameraArm: {fileID: 0}
   cameraManager: {fileID: 0}
   isMove: 0
+  moveDir: {x: 0, y: 0, z: 0}
 --- !u!54 &7030777313930249928
 Rigidbody:
   m_ObjectHideFlags: 0

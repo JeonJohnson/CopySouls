@@ -41,7 +41,7 @@ public class PlayerLocomove : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        LinkCamera();
+        //LinkCamera();
     }
 
     #endregion
