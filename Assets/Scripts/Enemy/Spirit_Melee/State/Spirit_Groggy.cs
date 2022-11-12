@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Spirit_Groggy : cState
 {
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
         me.animCtrl.SetBool("isGroggy",true);
+        ((Spirit)me).weapon.WeaponColliderOnOff(false);
     }
 
     public override void UpdateState()
@@ -40,6 +39,12 @@ public class Spirit_Groggy : cState
             //플레이어가 잡기 시전시
             //앞잡 : getting_parried
             //뒤잡 : getting_backstabbed
+            //플레이어 잡기상태시
+
+            if (me.targetScript)
+            {
+                me.SetState((int)Enums.eSpiritState.Hold);
+            }
         }
     }
 

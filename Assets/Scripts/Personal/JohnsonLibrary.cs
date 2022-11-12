@@ -525,6 +525,7 @@ namespace Enums
         Atk,
         Damaged,
         Groggy,
+        Hold,
         Death,
         End
     }
@@ -727,9 +728,6 @@ namespace Structs
 		public GameObject attackObj;
 
         public Enums.eAttackType atkType; //가드 가능, 불가 판단할거
-		
-
-
 	}
 
 

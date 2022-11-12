@@ -309,7 +309,7 @@ public class PlayerActionTable : MonoBehaviour
         }
         if (target != null)
         {
-            if (distance <= 2f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            if (distance <= 2f && (target.status.isGroggy == true || target.combatState != eCombatState.Alert))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
@@ -318,12 +318,12 @@ public class PlayerActionTable : MonoBehaviour
 
                 if (theta < 30)
                 {
-                    FrontHoldAttack(playerFrontpos, transform.forward);
+                    FrontHoldAttack(playerFrontpos, transform.forward,target);
                     isAct = true;
                 }
                 else if(theta > 150)
                 {
-                    BackHoldAttack(playerFrontpos, -transform.forward);
+                    BackHoldAttack(playerFrontpos, -transform.forward,target);
                     isAct = true;
                 }
                 else
@@ -340,20 +340,22 @@ public class PlayerActionTable : MonoBehaviour
         return isAct;
     }
 
-    public void FrontHoldAttack(Vector3 pos, Vector3 rot)
+    public void FrontHoldAttack(Vector3 pos, Vector3 rot,Enemy target)
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("BackHoldAttack");
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
+        target.HoldTransPos_Enemy(pos,rot);
     }
 
-    public void BackHoldAttack(Vector3 pos, Vector3 rot)
+    public void BackHoldAttack(Vector3 pos, Vector3 rot,Enemy target)
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("BackHoldAttack");
         //여기 적 뒤잡함수
+        target.HoldTransPos_Enemy(pos, rot);
     }
 
     float guardParam = 0;
