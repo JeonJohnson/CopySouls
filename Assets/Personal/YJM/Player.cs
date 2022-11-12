@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         curState.UpdateState();
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            CameraShake.Instance.AddShakeEvent(this.gameObject);
+
         }
     }
 

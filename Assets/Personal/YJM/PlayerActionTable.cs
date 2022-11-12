@@ -309,24 +309,27 @@ public class PlayerActionTable : MonoBehaviour
         }
         if (target != null)
         {
-            if (distance <= 1f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            if (distance <= 1.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
-                if(theta < 30)
+
+                Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1.5f;
+
+                if (theta < 30)
                 {
-                    FrontHoldAttack();
+                    FrontHoldAttack(playerFrontpos, transform.forward);
                     isAct = true;
                 }
                 else if(theta > 150)
                 {
-                    BackHoldAttack();
+                    BackHoldAttack(playerFrontpos, -transform.forward);
                     isAct = true;
                 }
                 else
                 {
                     print("각도 :" + theta + "잡기실패");
-                    isAct = true;
+                    isAct = false;
                 }
             }
         }
@@ -337,7 +340,7 @@ public class PlayerActionTable : MonoBehaviour
         return isAct;
     }
 
-    public void FrontHoldAttack()
+    public void FrontHoldAttack(Vector3 pos, Vector3 rot)
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -345,7 +348,7 @@ public class PlayerActionTable : MonoBehaviour
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
     }
 
-    public void BackHoldAttack()
+    public void BackHoldAttack(Vector3 pos, Vector3 rot)
     {
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);

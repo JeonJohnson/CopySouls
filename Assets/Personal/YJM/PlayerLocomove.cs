@@ -59,7 +59,7 @@ public class PlayerLocomove : MonoBehaviour
         KeyInput();
         if(Input.GetKeyDown(KeyCode.U))
         {
-            PlayerActionTable.instance.BackHoldAttack();
+            //PlayerActionTable.instance.BackHoldAttack();
         }
     }
     

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
@@ -53,13 +54,58 @@ public class GameManager : Manager<GameManager>
         //ObjectPoolingCenter.InstantiateManagerByPrefab(objectPoolingManagerPrefab, managerBox);
     }
 
+    public void JeongminSceneManagersInit()
+    {
+        ObjectPoolingCenter.InstantiateManager(false);
+        UnitManager.InstantiateManager(false);
+    }
+
+    void SceneCheck(int sceneNum)
+    {
+        switch (sceneNum)
+        {
+            case (int)eSceneChangeTestIndex.Title:
+                {
+
+                }
+                break;
+            case (int)eSceneChangeTestIndex.InGame:
+                {
+
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Daewon:
+                {
+
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Geunhee:
+                {
+                    GeunheeSceneManagersInit();
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Jeongmin:
+                {
+                    JeongminSceneManagersInit();
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Youngseok:
+                {
+
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private void Awake()
 	{
         DontDestroyOnLoad(this.gameObject);
         InstantiateManagerBoxes(out managerBox, out managerBox_Destory);
 
-
+        SceneCheck(SceneManager.GetActiveScene().buildIndex);
 
     }
 	// Start is called before the first frame update
@@ -86,7 +132,7 @@ public class GameManager : Manager<GameManager>
         base.OnDisable();
     }
 
-    public override void OnSceneChanged(Scene scene, LoadSceneMode mode)
+    public override void OnSceneChanged(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
 		switch (scene.buildIndex)
 		{
