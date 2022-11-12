@@ -56,11 +56,11 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Atk] = new Spirit_Atk();
         fsm[(int)Enums.eSpiritState.Damaged] = new Spirit_Damaged();
         fsm[(int)Enums.eSpiritState.Groggy] = new Spirit_Groggy();
+        fsm[(int)Enums.eSpiritState.Hold] = new Spirit_Hold();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
 
         SetState((int)Enums.eSpiritState.Idle);
 	}
-
 	protected override void Awake()
     {
         base.Awake();

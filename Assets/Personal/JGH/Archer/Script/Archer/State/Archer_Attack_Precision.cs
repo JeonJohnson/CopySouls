@@ -77,7 +77,7 @@ public class Archer_Attack_Precision : cState
 				}
 				break;
 
-			case eArcherAttackMoveType.Side:
+			case eArcherAttackMoveType.AllDir:
 				{
 					if (archer.distToTarget > archer.status.atkRange)
 					{
