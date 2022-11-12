@@ -71,8 +71,11 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
-
-
+    public void HoldTransPos_Enemy(Vector3 pos,Vector3 rot)
+    {
+        transform.position = pos;
+        transform.rotation = Quaternion.Euler(rot);
+    }
 
     public void ResetAllAnimTrigger(string[] triggerStrArr)
     {

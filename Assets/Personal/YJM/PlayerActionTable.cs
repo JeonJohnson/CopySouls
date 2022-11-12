@@ -292,6 +292,9 @@ public class PlayerActionTable : MonoBehaviour
 
     public bool HoldAttackCheck()
     {
+        CurCoroCounter2 = CurCoroCounter1;
+        isComboCheck = false;
+
         //1. 적 리스트 돌아서 가장 인근한 적 확인
         //2. 거리가 2f 이내이고,  적이 스턴인지 or 플레이어를 인식 못했는지 확인
         //3. 각도 계산해서 30도 이내이면 거기에 맞는 앞잡/뒤잡 실행
@@ -304,26 +307,27 @@ public class PlayerActionTable : MonoBehaviour
             if (Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position) < distance)
             {
                 distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
+                print(distance);
                 target = UnitManager.Instance.allEnemyList[i];
             }
         }
         if (target != null)
         {
-            if (distance <= 2f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
                 Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1.5f;
 
-                if (theta < 30)
+                if (theta < 90)
                 {
-                    FrontHoldAttack(playerFrontpos, transform.forward);
+                    FrontHoldAttack(playerFrontpos, transform.forward,target);
                     isAct = true;
                 }
-                else if(theta > 150)
+                else if(theta >= 90)
                 {
-                    BackHoldAttack(playerFrontpos, -transform.forward);
+                    BackHoldAttack(playerFrontpos, -transform.forward,target);
                     isAct = true;
                 }
                 else
@@ -340,20 +344,34 @@ public class PlayerActionTable : MonoBehaviour
         return isAct;
     }
 
-    public void FrontHoldAttack(Vector3 pos, Vector3 rot)
+    public void FrontHoldAttack(Vector3 pos, Vector3 rot , Enemy enemy)
     {
+        Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("BackHoldAttack");
+        DamagedStruct dmgStruct = new DamagedStruct();
+        dmgStruct.isRiposte = true;
+        dmgStruct.attackObj = Player.instance.gameObject;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 10;
+        enemy.Hit(dmgStruct);
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
+        target.HoldTransPos_Enemy(pos,rot);
     }
 
-    public void BackHoldAttack(Vector3 pos, Vector3 rot)
+    public void BackHoldAttack(Vector3 pos, Vector3 rot, Enemy enemy)
     {
+        Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
         Player.instance.animator.SetTrigger("BackHoldAttack");
+        DamagedStruct dmgStruct = new DamagedStruct();
+        dmgStruct.isBackstab = true;
+        dmgStruct.attackObj = Player.instance.gameObject;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 15;
+        enemy.Hit(dmgStruct);
         //여기 적 뒤잡함수
+        target.HoldTransPos_Enemy(pos, rot);
     }
 
     float guardParam = 0;

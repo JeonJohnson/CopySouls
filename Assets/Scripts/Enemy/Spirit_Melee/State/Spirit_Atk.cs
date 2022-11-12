@@ -24,6 +24,9 @@ public class Spirit_Atk : cState
         me.animCtrl.SetBool("isAtk", true);
     }
 
+    //앞잡시 배찔리는거
+    //뒤잡시 등찔리고 앞으로 넘어짐
+
     public override void UpdateState()
     {
         if (((Spirit)me).weapon == null) return;
@@ -55,6 +58,8 @@ public class Spirit_Atk : cState
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;
+
+
         ((Spirit)me).weapon.ReturnWeaponPos();
     }
 

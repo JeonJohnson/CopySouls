@@ -5,10 +5,7 @@ using UnityEngine;
 
 using Structs;
 
-
 //몬스터 연속딜 차단
-
-
 
 //쉴드는 일단 맨들때 배제
 public enum eWeaponType
@@ -108,10 +105,6 @@ public abstract class Weapon : MonoBehaviour
     // 데미지 주고받기
     public void Att(GameObject HittedObj)
     {
-
-        //owner : 적
-        //HittedObj : 플레이어
-
         //맞은 놈 : player
         if (HittedObj.transform.root.GetComponent<Player>() != null)
         {
