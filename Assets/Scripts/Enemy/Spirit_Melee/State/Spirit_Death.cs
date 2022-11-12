@@ -12,6 +12,9 @@ public enum DeathPattern
 public class Spirit_Death : cState
 {
     public int DeathIndex;
+    public bool Complete_Ani;
+    public float timer;
+    public float existTime = 3f;
 
     public override void EnterState(Enemy script)
     {
@@ -19,28 +22,28 @@ public class Spirit_Death : cState
         me.status.isDead = true;
         DeathIndex = Random.Range((int)DeathPattern.Front, (int)DeathPattern.End);
         me.animCtrl.SetBool("isDeath", true);
+        me.animCtrl.SetFloat("AttIndex", DeathIndex);
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
     }
 
-    //애니메이션 재생안됨!!
     public override void UpdateState()
     {
-        if(me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+        if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
-            me.animCtrl.SetFloat("AttIndex", DeathIndex);
-            Debug.Log("Death애니메이션이 맞으면 , " + DeathIndex);
-            Debug.Log(me.animCtrl.GetCurrentAnimatorStateInfo(0).normalizedTime);
-
             if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 0.5f))
             {
-                Debug.Log("해당 애니메이션 절반 진행 후");
-                Debug.Log("렉돌로 체인지");
-                //me.animCtrl.enabled = false;
+                ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
+                ((Spirit)me).ChangeToRagDoll();
+                Complete_Ani = true;
             }
         }
-
-        //me.gameObject.SetActive(false);
+        if (Complete_Ani)
+        {
+            //me.animCtrl.enabled = false;
+            timer += Time.deltaTime;
+            if (timer >= existTime) me.gameObject.SetActive(false);
+        }
     }
     public override void ExitState()
     {

@@ -724,7 +724,7 @@ namespace Structs
 		public Vector3 dmgDir;
 		public GameObject attackObj;
 
-		public Enums.eAttackType atkType; //가드 가능, 불가 판단할거
+        public Enums.eAttackType atkType; //가드 가능, 불가 판단할거
 		
 
 
