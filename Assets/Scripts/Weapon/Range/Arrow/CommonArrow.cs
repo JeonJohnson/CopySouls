@@ -16,20 +16,39 @@ public class CommonArrow : Weapon, IPoolingObject
 
     public eArrowState state = eArrowState.Draw;
 
+    public LayerMask colLayer;
+
+    public float aliveTime;
     public float spd;
     public float maxRange;
     [HideInInspector] public float mileage = 0f;
+
+    public Transform arrowHeadTr;
 
     public Transform rightHandTr;
     public Transform bowLeverTr;
 
     public Transform targetTr;
-    //public Vector3 hookDir;
-    public Vector3 shootDir;
+	//public Vector3 hookDir;
+
+	public IEnumerator AliveCoroutine()
+	{
+        yield return new WaitForSeconds(aliveTime);
+
+        ResetForReturn();
+        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+	}
+
+	public void LookTarget()
+    {
+        transform.LookAt(targetTr.position);
+        //Debug.Log(targetTr.position);
+    }
 
     public void ResetForReturn()
     {
 
+        rd.velocity = Vector3.zero;
     }
 
     protected override void weaponInitialize()
@@ -89,9 +108,28 @@ public class CommonArrow : Weapon, IPoolingObject
         base.FixedUpdate();
 
         if (state == eArrowState.Shoot)
-        { 
-            
+        {
+            rd.MovePosition(transform.position + (transform.forward * Time.deltaTime * spd));
         }
     }
 
+	public override void OnTriggerEnter(Collider other)
+	{
+		base.OnTriggerEnter(other);
+
+        if (((1 << other.gameObject.layer) & colLayer) != 0)
+        {
+            //((1 << other.gameObject.layer) & includeLayers) != 0
+            Transform tempTr = other.gameObject.transform;
+
+            GameObject staticArrow = ObjectPoolingCenter.Instance.LentalObj("CommonArrow_Static");
+
+            staticArrow.transform.position = transform.position;
+            staticArrow.transform.rotation = transform.rotation;
+            staticArrow.transform.SetParent(tempTr);
+
+            ResetForReturn();
+            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+        }
+    }
 }

@@ -73,10 +73,15 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
 		//List<GameObject> tempList = prefabs.ToList();
 		//GameObject prefab = tempList.Find(x => x.name == objName);
-
+		string boxName = objName + "_Box";
 		for (int i = 0; i < objBoxes.Length; ++i)
 		{
-			if (objBoxes[i].name == objName)
+			if (objBoxes[i] == null)
+			{
+				continue;
+			}
+
+			if (objBoxes[i].name.Equals(boxName))
 			{
 				GameObject newObj = Instantiate(prefabs[i], objBoxes[i].transform);
 				newObj.SetActive(false);
@@ -111,15 +116,20 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
 		obj.transform.position = Vector3.zero;
 		obj.transform.rotation = Quaternion.identity;
-		obj.transform.localScale = new Vector3(1f, 1f, 1f);
-
+		//obj.transform.localScale = new Vector3(1f, 1f, 1f);
+		
+		string realName = obj.name.Replace("(Clone)", string.Empty);
+		var tempPair = poolingObjDic.FirstOrDefault(t => t.Key == realName);
+		string boxName = realName + "_Box";
 
 		for (int i = 0; i < objBoxes.Length; ++i)
 		{
-			string realName = obj.name.Replace("(Clone)", "");
-			var tempPair = poolingObjDic.FirstOrDefault(t => t.Key == realName);
+			if (objBoxes[i] == null)
+			{
+				continue;
+			}
 
-			if (objBoxes[i].name == realName)
+			if (objBoxes[i].name.Equals(boxName))
 			{
 				obj.transform.SetParent(objBoxes[i].transform);
 				obj.SetActive(false);
