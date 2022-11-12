@@ -16,7 +16,7 @@ public class Archer_Attack_Rushed : cState
 	{
 		archer.combatState = eCombatState.Combat;
 
-		pullAnimSpd = archer.actTable.CalcPullStringSpd(0.25f);
+		pullAnimSpd = archer.actTable.CalcOwnerPullStringSpd(0.25f);
 
 		atkState = eArcherAttackState.DrawArrow;
 		archer.animCtrl.SetTrigger("tAttack");

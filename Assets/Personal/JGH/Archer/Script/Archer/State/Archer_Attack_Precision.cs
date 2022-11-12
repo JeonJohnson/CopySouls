@@ -24,7 +24,8 @@ public class Archer_Attack_Precision : cState
 		archer.moveType = archer.actTable.RandAttackMoveType();
 		randBackRangeOffset = Random.Range(0.5f, 1.5f);
 
-		pullAnimSpd = archer.actTable.CalcPullStringSpd(pullTime);
+		pullAnimSpd = archer.actTable.CalcOwnerPullStringSpd(pullTime);
+		archer.actTable.bowPullingAnimSpd = archer.actTable.CalcBowPullStringSpd(pullTime);
 
 		archer.atkState = eArcherAttackState.DrawArrow;
 		archer.animCtrl.SetTrigger("tAttack");

@@ -21,8 +21,11 @@ public class CommonArrow : Weapon, IPoolingObject
     [HideInInspector] public float mileage = 0f;
 
     public Transform rightHandTr;
+    public Transform bowLeverTr;
 
-    public Vector3 dir;
+    public Transform targetTr;
+    //public Vector3 hookDir;
+    public Vector3 shootDir;
 
     public void ResetForReturn()
     {
@@ -51,18 +54,19 @@ public class CommonArrow : Weapon, IPoolingObject
 		switch (state)
 		{
 			case eArrowState.Draw:
-                { 
-                
+                {
+                    transform.forward = rightHandTr.right;
+                    transform.localPosition = Vector3.zero;
                 }
 				break;
 			case eArrowState.Hook:
-                { 
-                
+                {
+                    transform.forward = bowLeverTr.forward;
                 }
 				break;
 			case eArrowState.Shoot:
                 { 
-                
+                    
                 }
 				break;
 			case eArrowState.End:
@@ -74,20 +78,20 @@ public class CommonArrow : Weapon, IPoolingObject
 				break;
 		}
 
-		if (rightHandTr)
-        { 
-            transform.forward = rightHandTr.right;
-            transform.localPosition = Vector3.zero;
-        }
+    }
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (state == eArrowState.Shoot)
+        { 
+            
+        }
     }
 
-    protected override void LateUpdate()
-    {
-        base.LateUpdate();
-    }
 }

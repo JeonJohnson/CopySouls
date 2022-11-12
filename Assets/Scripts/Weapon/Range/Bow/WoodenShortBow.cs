@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum eBowState
 { 
     Idle,
-    //Hook, //È­»ì ½ÃÀ§¿¡ °É¾úÀ» ¶§
-    Pull, //È° ½ÃÀ§ ´ç±â´Â Áß
-    //Full, //½ÃÀ§ ´Ù ´ç°åÀ» ¶§
-    Shoot, //È° ½ÃÀ§ ³õ¾ÒÀ» ¶§
+    Hook, //í™”ì‚´ ì‹œìœ„ì— ê±¸ì—ˆì„ ë•Œ
+    Pull, //í™œ ì‹œìœ„ ë‹¹ê¸°ëŠ” ì¤‘
+    //Full, //ì‹œìœ„ ë‹¤ ë‹¹ê²¼ì„ ë•Œ
+    Shoot, //í™œ ì‹œìœ„ ë†“ì•˜ì„ ë•Œ
     End
 }
 	
@@ -20,10 +20,14 @@ public class WoodenShortBow : Weapon, IPoolingObject
 
     public Animator animCtlr;
     public float pullingAnimSpd;
+
+    
+    public Transform ownerRightIndexFingerTr;
     
     public Transform leverTr;
     public Transform stringTr;
 
+    public Vector3 hookDir;
     
 
     public void ResetForReturn()
@@ -54,26 +58,74 @@ public class WoodenShortBow : Weapon, IPoolingObject
 		switch (state)
 		{
 			case eBowState.Idle:
+                { 
+                
+                }
 				break;
-			case eBowState.Pull:
+            case eBowState.Hook:
+                {
+
+                }
+                break;
+            case eBowState.Pull:
+                { 
+                    
+                }
 				break;
 			case eBowState.Shoot:
+                { 
+                
+                }
 				break;
 			case eBowState.End:
+                { 
+                
+                }
 				break;
 			default:
 				break;
 		}
 	}
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
 
     protected override void LateUpdate()
     {
         base.LateUpdate();
+
+        switch (state)
+        {
+            case eBowState.Idle:
+                {
+
+                }
+                break;
+            case eBowState.Hook:
+                {
+                    stringTr.position = ownerRightIndexFingerTr.position;
+                }
+                break;
+            case eBowState.Pull:
+                {
+                    stringTr.position = ownerRightIndexFingerTr.position;
+                }
+                break;
+            case eBowState.Shoot:
+                {
+
+                }
+                break;
+            case eBowState.End:
+                {
+
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
 

@@ -167,9 +167,11 @@ public class Archer : Enemy
 				weapon = obj.GetComponent<WoodenShortBow>();
 			}
 			weapon.owner = gameObject;
+			weapon.ownerRightIndexFingerTr = rightIndexFingerBoneTr;
+
 
 			weapon.transform.SetParent(leftHandTr);
-			weapon.transform.localPosition = new Vector3(-6.5f, -2.5f, -1f);
+			weapon.transform.localPosition = new Vector3(16.4f, -7f, -25.3f);
 			//new Vector3(16.4f, -7f, -25.3f) //new Vector3(-6.5f, -2.5f, -1f)
 			weapon.transform.localRotation = Quaternion.Euler(new Vector3(280f, 90f, 80f));
 

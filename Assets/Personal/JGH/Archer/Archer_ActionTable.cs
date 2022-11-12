@@ -43,6 +43,8 @@ public class Archer_ActionTable : MonoBehaviour
     }
 
 
+	public float bowPullingAnimSpd;
+
 	#region Animation Events
 	public void BowEquipAnimEvent()
 	{
@@ -60,6 +62,7 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.arrow.transform.localPosition = Vector3.zero;
 
 		archer.arrow.rightHandTr = archer.rightHandTr;
+		archer.arrow.bowLeverTr = archer.weapon.leverTr;
 
 		archer.arrow.state = eArrowState.Draw;
 
@@ -70,19 +73,27 @@ public class Archer_ActionTable : MonoBehaviour
 	public void HookArrowAnimEvent()
 	{ //화살에 걸었을때,
 	  //이때부터 화살 걸이부분으로 forward맞춰주기
-
+		archer.weapon.state = eBowState.Hook;
 		archer.arrow.state = eArrowState.Hook;
 
+
+		//x: 0.21823844, y: 0.29749483, z: -0.0024048486
 	}
+
 	public void StartPullStringAnimEvent()
 	{
 		archer.weapon.state = eBowState.Pull;
+
+		archer.weapon.animCtlr.SetTrigger("tPull");
+		archer.weapon.animCtlr.SetFloat("fPullSpd", bowPullingAnimSpd);
 	}
 
 	public void ShootArrowAnimEvent()
 	{
 		archer.weapon.state = eBowState.Shoot;
 		archer.arrow.state = eArrowState.Shoot;
+
+		archer.weapon.animCtlr.SetTrigger("tReturn");
 	}
 	#endregion
 
@@ -95,7 +106,7 @@ public class Archer_ActionTable : MonoBehaviour
 		//return eArcherAttackMoveType.Kiting;
 	}
 
-	public float CalcPullStringSpd(float pullingTime)
+	public float CalcOwnerPullStringSpd(float pullingTime)
 	{
 		//pulling String Animation Max Frame = 0 ~ 111 => Total 111 Frame / About 3.7 sec
 
@@ -105,6 +116,11 @@ public class Archer_ActionTable : MonoBehaviour
 		}
 
 		return 3.7f/pullingTime;
+	}
+
+	public float CalcBowPullStringSpd(float pullingTime)
+	{
+		return 0.3f / pullingTime;
 	}
 
 	public bool AttackCycle(ref  eArcherAttackState  atkState, float pullAnimSpd )
