@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Spirit_Groggy : cState
 {
     public override void EnterState(Enemy script)
@@ -36,7 +38,8 @@ public class Spirit_Groggy : cState
         {
             //스턴중
             //플레이어가 잡기 시전시
-
+            //앞잡 : getting_parried
+            //뒤잡 : getting_backstabbed
         }
     }
 

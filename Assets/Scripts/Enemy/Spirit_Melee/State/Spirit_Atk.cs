@@ -30,7 +30,6 @@ public class Spirit_Atk : cState
         if (((Spirit)me).atting) ((Spirit)me).weapon.WeaponColliderOnOff(true);
         else ((Spirit)me).weapon.WeaponColliderOnOff(false);
 
-
         if (!((Spirit)me).complete_Atk)
         {
             if(me.status.isGroggy) me.SetState((int)Enums.eSpiritState.Groggy);
@@ -47,6 +46,8 @@ public class Spirit_Atk : cState
             }
             else me.SetState((int)Enums.eSpiritState.Unequipt);
         }
+
+
     }
 
     public override void ExitState()

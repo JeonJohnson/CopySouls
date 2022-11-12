@@ -9,6 +9,11 @@ using Enums;
 
 public class Spirit : Enemy
 {
+    public GameObject model;
+    public GameObject ragdollModel;
+    public GameObject remainderWeapon;
+    //public GameObject ragDoll_MiddleSpine;
+
     public Spirit_Weapon weapon;
     //enemy -> player (Att)레이어
     public LayerMask player_Hitbox;
@@ -33,7 +38,7 @@ public class Spirit : Enemy
     public bool complete_Groggy;
     public bool isEquipt;
     public bool atting;
-    public bool existRemainder;
+    public bool existRemainderWeapon;
     public bool preChangeWeaponPos;
 
     //step
@@ -70,7 +75,7 @@ public class Spirit : Enemy
     {
         base.Start();
         targetObj = GameObject.Find("Player");
-        
+        if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
     }
@@ -124,6 +129,36 @@ public class Spirit : Enemy
             if (weaponEquipState == eEquipState.UnEquip) SetState((int)Enums.eSpiritState.Idle);
         }
     }
+
+    //=============================================================================
+    // 렉돌교체함수
+    //=============================================================================
+    public void ChangeToRagDoll()
+    {
+        if(model.activeSelf)
+        {
+            CopyCharacterTransfoemRoRagdoll(model.transform, ragdollModel.transform);
+            model.SetActive(false);
+            ragdollModel.SetActive(true);
+        }
+    }
+
+    private void CopyCharacterTransfoemRoRagdoll(Transform origin, Transform ragdoll)
+    {
+        for(int i = 0; i < origin.childCount; i++)
+        {
+            if(origin.childCount != 0)
+            {
+                CopyCharacterTransfoemRoRagdoll(origin.GetChild(i), ragdoll.GetChild(i));
+            }
+            ragdoll.GetChild(i).localPosition = origin.GetChild(i).localPosition;
+            ragdoll.GetChild(i).localRotation = origin.GetChild(i).localRotation;
+        }
+    }
+
+    //=============================================================================
+
+
     //=============================================================================
     // MaterialChange함수
     //=============================================================================
@@ -141,12 +176,12 @@ public class Spirit : Enemy
 
     public void CreateRemainderWeapon(Transform trans)
     {
-        if (!existRemainder)
+        if (!existRemainderWeapon)
         {
-            existRemainder = true;
-            //GameObject obj = Instantiate(remainderWeapon);
-            //obj.transform.position = trans.position;
-            //obj.transform.rotation = trans.rotation;
+            existRemainderWeapon = true;
+            GameObject obj = Instantiate(remainderWeapon);
+            obj.transform.position = trans.position;
+            obj.transform.rotation = trans.rotation;
         }
         else return;
     }

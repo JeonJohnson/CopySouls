@@ -53,7 +53,7 @@ public abstract class Weapon : MonoBehaviour
     {
         weaponInitialize();
         col = GetComponent<Collider>();
-        PlayerLayer = LayerMask.GetMask("Player_Hit");
+        PlayerLayer = LayerMask.GetMask("Player_Hitbox");
         EnemyLayer = LayerMask.GetMask("Enemy");
     }
 
@@ -106,24 +106,28 @@ public abstract class Weapon : MonoBehaviour
 
     //===============================================================================================================================
     // 데미지 주고받기
-    public void Att(GameObject other)
+    public void Att(GameObject HittedObj)
     {
+
+        //owner : 적
+        //HittedObj : 플레이어
+
         //맞은 놈 : player
-        if(other.transform.root.GetComponent<Player>() != null)
+        if (HittedObj.transform.root.GetComponent<Player>() != null)
         {
             Structs.DamagedStruct dmgStruct = new DamagedStruct();
 
             dmgStruct.dmg = Dmg;
             dmgStruct.attackObj = owner;
 
-            PlayerActionTable temp = other.transform.root.GetComponent<Player>().playerAt;
+            PlayerActionTable temp = HittedObj.transform.root.GetComponent<Player>().playerAt;
 
             if (temp != null)
             {
                 if(Player.instance.status.isParrying == true)
                 {
-                    //적이 스턴되는 함수
-                    //->패딩
+                    ParryingToEnemy(owner.GetComponent<Enemy>());
+                    Debug.Log("Payying");
                 }
                 else
                 {
@@ -133,14 +137,12 @@ public abstract class Weapon : MonoBehaviour
             }
         }
 
-
-
         //맞은 놈 : enemy 
-        else if (other.GetComponent<Enemy>() != null)
+        else if (HittedObj.GetComponent<Enemy>() != null)
         {
-            if (!other.GetComponent<Enemy>().status.isDead)
+            if (!HittedObj.GetComponent<Enemy>().status.isDead)
             {
-                other.GetComponent<Enemy>().status.curHp -= Dmg;
+                HittedObj.GetComponent<Enemy>().status.curHp -= Dmg;
             }
             else
             {
@@ -149,6 +151,22 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+    //===============================================================================================================================
+
+    //===============================================================================================================================
+    // ParryingToSpirit
+    //===============================================================================================================================
+    public void ParryingToEnemy(Enemy enemy)
+    {
+        if (enemy == null) return;
+        if (enemy.GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk)
+        {
+            if (enemy.GetComponent<Spirit>().atting && !enemy.GetComponent<Spirit>().status.isGroggy)
+            {
+                enemy.GetComponent<Spirit>().status.isGroggy = true;
+            }
+        }
+    }
     //===============================================================================================================================
 
 
