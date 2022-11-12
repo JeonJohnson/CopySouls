@@ -22,6 +22,11 @@ public class Spirit_Patrol : cState
 
     public override void UpdateState()
     {
+        if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
         if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         else
         {
@@ -31,11 +36,13 @@ public class Spirit_Patrol : cState
                 me.MoveStop();
                 me.animCtrl.SetBool("isWalk", false);
             }
-
             else isArrival = false;
         }
         if (isArrival) me.SetState((int)Enums.eSpiritState.Idle);
-        else Spirit_PatrolMoveOder();
+        else
+        {
+            Spirit_PatrolMoveOder();
+        }
     }
 
     public void Spirit_PatrolMoveOder()

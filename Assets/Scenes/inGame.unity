@@ -1914,7 +1914,11 @@ PrefabInstance:
       objectReference: {fileID: 331914013}
     - target: {fileID: 5626568017820261395, guid: ed116c37d5efa24458ccc979f286991c, type: 3}
       propertyPath: status.curHp
-      value: 10
+      value: 10000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5626568017820261395, guid: ed116c37d5efa24458ccc979f286991c, type: 3}
+      propertyPath: status.maxHp
+      value: 10000000
       objectReference: {fileID: 0}
     - target: {fileID: 5626568017820261395, guid: ed116c37d5efa24458ccc979f286991c, type: 3}
       propertyPath: remainderWeapon

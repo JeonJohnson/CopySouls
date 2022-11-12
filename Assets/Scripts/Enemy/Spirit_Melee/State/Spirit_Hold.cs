@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Spirit_Hold : cState
 {
+    public bool complete_Hold;
 
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        Debug.Log("잡기!!");
         me.animCtrl.SetBool("isHold", true);
-        //데미지 주기
-        //앞잡 뒤잡 결정하기
-        me.animCtrl.SetFloat("AttIndex", 1);
+        if (me.status.isBackHold) me.animCtrl.SetFloat("AttIndex", 0);
+        else if (me.status.isFrontHold) me.animCtrl.SetFloat("AttIndex", 1);
     }
 
     public override void UpdateState()
@@ -22,7 +23,61 @@ public class Spirit_Hold : cState
             {
                 if(me.animCtrl.GetBool("isHold"))
                 {
-                    me.animCtrl.SetBool("isHold", true);
+                    me.animCtrl.SetBool("isHold", false);
+                    complete_Hold = true;
+                }
+            }
+        }
+
+        if (!me.animCtrl.GetBool("isHold"))
+        {
+            if (me.status.isDead)
+            {
+                me.SetState((int)Enums.eSpiritState.Death);
+            }
+            else
+            {
+                me.animCtrl.SetBool("isGetUp",true);
+            }
+        }
+
+        if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("GetUp"))
+        {
+            if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 1f))
+            {
+                if (me.animCtrl.GetBool("isGetUp"))
+                {
+                    me.animCtrl.SetBool("isGetUp", false);
+                }
+            }
+        }
+
+        if (complete_Hold && !me.animCtrl.GetBool("isGetUp"))
+        {
+            if (me.weaponEquipState == eEquipState.Equip)
+            {
+                if (me.distToTarget <= me.status.atkRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Atk);
+                }
+                else if (me.distToTarget > me.status.atkRange && me.distToTarget <= me.status.ricognitionRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Trace);
+                }
+                else
+                {
+                    me.SetState((int)Enums.eSpiritState.Unequipt);
+                }
+            }
+            else
+            {
+                if (me.distToTarget <= me.status.ricognitionRange)
+                {
+                    me.SetState((int)Enums.eSpiritState.Equipt);
+                }
+                else
+                {
+                    me.SetState((int)Enums.eSpiritState.Unequipt);
                 }
             }
         }
@@ -30,5 +85,8 @@ public class Spirit_Hold : cState
 
     public override void ExitState()
     {
+        me.status.isBackHold = false;
+        me.status.isFrontHold = false;
+        complete_Hold = false;
     }
 }

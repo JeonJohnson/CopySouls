@@ -35,7 +35,8 @@ public class Spirit_Atk : cState
 
         if (!((Spirit)me).complete_Atk)
         {
-            if(me.status.isGroggy) me.SetState((int)Enums.eSpiritState.Groggy);
+            stop(CurPattern);
+            if (me.status.isGroggy) me.SetState((int)Enums.eSpiritState.Groggy);
             else Play(CurPattern);
         }
         else if(((Spirit)me).complete_Atk)
@@ -55,6 +56,7 @@ public class Spirit_Atk : cState
 
     public override void ExitState()
     {
+        
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;

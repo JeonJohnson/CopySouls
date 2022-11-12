@@ -27,6 +27,13 @@ public class Spirit_Unequipt : cState
                 me.SetState((int)Enums.eSpiritState.Idle);
             }
         }
+        else
+        {
+            if (me.status.isBackHold)
+            {
+                me.SetState((int)Enums.eSpiritState.Hold);
+            }
+        }
     }
 
     public override void ExitState()

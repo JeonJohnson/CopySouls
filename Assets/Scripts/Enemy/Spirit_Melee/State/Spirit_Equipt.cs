@@ -12,6 +12,7 @@ public class Spirit_Equipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        Debug.Log("¿Â∫Ò!!");
         me.MoveStop();
         ((Spirit)me).isEquipt = true;
         me.weaponEquipState = eEquipState.Equip;
@@ -40,6 +41,10 @@ public class Spirit_Equipt : cState
         }
         else
         {
+            if (me.status.isBackHold)
+            {
+                me.SetState((int)Enums.eSpiritState.Hold);
+            }
         }
     }
 

@@ -23,6 +23,11 @@ public class Spirit_Idle : cState
             curTime = 0;
             me.SetState((int)Enums.eSpiritState.Patrol);
         }
+
+        if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
     }
 
     public override void ExitState()

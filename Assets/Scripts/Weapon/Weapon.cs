@@ -135,7 +135,16 @@ public abstract class Weapon : MonoBehaviour
         {
             if (!HittedObj.GetComponent<Enemy>().status.isDead)
             {
-                HittedObj.GetComponent<Enemy>().status.curHp -= Dmg;
+                Structs.DamagedStruct dmgStruct = new DamagedStruct();
+
+                dmgStruct.dmg = Dmg;
+                dmgStruct.attackObj = owner;
+
+                PlayerActionTable temp = HittedObj.transform.root.GetComponent<Player>().playerAt;
+
+                temp.Hit(dmgStruct);
+
+                //HittedObj.GetComponent<Enemy>().status.curHp -= Dmg;
             }
             else
             {

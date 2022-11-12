@@ -409,33 +409,33 @@ public abstract class Enemy : MonoBehaviour
 
 
     //=============================================================
-    //Damaged함수 --> 조정필요할듯 앞잡뒤잡에 관한...
 
-    //용석 : 트리거를 통한 enemy의 curHP 차감
-    public void Damaged(int dmg)
-    {
-        HitCount++;
-        status.curHp -= dmg;
-    }
-
-    //근희
     public virtual void Hit(DamagedStruct dmgStruct)
     {
         status.curHp -= (int)dmgStruct.dmg;
+        Debug.Log("뒤잡 : " + dmgStruct.isBackstab);
+        Debug.Log("앞잡 : " + dmgStruct.isRiposte);
+        if (dmgStruct.isBackstab) status.isBackHold = true;
+        else status.isBackHold = false;
+
+        if (dmgStruct.isRiposte) status.isFrontHold = true;
+        else status.isFrontHold = false;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!status.isDead)
-        {
-            if(other.gameObject.GetComponent<Weapon>() != null)
-            {
-                if (other.gameObject.GetComponent<Weapon>().owner == targetObj)
-                {
-                    Damaged(other.gameObject.GetComponent<Weapon>().Dmg);
-                }
-            }
-        }
+        //if(!status.isDead)
+        //{
+        //    if(other.gameObject.GetComponent<Weapon>() != null)
+        //    {
+        //        if (other.gameObject.GetComponent<Weapon>().owner == targetObj)
+        //        {
+        //            //Hit();
+        //            //Damaged(other.gameObject.GetComponent<Weapon>().Dmg);
+        //        }
+        //    }
+        //}
 
         //if (other.CompareTag("Weapon"))
         //{

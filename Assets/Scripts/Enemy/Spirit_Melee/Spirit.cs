@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Enums;
-
-
-
+using Structs;
 
 public class Spirit : Enemy
 {
@@ -107,7 +105,6 @@ public class Spirit : Enemy
         //=======================================
 
 
-
         if (status.curHp <= 0)
         {
             status.isDead = true;
@@ -115,13 +112,36 @@ public class Spirit : Enemy
         }
         else if(status.curHp > 0 && !status.isDead)
         {
-            if (HitCount > 0 && curState_e != eSpiritState.Damaged)
+            if (status.isBackHold || status.isFrontHold )
             {
-                SetState((int)Enums.eSpiritState.Damaged);
+                //잡기
+                if (status.isBackHold && status.isFrontHold)
+                {
+                    Debug.Log("뒤잡앞잡 동시 발동 : 판정 error");
+                }
             }
-        }
-        
+            else
+            {
+                if (HitCount > 0)
+                {
+                    if (curState_e != eSpiritState.Damaged)
+                    {
+                        SetState((int)Enums.eSpiritState.Damaged);
+                    }
+                }
+            }
 
+            //if (HitCount > 0)
+            //{
+            //    if (!status.isBackHold && !status.isFrontHold)
+            //    {
+            //        if (curState_e != eSpiritState.Damaged)
+            //        {
+            //            SetState((int)Enums.eSpiritState.Damaged);
+            //        }
+            //    }
+            //}
+        }
 
         //모종의 이유로 무기해제시
         if (curState_e == eSpiritState.Atk || curState_e == eSpiritState.Trace)
@@ -129,6 +149,18 @@ public class Spirit : Enemy
             if (weaponEquipState == eEquipState.UnEquip) SetState((int)Enums.eSpiritState.Idle);
         }
     }
+
+
+    public override void Hit(DamagedStruct dmgStruct)
+    {
+        base.Hit(dmgStruct);
+        if(!dmgStruct.isBackstab && !dmgStruct.isRiposte)
+        {
+            HitCount++;
+        }
+    }
+
+
 
     //=============================================================================
     // 렉돌교체함수

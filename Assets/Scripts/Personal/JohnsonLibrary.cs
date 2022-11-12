@@ -660,6 +660,8 @@ namespace Structs
 
 		public bool isSuperArmor;
 		public bool isGroggy;
+        public bool isFrontHold;
+        public bool isBackHold;
 
         public float slashCoolTime;
 

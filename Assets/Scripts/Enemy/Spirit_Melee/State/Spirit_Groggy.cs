@@ -41,7 +41,7 @@ public class Spirit_Groggy : cState
             //뒤잡 : getting_backstabbed
             //플레이어 잡기상태시
 
-            if (me.targetScript)
+            if(me.status.isFrontHold || me.status.isBackHold)
             {
                 me.SetState((int)Enums.eSpiritState.Hold);
             }
