@@ -16,6 +16,16 @@ public enum eSideDirection
 		
 }
 
+//public enum eLegState
+//{
+//	Idle,
+//	Move,
+//	Rotate_InPlace,
+//	Rotate_90,
+//	End
+//}
+
+
 //public enum eAttackState
 //{
 //	None,
@@ -31,19 +41,9 @@ public class Archer : Enemy
 	
     //weapon수정 from용석to근희
     public WoodenShortBow weapon;
-
-	//public Test.eStateTest testEnum = new Test.eStateTest();
-	//int[] iTestArr = 
-	//{ 
-	//	(int)Enums.eArcherState.Idle,
-	//	(int)Enums.eArcherState.Bow_Equip,
-	//	(int)Enums.eArcherState.Bow_Unequip,
-	//	(int)Enums.eArcherState.Walk_Patrol,
-	//	(int)Enums.eArcherState.Runaway,
-	//	(int)Enums.eArcherState.Attack_Aiming,
-	//	(int)Enums.eArcherState.Hit,
-	//	(int)Enums.eArcherState.Death,
-	//};
+	public string weaponName;
+	public CommonArrow arrow;
+	public string arrowName;
 
 	public Archer_ActionTable actTable;
 
@@ -53,6 +53,7 @@ public class Archer : Enemy
 	public LayerMask fovCheckLayer;
 
 	[Header("About Target")]
+	public Transform targetLastTr;
 	public Transform targetHeadTr;
 	public Transform targetSpineTr;
 	public Vector3 fovDir; //head to TargetSpine
@@ -62,24 +63,40 @@ public class Archer : Enemy
 	[Header("Me Bones")]
 	public Transform headBoneTr;
 	public Transform spineBoneTr;
+	public Transform leftHandTr;
+	public Transform rightHandTr;
 	public Transform rightIndexFingerBoneTr;
 
 	[Header("Other Vars")]
-	public float curSpd;
+	//public float curSpd;
 	//public float meleeAtkRange;
 	public float backwardRange;
+	public bool isMove = false;
+	
+	[HideInInspector] public float atkCurCoolTime;
+	//[HideInInspector]
+	public float atkRefCoolTime;
+	public float atkMinCoolTime;
+	public float atkMaxCoolTime;
 
+	public eArcherAttackMoveType moveType;
+	public eArcherAttackState atkState;
 
 	public eArcherState defaultPattern;
+	public eArcherState preState_e;
 	public eArcherState curState_e;
 
 
+	//[Header("legLayer Fsm")]
+	//public cState[] legFsm;
 
 
 
 	public override void InitializeState()
 	{
 		fsm = new cState[(int)eArcherState.End];
+
+		fsm[(int)eArcherState.Think] = new Archer_Think();
 
 		fsm[(int)eArcherState.Idle] = new Archer_Idle();
 		fsm[(int)eArcherState.Patrol] = new Archer_Patrol();
@@ -103,10 +120,18 @@ public class Archer : Enemy
 		SetState((int)defaultPattern);
 	}
 
+	//public void InitializeLegLayerState()
+	//{ 
+	//	legFsm = new cState[]	
+	
+	//}
+
 	public void SettingBonesTransform()
 	{
 		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
 		spineBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Spine);
+		leftHandTr = animCtrl.GetBoneTransform(HumanBodyBones.LeftHand);
+		rightHandTr = animCtrl.GetBoneTransform(HumanBodyBones.RightHand);
 		rightIndexFingerBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightIndexDistal);
 	}
 	public void TempSettingPlayer()
@@ -128,13 +153,31 @@ public class Archer : Enemy
 		}
 	}
 
-	public void Initializebow()
+	public void InitWeapon()
 	{
-		if (weapon != null)
+		weaponName = "WoodenShortBow";
+		arrowName = "CommonArrow";
+
+		if (!weapon)
 		{
+			GameObject obj = ObjectPoolingCenter.Instance.LentalObj(weaponName);
+
+			if (obj)
+			{
+				weapon = obj.GetComponent<WoodenShortBow>();
+			}
+			weapon.owner = gameObject;
+			weapon.ownerRightIndexFingerTr = rightIndexFingerBoneTr;
+
+
+			weapon.transform.SetParent(leftHandTr);
+			weapon.transform.localPosition = new Vector3(16.4f, -7f, -25.3f);
+			//new Vector3(16.4f, -7f, -25.3f) //new Vector3(-6.5f, -2.5f, -1f)
+			weapon.transform.localRotation = Quaternion.Euler(new Vector3(280f, 90f, 80f));
+
 			weapon.gameObject.SetActive(false);
 		}
-		//나중ㅇ에 풀링센터에서 가져오기
+		//나중에 풀링센터에서 가져오기
 	}
 
 
@@ -431,7 +474,7 @@ public class Archer : Enemy
 		base.Start();
 		
 		SettingBonesTransform();
-		Initializebow();
+		InitWeapon();
 
 		TempSettingPlayer();
 
@@ -454,7 +497,7 @@ public class Archer : Enemy
 		//	}
 		//}
 
-
+		preState_e = (eArcherState)preState_i;
 		curState_e = (eArcherState)curState_i;
 	}
 

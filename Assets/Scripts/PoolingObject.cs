@@ -6,7 +6,7 @@ public interface IPoolingObject
 {
     //public void InitializeForLental();
 
-    void ResetForReturn();
+    public void ResetForReturn();
 
 
 

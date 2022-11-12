@@ -391,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484512513291602}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.21823844, y: 0.29749483, z: -0.0024048486}
-  m_LocalScale: {x: 100, y: 100, z: 99.999985}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.2182384, y: 0.2974948, z: -0.002404849}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4620178347958848}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!137 &137055807757603264
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -702,9 +702,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4620178347958848}
   - component: {fileID: 95329518231908724}
-  - component: {fileID: -4032048276755821612}
+  - component: {fileID: 6753732904318391035}
   m_Layer: 0
-  m_Name: WoodenShortBow_Prefab
+  m_Name: WoodenShortBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -723,6 +723,7 @@ Transform:
   m_Children:
   - {fileID: 4224820139693682}
   - {fileID: 4311502713970408}
+  - {fileID: 3175390870593408774}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -745,7 +746,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-4032048276755821612
+--- !u!114 &6753732904318391035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -754,22 +755,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717406733745140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b73209e901c5b047a6954d435db874a, type: 3}
+  m_Script: {fileID: 11500000, guid: cf4b9c387f128f34cb0d5714887ba671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status:
-    name: 
-    type: 1
-    range: 20
-    price: 0
+  col: {fileID: 0}
+  type: 0
+  Dmg: 0
+  owner: {fileID: 0}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   arrow: {fileID: 0}
-  bowLeverTr: {fileID: 3175390870593408774}
-  rightIndexFingerTr: {fileID: 0}
+  state: 0
+  animCtlr: {fileID: 0}
+  pullingAnimSpd: 0
+  ownerRightIndexFingerTr: {fileID: 0}
+  leverTr: {fileID: 3175390870593408774}
   stringTr: {fileID: 4429432022911190}
-  isHook: 0
-  isPull: 0
-  animCtrl: {fileID: 0}
-  pullAnimSpd: 0
+  hookDir: {x: 0, y: 0, z: 0}
 --- !u!1 &1793173729035202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,15 +1046,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993315901191570}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.21827647, y: 0.29749483, z: 0.0010070229}
-  m_LocalScale: {x: 9.044061, y: 9.044061, z: 9.044061}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.2182765, y: 0.2974948, z: 0.001007023}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4162163098961802}
-  - {fileID: 3175390870593408774}
   m_Father: {fileID: 4620178347958848}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &2072951741054205793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,10 +1077,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072951741054205793}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00128, y: 0.00229, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.237, y: 0.3019, z: -0.0226}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4224820139693682}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 4620178347958848}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}

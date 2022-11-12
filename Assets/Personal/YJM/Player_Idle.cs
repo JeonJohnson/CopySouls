@@ -29,7 +29,10 @@ public class Player_Idle : Player_cState
             }
             else if(Input.GetButtonDown("Fire1"))
             {
-                PlayerActionTable.instance.WeakAttack();
+                if (!PlayerActionTable.instance.HoldAttackCheck())
+                {
+                    PlayerActionTable.instance.WeakAttack();
+                }
             }
 
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))

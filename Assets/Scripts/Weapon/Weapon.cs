@@ -37,9 +37,9 @@ public enum eWeaponType
 public abstract class Weapon : MonoBehaviour
 {
     public Collider col;
-    public eWeaponType Type;
-    public GameObject owner;
+    public eWeaponType type;
     public int Dmg;
+    public GameObject owner;
 
     public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;

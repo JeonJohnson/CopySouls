@@ -425,10 +425,9 @@ public static class Defines
 
 	public static Vector3 TrashVector3 = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
-	/// Zed Count
 
+	public static string managerPrfabFolderPath = "ManagerPrefabs/";
 
-	//public static Vector3 test { get { return new Vector3(); } }
 
 	public static Vector3[] test =
 	{
@@ -532,6 +531,9 @@ namespace Enums
 
     public enum eArcherState
 	{
+		Think,
+
+
 		Idle,
 		Patrol,
 

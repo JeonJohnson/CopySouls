@@ -10,7 +10,7 @@ public class Spirit_Weapon : Weapon
 
     protected override void weaponInitialize()
     {
-        Type = eWeaponType.Melee;
+        type = eWeaponType.Melee;
         Dmg = 1;
     }
     protected override void Awake()

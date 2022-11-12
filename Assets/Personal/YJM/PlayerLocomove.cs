@@ -22,9 +22,9 @@ public class PlayerLocomove : MonoBehaviour
     public float curSpeed = 0f;
 
     [SerializeField] GameObject playerModel;
-    [SerializeField] Transform cameraArm;
+    public Transform cameraArm;
     //[SerializeField] Transform headPos;
-    [SerializeField] CameraTest cameraManager;
+    public CameraTest cameraManager;
 
     #region singletone
     /// <singletone>    
@@ -41,7 +41,7 @@ public class PlayerLocomove : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        LinkCamera();
+        //LinkCamera();
     }
 
     #endregion
@@ -59,7 +59,7 @@ public class PlayerLocomove : MonoBehaviour
         KeyInput();
         if(Input.GetKeyDown(KeyCode.U))
         {
-            PlayerActionTable.instance.BackHoldAttack();
+            //PlayerActionTable.instance.BackHoldAttack();
         }
     }
     
@@ -76,9 +76,9 @@ public class PlayerLocomove : MonoBehaviour
 
 
     [HideInInspector]public bool isMove = false;
-    Vector3 moveDir;
+	public Vector3 moveDir;
 
-    public void Move()
+	public void Move()
     {
         SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -261,10 +261,17 @@ public class PlayerLocomove : MonoBehaviour
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (inputTimer >= 0f)
         {
-            if (isInput == false)
+            if(isCameraLock == false)
             {
-                SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
-                isInput = true;
+                if (isInput == false)
+                {
+                    SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
+                    isInput = true;
+                }
+            }
+            else
+            {
+                ChangeModelTrInput(); 
             }
         }
         else

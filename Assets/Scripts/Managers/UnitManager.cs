@@ -16,10 +16,23 @@ public class UnitManager : Manager<UnitManager>
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
+    private GameObject cameraPrefab;
     private Player playerScript;
-    public PlayerActionTable playerAT;
+    private PlayerActionTable playerActTable;
 
-    public Player GetPlayer
+	public GameObject GetPlayerObj
+    {
+        get
+        {
+            if (playerScript == null)
+            {
+                CreatePlayer();
+            }
+            return playerScript.gameObject;
+        }
+    }
+
+    public Player GetPlayerScript
     {
         get
         {
@@ -31,17 +44,40 @@ public class UnitManager : Manager<UnitManager>
         }
     }
 
+    public PlayerActionTable GetPlayerActTable
+    {
+        get
+        {
+            if (playerScript == null)
+            {
+                CreatePlayer();
+            }
+            return playerActTable;
+        }
+    }
+
     private void CreatePlayer()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject cameraObj = GameObject.Find("CameraManager");
 
         if (playerObj == null && playerPrefab)
         {
+            //난중에 여기서 카메라들도 세팅해주셈
             playerObj = Instantiate(playerPrefab);
+            
+        }
+
+        if (cameraObj == null && cameraPrefab)
+        {
+            cameraObj = Instantiate(cameraPrefab);
         }
 
         playerScript = playerObj.GetComponent<Player>();
-        playerAT = playerScript.playerAt;
+        cameraObj.GetComponent<CameraTest>().targetTransform = playerScript.playerModel.transform;
+        playerActTable = playerScript.playerAt;
+        playerScript.playerLocomove.cameraArm = cameraObj.transform.GetChild(0).gameObject.transform;
+        playerScript.playerLocomove.cameraManager = cameraPrefab.GetComponent<CameraTest>();
     }
     //// <Player>
 
@@ -56,6 +92,17 @@ public class UnitManager : Manager<UnitManager>
     public List<Enemy> allEnemyList = new List<Enemy>();
 
 
+    public GameObject testEmptyEnemyPrefab;
+    public GameObject SpawnTestEnemy(Vector3 pos)
+    {
+        GameObject testObj = Instantiate(testEmptyEnemyPrefab,pos,Quaternion.identity);
+
+        Enemy tempScript = testObj.GetComponent<Enemy>();
+
+        allEnemyList.Add(tempScript);
+
+        return testObj;
+    }
     //// <EnemyVar>
 
 
@@ -69,7 +116,9 @@ public class UnitManager : Manager<UnitManager>
         return null;
     }
 
-    
+
+
+
     //// <EnemyFuncs>
 
 
@@ -83,7 +132,7 @@ public class UnitManager : Manager<UnitManager>
             enemyDic.Add((eEnemyName)i, new List<Enemy>());
         }
 
-
+        CreatePlayer();
 
     }
     void Start()
