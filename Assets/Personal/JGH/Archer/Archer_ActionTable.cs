@@ -8,7 +8,7 @@ public enum eArcherAttackMoveType
 {
 	Siege, //가만히 서서 쏘는거
 	Kiting, //앞,뒤로 거리 조절만 하면서 쏘는거
-	Side,
+	AllDir,
 	End
 }
 
@@ -111,7 +111,7 @@ public class Archer_ActionTable : MonoBehaviour
 
 	public eArcherAttackMoveType RandAttackMoveType()
 	{
-		return (eArcherAttackMoveType)Random.Range((int)eArcherAttackMoveType.Siege, (int)eArcherAttackMoveType.Side);
+		return (eArcherAttackMoveType)Random.Range((int)eArcherAttackMoveType.Siege, (int)eArcherAttackMoveType.AllDir);
 		//return eArcherAttackMoveType.Siege;
 		//return eArcherAttackMoveType.Kiting;
 	}
@@ -160,6 +160,7 @@ public class Archer_ActionTable : MonoBehaviour
 
 					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_PullString"))
 					{
+						
 						archer.animCtrl.speed = 1;
 						atkState = eArcherAttackState.Shoot;
 					}
@@ -170,7 +171,7 @@ public class Archer_ActionTable : MonoBehaviour
 					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_Shoot"))
 					{
 						archer.atkRefCoolTime = Random.Range(archer.atkMinCoolTime, archer.atkMaxCoolTime);
-						archer.moveType = eArcherAttackMoveType.Side;
+						archer.moveType = eArcherAttackMoveType.AllDir;
 						atkState = eArcherAttackState.End;
 					}
 				}
@@ -220,6 +221,9 @@ public class Archer_ActionTable : MonoBehaviour
 
 					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1f);
 					archer.animCtrl.SetInteger("iMoveDir", (int)direction);
+
+					//LegIKToGround(AvatarIKGoal.RightFoot);
+					//LegIKToGround(AvatarIKGoal.LeftFoot);
 				}
 				break;
 			case eArcherMoveDir.Right:
@@ -342,6 +346,35 @@ public class Archer_ActionTable : MonoBehaviour
 
 			yield return null;
 		}
+	}
+
+	public void LegIKToGround(AvatarIKGoal ikName)
+	{
+		//일단 궁수는 얘ㄴㄴㄴ
+		if (archer.animCtrl)
+		{
+			archer.animCtrl.SetIKPositionWeight(ikName, 1);
+			archer.animCtrl.SetIKRotationWeight(ikName, 1);
+
+			Vector3 bonePos = archer.animCtrl.GetIKPosition(ikName);
+			float distanceGround;
+			RaycastHit hitInfo;
+			Physics.Raycast(bonePos, Vector3.down, out hitInfo, 100f,LayerMask.GetMask("Environmet"));
+			distanceGround = hitInfo.distance;
+
+			Ray leftRay = new Ray(archer.animCtrl.GetIKPosition(ikName) + Vector3.up, Vector3.down);
+
+			if (Physics.Raycast(leftRay, out RaycastHit leftHit, distanceGround + 1f, LayerMask.GetMask("Environmet")))
+			{
+				Vector3 footPosition = leftHit.point;
+				footPosition.y += distanceGround;
+
+				archer.animCtrl.SetIKPosition(ikName, footPosition);
+				archer.animCtrl.SetIKRotation(ikName, Quaternion.LookRotation(transform.forward, leftHit.normal));
+			}
+
+		}
+
 	}
 
 	public void LookTargetRotate(float bodyRotSpd = 1f)

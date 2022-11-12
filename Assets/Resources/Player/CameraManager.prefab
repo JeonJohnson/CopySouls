@@ -175,7 +175,7 @@ MonoBehaviour:
   cameraCollisionRadius: 0.2
   cameraCollisionOffset: 0.2
   minimumCollisionOffset: 0.2
-  lookAngle: 75.307144
-  pivotAngle: -35
+  lookAngle: 1222.006
+  pivotAngle: -2.40001
   cameraInputX: 0
   cameraInputY: 0
