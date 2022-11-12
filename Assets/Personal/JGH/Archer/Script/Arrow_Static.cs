@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class Arrow_Static : MonoBehaviour, IPoolingObject
 {
-    [HideInInspector]   public float curTime = 0;
-    public float maxTime;
 
-	void IPoolingObject.ResetForReturn()
+    public float aliveTime;
+
+    public IEnumerator AliveCoroutine()
+    {
+        yield return new WaitForSeconds(aliveTime);
+
+        ResetForReturn();
+        ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+    }
+
+    public void ResetForReturn()
 	{
             
 	}
 
 
-	void Update()
-    {
-        curTime += Time.deltaTime;
+	public void OnEnable()
+	{
+		StartCoroutine(AliveCoroutine());
+		//	AliveCoroutine()
 
-        if (curTime >= maxTime)
-        {
-            curTime = 0f;
-            
-            ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
-        }
-    }
+	}
+	//void Update()
+	//   {
+	//       curTime += Time.deltaTime;
+
+	//       if (curTime >= maxTime)
+	//       {
+	//           curTime = 0f;
+
+	//           ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
+	//       }
+	//   }
 }

@@ -57,6 +57,8 @@ public class Archer_ActionTable : MonoBehaviour
 	  //화살 생성해야함
 		archer.arrow = ObjectPoolingCenter.Instance.LentalObj(archer.arrowName).GetComponent<CommonArrow>();
 		archer.arrow.owner = archer.gameObject;
+		
+		archer.arrow.state = eArrowState.Draw;
 
 		archer.arrow.transform.SetParent(archer.rightIndexFingerBoneTr);
 		archer.arrow.transform.localPosition = Vector3.zero;
@@ -64,7 +66,9 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.arrow.rightHandTr = archer.rightHandTr;
 		archer.arrow.bowLeverTr = archer.weapon.leverTr;
 
-		archer.arrow.state = eArrowState.Draw;
+		archer.arrow.targetTr = archer.targetSpineTr;
+		
+		archer.arrow.WeaponColliderOnOff(false);
 
 		//archer.arrow.transform.forward = archer.animCtrl.GetBoneTransform(HumanBodyBones.RightHand).right;
 		//archer.arrow.transform.localRotation = Quaternion.identity;
@@ -91,9 +95,15 @@ public class Archer_ActionTable : MonoBehaviour
 	public void ShootArrowAnimEvent()
 	{
 		archer.weapon.state = eBowState.Shoot;
-		archer.arrow.state = eArrowState.Shoot;
-
 		archer.weapon.animCtlr.SetTrigger("tReturn");
+		
+		archer.arrow.state = eArrowState.Shoot;
+		archer.arrow.WeaponColliderOnOff(true);
+		archer.arrow.LookTarget();
+		archer.arrow.transform.SetParent(null);
+		archer.arrow.StartCoroutine(archer.arrow.AliveCoroutine());
+
+		archer.arrow = null;
 	}
 	#endregion
 
@@ -120,7 +130,7 @@ public class Archer_ActionTable : MonoBehaviour
 
 	public float CalcBowPullStringSpd(float pullingTime)
 	{
-		return 0.3f / pullingTime;
+		return 0.25f / pullingTime;
 	}
 
 	public bool AttackCycle(ref  eArcherAttackState  atkState, float pullAnimSpd )
@@ -351,7 +361,11 @@ public class Archer_ActionTable : MonoBehaviour
 
 		float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, archer.dirToTarget)) * Mathf.Rad2Deg;
 
+		
+		archer.LookAtSpecificBone(archer.spineBoneTr, archer.targetSpineTr, Enums.eGizmoDirection.Back, new Vector3(0f, 0f, -90f));
+		
 		archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
+
 		archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
 		LegRotateInPlaceLayerWieght(angleToTarget);
 

@@ -28,6 +28,7 @@ public class WoodenShortBow : Weapon, IPoolingObject
     public Transform stringTr;
 
     public Vector3 hookDir;
+
     
 
     public void ResetForReturn()

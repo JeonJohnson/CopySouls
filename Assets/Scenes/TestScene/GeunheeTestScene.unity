@@ -10230,8 +10230,8 @@ MonoBehaviour:
   isMove: 0
   atkCurCoolTime: 0
   atkRefCoolTime: 0
-  atkMinCoolTime: 5
-  atkMaxCoolTime: 5
+  atkMinCoolTime: 1
+  atkMaxCoolTime: 1
   moveType: 0
   atkState: 0
   defaultPattern: 1

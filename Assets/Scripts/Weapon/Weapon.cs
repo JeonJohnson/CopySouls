@@ -155,7 +155,7 @@ public abstract class Weapon : MonoBehaviour
     //===============================================================================================================================
     // trigger
 
-    public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         //Enemy -> Player
         if (owner.gameObject.GetComponent<Enemy>() != null)
