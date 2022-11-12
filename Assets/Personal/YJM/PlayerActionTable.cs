@@ -293,7 +293,7 @@ public class PlayerActionTable : MonoBehaviour
     public bool HoldAttackCheck()
     {
         //1. 적 리스트 돌아서 가장 인근한 적 확인
-        //2. 거리가 1f 이내이고,  적이 스턴인지 or 플레이어를 인식 못했는지 확인
+        //2. 거리가 2f 이내이고,  적이 스턴인지 or 플레이어를 인식 못했는지 확인
         //3. 각도 계산해서 30도 이내이면 거기에 맞는 앞잡/뒤잡 실행
         bool isAct = false;
 
@@ -309,7 +309,7 @@ public class PlayerActionTable : MonoBehaviour
         }
         if (target != null)
         {
-            if (distance <= 1.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            if (distance <= 2f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
