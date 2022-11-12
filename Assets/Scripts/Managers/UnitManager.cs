@@ -92,6 +92,17 @@ public class UnitManager : Manager<UnitManager>
     public List<Enemy> allEnemyList = new List<Enemy>();
 
 
+    public GameObject testEmptyEnemyPrefab;
+    public GameObject SpawnTestEnemy(Vector3 pos)
+    {
+        GameObject testObj = Instantiate(testEmptyEnemyPrefab,pos,Quaternion.identity);
+
+        Enemy tempScript = testObj.GetComponent<Enemy>();
+
+        allEnemyList.Add(tempScript);
+
+        return testObj;
+    }
     //// <EnemyVar>
 
 
@@ -105,7 +116,9 @@ public class UnitManager : Manager<UnitManager>
         return null;
     }
 
-    
+
+
+
     //// <EnemyFuncs>
 
 
