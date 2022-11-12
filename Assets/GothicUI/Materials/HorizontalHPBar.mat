@@ -44,9 +44,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
-        m_Texture: {fileID: 2800000, guid: 019625b7eeec5e84095d13db4bc29f5b, type: 3}
-        m_Scale: {x: 2, y: 1.2}
-        m_Offset: {x: 0, y: -0.1}
+        m_Texture: {fileID: 2800000, guid: 69e63a463b26fc84f9e0f1ad5832ee3f, type: 3}
+        m_Scale: {x: 0, y: 1}
+        m_Offset: {x: 0, y: 1}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,8 +64,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FillLevel: 0.7156591
-    - _FlashesMultiplier: 1.17
+    - _FillLevel: 0.673
+    - _FlashesMultiplier: 3
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -79,12 +79,13 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WavesMultiplier: -0.28
+    - _WavesMultiplier: 0.5
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlashNoiseSize: {r: 1, g: 1, b: 1, a: 1}
     - _HotLineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _NoiseSize: {r: 1, g: 0.1, b: 0.4, a: 0.06}
-    - _NoiseSpeed: {r: 1, g: 1, b: 2, a: 0.4}
+    - _NoiseSize: {r: 10, g: 10, b: 10, a: 10}
+    - _NoiseSpeed: {r: 0, g: 0, b: 2, a: 0.4}
+  m_BuildTextureStacks: []
