@@ -8,7 +8,6 @@ using UnityEditor;
 using Enums;
 using Structs;
 
-
 //<필요 함수>
 //각도 , 데미지
 //적이 데미지 입는 함수

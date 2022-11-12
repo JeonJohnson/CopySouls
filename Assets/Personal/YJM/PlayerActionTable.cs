@@ -356,7 +356,7 @@ public class PlayerActionTable : MonoBehaviour
         dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 10;
         enemy.Hit(dmgStruct);
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
-        target.HoldTransPos_Enemy(pos,rot);
+        enemy.HoldTransPos_Enemy(pos,rot);
     }
 
     public void BackHoldAttack(Vector3 pos, Vector3 rot, Enemy enemy)
@@ -371,7 +371,7 @@ public class PlayerActionTable : MonoBehaviour
         dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 15;
         enemy.Hit(dmgStruct);
         //여기 적 뒤잡함수
-        target.HoldTransPos_Enemy(pos, rot);
+        enemy.HoldTransPos_Enemy(pos, rot);
     }
 
     float guardParam = 0;
