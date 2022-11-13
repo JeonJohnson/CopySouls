@@ -111,7 +111,7 @@ public class Archer : Enemy
 		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
 		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
 
-
+		fsm[(int)eArcherState.Hit_Hold] = new Archer_Hit_Hold();
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
 
 		fsm[(int)eArcherState.Death] = new Archer_Death();
@@ -445,14 +445,23 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
-		if (status.curHp >= 0f)
+
+		if (dmgStruct.isRiposte | dmgStruct.isBackstab)
 		{
-			SetState((int)eArcherState.Hit);
+			SetState((int)eArcherState.Hit_Hold);
 		}
 		else
 		{
-			SetState((int)eArcherState.Death);
+			if (status.curHp >= 0f)
+			{
+				SetState((int)eArcherState.Hit);
+			}
+			else
+			{
+				SetState((int)eArcherState.Death);
+			}
 		}
+		
 	}
 
 	//public override void Death()

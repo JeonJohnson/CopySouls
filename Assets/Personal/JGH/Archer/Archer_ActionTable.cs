@@ -690,6 +690,14 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, angle / (archer.status.fovAngle *0.5f));
 	}
 
+	public void HoldHitTransformSetting()
+	{ 
+		
+	
+	}
+
+
+
 	//private void HeadRotate(float campAngle = 90f)
 	//{ //몸의 forward랑 head의 Forward랑 내적해서 90도 이상이면 더 못 돌리도록.
 	//  //그 이상이 되면 몸이 돌아갸아함.

@@ -22,6 +22,7 @@ public class Archer_Attack_Rushed : cState
 		archer.animCtrl.SetTrigger("tAttack");
 
 		//curShootCount = 0;
+
 	}
 
 
