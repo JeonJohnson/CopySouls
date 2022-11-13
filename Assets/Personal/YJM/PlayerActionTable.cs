@@ -326,19 +326,19 @@ public class PlayerActionTable : MonoBehaviour
 
         if (target != null)
         {
-            if (distance <= 2.5f)
+            if (!target.status.isDead && distance <= 2.5f )
             {
                 float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
                 Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
 
-				if (theta < 90 && target.status.isGroggy)
+				if (theta < 90 && target.status.isGroggy && !target.status.isFrontHold)
 				{
 					FrontHoldAttack(transform, playerFrontpos, target);
 					isAct = true;
 				}
-				else if (theta >= 135)
+				else if (theta >= 135 && !target.status.isBackHold)
 				{
 					BackHoldAttack(transform, playerFrontpos, target);
 					Debug.Log(transform.localRotation);

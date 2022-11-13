@@ -10,13 +10,17 @@ public class Archer_Chase : cState
 		base.EnterState(script);
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
+		
+		//추적 흐름 
+
+		//여기 들어오는 조건, CheckTargetIsHiding에서 없어 졌을때,
+		//여기서는 일단 그 마지막으로 보이던 위치 
+
 	}
-
-
 
 	public override void UpdateState()
 	{
-		throw new System.NotImplementedException();
+		
 	}
 	public override void FixedUpdateState()
 	{

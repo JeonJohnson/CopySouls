@@ -255,6 +255,7 @@ public class Archer : Enemy
 
 	public bool CheckTargetIsHiding(GameObject tempTarget)
 	{
+
 		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
 		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
 
@@ -264,8 +265,8 @@ public class Archer : Enemy
 
 			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
 			{
-				int temp = LayerMask.GetMask("Environment");
-				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+				//LayerMask tempMask = LayerMask.GetMask("Environment") | LayerMask.GetMask("Environment");
+				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, fovIgnoreLayer))
 				{
 					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
 
@@ -283,6 +284,7 @@ public class Archer : Enemy
 			}
 		}
 		return false;
+
 	}
 
 
