@@ -580,7 +580,7 @@ public class Archer_ActionTable : MonoBehaviour
 
 	}
 
-	public void LookTargetRotate(float bodyRotSpd = 1f)
+	public void LookTargetRotate(float bodyRotSpd = 2f)
 	{//Use at LateUpdate!!!
 
 		//움직임이 없을 경우
@@ -602,7 +602,17 @@ public class Archer_ActionTable : MonoBehaviour
 		
 		archer.LookAtSpecificBone(archer.headBoneTr, archer.targetHeadTr, eGizmoDirection.Foward);
 
-		archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
+		if (angleToTarget < 90f)
+		{
+			archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd);
+		}
+		else
+		{
+			archer.LookAtSlow(archer.transform, archer.targetObj.transform, bodyRotSpd * 2f);
+		}
+		
+		
+		
 		LegRotateInPlaceLayerWieght(angleToTarget);
 
 		#region theOldThings
