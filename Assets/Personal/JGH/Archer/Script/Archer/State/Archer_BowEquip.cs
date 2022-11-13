@@ -24,8 +24,6 @@ public class Archer_BowEquip : cState
 	{
 		if (archer.weaponEquipState == eEquipState.Equip)
 		{
-
-
 			archer.SetState((int)archer.actTable.RandomAttackState());
 
 			//archer.SetState((int)Enums.eArcherState.Attack_Precision);

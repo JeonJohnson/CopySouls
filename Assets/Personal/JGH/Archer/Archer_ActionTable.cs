@@ -60,6 +60,14 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.weaponEquipState = eEquipState.Equip;
 	}
 
+	public void BowUnEquipAnimEvent()
+	{
+		archer.weapon.gameObject.SetActive(false);
+		archer.weaponEquipState = eEquipState.UnEquip;
+	}
+
+
+
 	public void DrawArrowAnimEvent()
 	{ //화살통에서 화살 뽑았을 때 
 	  //화살 생성해야함
@@ -129,15 +137,28 @@ public class Archer_ActionTable : MonoBehaviour
 
 	public void DeleteArrow()
 	{
+		CommonArrow arrow = null;
+
+		if (archer.weaponEquipState == eEquipState.Equip)
+		{
+			archer.weapon.DeleteArrow();
+		}
+
 		if (archer.arrow)
 		{
-			if (archer.weaponEquipState == eEquipState.Equip)
-			{
-				archer.weapon.DeleteArrow();
-			}
+			arrow = archer.arrow;
+		}
 
-			archer.arrow.ResetForReturn();
-			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject);
+		GameObject alreadyArrow = Funcs.FindGameObjectInChildrenByTag(archer.rightHandTr.gameObject, "EnemyWeapon");
+		if (alreadyArrow)
+		{	
+			arrow = alreadyArrow.GetComponent<CommonArrow>();
+		}
+
+		if (arrow)
+		{
+			arrow.ResetForReturn();
+			ObjectPoolingCenter.Instance.ReturnObj(arrow.gameObject);
 			archer.arrow = null;
 		}
 	}
@@ -307,11 +328,43 @@ public class Archer_ActionTable : MonoBehaviour
 		return returnBoolVal;
 	}
 
+	public void MoveForward(Vector3 destPos)
+	{
+		archer.isMove = true;
+		archer.navAgent.isStopped = false;
+		archer.navAgent.enabled = true;
+		archer.navAgent.updatePosition = true;
+		archer.navAgent.updateRotation = true;
+
+		archer.navAgent.SetDestination(destPos);
+
+
+		if (archer.animCtrl.GetCurrentAnimatorStateInfo((int)Enums.eHumanoidAvatarMask.Leg).IsName("Archer_Walk_Aim_Forward"))
+		{
+			archer.animCtrl.SetBool("bMoveDir", false);
+		}
+		else
+		{
+			archer.animCtrl.SetBool("bMoveDir", true);
+		}
+
+		float animSpd = Vector3.Magnitude(archer.navAgent.velocity) / archer.status.moveSpd;
+
+		if (animSpd >= 0.1f)
+		{
+			archer.animCtrl.SetFloat("fWalkSpd", animSpd);
+			archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 1);
+			archer.animCtrl.SetInteger("iMoveDir", (int)eArcherMoveDir.Forward);
+		}
+		else
+		{
+			archer.isMove = false;
+			archer.animCtrl.SetBool("bMoveDir", false);
+		}
+	}
 
 	public void MoveWhileAttack(eArcherMoveDir direction)
 	{
-		
-		
 		switch (direction)
 		{
 			case eArcherMoveDir.Forward:
@@ -435,6 +488,7 @@ public class Archer_ActionTable : MonoBehaviour
 				{
 					//archer.navAgent.enabled = true;
 					archer.isMove = false;
+					archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0);
 					archer.animCtrl.SetBool("bMoveDir", false);
 					archer.navAgent.SetDestination(archer.transform.position);
 				}
@@ -682,7 +736,8 @@ public class Archer_ActionTable : MonoBehaviour
 		#endregion
 	}
 
-	private void LegRotateInPlaceLayerWieght(float angle)
+
+		private void LegRotateInPlaceLayerWieght(float angle)
 	{
 		if (archer.isMove)
 		{

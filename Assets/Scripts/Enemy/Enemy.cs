@@ -37,6 +37,9 @@ public abstract class Enemy : MonoBehaviour
     public Structs.EnemyStatus status;
     public Collider DamagedCollider;
 
+    public Vector3 initPos;
+    public Vector3 initForward;
+
     public GameObject targetObj;
     public Player targetScript;
     public float distToTarget;
@@ -227,6 +230,54 @@ public abstract class Enemy : MonoBehaviour
 
 		boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
     }
+
+    public void LookAtSpecificBone(Transform boneTr, Vector3 targetPos, eGizmoDirection boneDir, Vector3 offsetEulerRotate)
+    {
+
+        Vector3 lookDir = (targetPos - boneTr.position).normalized;
+
+        switch (boneDir)
+        {
+            case eGizmoDirection.Foward:
+                {
+                    boneTr.forward = lookDir;
+                }
+                break;
+            case eGizmoDirection.Back:
+                {
+                    boneTr.forward = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Right:
+                {
+                    boneTr.right = lookDir;
+                }
+                break;
+            case eGizmoDirection.Left:
+                {
+                    boneTr.right = -lookDir;
+                }
+                break;
+            case eGizmoDirection.Up:
+                {
+                    boneTr.up = lookDir;
+                }
+                break;
+            case eGizmoDirection.Down:
+                {
+                    boneTr.up = -lookDir;
+                }
+                break;
+
+            default:
+                {
+                    Debug.Log("Enemy bone LookAt Error");
+                }
+                break;
+        }
+
+        boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
     #endregion
 
     public void SetDestination(Vector3 dest)
@@ -353,6 +404,9 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
+        initPos = transform.position;
+        initForward = transform.forward;
+
         animCtrl = GetComponent<Animator>();
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -422,7 +476,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         //if(!status.isDead)
         //{

@@ -39,6 +39,8 @@ public class Archer_Attack_Rushed : cState
 
 	public override void UpdateState()
 	{
+	
+
 		if (curShootCount < 3)
 		{
 			if (archer.actTable.RushedAttackCycle(ref atkState, pullAnimSpd, curShootCount))
@@ -49,6 +51,15 @@ public class Archer_Attack_Rushed : cState
 		}
 		else
 		{
+			if (archer.atkState == eArcherAttackState.End)
+			{
+				if (archer.CheckTargetIsHiding())
+				{
+					Debug.Log("시야에서 사라짐");
+					archer.SetState((int)Enums.eArcherState.Chase);
+					return;
+				}
+			}
 			archer.SetState((int)Enums.eArcherState.Attack_Precision);
 		}
 

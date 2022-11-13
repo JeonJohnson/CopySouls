@@ -13,12 +13,37 @@ public class Archer_LookAround: cState
 		{ archer = me.GetComponent<Archer>(); }
 
 
-		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+		Debug.Log("Enter LookAround State");
+
+		//me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
 
 		me.animCtrl.SetTrigger("tLookAround");
 	}
 	public override void UpdateState()
 	{
+		//if (!archer.CheckTargetIsHiding())
+		//{
+		//	Debug.Log("시야에 들어옴");
+		//	archer.SetState((int)archer.actTable.RandomAttackState());
+		//	return;
+		//}
+
+		if (archer.CheckTargetInFov())
+		{
+			Debug.Log("LookAround에서 시야에 들어옴");
+			archer.SetState((int)archer.actTable.RandomAttackState());
+			return;
+		}
+		else 
+		{
+
+			if (Funcs.IsAnimationCompletelyFinish(me.animCtrl, "Archer_LookAround"))
+			{
+				//archer.UnequippedBow();
+				me.SetState((int)Enums.eArcherState.Return);
+			}
+		}
+
 		//if (archer.CheckTargetInFovAndRange())
 		//{
 		//	//me.animCtrl.SetTrigger("tAttack");
@@ -30,11 +55,6 @@ public class Archer_LookAround: cState
 		//	}
 		//}
 
-		//if (Funcs.IsAnimationCompletelyFinish(me.animCtrl,"Archer_LookAround"))
-		//{
-		//	//archer.UnequippedBow();
-		//	me.SetState((int)Enums.eArcherState.Bow_Unequip);
-		//}
 	}
 
 	public override void ExitState()

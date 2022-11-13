@@ -15,6 +15,12 @@ public class Archer_Idle : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
+
+		archer.navAgent.isStopped = true;
+
+		archer.animCtrl.SetTrigger("tIdle");
+		bool isEquip = archer.weaponEquipState == eEquipState.Equip ? true : false;
+		archer.animCtrl.SetBool("bEquip", isEquip);
 	}
 
 	public override void UpdateState()
@@ -33,6 +39,7 @@ public class Archer_Idle : cState
 
 	public override void ExitState()
 	{
+		archer.navAgent.isStopped = false;
 	}
 
 
