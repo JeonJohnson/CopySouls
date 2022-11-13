@@ -15,7 +15,6 @@ public class Spirit_Atk : cState
     public eSpirit_AtkPattern CurPattern;
     public bool startPattern;
     public int AttIndex;
-    public bool isOver;
 
     public override void EnterState(Enemy script)
     {
@@ -23,9 +22,6 @@ public class Spirit_Atk : cState
         ((Spirit)me).complete_Atk = true;
         me.animCtrl.SetBool("isAtk", true);
     }
-
-    //앞잡시 배찔리는거
-    //뒤잡시 등찔리고 앞으로 넘어짐
 
     public override void UpdateState()
     {
@@ -36,7 +32,14 @@ public class Spirit_Atk : cState
         if (!((Spirit)me).complete_Atk)
         {
             stop(CurPattern);
-            if (me.status.isGroggy) me.SetState((int)Enums.eSpiritState.Groggy);
+            if (me.status.isGroggy)
+            {
+                me.SetState((int)Enums.eSpiritState.Groggy);
+            }
+            else if(me.status.isBackHold)
+            {
+                me.SetState((int)Enums.eSpiritState.Hold);
+            }
             else Play(CurPattern);
         }
         else if(((Spirit)me).complete_Atk)
@@ -56,12 +59,11 @@ public class Spirit_Atk : cState
 
     public override void ExitState()
     {
-        
+        if(((Spirit)me).complete_Atk) ((Spirit)me).complete_Atk = false;
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;
-
-
+        if(((Spirit)me).weapon.col.enabled == true) ((Spirit)me).weapon.WeaponColliderOnOff(false);
         ((Spirit)me).weapon.ReturnWeaponPos();
     }
 

@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class Spirit_Trace : cState
 {
-
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
@@ -40,6 +39,12 @@ public class Spirit_Trace : cState
         }
         else me.SetState((int)Enums.eSpiritState.Unequipt);
     }
+
+    public override void LateUpdateState()
+    {
+        ((Spirit)me).boneRotation(((Spirit)me).targetHeadPos);
+    }
+
 
     public override void ExitState()
     {
