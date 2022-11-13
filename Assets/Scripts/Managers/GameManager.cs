@@ -56,8 +56,11 @@ public class GameManager : Manager<GameManager>
 
     public void JeongminSceneManagersInit()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
+        InGameManager.InstantiateManager(false);
+        UiManager.InstantiateManager(false);
     }
 
     void SceneCheck(int sceneNum)

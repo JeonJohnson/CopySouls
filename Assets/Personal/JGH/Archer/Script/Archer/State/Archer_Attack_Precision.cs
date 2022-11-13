@@ -22,10 +22,11 @@ public class Archer_Attack_Precision : cState
 	{
 		archer.combatState = eCombatState.Combat;
 		archer.moveType = archer.actTable.RandAttackMoveType();
-		randBackRangeOffset = Random.Range(0.5f, 1.5f);
+		randBackRangeOffset = Random.Range(-0.5f, 1.5f);
 
 		pullAnimSpd = archer.actTable.CalcOwnerPullStringSpd(pullTime);
 		archer.actTable.bowPullingAnimSpd = archer.actTable.CalcBowPullStringSpd(pullTime);
+		archer.actTable.curSideWalkDir = (eArcherSideWalkDir)Random.Range((int)eArcherSideWalkDir.Right, (int)eArcherSideWalkDir.End);
 
 		archer.atkState = eArcherAttackState.DrawArrow;
 		archer.animCtrl.SetTrigger("tAttack");
@@ -43,13 +44,17 @@ public class Archer_Attack_Precision : cState
 
 	public override void UpdateState()
 	{
-		if (archer.actTable.AttackCycle(ref archer.atkState, pullAnimSpd))
+		if (archer.actTable.PrecisionAttackCycle(ref archer.atkState, pullAnimSpd))
 		{
-			AttackStartSetting();
+			if (archer.actTable.RandomAttackState() == eArcherState.Attack_Rushed)
+			{
+				archer.SetState((int)eArcherState.Attack_Rushed);
+			}
+			else
+			{
+				AttackStartSetting();
+			}
 		}
-
-		//Vector3 playerMoveDir = archer.targetObj.GetComponent<PlayerLocomove>().moveDir;
-		//Debug.Log(playerMoveDir);
 
 		switch (archer.moveType)
 		{
@@ -74,6 +79,7 @@ public class Archer_Attack_Precision : cState
 					{
 						archer.actTable.MoveWhileAttack(eArcherMoveDir.Backward);
 					}
+
 				}
 				break;
 
@@ -88,7 +94,9 @@ public class Archer_Attack_Precision : cState
 					{
 						//플레이어 움직임에 따라서로 바꿔주기?
 						//아니면 갈 수 있는곳 아닌곳 판단해서 왓다리 갔다리?
-						archer.actTable.MoveWhileAttack(eArcherMoveDir.Right);
+						//archer.actTable.MoveWhileAttack(eArcherMoveDir.Right);
+						//archer.actTable.MoveWhileAttack(archer.actTable.IsSideCanMove(archer.actTable.curSideWalkDir));
+						archer.actTable.SideWalkThink(archer.actTable.curSideWalkDir);
 					}
 					else if (archer.distToTarget < archer.backwardRange)
 					{
@@ -111,7 +119,7 @@ public class Archer_Attack_Precision : cState
 	{
 		base.LateUpdateState();
 
-		archer.actTable.LookTargetRotate(2f);
+		archer.actTable.LookTargetRotate(4f);
 	}
 
 	public override void FixedUpdateState()
@@ -121,5 +129,7 @@ public class Archer_Attack_Precision : cState
 
 	public override void ExitState()
 	{
+		archer.atkState = eArcherAttackState.End;
+		archer.moveType = eArcherAttackMoveType.End;
 	}
 }

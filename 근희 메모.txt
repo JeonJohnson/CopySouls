@@ -394,3 +394,10 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 		=>  LookAround
 		=> Return (default Pattern의 위치로 돌아가는거)스테이트 순서대로 돌리기
 	- 용석이가 만들어 놓은 앞잡, 뒤잡 보고 처리하기
+
+13:54 2022-11-13	지금 활 땅길때 animCtrlSpeed말고 float값 하나 만들어서 Multiple하는 방식으로 교체완료
+
+16:31 2022-11-13	시즈모드, 카이팅모드(앞뒤로), 올디렉션모드 다 작동완료. \ legLayer 걷는 Spd는 작용함,  weight 더 손보는건 이제 엘리트몹에서 좀 더 다듬으면서 해보기
+
+16:53 2022-11-13	Rushed 패턴까지 완성
+	=> 이제 hitState로 넘어가기
