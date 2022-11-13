@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene/GeunheeTestScene.unity
     guid: f28d2ce7c3b10dd43bcb3ddd3bedbf5d
   - enabled: 1
-    path: Assets/Personal/YJM/TestScene_YJM.unity
-    guid: b3bfdf3231776414bb92f383b2ff2b75
+    path: Assets/Scenes/inGame(Inprogress).unity
+    guid: 2dfc13c5bc643fe4f97aab400570e4b3
   - enabled: 1
     path: Assets/Scenes/TestScene/YoungSeokTestScene.unity
     guid: 880f6cb69f58bc0488c0c73dd44741dc

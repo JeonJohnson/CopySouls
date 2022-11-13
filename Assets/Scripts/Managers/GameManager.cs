@@ -58,6 +58,8 @@ public class GameManager : Manager<GameManager>
     {
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
+        UiManager.InstantiateManager(false);
+        InGameManager.InstantiateManager(false);
     }
 
     void SceneCheck(int sceneNum)

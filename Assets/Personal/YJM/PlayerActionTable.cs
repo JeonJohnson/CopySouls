@@ -83,11 +83,9 @@ public class PlayerActionTable : MonoBehaviour
     IEnumerator PlayerInvincible(float enterTime, float exitTime)
     {
         yield return new WaitForSeconds(enterTime);
-        Player.instance.SetPlayerMat(0);
         player.status.isInvincible = true;
         player.SetModelCollider(false);
         yield return new WaitForSeconds(exitTime);
-        Player.instance.SetPlayerMat(1);
         player.status.isInvincible = false;
         player.SetModelCollider(true);
     }
