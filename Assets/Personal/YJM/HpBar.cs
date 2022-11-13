@@ -8,6 +8,7 @@ public class HpBar : MonoBehaviour
 {
     public Enemy target;
     bool isDamaged = false;
+    bool isDestroyed = false;
 
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] Slider hpSlider;
@@ -34,8 +35,11 @@ public class HpBar : MonoBehaviour
     {
         if(curHp <= 0f)
         {
-            ResetHpBar();
-            Destroy(this.gameObject);
+            isDestroyed = true;
+            if(isDestroyed == true)
+            {
+                StartCoroutine(DestroyEffect());
+            }
         }
 
         if (target != null)
@@ -97,6 +101,13 @@ public class HpBar : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+
+    IEnumerator DestroyEffect()
+    {
+        yield return new WaitForSeconds(2f);
+        ResetHpBar();
+        Destroy(this.gameObject);
     }
 
     public void ResetHpBar()

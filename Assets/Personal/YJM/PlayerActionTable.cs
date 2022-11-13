@@ -325,7 +325,7 @@ public class PlayerActionTable : MonoBehaviour
         }
         if (target != null)
         {
-            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState != eCombatState.Alert))
+            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
@@ -334,10 +334,17 @@ public class PlayerActionTable : MonoBehaviour
 
                 if (theta < 90)
                 {
-                    FrontHoldAttack(transform, playerFrontpos , target);
-                    isAct = true;
+                    if(target.status.isGroggy == true)
+                    {
+                        FrontHoldAttack(transform, playerFrontpos, target);
+                        isAct = true;
+                    }
+                    else
+                    {
+                        isAct = false;
+                    }
                 }
-                else if(theta >= 90)
+                else if(theta >= 135)
                 {
                     BackHoldAttack(transform, playerFrontpos, target);
                     Debug.Log(transform.localRotation);
@@ -359,6 +366,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void FrontHoldAttack(Transform dir,Vector3 forwardVec , Enemy enemy)
     {
+        curActAtkValue = 6f;
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -374,6 +382,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void BackHoldAttack(Transform dir, Vector3 forwardVec, Enemy enemy)
     {
+        curActAtkValue = 6f;
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
