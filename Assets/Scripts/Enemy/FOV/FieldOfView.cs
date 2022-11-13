@@ -42,6 +42,7 @@ public class FieldOfView : MonoBehaviour
         targetHeadMask = LayerMask.GetMask("Player_Hitbox");
 
         HeadPos = ((Spirit)me).headPos;
+        ((Spirit)me).targetHeadPos = HeadPos;
 
         viewMeshFilter = gameObject.GetComponentInChildren<MeshFilter>();
 

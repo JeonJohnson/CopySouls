@@ -7,7 +7,9 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public Transform targetHeadPos;
     public Transform headPos;
+    public Transform upperChest;
     public GameObject model;
     public GameObject ragdollModel;
     public GameObject remainderWeapon;
@@ -77,6 +79,7 @@ public class Spirit : Enemy
         if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
+        upperChest = animCtrl.GetBoneTransform(HumanBodyBones.UpperChest);
     }
 
     protected override void Update()
@@ -150,7 +153,10 @@ public class Spirit : Enemy
             if (weaponEquipState == eEquipState.UnEquip) SetState((int)Enums.eSpiritState.Idle);
         }
     }
-
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+    }
 
     public override void Hit(DamagedStruct dmgStruct)
     {
@@ -187,6 +193,16 @@ public class Spirit : Enemy
             ragdoll.GetChild(i).localPosition = origin.GetChild(i).localPosition;
             ragdoll.GetChild(i).localRotation = origin.GetChild(i).localRotation;
         }
+    }
+
+    //상체 본만 회전하는 함수
+    public Vector3 ChestOffset = new Vector3(0, -40, -100);
+    //public Vector3 ChestDir = new Vector3();
+    public void boneRotation(Transform target)
+    {
+        //ChestDir = headPos.position + target.forward;
+        upperChest.LookAt(target);
+        //upperChest.rotation = upperChest.rotation * Quaternion.Euler(ChestOffset);
     }
 
     //=============================================================================
