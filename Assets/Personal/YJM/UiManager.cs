@@ -13,7 +13,6 @@ public class UiManager : Manager<UiManager>
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab,hpBarUi.transform);
         HpBar hpBar = hpBarGo.GetComponent<HpBar>();
-        print(target + "    d");
         hpBar.target = target;
     }
 
@@ -31,8 +30,6 @@ public class UiManager : Manager<UiManager>
     {
         for(int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
         {
-            print(i);
-            print(UnitManager.Instance.allEnemyList[i]);
             InstantiateHpBar(UnitManager.Instance.allEnemyList[i]);
         }
     }

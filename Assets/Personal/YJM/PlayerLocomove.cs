@@ -148,8 +148,9 @@ public class PlayerLocomove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (isCameraLock == false && targetEnemy != null)
+            if (isCameraLock == false)
             {
+                print("앍");
                 SearchTarget();
                 isCameraLock = true;
             }
@@ -179,6 +180,7 @@ public class PlayerLocomove : MonoBehaviour
             {
                 distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
                 targetEnemy = UnitManager.Instance.allEnemyList[i].transform;
+                print(UnitManager.Instance.allEnemyList[i]);
             }
         }
     }
