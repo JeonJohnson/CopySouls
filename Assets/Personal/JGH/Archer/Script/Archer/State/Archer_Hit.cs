@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
+
 public class Archer_Hit : cState
 {
 	Archer archer = null;
@@ -37,8 +39,6 @@ public class Archer_Hit : cState
 			default:
 				break;
 		}
-
-
 	}
 
 	public override void EnterState(Enemy script)
@@ -55,11 +55,13 @@ public class Archer_Hit : cState
 		me.animCtrl.SetTrigger("tHit");
 		me.animCtrl.SetInteger("iHit", rand);
 		animStr = $"Archer_Hit_0{rand}";
+
+		archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
+		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0f);
+		//archer.actTable.ArrowReturn();
 	}
 	public override void UpdateState()
 	{
-		//me.transform.rotation = me.LookAtSlow(archer.transform, me.targetObj.transform, me.status.lookAtSpd);
-		//archer.ActingLegWhileTurn(me.targetObj.transform.position);
 
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, animStr))
 		{
@@ -68,14 +70,20 @@ public class Archer_Hit : cState
 			//돌면서 equip으로 돌려주면 된다~
 			if (archer.combatState == eCombatState.Combat | archer.combatState == eCombatState.Alert)
 			{
-
+				archer.SetState((int)archer.actTable.RandomAttackState());
 			}
 			else if(archer.combatState == eCombatState.Idle | archer.weaponEquipState == eEquipState.UnEquip)
-			{ 
-				
+			{
+				archer.SetState((int)eArcherState.Bow_Equip);
 			}
-			
 		}
+
+	}
+
+	public override void LateUpdateState()
+	{
+		base.LateUpdateState();
+		
 	}
 
 	public override void ExitState()

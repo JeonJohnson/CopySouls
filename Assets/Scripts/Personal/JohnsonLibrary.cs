@@ -555,6 +555,7 @@ namespace Enums
 
 
 		Hit,
+		Hit_Hold,
 
 		Death,
 
@@ -590,6 +591,7 @@ namespace Enums
 		Hit,
 		Dodge,
 		Death,
+		Interacting,
 
 		End
 	}

@@ -22,6 +22,7 @@ public class Archer_Attack_Rushed : cState
 		archer.animCtrl.SetTrigger("tAttack");
 
 		//curShootCount = 0;
+
 	}
 
 
@@ -66,5 +67,10 @@ public class Archer_Attack_Rushed : cState
 	}
 	public override void ExitState()
 	{
+
+
+		archer.weapon.state = eBowState.Shoot;
+
+		archer.actTable.DeleteArrow();
 	}
 }

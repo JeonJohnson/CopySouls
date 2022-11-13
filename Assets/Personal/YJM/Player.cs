@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Hit] = new Player_Hit();
         fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
         fsm[(int)ePlayerState.Atk] = new Player_Atk();
+        fsm[(int)ePlayerState.Interacting] = new Player_Interacting();
         SetState(Enums.ePlayerState.Idle);
     }
 

@@ -131,5 +131,9 @@ public class Archer_Attack_Precision : cState
 	{
 		archer.atkState = eArcherAttackState.End;
 		archer.moveType = eArcherAttackMoveType.End;
+
+
+
+		archer.actTable.DeleteArrow(); 
 	}
 }

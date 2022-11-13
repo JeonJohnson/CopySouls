@@ -111,7 +111,7 @@ public class Archer : Enemy
 		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
 		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
 
-
+		fsm[(int)eArcherState.Hit_Hold] = new Archer_Hit_Hold();
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
 
 		fsm[(int)eArcherState.Death] = new Archer_Death();
@@ -255,6 +255,7 @@ public class Archer : Enemy
 
 	public bool CheckTargetIsHiding(GameObject tempTarget)
 	{
+
 		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
 		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
 
@@ -264,8 +265,8 @@ public class Archer : Enemy
 
 			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
 			{
-				int temp = LayerMask.GetMask("Environment");
-				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, temp))
+				//LayerMask tempMask = LayerMask.GetMask("Environment") | LayerMask.GetMask("Environment");
+				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, fovIgnoreLayer))
 				{
 					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
 
@@ -283,6 +284,7 @@ public class Archer : Enemy
 			}
 		}
 		return false;
+
 	}
 
 
@@ -445,17 +447,23 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
-		if (status.curHp <= 0f)
+
+		if (dmgStruct.isRiposte | dmgStruct.isBackstab)
 		{
-			SetState((int)eArcherState.Death); 
+			SetState((int)eArcherState.Hit_Hold);
 		}
 		else
 		{
-			if (!status.isSuperArmor)
+			if (status.curHp >= 0f)
 			{
 				SetState((int)eArcherState.Hit);
 			}
+			else
+			{
+				SetState((int)eArcherState.Death);
+			}
 		}
+		
 	}
 
 	//public override void Death()

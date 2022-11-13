@@ -8,6 +8,7 @@ public class HpBar : MonoBehaviour
 {
     public Enemy target;
     bool isDamaged = false;
+    bool isDestroyed = false;
 
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] Slider hpSlider;
@@ -32,12 +33,22 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
+        if(curHp <= 0f)
+        {
+            isDestroyed = true;
+            if(isDestroyed == true)
+            {
+                StartCoroutine(DestroyEffect());
+            }
+        }
+
         if (target != null)
         {
             AutoUpdateHpBar();
 
-            if (isDamaged)
+            if (isDamaged == true)
             {
+                print("위치변경중");
                 canvasGroup.alpha = 1f;
                 transform.position = target.transform.position + new Vector3(0, 1.9f, 0f);
                 transform.LookAt(Camera.main.transform);
@@ -54,15 +65,15 @@ public class HpBar : MonoBehaviour
     {
         if (curHp != target.status.curHp)
         {
+            UpdateHpBar(curHp - target.status.curHp, target.status.maxHp);
             curHp = target.status.curHp;
-            UpdateHpBar(target.status.maxHp - target.status.curHp, target.status.maxHp);
         }
     }
 
     public void UpdateHpBar(float damage, float maxHp)
     {
         isDamaged = true;
-        float damageValue = damage / maxHp;
+        float damageValue = target.status.curHp / maxHp;
 
         hpSlider.value = damageValue;
         StopAllCoroutines();
@@ -85,11 +96,18 @@ public class HpBar : MonoBehaviour
         while(timer < 2f)
         {
             timer += Time.unscaledDeltaTime;
-            damageText.color = new Color(1f, 1f, 1f, timer / lerpTime);
+            damageText.color = new Color(1f, 1f, 1f, 1 - timer / lerpTime);
             hpEffectImage.fillAmount = Mathf.Lerp(originEffectValue, _value, timer / lerpTime);
             yield return null;
         }
         yield break;
+    }
+
+    IEnumerator DestroyEffect()
+    {
+        yield return new WaitForSeconds(2f);
+        ResetHpBar();
+        Destroy(this.gameObject);
     }
 
     public void ResetHpBar()

@@ -16,6 +16,11 @@ public class Player_Idle : Player_cState
             me.SetState(Enums.ePlayerState.Move);
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerActionTable.instance.UseItem();
+        }
+
         if (PlayerActionTable.instance.StaminaCheck() == true)
         {
             if (Input.GetKeyDown(KeyCode.Space))

@@ -90,6 +90,20 @@ public class PlayerActionTable : MonoBehaviour
         player.SetModelCollider(true);
     }
 
+    public void SetPlayerInvincible(int i)
+    {
+        if(i == 0)
+        {
+            player.SetModelCollider(true);
+            player.status.isInvincible = false;
+        }
+        else
+        {
+            player.SetModelCollider(false);
+            player.status.isInvincible = true;
+        }
+    }
+
     IEnumerator DealDamage(int damage, Enemy enemy)
     {
         yield return null;
@@ -309,37 +323,74 @@ public class PlayerActionTable : MonoBehaviour
                 target = UnitManager.Instance.allEnemyList[i];
             }
         }
+
         if (target != null)
         {
-            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Idle))
+            if (!target.status.isDead && distance <= 2.5f )
             {
-                float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
+                float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
                 Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
 
-                if (theta < 90)
-                {
-                    FrontHoldAttack(transform, playerFrontpos , target);
-                    isAct = true;
-                }
-                else if(theta >= 90)
-                {
-                    BackHoldAttack(transform, playerFrontpos, target);
-                    Debug.Log(transform.localRotation);
-                    isAct = true;
-                }
-                else
-                {
-                    print("각도 :" + theta + "잡기실패");
-                    isAct = false;
-                }
-            }
-        }
-        else
+				if (theta < 90 && target.status.isGroggy && !target.status.isFrontHold)
+				{
+					FrontHoldAttack(transform, playerFrontpos, target);
+					isAct = true;
+				}
+				else if (theta >= 135 && !target.status.isBackHold)
+				{
+					BackHoldAttack(transform, playerFrontpos, target);
+					Debug.Log(transform.localRotation);
+					isAct = true;
+				}
+				else
+				{
+					print("각도 :" + theta + "잡기실패");
+					isAct = false;
+				}
+			}
+
+			#region original
+
+			//if (distance <= 2.5f && (target.status.isGroggy == true | target.combatState == eCombatState.Alert))
+			//{
+			//    float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
+			//    float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+			//    Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
+
+			//    if (theta < 90)
+			//    {
+			//        if(target.status.isGroggy == true)
+			//        {
+			//            FrontHoldAttack(transform, playerFrontpos, target);
+			//            isAct = true;
+			//        }
+			//        else
+			//        {
+			//            isAct = false;
+			//        }
+			//    }
+			//    else if(theta >= 135)
+			//    {
+			//        BackHoldAttack(transform, playerFrontpos, target);
+			//        Debug.Log(transform.localRotation);
+			//        isAct = true;
+			//    }
+			//    else
+			//    {
+			//        print("각도 :" + theta + "잡기실패");
+			//        isAct = false;
+			//    }
+			//}
+			#endregion
+		}
+		else
         {
             isAct = false;
         }
+
         return isAct;
     }
 
@@ -352,7 +403,8 @@ public class PlayerActionTable : MonoBehaviour
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.isRiposte = true;
         dmgStruct.attackObj = Player.instance.gameObject;
-        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 10;
+        curActAtkValue = 6f;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * curActAtkValue;
         enemy.Hit(dmgStruct);
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
         enemy.HoldTransPos_Enemy(dir, forwardVec);
@@ -367,7 +419,8 @@ public class PlayerActionTable : MonoBehaviour
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.isBackstab = true;
         dmgStruct.attackObj = Player.instance.gameObject;
-        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 15;
+        curActAtkValue = 6f;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * curActAtkValue;
         enemy.Hit(dmgStruct);
         //여기 적 뒤잡함수
         enemy.HoldTransPos_Enemy(dir, forwardVec);
@@ -399,6 +452,27 @@ public class PlayerActionTable : MonoBehaviour
     {
         guardParam = 0;
         player.animator.SetLayerWeight(1, 0);
+    }
+
+    public void UseItem()
+    {
+        Player.instance.SetState(ePlayerState.Interacting);
+        //일단은 드링크만 사용하게(인벤토리 안만듬)
+        Player.instance.animator.SetTrigger("UseDrink");
+        player.animator.SetLayerWeight(1, 1f);
+    }
+
+    public void PlayCurItemFuncs()
+    {
+        GameObject healingEffect = ObjectPoolingCenter.Instance.LentalObj("Healing",1);
+        healingEffect.transform.SetParent(Player.instance.transform);
+        healingEffect.transform.position = Player.instance.transform.position;
+        healingEffect.GetComponent<ParticleSystem>().Play();
+        Player.instance.status.curHp += 10;
+        if(Player.instance.status.curHp > Player.instance.status.maxHp)
+        {
+            Player.instance.status.curHp = Player.instance.status.maxHp;
+        }
     }
 
     //Funcs
