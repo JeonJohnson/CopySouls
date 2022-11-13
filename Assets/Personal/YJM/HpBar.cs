@@ -19,9 +19,15 @@ public class HpBar : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    private void Start()
+    {
+        print(target);
         curHp = target.status.maxHp;
         canvasGroup.alpha = 0f;
-        damageText.color = new Color(1f, 1f, 1f, 1f);
+        damageText.color = new Color(1f, 1f, 1f, 0f);
     }
 
     void Update()
@@ -33,7 +39,8 @@ public class HpBar : MonoBehaviour
             if (isDamaged)
             {
                 canvasGroup.alpha = 1f;
-                transform.position = Camera.main.WorldToScreenPoint(target.transform.position + new Vector3(0, 1.9f, 0f));
+                transform.position = target.transform.position + new Vector3(0, 1.9f, 0f);
+                transform.LookAt(Camera.main.transform);
             }
         }
         else

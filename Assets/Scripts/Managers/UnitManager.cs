@@ -81,7 +81,19 @@ public class UnitManager : Manager<UnitManager>
     }
     //// <Player>
 
-
+    private void SearchEnemy()
+    {
+        print("써치");
+        GameObject[] allEnemyGoList = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i < allEnemyGoList.Length; i++)
+        {
+            Enemy enemy = allEnemyGoList[i].GetComponent<Enemy>();
+            if (enemy != null && !allEnemyList.Contains(enemy))
+            {
+                allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
+            }
+        }
+    }
 
 
     //// <EnemyVar>
@@ -133,6 +145,7 @@ public class UnitManager : Manager<UnitManager>
         }
 
         CreatePlayer();
+        SearchEnemy();
 
     }
     void Start()

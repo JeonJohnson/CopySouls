@@ -34,6 +34,7 @@ public class PlayerStatusUi : MonoBehaviour
     public void UpdateUI(float hpValue, float mpValue, float staminaValue)
     {
         hpBarRt.sizeDelta = new Vector2(Player.instance.status.maxHp * 3, hpBarRt.sizeDelta.y);
+        staminaBarRt.sizeDelta = new Vector2(Player.instance.status.maxStamina * 3, staminaBarRt.sizeDelta.y);
         hpBarSlider.value = hpValue / Player.instance.status.maxHp;
         mpBarSlider.value = mpValue / Player.instance.status.maxMp;
         staminaBarSlider.value = staminaValue / Player.instance.status.maxMp;

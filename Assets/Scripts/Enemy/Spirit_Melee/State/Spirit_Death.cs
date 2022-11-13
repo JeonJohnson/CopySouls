@@ -19,28 +19,35 @@ public class Spirit_Death : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        me.status.isDead = true;
-        DeathIndex = Random.Range((int)DeathPattern.Front, (int)DeathPattern.End);
-        me.animCtrl.SetBool("isDeath", true);
-        me.animCtrl.SetFloat("AttIndex", DeathIndex);
+        if(!((Spirit)me).ragdollModel.activeSelf)
+        {
+            me.status.isDead = true;
+            DeathIndex = Random.Range((int)DeathPattern.Front, (int)DeathPattern.End);
+            me.animCtrl.SetBool("isDeath", true);
+            me.animCtrl.SetFloat("AttIndex", DeathIndex);
+        }
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
     }
 
     public override void UpdateState()
     {
-        if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+        if (!((Spirit)me).ragdollModel.activeSelf)
         {
-            if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 0.5f))
+            if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
-                ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
-                ((Spirit)me).ChangeToRagDoll();
-                Complete_Ani = true;
+                if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 0.5f))
+                {
+                    ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
+                    ((Spirit)me).ChangeToRagDoll();
+                    Complete_Ani = true;
+                }
             }
         }
+        else Complete_Ani = true;
+
         if (Complete_Ani)
         {
-            //me.animCtrl.enabled = false;
             timer += Time.deltaTime;
             if (timer >= existTime) me.gameObject.SetActive(false);
         }

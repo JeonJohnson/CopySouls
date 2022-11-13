@@ -13,19 +13,27 @@ public class UiManager : Manager<UiManager>
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab,hpBarUi.transform);
         HpBar hpBar = hpBarGo.GetComponent<HpBar>();
+        print(target + "    d");
         hpBar.target = target;
+    }
+
+    private void Awake()
+    {
+        TestMakeHpBar();
     }
 
     private void Start()
     {
-        
+
     }
 
     void TestMakeHpBar()
     {
-        for(int i = 0; i < UnitManager.Instance.enemyPrefabList.Count; i++)
+        for(int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
         {
-            InstantiateHpBar(UnitManager.Instance.enemyPrefabList[i].GetComponent<Enemy>());
+            print(i);
+            print(UnitManager.Instance.allEnemyList[i]);
+            InstantiateHpBar(UnitManager.Instance.allEnemyList[i]);
         }
     }
 }
