@@ -408,4 +408,8 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 
 23:10 2022-11-13 	공격 중간에 맞아서 화살 꼬이는 버그 수정 / 맞을때도 뒤로가는 버그 수정
 	=> 이제 쫓아가는 패턴으로 넘어가기
-
+<<<<<<< HEAD
+            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Idle))
+=======
+            if (!target.status.isDead && distance <= 2.5f )
+>>>>>>> b04eeeccb3c1f45d9d971d55ed904fcbfc31415d
