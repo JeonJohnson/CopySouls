@@ -31,9 +31,11 @@ public class Spirit_Hold : cState
 
         if (!me.animCtrl.GetBool("isHold"))
         {
+            if (me.status.curHp <= 0) me.status.isDead = true;
             if (me.status.isDead)
             {
-                me.SetState((int)Enums.eSpiritState.Death);
+                ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
+                ((Spirit)me).ChangeToRagDoll();
             }
             else
             {
