@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
+
 public class Archer_Hit : cState
 {
 	Archer archer = null;
+	
 	int rand;
-	//string animName = "Archer_Hit";
-
+	string animStr;
 	public enum eNextState
 	{ 
 		PreState,
@@ -37,8 +39,6 @@ public class Archer_Hit : cState
 			default:
 				break;
 		}
-
-
 	}
 
 	public override void EnterState(Enemy script)
@@ -54,28 +54,32 @@ public class Archer_Hit : cState
 
 		me.animCtrl.SetTrigger("tHit");
 		me.animCtrl.SetInteger("iHit", rand);
-
-		//animName = "Archer_Hit" + $"_0{rand}";
+		animStr = $"Archer_Hit_0{rand}";
 	}
 	public override void UpdateState()
 	{
-		//me.transform.rotation = me.LookAtSlow(archer.transform, me.targetObj.transform, me.status.lookAtSpd);
-		archer.ActingLegWhileTurn(me.targetObj.transform.position);
 
-
-		//1. 히트 애니메이션 들어오면 일단 맞은 쪽 돌아보기
-		//2. 그 담에 전투모드 -> 무기를 꺼낸다거나 밀리 공격을 한다거나
-		//3. 혹은 도망가기
-
-		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Hit_0{rand}"))
+		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, animStr))
 		{
-			//if (!me.isAlert)
-			//{
-				//me.isAlert = true;
-			//me.alertStartEvent();//2201108
-			//me.SetState((int)eArcher)
-			//me.SetState((int)archer.Think(archer.curState_e));
+			//Combat스테이트로 판별해서 맞으면 돌면서 그냥 공격 패턴 틀어주면 되고
+			//아니면?
+			//돌면서 equip으로 돌려주면 된다~
+			if (archer.combatState == eCombatState.Combat | archer.combatState == eCombatState.Alert)
+			{
+				archer.SetState((int)archer.actTable.RandomAttackState());
+			}
+			else if(archer.combatState == eCombatState.Idle | archer.weaponEquipState == eEquipState.UnEquip)
+			{
+				archer.SetState((int)eArcherState.Bow_Equip);
+			}
 		}
+
+	}
+
+	public override void LateUpdateState()
+	{
+		base.LateUpdateState();
+		
 	}
 
 	public override void ExitState()

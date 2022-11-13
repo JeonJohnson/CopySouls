@@ -1628,7 +1628,7 @@ MonoBehaviour:
     type: 0
     isDead: 0
     maxHp: 100
-    curHp: 100
+    curHp: 50
     maxStamina: 0
     curStamina: 0
     maxMp: 0

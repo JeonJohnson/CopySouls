@@ -445,16 +445,13 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
-		if (status.curHp <= 0f)
+		if (status.curHp >= 0f)
 		{
-			SetState((int)eArcherState.Death); 
+			SetState((int)eArcherState.Hit);
 		}
 		else
 		{
-			if (!status.isSuperArmor)
-			{
-				SetState((int)eArcherState.Hit);
-			}
+			SetState((int)eArcherState.Death);
 		}
 	}
 

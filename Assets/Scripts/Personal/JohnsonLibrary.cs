@@ -442,17 +442,17 @@ public static class Defines
 
 	public static string[] ArcherAnimTriggerStr =
 	{
-		"tEquip",
-		"tUnequip",
-		"tAttack",
-		"tIdle",
-		"tIdle_Unequip",
-		"tRun",
-		"tHit",
-		"tDeath",
-		"tWalk",
-		"tShootArrow",
-		"tLookAround"
+		//"tEquip",
+		//"tUnequip",
+		//"tAttack",
+		//"tIdle",
+		//"tIdle_Unequip",
+		//"tRun",
+		//"tHit",
+		//"tDeath",
+		//"tWalk",
+		//"tShootArrow",
+		//"tLookAround"
 	};
 
 }
