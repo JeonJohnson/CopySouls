@@ -26,9 +26,9 @@ public class Archer_BowEquip : cState
 		{
 
 
-			archer.SetState((int)archer.actTable.RandomAttackState());
+			//archer.SetState((int)archer.actTable.RandomAttackState());
 
-			//archer.SetState((int)Enums.eArcherState.Attack_Precision);
+			archer.SetState((int)Enums.eArcherState.Attack_Precision);
 
 			//if (archer.distToTarget <= archer.status.atkRange)
 			//{
