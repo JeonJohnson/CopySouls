@@ -142,21 +142,4 @@ public class Player : MonoBehaviour
         }
     }
     */
-    #region PLAYER INVINCIBLE TEST CODE
-    [Header("TEST CODE")]
-    [SerializeField] Material testMat_0;
-    [SerializeField] Material testMat_1;
-
-    public void SetPlayerMat(int i)
-    {
-        if (i == 0)
-        {
-            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_1;
-        }
-        else
-        {
-            playerModel.transform.Find("Character_Hero_Knight_Male").GetComponent<SkinnedMeshRenderer>().material = testMat_0;
-        }
-    }
-    #endregion
 }
