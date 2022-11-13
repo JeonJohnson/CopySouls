@@ -311,7 +311,7 @@ public class PlayerActionTable : MonoBehaviour
         }
         if (target != null)
         {
-            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState != eCombatState.Alert))
+            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Idle))
             {
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;

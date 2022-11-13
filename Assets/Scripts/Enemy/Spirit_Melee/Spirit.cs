@@ -7,6 +7,7 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public Transform headPos;
     public GameObject model;
     public GameObject ragdollModel;
     public GameObject remainderWeapon;

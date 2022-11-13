@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spirit_Idle : cState
 {
     public float curTime = 0;
-    public float patrolWaitTime = 5;
+    public float patrolWaitTime = 7f;
 
     public override void EnterState(Enemy script)
     {

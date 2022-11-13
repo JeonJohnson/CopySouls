@@ -10,6 +10,8 @@ public class Spirit_Hold : cState
     {
         base.EnterState(script);
         Debug.Log("¿‚±‚!!");
+        me.status.isBackHold = false;
+        me.status.isFrontHold = false;
         me.animCtrl.SetBool("isHold", true);
         if (me.status.isBackHold) me.animCtrl.SetFloat("AttIndex", 0);
         else if (me.status.isFrontHold) me.animCtrl.SetFloat("AttIndex", 1);
@@ -17,6 +19,7 @@ public class Spirit_Hold : cState
 
     public override void UpdateState()
     {
+        me.MoveStop();
         if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Hold"))
         {
             if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 1f))
@@ -87,8 +90,7 @@ public class Spirit_Hold : cState
 
     public override void ExitState()
     {
-        me.status.isBackHold = false;
-        me.status.isFrontHold = false;
+        
         complete_Hold = false;
     }
 }

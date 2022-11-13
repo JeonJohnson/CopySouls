@@ -8,6 +8,7 @@ public class FieldOfViewEditor : Editor
 {
     void OnSceneGUI()
     {
+#if UNITY_EDITOR
         FieldOfView fow = (FieldOfView)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.viewRadius);
@@ -17,10 +18,11 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.viewRadius);
         Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.viewRadius);
 
-        Handles.color = Color.red;
+        Handles.color = Color.red; 
         foreach (Transform visible in fow.findObj)
         {
-            Handles.DrawLine(fow.transform.position, visible.transform.position);
+            Handles.DrawLine(fow.HeadPos.position, visible.transform.position);
         }
+#endif
     }
 }
