@@ -90,6 +90,20 @@ public class PlayerActionTable : MonoBehaviour
         player.SetModelCollider(true);
     }
 
+    public void SetPlayerInvincible(int i)
+    {
+        if(i == 0)
+        {
+            player.SetModelCollider(true);
+            player.status.isInvincible = false;
+        }
+        else
+        {
+            player.SetModelCollider(false);
+            player.status.isInvincible = true;
+        }
+    }
+
     IEnumerator DealDamage(int damage, Enemy enemy)
     {
         yield return null;

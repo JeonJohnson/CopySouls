@@ -32,12 +32,19 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
+        if(curHp <= 0f)
+        {
+            ResetHpBar();
+            Destroy(this.gameObject);
+        }
+
         if (target != null)
         {
             AutoUpdateHpBar();
 
-            if (isDamaged)
+            if (isDamaged == true)
             {
+                print("위치변경중");
                 canvasGroup.alpha = 1f;
                 transform.position = target.transform.position + new Vector3(0, 1.9f, 0f);
                 transform.LookAt(Camera.main.transform);
@@ -62,7 +69,7 @@ public class HpBar : MonoBehaviour
     public void UpdateHpBar(float damage, float maxHp)
     {
         isDamaged = true;
-        float damageValue = damage / maxHp;
+        float damageValue = 1 - damage / maxHp;
 
         hpSlider.value = damageValue;
         StopAllCoroutines();
@@ -85,7 +92,7 @@ public class HpBar : MonoBehaviour
         while(timer < 2f)
         {
             timer += Time.unscaledDeltaTime;
-            damageText.color = new Color(1f, 1f, 1f, timer / lerpTime);
+            damageText.color = new Color(1f, 1f, 1f, 1 - timer / lerpTime);
             hpEffectImage.fillAmount = Mathf.Lerp(originEffectValue, _value, timer / lerpTime);
             yield return null;
         }
