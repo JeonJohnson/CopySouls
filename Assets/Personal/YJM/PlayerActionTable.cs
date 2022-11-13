@@ -396,7 +396,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void FrontHoldAttack(Transform dir,Vector3 forwardVec , Enemy enemy)
     {
-        curActAtkValue = 6f;
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -404,7 +403,8 @@ public class PlayerActionTable : MonoBehaviour
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.isRiposte = true;
         dmgStruct.attackObj = Player.instance.gameObject;
-        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 10;
+        curActAtkValue = 6f;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * curActAtkValue;
         enemy.Hit(dmgStruct);
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
         enemy.HoldTransPos_Enemy(dir, forwardVec);
@@ -412,7 +412,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void BackHoldAttack(Transform dir, Vector3 forwardVec, Enemy enemy)
     {
-        curActAtkValue = 6f;
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Atk);
@@ -420,7 +419,8 @@ public class PlayerActionTable : MonoBehaviour
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.isBackstab = true;
         dmgStruct.attackObj = Player.instance.gameObject;
-        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 15;
+        curActAtkValue = 6f;
+        dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * curActAtkValue;
         enemy.Hit(dmgStruct);
         //여기 적 뒤잡함수
         enemy.HoldTransPos_Enemy(dir, forwardVec);
