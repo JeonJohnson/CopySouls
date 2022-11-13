@@ -415,6 +415,27 @@ public class PlayerActionTable : MonoBehaviour
         player.animator.SetLayerWeight(1, 0);
     }
 
+    public void UseItem()
+    {
+        Player.instance.SetState(ePlayerState.Interacting);
+        //일단은 드링크만 사용하게(인벤토리 안만듬)
+        Player.instance.animator.SetTrigger("UseDrink");
+        player.animator.SetLayerWeight(1, 1f);
+    }
+
+    public void PlayCurItemFuncs()
+    {
+        GameObject healingEffect = ObjectPoolingCenter.Instance.LentalObj("Healing",1);
+        healingEffect.transform.SetParent(Player.instance.transform);
+        healingEffect.transform.position = Player.instance.transform.position;
+        healingEffect.GetComponent<ParticleSystem>().Play();
+        Player.instance.status.curHp += 10;
+        if(Player.instance.status.curHp > Player.instance.status.maxHp)
+        {
+            Player.instance.status.curHp = Player.instance.status.maxHp;
+        }
+    }
+
     //Funcs
 
     public void SetPlayerStatus(int i)

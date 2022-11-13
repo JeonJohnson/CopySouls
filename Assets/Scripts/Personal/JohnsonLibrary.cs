@@ -590,6 +590,7 @@ namespace Enums
 		Hit,
 		Dodge,
 		Death,
+		Interacting,
 
 		End
 	}
