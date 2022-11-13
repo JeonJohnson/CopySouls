@@ -61,15 +61,15 @@ public class HpBar : MonoBehaviour
     {
         if (curHp != target.status.curHp)
         {
+            UpdateHpBar(curHp - target.status.curHp, target.status.maxHp);
             curHp = target.status.curHp;
-            UpdateHpBar(target.status.maxHp - target.status.curHp, target.status.maxHp);
         }
     }
 
     public void UpdateHpBar(float damage, float maxHp)
     {
         isDamaged = true;
-        float damageValue = 1 - damage / maxHp;
+        float damageValue = target.status.curHp / maxHp;
 
         hpSlider.value = damageValue;
         StopAllCoroutines();
