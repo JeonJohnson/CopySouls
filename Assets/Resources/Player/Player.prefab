@@ -2438,8 +2438,8 @@ MonoBehaviour:
     isGuard: 0
     mainWeapon: {fileID: 1189113979338820136}
     subWeapon: {fileID: 6274456743026991043}
-  preState_e: 6
-  curState_e: 6
+  preState_e: 7
+  curState_e: 7
 --- !u!114 &7030777313930249931
 MonoBehaviour:
   m_ObjectHideFlags: 0

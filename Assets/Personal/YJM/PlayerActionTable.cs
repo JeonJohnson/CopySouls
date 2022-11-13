@@ -323,44 +323,74 @@ public class PlayerActionTable : MonoBehaviour
                 target = UnitManager.Instance.allEnemyList[i];
             }
         }
+
         if (target != null)
         {
-            if (distance <= 2.5f && (target.status.isGroggy == true || target.combatState == eCombatState.Alert))
+            if (distance <= 2.5f)
             {
-                float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
+                float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
                 Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
 
-                if (theta < 90)
-                {
-                    if(target.status.isGroggy == true)
-                    {
-                        FrontHoldAttack(transform, playerFrontpos, target);
-                        isAct = true;
-                    }
-                    else
-                    {
-                        isAct = false;
-                    }
-                }
-                else if(theta >= 135)
-                {
-                    BackHoldAttack(transform, playerFrontpos, target);
-                    Debug.Log(transform.localRotation);
-                    isAct = true;
-                }
-                else
-                {
-                    print("각도 :" + theta + "잡기실패");
-                    isAct = false;
-                }
-            }
-        }
-        else
+				if (theta < 90 && target.status.isGroggy)
+				{
+					FrontHoldAttack(transform, playerFrontpos, target);
+					isAct = true;
+				}
+				else if (theta >= 135)
+				{
+					BackHoldAttack(transform, playerFrontpos, target);
+					Debug.Log(transform.localRotation);
+					isAct = true;
+				}
+				else
+				{
+					print("각도 :" + theta + "잡기실패");
+					isAct = false;
+				}
+			}
+
+			#region original
+
+			//if (distance <= 2.5f && (target.status.isGroggy == true | target.combatState == eCombatState.Alert))
+			//{
+			//    float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
+			//    float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+			//    Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
+
+			//    if (theta < 90)
+			//    {
+			//        if(target.status.isGroggy == true)
+			//        {
+			//            FrontHoldAttack(transform, playerFrontpos, target);
+			//            isAct = true;
+			//        }
+			//        else
+			//        {
+			//            isAct = false;
+			//        }
+			//    }
+			//    else if(theta >= 135)
+			//    {
+			//        BackHoldAttack(transform, playerFrontpos, target);
+			//        Debug.Log(transform.localRotation);
+			//        isAct = true;
+			//    }
+			//    else
+			//    {
+			//        print("각도 :" + theta + "잡기실패");
+			//        isAct = false;
+			//    }
+			//}
+			#endregion
+		}
+		else
         {
             isAct = false;
         }
+
         return isAct;
     }
 
