@@ -10,7 +10,6 @@ public class Spirit_Groggy : cState
         me.animCtrl.SetBool("isGroggy",true);
         ((Spirit)me).weapon.WeaponColliderOnOff(false);
     }
-
     public override void UpdateState()
     {
         if (((Spirit)me).complete_Groggy)
@@ -35,12 +34,6 @@ public class Spirit_Groggy : cState
         }
         else
         {
-            //스턴중
-            //플레이어가 잡기 시전시
-            //앞잡 : getting_parried
-            //뒤잡 : getting_backstabbed
-            //플레이어 잡기상태시
-
             if(me.status.isFrontHold || me.status.isBackHold)
             {
                 me.SetState((int)Enums.eSpiritState.Hold);

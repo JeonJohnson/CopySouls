@@ -14,7 +14,7 @@ public class Spirit_Damaged : cState
 
     public override void UpdateState()
     {
-        if (me.status.isFrontHold || me.status.isBackHold)
+        if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);
         }
