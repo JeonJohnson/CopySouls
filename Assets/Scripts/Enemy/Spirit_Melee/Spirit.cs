@@ -105,7 +105,7 @@ public class Spirit : Enemy
         //=======================================
 
 
-        if (status.curHp <= 0)
+        if (status.curHp <= 0 && curState_e != eSpiritState.Hold)
         {
             status.isDead = true;
             SetState((int)Enums.eSpiritState.Death);

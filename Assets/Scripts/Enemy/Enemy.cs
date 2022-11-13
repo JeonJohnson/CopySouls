@@ -70,10 +70,11 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
-    public void HoldTransPos_Enemy(Vector3 pos,Vector3 rot)
+    public void HoldTransPos_Enemy(Transform dir,Vector3 forwardVec)
     {
-        transform.position = pos;
-        transform.rotation = Quaternion.Euler(rot);
+        transform.position = forwardVec;
+        if(status.isBackHold) transform.forward = dir.forward;
+        else transform.forward = -dir.forward;
     }
 
     public void ResetAllAnimTrigger(string[] triggerStrArr)
@@ -412,8 +413,6 @@ public abstract class Enemy : MonoBehaviour
     public virtual void Hit(DamagedStruct dmgStruct)
     {
         status.curHp -= (int)dmgStruct.dmg;
-        Debug.Log("뒤잡 : " + dmgStruct.isBackstab);
-        Debug.Log("앞잡 : " + dmgStruct.isRiposte);
         if (dmgStruct.isBackstab) status.isBackHold = true;
         else status.isBackHold = false;
 

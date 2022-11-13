@@ -318,16 +318,17 @@ public class PlayerActionTable : MonoBehaviour
                 float dot = Vector3.Dot(target.transform.forward, - Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
-                Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1.5f;
+                Vector3 playerFrontpos = transform.position + Player.instance.playerModel.transform.forward * 1f;
 
                 if (theta < 90)
                 {
-                    FrontHoldAttack(playerFrontpos, transform.forward,target);
+                    FrontHoldAttack(transform, playerFrontpos , target);
                     isAct = true;
                 }
                 else if(theta >= 90)
                 {
-                    BackHoldAttack(playerFrontpos, -transform.forward,target);
+                    BackHoldAttack(transform, playerFrontpos, target);
+                    Debug.Log(transform.localRotation);
                     isAct = true;
                 }
                 else
@@ -344,7 +345,7 @@ public class PlayerActionTable : MonoBehaviour
         return isAct;
     }
 
-    public void FrontHoldAttack(Vector3 pos, Vector3 rot , Enemy enemy)
+    public void FrontHoldAttack(Transform dir,Vector3 forwardVec , Enemy enemy)
     {
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
@@ -356,10 +357,10 @@ public class PlayerActionTable : MonoBehaviour
         dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 10;
         enemy.Hit(dmgStruct);
         //여기 적 앞잡함수(적이 뿅 하고 플레이어 앞으로 이동후 찔리는모션 실행)
-        enemy.HoldTransPos_Enemy(pos,rot);
+        enemy.HoldTransPos_Enemy(dir, forwardVec);
     }
 
-    public void BackHoldAttack(Vector3 pos, Vector3 rot, Enemy enemy)
+    public void BackHoldAttack(Transform dir, Vector3 forwardVec, Enemy enemy)
     {
         Player.instance.status.curStamina += 10;
         EnableWeaponMeshCol(0);
@@ -371,7 +372,7 @@ public class PlayerActionTable : MonoBehaviour
         dmgStruct.dmg = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().Dmg * 15;
         enemy.Hit(dmgStruct);
         //여기 적 뒤잡함수
-        enemy.HoldTransPos_Enemy(pos, rot);
+        enemy.HoldTransPos_Enemy(dir, forwardVec);
     }
 
     float guardParam = 0;
