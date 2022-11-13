@@ -555,6 +555,7 @@ namespace Enums
 
 
 		Hit,
+		Hit_Hold,
 
 		Death,
 

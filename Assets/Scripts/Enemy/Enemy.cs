@@ -413,6 +413,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void Hit(DamagedStruct dmgStruct)
     {
         status.curHp -= (int)dmgStruct.dmg;
+
         if (dmgStruct.isBackstab) status.isBackHold = true;
         else status.isBackHold = false;
 
