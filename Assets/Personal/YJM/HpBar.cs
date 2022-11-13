@@ -19,6 +19,12 @@ public class HpBar : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    private void Start()
+    {
+        print(target);
         curHp = target.status.maxHp;
         canvasGroup.alpha = 0f;
         damageText.color = new Color(1f, 1f, 1f, 1f);
