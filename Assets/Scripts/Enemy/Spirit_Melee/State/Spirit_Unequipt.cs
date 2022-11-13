@@ -7,6 +7,7 @@ public class Spirit_Unequipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+        Debug.Log("장비해제");
         ((Spirit)me).isEquipt = false;
         me.weaponEquipState = eEquipState.UnEquip;
         me.MoveStop();
@@ -29,6 +30,11 @@ public class Spirit_Unequipt : cState
         }
         else
         {
+            if (me.combatState == eCombatState.Alert)
+            {
+                me.SetState((int)Enums.eSpiritState.Equipt);
+            }
+
             if (me.status.isBackHold)
             {
                 me.SetState((int)Enums.eSpiritState.Hold);

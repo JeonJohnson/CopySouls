@@ -120,7 +120,7 @@ public abstract class Weapon : MonoBehaviour
                 if(Player.instance.status.isParrying == true)
                 {
                     ParryingToEnemy(owner.GetComponent<Enemy>());
-                    Debug.Log("Payying");
+                    Debug.Log("Parrying");
                 }
                 else
                 {

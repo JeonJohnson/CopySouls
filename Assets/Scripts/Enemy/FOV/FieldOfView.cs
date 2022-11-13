@@ -21,11 +21,12 @@ public struct ViewCastInfo
 public class FieldOfView : MonoBehaviour
 {
     public Enemy me;
+    public Transform HeadPos;
 
     public float viewRadius;
     [Range(1, 360)]
     public float viewAngle;
-    public LayerMask targetMask, obstacleMask;
+    public LayerMask targetMask, targetHeadMask, obstacleMask;
 
     public List<Transform> findObj = new List<Transform>();
     public float meshResolution;
@@ -36,7 +37,12 @@ public class FieldOfView : MonoBehaviour
     {
         viewRadius = me.status.ricognitionRange;
         targetMask = LayerMask.GetMask("Player");
-        obstacleMask = LayerMask.GetMask("Obstacle");
+        obstacleMask = LayerMask.GetMask("Environment");
+        //obstacleMask = LayerMask.GetMask("Obstacle");
+        targetHeadMask = LayerMask.GetMask("Player_Hitbox");
+
+        HeadPos = ((Spirit)me).headPos;
+
         viewMeshFilter = gameObject.GetComponentInChildren<MeshFilter>();
 
         viewMesh = new Mesh();
@@ -81,20 +87,23 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < hitObjs.Length; i++)
         {
             Transform target = hitObjs[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            //Vector3 dirToTarget = (target.position - transform.position).normalized;
+            Vector3 dirToTarget = (target.position - HeadPos.position).normalized;
 
             if (viewAngle <= 180f && viewAngle > 0f)
             {
                 if (InnerProduct_Rad(transform.forward, dirToTarget, false) < viewAngle / 2)
                 {
-                    float distToTarget = Vector3.Distance(transform.position, target.transform.position);
+                    //float distToTarget = Vector3.Distance(transform.position, target.transform.position);
+                    float distToTarget = Vector3.Distance(HeadPos.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    
+                    //if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    if (!Physics.Raycast(HeadPos.position, dirToTarget, distToTarget, obstacleMask))
                     {
                         if (target.gameObject == gameObject) continue;
 
-                        if(target.gameObject.name == "Model") findObj.Add(target);
-
+                        if(target.gameObject.name == "Head") findObj.Add(target);
 
                         //else
                         //{
@@ -105,16 +114,18 @@ public class FieldOfView : MonoBehaviour
             }
             else if (viewAngle > 180f && viewAngle <= 360f)
             {
-                float distToTarget = Vector3.Distance(transform.position, target.transform.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                float distToTarget = Vector3.Distance(HeadPos.position, target.transform.position);
+                //if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                if (!Physics.Raycast(HeadPos.position, dirToTarget, distToTarget, obstacleMask))
+
                 {
                     if (target.gameObject == gameObject) continue;
 
-                    if (target.gameObject.name == "Model") findObj.Add(target);
-                    //else
-                    //{
-                    //    if (target.gameObject.layer == targetMask) findObj.Add(target);
-                    //}
+                if (target.gameObject.name == "Head") findObj.Add(target);
+                //else
+                //{
+                //    if (target.gameObject.layer == targetMask) findObj.Add(target);
+                //}
                 }
             }
         }
@@ -128,7 +139,11 @@ public class FieldOfView : MonoBehaviour
             foreach (Transform target in findObj)
             {
                 GameObject obj = target.gameObject;
-                if (obj.layer == 6) isFind = true;
+                if (obj.layer == 14)
+                {
+                    isFind = true;
+                    Debug.Log("Ã£¾Ò´Ù!");
+                }
             }
         }
         else isFind = false;
