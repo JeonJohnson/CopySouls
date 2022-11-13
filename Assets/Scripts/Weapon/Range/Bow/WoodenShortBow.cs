@@ -37,6 +37,12 @@ public class WoodenShortBow : Weapon, IPoolingObject
 
     }
 
+    public void DeleteArrow()
+    {
+        arrow = null;
+        state = eBowState.End;
+        animCtlr.SetTrigger("tReturn");
+    }
 
     protected override void weaponInitialize()
     {
@@ -74,8 +80,8 @@ public class WoodenShortBow : Weapon, IPoolingObject
                 }
 				break;
 			case eBowState.Shoot:
-                { 
-                
+                {
+                    
                 }
 				break;
 			case eBowState.End:

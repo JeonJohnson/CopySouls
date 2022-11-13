@@ -27,15 +27,18 @@ public class Archer_Hit_Hold : cState
 
 		holdType = archer.status.isFrontHold ? eHoldType.Front : eHoldType.Back;
 
+
 		archer.animCtrl.SetTrigger("tHit");
 		archer.animCtrl.SetBool("bHit_Hold", true);
 		archer.animCtrl.SetInteger("iHoldDir", (int)holdType);
 
 		archer.animCtrl.applyRootMotion = true;
 
-
+		
 		archer.navAgent.enabled = false;
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0f);
+
+		//archer.actTable.ArrowReturn();
 	}
 
 	public override void UpdateState()

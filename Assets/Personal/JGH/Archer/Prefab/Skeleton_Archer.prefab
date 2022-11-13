@@ -1672,7 +1672,7 @@ MonoBehaviour:
     RightDir: {x: 0, y: 0, z: 0}
   fovIgnoreLayer:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 2688
   fovCheckLayer:
     serializedVersion: 2
     m_Bits: 16705

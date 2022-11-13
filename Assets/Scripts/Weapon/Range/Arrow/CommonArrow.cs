@@ -45,6 +45,7 @@ public class CommonArrow : Weapon, IPoolingObject
         //Debug.Log(targetTr.position);
     }
 
+
     public void ResetForReturn()
     {
 

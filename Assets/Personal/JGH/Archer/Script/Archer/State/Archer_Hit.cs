@@ -55,6 +55,10 @@ public class Archer_Hit : cState
 		me.animCtrl.SetTrigger("tHit");
 		me.animCtrl.SetInteger("iHit", rand);
 		animStr = $"Archer_Hit_0{rand}";
+
+		archer.actTable.MoveWhileAttack(eArcherMoveDir.End);
+		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0f);
+		//archer.actTable.ArrowReturn();
 	}
 	public override void UpdateState()
 	{

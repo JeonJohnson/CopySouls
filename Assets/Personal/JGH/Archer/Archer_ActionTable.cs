@@ -63,11 +63,21 @@ public class Archer_ActionTable : MonoBehaviour
 	public void DrawArrowAnimEvent()
 	{ //화살통에서 화살 뽑았을 때 
 	  //화살 생성해야함
-		archer.arrow = ObjectPoolingCenter.Instance.LentalObj(archer.arrowName).GetComponent<CommonArrow>();
-		archer.arrow.owner = archer.gameObject;
-		
-		archer.arrow.state = eArrowState.Draw;
 
+		GameObject alreadyArrow = Funcs.FindGameObjectInChildrenByTag(archer.rightIndexFingerBoneTr.gameObject, "EnemyWeapon");
+		if (!alreadyArrow)
+		{
+			archer.arrow = ObjectPoolingCenter.Instance.LentalObj(archer.arrowName).GetComponent<CommonArrow>();
+		}
+		else
+		{
+			archer.arrow = alreadyArrow.GetComponent<CommonArrow>();
+		}
+
+
+		archer.arrow.owner = archer.gameObject;
+
+		archer.arrow.state = eArrowState.Draw;
 		archer.arrow.transform.SetParent(archer.rightIndexFingerBoneTr);
 		archer.arrow.transform.localPosition = Vector3.zero;
 
@@ -75,19 +85,19 @@ public class Archer_ActionTable : MonoBehaviour
 		archer.arrow.bowLeverTr = archer.weapon.leverTr;
 
 		archer.arrow.targetTr = archer.targetSpineTr;
-		
+
 		archer.arrow.WeaponColliderOnOff(false);
 
-		//archer.arrow.transform.forward = archer.animCtrl.GetBoneTransform(HumanBodyBones.RightHand).right;
-		//archer.arrow.transform.localRotation = Quaternion.identity;
 	}
 
 	public void HookArrowAnimEvent()
 	{ //화살에 걸었을때,
 	  //이때부터 화살 걸이부분으로 forward맞춰주기
 		archer.weapon.state = eBowState.Hook;
-		archer.arrow.state = eArrowState.Hook;
-
+		if (archer.arrow)
+		{
+			archer.arrow.state = eArrowState.Hook;
+		}
 
 		//x: 0.21823844, y: 0.29749483, z: -0.0024048486
 	}
@@ -104,18 +114,33 @@ public class Archer_ActionTable : MonoBehaviour
 	{
 		archer.weapon.state = eBowState.Shoot;
 		archer.weapon.animCtlr.SetTrigger("tReturn");
-		
-		archer.arrow.state = eArrowState.Shoot;
-		archer.arrow.WeaponColliderOnOff(true);
-		archer.arrow.LookTarget();
-		archer.arrow.transform.SetParent(null);
-		archer.arrow.StartCoroutine(archer.arrow.AliveCoroutine());
 
+		if (archer.arrow)
+		{
+			archer.arrow.state = eArrowState.Shoot;
+			archer.arrow.WeaponColliderOnOff(true);
+			archer.arrow.LookTarget();
+			archer.arrow.transform.SetParent(null);
+			archer.arrow.StartCoroutine(archer.arrow.AliveCoroutine());
+		}
 		archer.arrow = null;
 	}
 	#endregion
 
+	public void DeleteArrow()
+	{
+		if (archer.arrow)
+		{
+			if (archer.weaponEquipState == eEquipState.Equip)
+			{
+				archer.weapon.DeleteArrow();
+			}
 
+			archer.arrow.ResetForReturn();
+			ObjectPoolingCenter.Instance.ReturnObj(archer.arrow.gameObject);
+			archer.arrow = null;
+		}
+	}
 
 	public eArcherAttackMoveType RandAttackMoveType()
 	{
