@@ -156,12 +156,12 @@ public class Archer_ActionTable : MonoBehaviour
 				break;
 			case eArcherAttackState.PullString:
 				{
-					archer.animCtrl.speed = pullAnimSpd;
+					archer.animCtrl.SetFloat("fBowPullSpd", pullAnimSpd);
 
 					if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "Archer_Atk_PullString"))
 					{
-						
-						archer.animCtrl.speed = 1;
+
+						archer.animCtrl.SetFloat("fBowPullSpd", 1f);
 						atkState = eArcherAttackState.Shoot;
 					}
 				}
