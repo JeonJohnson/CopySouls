@@ -16,6 +16,7 @@ public class Archer_Hit_Hold : cState
 	}
 
 	eHoldType holdType;
+	string animName;
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
@@ -26,11 +27,13 @@ public class Archer_Hit_Hold : cState
 		}
 
 		holdType = archer.status.isFrontHold ? eHoldType.Front : eHoldType.Back;
-
+		animName = archer.status.isFrontHold ? "FrontHold" : "BackHold";
 
 		archer.animCtrl.SetTrigger("tHit");
 		archer.animCtrl.SetBool("bHit_Hold", true);
+		archer.animCtrl.SetBool("bDontGetup", archer.status.isDead);
 		archer.animCtrl.SetInteger("iHoldDir", (int)holdType);
+
 
 		archer.animCtrl.applyRootMotion = true;
 
@@ -38,22 +41,36 @@ public class Archer_Hit_Hold : cState
 		archer.navAgent.enabled = false;
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0f);
 
+		
+
 		//archer.actTable.ArrowReturn();
 	}
 
 	public override void UpdateState()
 	{
 		//base.UpdateState();
-
-		if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "GetUp"))
+		if (archer.status.isDead)
 		{
-			if (archer.combatState == eCombatState.Combat | archer.combatState == eCombatState.Alert)
+			if (Funcs.IsAnimationCompletelyFinish(archer.animCtrl, animName,0.95f))
 			{
-				archer.SetState((int)archer.actTable.RandomAttackState());
+				archer.ActiveRagdoll();
+
+				archer.DeathReset();
+				archer.gameObject.SetActive(false);
 			}
-			else if (archer.combatState == eCombatState.Idle | archer.weaponEquipState == eEquipState.UnEquip)
+		}
+		else
+		{
+			if (Funcs.IsAnimationAlmostFinish(archer.animCtrl, "GetUp"))
 			{
-				archer.SetState((int)eArcherState.Bow_Equip);
+				if (archer.combatState == eCombatState.Combat | archer.combatState == eCombatState.Alert)
+				{
+					archer.SetState((int)archer.actTable.RandomAttackState());
+				}
+				else if (archer.combatState == eCombatState.Idle | archer.weaponEquipState == eEquipState.UnEquip)
+				{
+					archer.SetState((int)eArcherState.Bow_Equip);
+				}
 			}
 		}
 	}

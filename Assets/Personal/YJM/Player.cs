@@ -65,14 +65,14 @@ public class Player : MonoBehaviour
     #endregion
 
 
-    ShakeOnKey shakeOnKey;
-
+    CameraShake cameraShake;
+    
 
     // Start is called before the first frame update
     private void Start()
     {
         //RigidBodySetting();
-        shakeOnKey = GetComponent<ShakeOnKey>();
+        
     }
 
     // Update is called once per frame

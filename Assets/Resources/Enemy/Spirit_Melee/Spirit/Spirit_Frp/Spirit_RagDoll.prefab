@@ -663,6 +663,7 @@ GameObject:
   - component: {fileID: 250935303005010173}
   - component: {fileID: 3358911143478099477}
   - component: {fileID: 3358911143478099478}
+  - component: {fileID: 8470122331622681697}
   m_Layer: 7
   m_Name: Spirit_RagDoll
   m_TagString: Enemy
@@ -715,6 +716,19 @@ CapsuleCollider:
   m_Height: 1.7318338
   m_Direction: 1
   m_Center: {x: -0.029963778, y: 0.8664564, z: 0}
+--- !u!114 &8470122331622681697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250935303004513437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d044ef39849e8c24989601c230b77bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 10
 --- !u!1 &250935303004513439
 GameObject:
   m_ObjectHideFlags: 0
@@ -8798,14 +8812,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3162503435371915230, guid: 0c31fc6422f89d24e9c055002e0a5397, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c31fc6422f89d24e9c055002e0a5397, type: 3}
---- !u!4 &8840411390306250671 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3098656644465390192, guid: 0c31fc6422f89d24e9c055002e0a5397, type: 3}
-  m_PrefabInstance: {fileID: 5886152618606468575}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8840411390306024277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3098656644465682058, guid: 0c31fc6422f89d24e9c055002e0a5397, type: 3}
+  m_PrefabInstance: {fileID: 5886152618606468575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8840411390306250671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3098656644465390192, guid: 0c31fc6422f89d24e9c055002e0a5397, type: 3}
   m_PrefabInstance: {fileID: 5886152618606468575}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &3288773466124059037
@@ -8834,9 +8848,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 0}
-  Type: 0
-  owner: {fileID: 0}
+  type: 0
   Dmg: 0
+  owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0

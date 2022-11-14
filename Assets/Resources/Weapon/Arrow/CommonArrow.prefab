@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 0}
   type: 3
-  Dmg: 0
+  Dmg: 10
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2

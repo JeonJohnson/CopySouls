@@ -45,6 +45,8 @@ public class Archer : Enemy
 	public CommonArrow arrow;
 	public string arrowName;
 
+	
+
 	public Archer_ActionTable actTable;
 
 	[Header("Fov System")]
@@ -183,6 +185,16 @@ public class Archer : Enemy
 		//나중에 풀링센터에서 가져오기
 	}
 
+	public void ActiveRagdoll()
+	{
+		GameObject ragdollObj = ragdoll.gameObject;
+		ragdollObj.SetActive(true);
+		ragdollObj.transform.position = transform.position;
+		ragdollObj.transform.rotation = transform.rotation;
+		Funcs.RagdollObjTransformSetting(transform, ragdollObj.transform);
+	}
+
+	
 
 	public void CalcFovDir(float degreeAngle)
 	{
@@ -444,6 +456,7 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
+		DeathCheck();
 
 		if (dmgStruct.isRiposte | dmgStruct.isBackstab)
 		{
@@ -451,7 +464,7 @@ public class Archer : Enemy
 		}
 		else
 		{
-			if (status.curHp >= 0f)
+			if (status.curHp > 0f)
 			{
 				SetState((int)eArcherState.Hit);
 			}
@@ -461,6 +474,14 @@ public class Archer : Enemy
 			}
 		}
 		
+	}
+
+	public void DeathCheck()
+	{
+		if (status.curHp <= 0f)
+		{
+			status.isDead = true;	
+		}
 	}
 
 	//public override void Death()

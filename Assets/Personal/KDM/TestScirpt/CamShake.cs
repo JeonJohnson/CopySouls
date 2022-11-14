@@ -90,7 +90,7 @@ public class CamShake : MonoBehaviour
 
     public IEnumerator ShakeByRotation()
     {
-        cameraShakeController.isOnShake = true;
+        //cameraShakeController.isOnShake = true;
 
         Vector3 shakeStartRotation = transform.eulerAngles;
 
@@ -111,6 +111,6 @@ public class CamShake : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(shakeStartRotation);
 
-        cameraShakeController.isOnShake = false;
+        //cameraShakeController.isOnShake = false;
     }
 }

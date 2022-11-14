@@ -13,19 +13,17 @@ public class Archer_Death : cState
 	{
 		base.EnterState(script);
 
-		if (archer == null)
-		{ archer = me.GetComponent<Archer>(); }
+		if (!archer)
+		{
+			archer = script.GetComponent<Archer>();
+		}
+		
 
 		rand = Random.Range(1, 3);
-		ragdollTime = Random.Range(0.25f, 0.75f);
-
-		me.ResetAllAnimTrigger(Defines.ArcherAnimTriggerStr);
+		ragdollTime = Random.Range(0.5f, 0.75f);
 
 		me.animCtrl.SetTrigger("tDeath");
-		//me.animCtrl.SetInteger("iDeath", rand);
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
-
-
 		archer.actTable.DeleteArrow();
 	}
 	public override void UpdateState()
@@ -33,12 +31,10 @@ public class Archer_Death : cState
 		//if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Death_0{rand}",0.25f))
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Death_01", ragdollTime))
 		{
-			//ObjectPooling Center에 되돌릴 준비
-			//GameObject ragdoll = ObjectPoolingCenter.Instance.LentalObj("Archer_Ragdoll");
-			//Funcs.RagdollObjTransformSetting(me.transform, ragdoll.transform);
-			//ragdoll.transform.position = me.transform.position;
+			archer.ActiveRagdoll();
 
 			//나중에 얘도 다시 돌려놓기
+			archer.DeathReset();
 			me.gameObject.SetActive(false);
 		}
 	}

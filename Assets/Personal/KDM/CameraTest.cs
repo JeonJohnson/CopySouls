@@ -33,7 +33,7 @@ public class CameraTest : MonoBehaviour
 
     private float defaultPosition;
 
-    public bool isOnShake { set; get; } // 흔들림 효과 재생 체크
+    //public bool isOnShake { set; get; } // 흔들림 효과 재생 체크
 
     void Start()
     {

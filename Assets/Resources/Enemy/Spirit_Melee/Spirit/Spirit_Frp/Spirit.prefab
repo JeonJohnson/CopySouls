@@ -3115,7 +3115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    name: 
+    name: Spirit
     name_e: 0
     type: 0
     isDead: 0
