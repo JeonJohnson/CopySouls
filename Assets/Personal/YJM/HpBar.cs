@@ -51,7 +51,7 @@ public class HpBar : MonoBehaviour
                 print("위치변경중");
                 canvasGroup.alpha = 1f;
                 transform.position = target.transform.position + new Vector3(0, 1.9f, 0f);
-                transform.LookAt(Camera.main.transform);
+                transform.forward = -(Camera.main.transform.position - transform.position);
             }
         }
         else
