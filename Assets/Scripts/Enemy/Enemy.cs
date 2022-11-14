@@ -182,6 +182,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void LookAtSpecificBone(Transform boneTr, Transform targetTr, eGizmoDirection boneDir, Vector3 offsetEulerRotate)
     {
+        //Vector3 lookDir = (boneTr.position - targetTr.position).normalized;
 
         Vector3 lookDir = (targetTr.position - boneTr.position).normalized;
 

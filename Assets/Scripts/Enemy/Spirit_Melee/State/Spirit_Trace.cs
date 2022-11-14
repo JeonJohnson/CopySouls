@@ -18,7 +18,7 @@ public class Spirit_Trace : cState
 
     public override void UpdateState()
     {
-        me.transform.LookAt(me.targetObj.transform);
+        //me.transform.LookAt(me.targetObj.transform);
         me.SetDestination(me.targetObj.transform.position);
 
         if(me.status.isBackHold)
@@ -42,7 +42,8 @@ public class Spirit_Trace : cState
 
     public override void LateUpdateState()
     {
-        ((Spirit)me).boneRotation(((Spirit)me).targetHeadPos);
+        //hip
+        //head
     }
 
 

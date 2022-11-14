@@ -9,7 +9,8 @@ public class Spirit : Enemy
 {
     public Transform targetHeadPos;
     public Transform headPos;
-    public Transform upperChest;
+    public Transform chestPos;
+
     public GameObject model;
     public GameObject ragdollModel;
     public GameObject remainderWeapon;
@@ -79,7 +80,7 @@ public class Spirit : Enemy
         if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
-        upperChest = animCtrl.GetBoneTransform(HumanBodyBones.UpperChest);
+        chestPos = animCtrl.GetBoneTransform(HumanBodyBones.Chest);
     }
 
     protected override void Update()
@@ -156,6 +157,13 @@ public class Spirit : Enemy
     protected override void LateUpdate()
     {
         base.LateUpdate();
+        if(curState_e == eSpiritState.Trace)
+        {
+            if(chestPos.eulerAngles.y <= 200f)
+            {
+                LookAtSpecificBone(chestPos, targetHeadPos, Enums.eGizmoDirection.Back, new Vector3(0f, -90f, 0f));
+            }
+        }
     }
 
     public override void Hit(DamagedStruct dmgStruct)
@@ -196,13 +204,11 @@ public class Spirit : Enemy
     }
 
     //상체 본만 회전하는 함수
-    public Vector3 ChestOffset = new Vector3(0, -40, -100);
-    //public Vector3 ChestDir = new Vector3();
-    public void boneRotation(Transform target)
+    public void boneRotation(HumanBodyBones boneName, Transform targetTr, Vector3 offsetEulerRotate)
     {
-        //ChestDir = headPos.position + target.forward;
-        upperChest.LookAt(target);
-        //upperChest.rotation = upperChest.rotation * Quaternion.Euler(ChestOffset);
+        Transform boneTr = animCtrl.GetBoneTransform(boneName);
+        boneTr.LookAt(targetTr);
+        boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
     }
 
     //=============================================================================
