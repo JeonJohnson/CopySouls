@@ -14,10 +14,14 @@ public class Spirit_Damaged : cState
 
     public override void UpdateState()
     {
-        if (me.status.isBackHold)
-        {
-            me.SetState((int)Enums.eSpiritState.Hold);
-        }
+        //if (me.status.isBackHold)
+        //{
+        //    me.animCtrl.SetBool("ChangeDamaged", false);
+        //    me.animCtrl.SetBool("isDamaged", false);
+        //    ((Spirit)me).complete_Damaged = false;
+        //    ((Spirit)me).HitCount = 0;
+        //    me.SetState((int)Enums.eSpiritState.Hold);
+        //}
 
         if (((Spirit)me).HitCount > 1)
         {

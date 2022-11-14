@@ -105,6 +105,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.51087695
+        functionName: Spirit_Melee_DoubleAttCheck
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.6083332
         functionName: Spirit_Atting
         data: 

@@ -42,7 +42,7 @@ public class FieldOfView : MonoBehaviour
         targetHeadMask = LayerMask.GetMask("Player_Hitbox");
 
         HeadPos = ((Spirit)me).headPos;
-        ((Spirit)me).targetHeadPos = HeadPos;
+        ((Spirit)me).targetHeadPos = Player.instance.headTr;
 
         viewMeshFilter = gameObject.GetComponentInChildren<MeshFilter>();
 
@@ -133,7 +133,7 @@ public class FieldOfView : MonoBehaviour
 
         bool isFind = false;
 
-        Debug.Log(findObj.Count);
+        //Debug.Log(findObj.Count);
 
         if (findObj.Count != 0)
         {
@@ -143,7 +143,6 @@ public class FieldOfView : MonoBehaviour
                 if (obj.layer == 14)
                 {
                     isFind = true;
-                    Debug.Log("Ã£¾Ò´Ù!");
                 }
             }
         }

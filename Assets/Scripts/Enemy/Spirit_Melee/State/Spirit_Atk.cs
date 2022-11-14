@@ -26,12 +26,22 @@ public class Spirit_Atk : cState
     public override void UpdateState()
     {
         if (((Spirit)me).weapon == null) return;
-        if (((Spirit)me).atting) ((Spirit)me).weapon.WeaponColliderOnOff(true);
-        else ((Spirit)me).weapon.WeaponColliderOnOff(false);
 
         if (!((Spirit)me).complete_Atk)
         {
-            stop(CurPattern);
+            if(CurPattern == eSpirit_AtkPattern.DoubleAtk)
+            {
+                if (((Spirit)me).doubleAttCheck)
+                {
+                    ((Spirit)me).doubleAttCheck = false;
+                    if (((Spirit)me).weapon.att_close)
+                    {
+                        ((Spirit)me).weapon.att_close = false;
+                    }
+                }
+            }
+
+            //stop(CurPattern);
             if (me.status.isGroggy)
             {
                 me.SetState((int)Enums.eSpiritState.Groggy);
@@ -46,6 +56,7 @@ public class Spirit_Atk : cState
         {
             stop(CurPattern);
             ((Spirit)me).complete_Atk = false;
+            ((Spirit)me).weapon.att_close = false;
             if (me.combatState == eCombatState.Alert)
             {
                 if (me.distToTarget <= me.status.atkRange) Select();
@@ -63,7 +74,8 @@ public class Spirit_Atk : cState
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;
-        if(((Spirit)me).weapon.col.enabled == true) ((Spirit)me).weapon.WeaponColliderOnOff(false);
+        ((Spirit)me).weapon.att_close = false;
+        if (((Spirit)me).weapon.col.enabled == true) ((Spirit)me).weapon.WeaponColliderOnOff(false);
         ((Spirit)me).weapon.ReturnWeaponPos();
     }
 
@@ -73,7 +85,9 @@ public class Spirit_Atk : cState
         {
             int AttPatternIndex;
             AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.NormalAtk), ((int)eSpirit_AtkPattern.End));
+            //AttPatternIndex = (int)eSpirit_AtkPattern.DoubleAtk;
             AttIndex = AttPatternIndex;
+
 
             CurPattern = (eSpirit_AtkPattern)AttPatternIndex;
             me.transform.LookAt(me.targetObj.transform);
@@ -158,6 +172,7 @@ public class Spirit_Atk : cState
         if (me.animCtrl.GetBool("isDoubleAtk"))
         {
             me.animCtrl.SetBool("isDoubleAtk", false);
+            ((Spirit)me).doubleAttCheck = false;
         }
     }
 

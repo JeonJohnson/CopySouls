@@ -44,6 +44,8 @@ public class Spirit : Enemy
     public bool atting;
     public bool existRemainderWeapon;
     public bool preChangeWeaponPos;
+    public bool doubleAttCheck;
+
 
     //step
     public bool stepWait;
@@ -86,7 +88,6 @@ public class Spirit : Enemy
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
         chestPos = animCtrl.GetBoneTransform(HumanBodyBones.Chest);
         head = animCtrl.GetBoneTransform(HumanBodyBones.Head);
-
     }
 
     protected override void Update()
@@ -131,7 +132,7 @@ public class Spirit : Enemy
                     Debug.Log("뒤잡앞잡 동시 발동 : 판정 error");
                 }
             }
-            else
+            else if (!status.isBackHold && !status.isFrontHold)
             {
                 if (HitCount > 0)
                 {
@@ -165,7 +166,6 @@ public class Spirit : Enemy
         base.LateUpdate();
         if(curState_e == eSpiritState.Trace)
         {
-            LookAtSpecificBone(head, targetHeadPos, Enums.eGizmoDirection.Foward);
             //LookAtSpecificBone(head, targetHeadPos, Enums.eGizmoDirection.Foward, new Vector3(0f, 0f, 0f));
         }
     }
@@ -174,9 +174,6 @@ public class Spirit : Enemy
     protected override void OnDrawGizmosSelected()
     {
         base.OnDrawGizmosSelected();
-        Debug.Log("aagsadgdfg");
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(head.position, targetHeadPos.position);
     }
 
 
@@ -267,14 +264,22 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleteEquiptment() { complete_Equipt = true; }
     public void Spirit_Melee_CompleteUnequiptment() { complete_Unequipt = true; }
     public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
+    public void Spirit_Melee_DoubleAttCheck() { doubleAttCheck = true; }
+
     public void Spirit_Damaged() { complete_Damaged = true; }
     public void Spirit_Groggy() { complete_Groggy = true; }
     public void Spirit_Atting()
     {
         if(curState_e == Enums.eSpiritState.Atk)
         {
-            if (!atting) atting = true;
-            else atting = false;
+            if (!atting)
+            {
+                atting = true;
+            }
+            else if(atting)
+            {
+                atting = false;
+            }
         }
     }
     public bool isCurrentAnimationOver(Animator animator,float time)

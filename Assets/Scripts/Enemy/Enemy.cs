@@ -408,6 +408,7 @@ public abstract class Enemy : MonoBehaviour
         initPos = transform.position;
         initForward = transform.forward;
 
+        col = GetComponent<Collider>();
         animCtrl = GetComponent<Animator>();
         rd = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();

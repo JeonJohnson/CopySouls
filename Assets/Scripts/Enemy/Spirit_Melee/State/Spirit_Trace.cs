@@ -21,7 +21,8 @@ public class Spirit_Trace : cState
         //me.transform.LookAt(me.targetObj.transform);
         me.SetDestination(me.targetObj.transform.position);
 
-        if(me.status.isBackHold)
+
+        if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);
         }
@@ -42,9 +43,7 @@ public class Spirit_Trace : cState
 
     public override void LateUpdateState()
     {
-        //hip
-        //head
-
+        ((Spirit)me).boneRotation(HumanBodyBones.Head, ((Spirit)me).targetHeadPos, new Vector3(0, 0, 0));
     }
 
 

@@ -7,6 +7,7 @@ public class Spirit_Weapon : Weapon
     public Spirit me;
     public Transform initPos;
     public Transform transPos;
+    public bool att_close;
 
     protected override void weaponInitialize()
     {
@@ -27,6 +28,19 @@ public class Spirit_Weapon : Weapon
     protected override void Update()
     {
         base.Update();
+
+        if(me.curState_e == Enums.eSpiritState.Atk)
+        {
+            if(!att_close)
+            {
+                if (me.atting) me.weapon.WeaponColliderOnOff(true);
+                else me.weapon.WeaponColliderOnOff(false);
+            }
+            else
+            {
+                me.weapon.WeaponColliderOnOff(false);
+            }
+        }
     }
 
     protected override void FixedUpdate()
@@ -36,6 +50,19 @@ public class Spirit_Weapon : Weapon
     protected override void LateUpdate()
     {
     }
+    public override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        if (other.transform.root.GetComponent<Player>() != null)
+        {
+            if (!att_close)
+            {
+                att_close = true;
+            }
+        }
+    }
+
+
 
     public void TransWeaponPos()
     {
