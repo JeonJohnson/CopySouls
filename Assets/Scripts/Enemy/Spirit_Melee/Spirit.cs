@@ -9,6 +9,8 @@ public class Spirit : Enemy
 {
     public Transform targetHeadPos;
     public Transform headPos;
+    public Transform head;
+
     public Transform chestPos;
 
     public GameObject model;
@@ -71,6 +73,8 @@ public class Spirit : Enemy
         weapon = GetComponentInChildren<Spirit_Weapon>();
         if (weapon != null)
         { weapon.owner = gameObject; }
+
+
     }
 
     protected override void Start()
@@ -81,6 +85,8 @@ public class Spirit : Enemy
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
         chestPos = animCtrl.GetBoneTransform(HumanBodyBones.Chest);
+        head = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+
     }
 
     protected override void Update()
@@ -159,12 +165,22 @@ public class Spirit : Enemy
         base.LateUpdate();
         if(curState_e == eSpiritState.Trace)
         {
-            if(chestPos.eulerAngles.y <= 200f)
-            {
-                LookAtSpecificBone(chestPos, targetHeadPos, Enums.eGizmoDirection.Back, new Vector3(0f, -90f, 0f));
-            }
+            LookAtSpecificBone(head, targetHeadPos, Enums.eGizmoDirection.Foward);
+            //LookAtSpecificBone(head, targetHeadPos, Enums.eGizmoDirection.Foward, new Vector3(0f, 0f, 0f));
         }
     }
+
+
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+        Debug.Log("aagsadgdfg");
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(head.position, targetHeadPos.position);
+    }
+
+
+
 
     public override void Hit(DamagedStruct dmgStruct)
     {
@@ -174,6 +190,8 @@ public class Spirit : Enemy
             HitCount++;
         }
     }
+
+
 
 
 
