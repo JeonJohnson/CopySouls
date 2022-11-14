@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TestKim
   m_EditorClassIdentifier: 
   target: 0
-  amplitude: 1
-  frequency: 1
+  amplitude: 3
+  frequency: 2
   duration: 1
   blendOverLifetime:
     serializedVersion: 2
@@ -29,8 +29,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.3708333
-      value: 0.07112606
+      time: 0.3599748
+      value: 0.04940386
       inSlope: 0
       outSlope: 0
       tangentMode: 0

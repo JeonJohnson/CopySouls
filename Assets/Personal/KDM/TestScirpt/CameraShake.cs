@@ -86,30 +86,30 @@ public class CameraShake : MonoBehaviour
         shakeEvents.Add(new ShakeEvent(data));
     }
 
-    public void AddShakeEvent(GameObject obj)
-    {
+    //public void AddShakeEvent(GameObject obj)
+    //{
 
-        CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
-        Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
-        if (data != null)
-        {
-            shakeEvents.Add(new ShakeEvent(data));
-        }
+    //    CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
+    //    Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
+    //    if (data != null)
+    //    {
+    //        shakeEvents.Add(new ShakeEvent(data));
+    //    }
 
-        //CameraShakeEvent temp = obj.GetComponent<CameraShakeEvent>();
+    //    //CameraShakeEvent temp = obj.GetComponent<CameraShakeEvent>();
 
-        //if (temp != null)
-        //{
-        //    shakeEvents.Add(new ShakeEvent(temp.data));
-        //}
+    //    //if (temp != null)
+    //    //{
+    //    //    shakeEvents.Add(new ShakeEvent(temp.data));
+    //    //}
 
-        //ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
+    //    //ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
 
-        //if (temp != null)
-        //{ shakeEvents.Add(new ShakeEvent(temp.data)); }
+    //    //if (temp != null)
+    //    //{ shakeEvents.Add(new ShakeEvent(temp.data)); }
 
-        //shakeEvents.Add(new ShakeEvent(go.GetComponent<ShakeEvent>()));
-    }
+    //    //shakeEvents.Add(new ShakeEvent(go.GetComponent<ShakeEvent>()));
+    //}
     public void AddShakeEvent(float amplitude, float frequency, float duration, AnimationCurve blendOverLifetime, CameraShakeEvent.Target target)
     {
         CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
