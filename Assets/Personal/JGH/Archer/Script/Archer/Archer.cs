@@ -38,7 +38,7 @@ public enum eSideDirection
 
 public class Archer : Enemy
 {
-	
+
     //weapon수정 from용석to근희
     public WoodenShortBow weapon;
 	public string weaponName;
