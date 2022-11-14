@@ -59,6 +59,9 @@ public class Archer : Enemy
 	public Vector3 fovDir; //head to TargetSpine
 	public Vector3 atkDir; //arrowHead to TargetSpine or TargetHead
 	public float angle;
+	[HideInInspector] public Vector3 lastTargetPos;
+	[HideInInspector] public Vector3 lastTargetHeadPos;
+	[HideInInspector] public Vector3 lastTargetSpinePos;
 
 	[Header("Me Bones")]
 	public Transform headBoneTr;
@@ -109,7 +112,7 @@ public class Archer : Enemy
 
 		fsm[(int)eArcherState.Chase] = new Archer_Chase();
 		fsm[(int)eArcherState.LookAround] = new Archer_LookAround();
-		fsm[(int)eArcherState.Runaway] = new Archer_Runaway();
+		fsm[(int)eArcherState.Return] = new Archer_Return();
 
 		fsm[(int)eArcherState.Hit_Hold] = new Archer_Hit_Hold();
 		fsm[(int)eArcherState.Hit] = new Archer_Hit();
@@ -253,38 +256,32 @@ public class Archer : Enemy
 		return false;
 	}
 
-	public bool CheckTargetIsHiding(GameObject tempTarget)
+	public bool CheckTargetIsHiding()
 	{
-
-		Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
-		float angleToTarget = Mathf.Acos(Vector3.Dot(fovStruct.LookDir, dir)) * Mathf.Rad2Deg;
-
+		//Vector3 dir = (tempTarget.transform.position - transform.position).normalized;
+		float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, fovDir)) * Mathf.Rad2Deg;
+		//Debug.Log("2:"+ angleToTarget);
 		if (angleToTarget <= (status.fovAngle * 0.5f)) //시야각 안에 있는 경우
 		{
 			RaycastHit hitEnvironmentInfo;
 
-			if (Physics.Raycast(transform.position, dir, LayerMask.GetMask("Player")))
+			if (Physics.Raycast(headBoneTr.position, fovDir, LayerMask.GetMask("Player")))
 			{
 				//LayerMask tempMask = LayerMask.GetMask("Environment") | LayerMask.GetMask("Environment");
-				if (Physics.Raycast(transform.position, dir, out hitEnvironmentInfo, float.MaxValue, fovIgnoreLayer))
+				if (Physics.Raycast(headBoneTr.position, fovDir, out hitEnvironmentInfo, distToTarget + 1f, fovIgnoreLayer))
 				{
 					float dist = Vector3.Distance(hitEnvironmentInfo.point, transform.position);
 
 					if (distToTarget > dist)
 					{
 						//같은 dir 쏴서 지형이 가까이 있으면, 플레이어는 가려진거겠지
-						return false;
+						return true;
 					}
-					return true;
-				}
-				else
-				{
-					return true;
+					return false;
 				}
 			}
 		}
 		return false;
-
 	}
 
 
@@ -518,6 +515,17 @@ public class Archer : Enemy
 	//playerChestTr.rotation = playerChestTr.rotation * Quaternion.Euler(ChestOffset);
 
 	//https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본 가져오는거? 
+
+	}
+
+	protected override void OnTriggerEnter(Collider other)
+	{
+		base.OnTriggerEnter(other);
+
+		if (other.CompareTag("ReturnBoundary"))
+		{
+			SetState((int)eArcherState.Return);
+		}
 
 	}
 

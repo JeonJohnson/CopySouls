@@ -44,6 +44,14 @@ public class Archer_Attack_Precision : cState
 
 	public override void UpdateState()
 	{
+		if (archer.CheckTargetIsHiding())
+		{
+			Debug.Log("시야에서 사라짐");
+			archer.SetState((int)eArcherState.Chase);
+			return;
+		}
+
+
 		if (archer.actTable.PrecisionAttackCycle(ref archer.atkState, pullAnimSpd))
 		{
 			if (archer.actTable.RandomAttackState() == eArcherState.Attack_Rushed)

@@ -10,6 +10,7 @@ TagManager:
   - Obstacle
   - EnemyWeapon
   - EnemyRemainder
+  - ReturnBoundary
   layers:
   - Default
   - TransparentFX

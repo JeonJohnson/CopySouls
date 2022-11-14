@@ -1682,6 +1682,7 @@ MonoBehaviour:
   fovDir: {x: 0, y: 0, z: 0}
   atkDir: {x: 0, y: 0, z: 0}
   angle: 0
+  lastTargetPos: {x: 0, y: 0, z: 0}
   headBoneTr: {fileID: 0}
   spineBoneTr: {fileID: 0}
   leftHandTr: {fileID: 0}
@@ -1691,8 +1692,8 @@ MonoBehaviour:
   isMove: 0
   atkCurCoolTime: 0
   atkRefCoolTime: 0
-  atkMinCoolTime: 5
-  atkMaxCoolTime: 5
+  atkMinCoolTime: 2
+  atkMaxCoolTime: 3
   moveType: 0
   atkState: 0
   defaultPattern: 1

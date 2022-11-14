@@ -551,7 +551,7 @@ namespace Enums
 
 		Chase,
 		LookAround,
-		Runaway,
+		Return,
 
 
 		Hit,
