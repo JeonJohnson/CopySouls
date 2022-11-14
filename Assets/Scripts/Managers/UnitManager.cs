@@ -81,40 +81,23 @@ public class UnitManager : Manager<UnitManager>
     }
     //// <Player>
 
-    private void SearchEnemy()
-    {
-        print("써치");
-        GameObject[] allEnemyGoList = GameObject.FindGameObjectsWithTag("Enemy");
-        for(int i = 0; i < allEnemyGoList.Length; i++)
-        {
-            Enemy enemy = allEnemyGoList[i].GetComponent<Enemy>();
-            if (enemy != null && !allEnemyList.Contains(enemy))
-            {
-                allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
-            }
-        }
-    }
 
 
     //// <EnemyVar>
     [Header("Enemy Vars")]
     public int enemyAllCount;
-    public List<GameObject> enemyPrefabList;
+    
+   //public List<GameObject> enemyPrefabList;
+    public List<GameObject> enemyRagdollPrefabList;
+    public Transform ragdollBox;
+
     public Dictionary<eEnemyName, List<Enemy>> enemyDic;
     public List<Enemy> allEnemyList = new List<Enemy>();
 
 
-    public GameObject testEmptyEnemyPrefab;
-    public GameObject SpawnTestEnemy(Vector3 pos)
-    {
-        GameObject testObj = Instantiate(testEmptyEnemyPrefab,pos,Quaternion.identity);
 
-        Enemy tempScript = testObj.GetComponent<Enemy>();
 
-        allEnemyList.Add(tempScript);
-
-        return testObj;
-    }
+  
     //// <EnemyVar>
 
 
@@ -127,11 +110,49 @@ public class UnitManager : Manager<UnitManager>
 
         return null;
     }
+    private void SearchEnemy()
+    {
+        print("모든 적군 써치");
 
+        GameObject[] allEnemyGoList = GameObject.FindGameObjectsWithTag("Enemy");
 
+        for (int i = 0; i < allEnemyGoList.Length; i++)
+        {
+            Enemy enemy = allEnemyGoList[i].GetComponent<Enemy>();
 
+            SetEnemiesRagdoll(ref enemy);
 
+            if (enemy != null && enemy.gameObject.activeSelf &&!allEnemyList.Contains(enemy) )
+            {
+                allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
+            }
+        }
+    }
+
+    private void SetEnemiesRagdoll(ref Enemy script)
+    {
+        if (!script.ragdoll)
+        {
+            GameObject ragdollObj = Instantiate(enemyRagdollPrefabList[(int)script.status.name_e], ragdollBox);
+            script.ragdoll = ragdollObj.GetComponent<Enemy_Ragdoll>();
+            ragdollObj.SetActive(false);
+        }
+    }
     //// <EnemyFuncs>
+    
+    /// <TestEnemy>
+    public GameObject testEmptyEnemyPrefab;
+    public GameObject SpawnTestEnemy(Vector3 pos)
+    {
+        GameObject testObj = Instantiate(testEmptyEnemyPrefab, pos, Quaternion.identity);
+
+        Enemy tempScript = testObj.GetComponent<Enemy>();
+
+        allEnemyList.Add(tempScript);
+
+        return testObj;
+    }
+    /// </TestEnemy>
 
 
 
@@ -143,6 +164,9 @@ public class UnitManager : Manager<UnitManager>
         {
             enemyDic.Add((eEnemyName)i, new List<Enemy>());
         }
+        ragdollBox = Funcs.CheckGameObjectExist("RagdollBox").transform;
+
+        
 
         CreatePlayer();
         SearchEnemy();

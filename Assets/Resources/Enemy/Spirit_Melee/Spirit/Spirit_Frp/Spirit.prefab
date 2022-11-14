@@ -3087,6 +3087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 9003329594625783658}
+  HeadPos: {fileID: 0}
   viewRadius: 0
   viewAngle: 90
   targetMask:
@@ -3114,7 +3115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    name: 
+    name: Spirit
     name_e: 0
     type: 0
     isDead: 0
@@ -3138,6 +3139,8 @@ MonoBehaviour:
     isBackHold: 0
     slashCoolTime: 0
   DamagedCollider: {fileID: 0}
+  initPos: {x: 0, y: 0, z: 0}
+  initForward: {x: 0, y: 0, z: 0}
   targetObj: {fileID: 0}
   targetScript: {fileID: 0}
   distToTarget: 0
@@ -3156,7 +3159,10 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  targetHeadPos: {fileID: 0}
   headPos: {fileID: 5842575159932056061}
+  head: {fileID: 0}
+  chestPos: {fileID: 0}
   model: {fileID: 1511491505881765836}
   ragdollModel: {fileID: 2521408734423465919}
   remainderWeapon: {fileID: 1856133466936505560, guid: c92b795d428fb9d4bb0e1e8c0538fc90, type: 3}

@@ -58,6 +58,8 @@ public abstract class Enemy : MonoBehaviour
     public Transform[] PatrolPos;
     //public List<Vector3> patrolPosList; //에너미에서 Transform으로 합치기
 
+    public Enemy_Ragdoll ragdoll;
+
     ////FSM
     public cState[] fsm;
     public cState preState = null;
@@ -72,6 +74,13 @@ public abstract class Enemy : MonoBehaviour
     public Rigidbody rd;
     public NavMeshAgent navAgent;
     ////default Components
+
+    public virtual void ResetEnemy()
+    { 
+    
+    }
+
+
 
     public void HoldTransPos_Enemy(Transform dir,Vector3 forwardVec)
     {
