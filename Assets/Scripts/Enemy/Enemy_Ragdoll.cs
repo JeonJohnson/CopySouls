@@ -13,7 +13,7 @@ public class Enemy_Ragdoll : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-	public void OnEnable()
+	public virtual void OnEnable()
 	{
         StartCoroutine(DisappearCoroutine());
 	}

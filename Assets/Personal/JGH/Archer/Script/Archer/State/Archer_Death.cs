@@ -20,7 +20,7 @@ public class Archer_Death : cState
 		
 
 		rand = Random.Range(1, 3);
-		ragdollTime = Random.Range(0.25f, 0.75f);
+		ragdollTime = Random.Range(0.5f, 0.75f);
 
 		me.animCtrl.SetTrigger("tDeath");
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
@@ -34,7 +34,7 @@ public class Archer_Death : cState
 			archer.ActiveRagdoll();
 
 			//나중에 얘도 다시 돌려놓기
-			archer.ResetEnemy();
+			archer.DeathReset();
 			me.gameObject.SetActive(false);
 		}
 	}

@@ -75,9 +75,9 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
-    public virtual void ResetEnemy()
-    { 
-    
+    public virtual void DeathReset()
+    {
+        UnitManager.Instance.EraseDeathEnemy(this);
     }
 
 

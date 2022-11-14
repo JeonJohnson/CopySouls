@@ -194,6 +194,8 @@ public class Archer : Enemy
 		Funcs.RagdollObjTransformSetting(transform, ragdollObj.transform);
 	}
 
+	
+
 	public void CalcFovDir(float degreeAngle)
 	{
 		//22 10 02 fin, 설명해주기
@@ -454,6 +456,8 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
+		DeathCheck();
+
 		if (dmgStruct.isRiposte | dmgStruct.isBackstab)
 		{
 			SetState((int)eArcherState.Hit_Hold);
@@ -470,6 +474,14 @@ public class Archer : Enemy
 			}
 		}
 		
+	}
+
+	public void DeathCheck()
+	{
+		if (status.curHp <= 0f)
+		{
+			status.isDead = true;	
+		}
 	}
 
 	//public override void Death()

@@ -125,8 +125,38 @@ public class UnitManager : Manager<UnitManager>
             if (enemy != null && enemy.gameObject.activeSelf &&!allEnemyList.Contains(enemy) )
             {
                 allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
+
+                List<Enemy> dicList;
+                if (enemyDic.TryGetValue(enemy.status.name_e, out dicList))
+                {
+                    dicList.Add(enemy);
+                }
             }
         }
+    }
+
+    public void EraseDeathEnemy(Enemy script)
+    {
+        if (allEnemyList.Count == 0 |
+            !allEnemyList.Contains(script))
+        {
+            Debug.Log("이 에너미는 리스트에 없는디요?");
+            return;
+        }
+
+
+        if (script.status.isDead)
+        {
+            allEnemyList.Remove(script);
+
+
+            List<Enemy> dicList;
+            if (enemyDic.TryGetValue(script.status.name_e, out dicList))
+            {
+                dicList.Remove(script);
+            }
+        }
+
     }
 
     private void SetEnemiesRagdoll(ref Enemy script)
@@ -138,6 +168,7 @@ public class UnitManager : Manager<UnitManager>
             ragdollObj.SetActive(false);
         }
     }
+
     //// <EnemyFuncs>
     
     /// <TestEnemy>
