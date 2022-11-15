@@ -63,18 +63,28 @@ public class GameManager : Manager<GameManager>
         UiManager.InstantiateManager(false);
     }
 
+    public void TitleSceneManagersInit()
+    {
+
+    }
+
+    public void InGameSceneManagersInit()
+    {
+
+    }
+
     void SceneCheck(int sceneNum)
     {
         switch (sceneNum)
         {
             case (int)eSceneChangeTestIndex.Title:
                 {
-
+                    TitleSceneManagersInit();
                 }
                 break;
             case (int)eSceneChangeTestIndex.InGame:
                 {
-
+                    InGameSceneManagersInit();
                 }
                 break;
             case (int)eSceneChangeTestIndex.Daewon:
@@ -146,7 +156,7 @@ public class GameManager : Manager<GameManager>
 				break;
 			case (int)eSceneChangeTestIndex.InGame:
                 { 
-                
+
                 }
 				break;
 			case (int)eSceneChangeTestIndex.Daewon:
