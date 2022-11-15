@@ -11,6 +11,7 @@ TagManager:
   - EnemyWeapon
   - EnemyRemainder
   - ReturnBoundary
+  - EnemyRagdoll
   layers:
   - Default
   - TransparentFX
