@@ -451,6 +451,8 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        curState.UpdateState();
+
         GetPlayerState();
         
         CalcAboutTarget();
@@ -458,7 +460,6 @@ public abstract class Enemy : MonoBehaviour
         
         //isAlert = CheckTargetInFov();
 
-        curState.UpdateState();
 
     }
 
@@ -479,11 +480,18 @@ public abstract class Enemy : MonoBehaviour
     {
         status.curHp -= (int)dmgStruct.dmg;
 
-        if (dmgStruct.isBackstab) status.isBackHold = true;
-        else status.isBackHold = false;
+        if (dmgStruct.isBackstab)
+        {
+            if(!status.isBackHold) status.isBackHold = true;
+            //else status.isBackHold = false;
 
-        if (dmgStruct.isRiposte) status.isFrontHold = true;
-        else status.isFrontHold = false;
+        }
+        else if(dmgStruct.isRiposte)
+        {
+            if (!status.isFrontHold) status.isFrontHold = true;
+            //else status.isFrontHold = false;
+        }
+
     }
 
 

@@ -16,8 +16,12 @@ public class Spirit_Idle : cState
 
     public override void UpdateState()
     {
-        if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         curTime += Time.deltaTime;
+        if (me.status.curHp < me.status.maxHp)
+        {
+            me.status.curHp++;
+        }
+        if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
         if (curTime >= patrolWaitTime)
         {
             curTime = 0;
@@ -27,6 +31,22 @@ public class Spirit_Idle : cState
         if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
+        if (!me.status.isBackHold && !me.status.isFrontHold)
+        {
+            if (me.HitCount > 0)
+            {
+                if (((Spirit)me).curState_e != Enums.eSpiritState.Damaged)
+                {
+                    me.SetState((int)Enums.eSpiritState.Damaged);
+                }
+            }
+        }
+
+        if(((Spirit)me).isReturn)
+        {
+            Debug.Log("ReTry SetRespawnPos");
         }
     }
 

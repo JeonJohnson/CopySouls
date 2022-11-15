@@ -7,13 +7,30 @@ public class Spirit_Damaged : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Debug.Log("맞음");
         me.animCtrl.SetBool("isDamaged", true);
         me.animCtrl.SetBool("ChangeDamaged", true);
     }
 
     public override void UpdateState()
     {
+        if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
+
+        //if (me.status.isBackHold)
+        //{
+        //    //me.SetState((int)Enums.eSpiritState.Hold);
+        //    Debug.Log("쳐맞는 도중에 잡기가 어캐 드옴?");
+        //    me.status.isBackHold = false;
+        //}
+        //else if(me.status.isFrontHold)
+        //{
+        //    Debug.Log("쳐맞는 도중에 잡기가 어캐 드옴?");
+        //    me.status.isFrontHold = false;
+        //}
+
         //if (me.status.isBackHold)
         //{
         //    me.animCtrl.SetBool("ChangeDamaged", false);

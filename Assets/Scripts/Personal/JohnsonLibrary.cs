@@ -523,6 +523,7 @@ namespace Enums
         Groggy,
         Hold,
         Death,
+		Return,
         End
     }
 

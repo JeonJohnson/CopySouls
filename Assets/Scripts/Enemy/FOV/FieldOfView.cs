@@ -26,7 +26,7 @@ public class FieldOfView : MonoBehaviour
     public float viewRadius;
     [Range(1, 360)]
     public float viewAngle;
-    public LayerMask targetMask, targetHeadMask, obstacleMask;
+    public LayerMask targetMask, targetHeadMask, obstacleMask, returnMask;
 
     public List<Transform> findObj = new List<Transform>();
     public float meshResolution;
@@ -38,6 +38,7 @@ public class FieldOfView : MonoBehaviour
         viewRadius = me.status.ricognitionRange;
         targetMask = LayerMask.GetMask("Player");
         obstacleMask = LayerMask.GetMask("Environment");
+        returnMask = LayerMask.GetMask("ReturnBoundary");
         //obstacleMask = LayerMask.GetMask("Obstacle");
         targetHeadMask = LayerMask.GetMask("Player_Hitbox");
 
@@ -104,7 +105,7 @@ public class FieldOfView : MonoBehaviour
                     {
                         if (target.gameObject == gameObject) continue;
 
-                        if(target.gameObject.name == "Head") findObj.Add(target);
+                        if (target.gameObject.name == "Head") findObj.Add(target);
 
                         //else
                         //{
@@ -122,11 +123,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     if (target.gameObject == gameObject) continue;
 
-                if (target.gameObject.name == "Head") findObj.Add(target);
-                //else
-                //{
-                //    if (target.gameObject.layer == targetMask) findObj.Add(target);
-                //}
+                    if (target.gameObject.name == "Head") findObj.Add(target);
                 }
             }
         }

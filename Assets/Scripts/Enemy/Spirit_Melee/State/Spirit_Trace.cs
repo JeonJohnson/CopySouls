@@ -18,9 +18,21 @@ public class Spirit_Trace : cState
 
     public override void UpdateState()
     {
+        if(((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
         //me.transform.LookAt(me.targetObj.transform);
         me.SetDestination(me.targetObj.transform.position);
 
+        if (!me.status.isBackHold && !me.status.isFrontHold)
+        {
+            if (me.HitCount > 0)
+            {
+                if (((Spirit)me).curState_e != Enums.eSpiritState.Damaged)
+                {
+                    me.SetState((int)Enums.eSpiritState.Damaged);
+                }
+            }
+        }
 
         if (me.status.isBackHold)
         {

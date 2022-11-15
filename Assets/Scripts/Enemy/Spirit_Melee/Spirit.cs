@@ -7,33 +7,28 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public Vector3 respawnPos;
+
     public Transform targetHeadPos;
     public Transform headPos;
     public Transform head;
-
-    public Transform chestPos;
-
     public GameObject model;
     public GameObject ragdollModel;
     public GameObject remainderWeapon;
-    //public GameObject ragDoll_MiddleSpine;
-
     public Spirit_Weapon weapon;
-    //enemy -> player (Att)레이어
     public LayerMask player_Hitbox;
-
     public int preHp;
-    public Material Material_Disable;
-    public Material Material_Standard;
-    public float initFOVAngle;
-
-    public eSpiritState curState_e;
-    public bool Arrival;
-
-    //public Transform[] PatrolPos;
-    public int curPatrol_Index;
     public int prePatrol_Index;
+    public eSpiritState curState_e;
+    public float distToRespawnPos;
 
+    public bool isGetUp;
+    public float HoldCoolTime = 1.5f;
+    public float Timer;
+
+    public float initFOVAngle;
+    public int curPatrol_Index;
+    public bool Arrival;
     public bool complete_Equipt;
     public bool complete_Unequipt;
     public bool complete_Atk;
@@ -45,9 +40,7 @@ public class Spirit : Enemy
     public bool existRemainderWeapon;
     public bool preChangeWeaponPos;
     public bool doubleAttCheck;
-
-
-    //step
+    public bool isReturn;
     public bool stepWait;
    
     public override void InitializeState()
@@ -64,35 +57,38 @@ public class Spirit : Enemy
         fsm[(int)Enums.eSpiritState.Groggy] = new Spirit_Groggy();
         fsm[(int)Enums.eSpiritState.Hold] = new Spirit_Hold();
         fsm[(int)Enums.eSpiritState.Death] = new Spirit_Death();
+        fsm[(int)Enums.eSpiritState.Return] = new Spirit_Return();
 
         SetState((int)Enums.eSpiritState.Idle);
 	}
 	protected override void Awake()
     {
         base.Awake();
+        respawnPos = transform.localPosition;
         initFOVAngle = GetComponent<FieldOfView>().viewAngle;
 
         weapon = GetComponentInChildren<Spirit_Weapon>();
         if (weapon != null)
         { weapon.owner = gameObject; }
-
-
     }
 
     protected override void Start()
     {
         base.Start();
+
         targetObj = GameObject.Find("Player");
         if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
-        chestPos = animCtrl.GetBoneTransform(HumanBodyBones.Chest);
         head = animCtrl.GetBoneTransform(HumanBodyBones.Head);
     }
 
     protected override void Update()
     {
         base.Update();
+
+        distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
+        if (distToRespawnPos > status.moveMileage) isReturn = true;
         curState_e = GetCurState<Enums.eSpiritState>();
 
         //=======================================
@@ -132,16 +128,16 @@ public class Spirit : Enemy
                     Debug.Log("뒤잡앞잡 동시 발동 : 판정 error");
                 }
             }
-            else if (!status.isBackHold && !status.isFrontHold)
-            {
-                if (HitCount > 0)
-                {
-                    if (curState_e != eSpiritState.Damaged)
-                    {
-                        SetState((int)Enums.eSpiritState.Damaged);
-                    }
-                }
-            }
+            //else if (!status.isBackHold && !status.isFrontHold)
+            //{
+            //    if (HitCount > 0)
+            //    {
+            //        if (curState_e != eSpiritState.Damaged)
+            //        {
+            //            SetState((int)Enums.eSpiritState.Damaged);
+            //        }
+            //    }
+            //}
 
             //if (HitCount > 0)
             //{
@@ -164,31 +160,31 @@ public class Spirit : Enemy
     protected override void LateUpdate()
     {
         base.LateUpdate();
-        if(curState_e == eSpiritState.Trace)
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        if(other.tag == "ReturnBoundary" && curState_e != eSpiritState.Return && !status.isDead)
         {
-            //LookAtSpecificBone(head, targetHeadPos, Enums.eGizmoDirection.Foward, new Vector3(0f, 0f, 0f));
+            isReturn = true;
         }
     }
-
-
-    protected override void OnDrawGizmosSelected()
-    {
-        base.OnDrawGizmosSelected();
-    }
-
-
 
 
     public override void Hit(DamagedStruct dmgStruct)
     {
         base.Hit(dmgStruct);
-        if(!dmgStruct.isBackstab && !dmgStruct.isRiposte)
+        if (!status.isBackHold && !status.isFrontHold) HitCount++;
+        else
         {
-            HitCount++;
+            if(HitCount > 0) HitCount = 0;
         }
+        //if (!dmgStruct.isBackstab && !dmgStruct.isRiposte)
+        //{
+        //   HitCount++;
+        //}
     }
-
-
 
 
 
@@ -228,22 +224,9 @@ public class Spirit : Enemy
 
     //=============================================================================
 
-
-    //=============================================================================
-    // MaterialChange함수
-    //=============================================================================
-    public void Material_Change(Material material)
-    {
-        GetComponentInChildren<SkinnedMeshRenderer>().material = material;
-        //GetComponentInChildren<SkinnedMeshRenderer>().materials[0] = material;
-    }
-
-    //=============================================================================
-
     //=============================================================================
     //instance
     //=============================================================================
-
     public void CreateRemainderWeapon(Transform trans)
     {
         if (!existRemainderWeapon)

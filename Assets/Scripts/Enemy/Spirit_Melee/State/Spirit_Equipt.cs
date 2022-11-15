@@ -22,6 +22,23 @@ public class Spirit_Equipt : cState
     public override void UpdateState()
     {
         me.MoveStop();
+
+        if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
+        if (!me.status.isBackHold && !me.status.isFrontHold)
+        {
+            if (me.HitCount > 0)
+            {
+                if (((Spirit)me).curState_e != Enums.eSpiritState.Damaged)
+                {
+                    me.SetState((int)Enums.eSpiritState.Damaged);
+                }
+            }
+        }
+
         if (((Spirit)me).complete_Equipt)
         {
             if (me.combatState == eCombatState.Alert)
@@ -40,10 +57,6 @@ public class Spirit_Equipt : cState
         }
         else
         {
-            if (me.status.isBackHold)
-            {
-                me.SetState((int)Enums.eSpiritState.Hold);
-            }
         }
     }
 

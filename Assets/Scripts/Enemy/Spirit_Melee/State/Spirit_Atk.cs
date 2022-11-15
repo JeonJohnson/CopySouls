@@ -27,6 +27,26 @@ public class Spirit_Atk : cState
     {
         if (((Spirit)me).weapon == null) return;
 
+        if (me.status.isGroggy)
+        {
+            me.SetState((int)Enums.eSpiritState.Groggy);
+        }
+        else if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
+        if (!me.status.isBackHold && !me.status.isFrontHold)
+        {
+            if (me.HitCount > 0)
+            {
+                if (((Spirit)me).curState_e != Enums.eSpiritState.Damaged)
+                {
+                    me.SetState((int)Enums.eSpiritState.Damaged);
+                }
+            }
+        }
+
         if (!((Spirit)me).complete_Atk)
         {
             if(CurPattern == eSpirit_AtkPattern.DoubleAtk)
@@ -41,16 +61,7 @@ public class Spirit_Atk : cState
                 }
             }
 
-            //stop(CurPattern);
-            if (me.status.isGroggy)
-            {
-                me.SetState((int)Enums.eSpiritState.Groggy);
-            }
-            else if(me.status.isBackHold)
-            {
-                me.SetState((int)Enums.eSpiritState.Hold);
-            }
-            else Play(CurPattern);
+            Play(CurPattern);
         }
         else if(((Spirit)me).complete_Atk)
         {
@@ -70,7 +81,8 @@ public class Spirit_Atk : cState
 
     public override void ExitState()
     {
-        if(((Spirit)me).complete_Atk) ((Spirit)me).complete_Atk = false;
+        stop(CurPattern);
+        if (((Spirit)me).complete_Atk) ((Spirit)me).complete_Atk = false;
         startPattern = false;
         me.animCtrl.SetBool("isAtk", false);
         if(((Spirit)me).atting) ((Spirit)me).atting = false;
@@ -122,6 +134,8 @@ public class Spirit_Atk : cState
     public void stop(eSpirit_AtkPattern curPattern)
     {
         if (startPattern) startPattern = false;
+
+
 
         switch (CurPattern)
         {

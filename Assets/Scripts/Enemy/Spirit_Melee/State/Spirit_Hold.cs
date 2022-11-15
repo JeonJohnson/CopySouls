@@ -10,8 +10,8 @@ public class Spirit_Hold : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Debug.Log("잡혔어!!");
         me.animCtrl.SetBool("isHold", true);
+        me.HitCount = 0;
         if (me.status.isBackHold) me.animCtrl.SetFloat("AttIndex", 0);
         else if (me.status.isFrontHold) me.animCtrl.SetFloat("AttIndex", 1);
 
@@ -20,6 +20,12 @@ public class Spirit_Hold : cState
 
     public override void UpdateState()
     {
+        if (!me.status.isFrontHold && !me.status.isBackHold)
+        {
+            Debug.Log("잡기 판정이 아닌데? 어케 잡기상태로옴??");
+            //return;
+        }
+
         me.MoveStop();
         if (!complete_GetUp && !complete_Hold && me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Hold"))
         {
@@ -27,7 +33,6 @@ public class Spirit_Hold : cState
             {
                 if(me.animCtrl.GetBool("isHold"))
                 {
-                    Debug.Log("자빠지는거 끝");
                     me.animCtrl.SetBool("isHold", false);
                     complete_Hold = true;
                 }
@@ -48,7 +53,7 @@ public class Spirit_Hold : cState
             {
                 if(!me.animCtrl.GetBool("isGetUp"))
                 {
-                    Debug.Log("안죽었으니까 일어나야지");
+                    ((Spirit)me).isGetUp = true;
                     me.animCtrl.SetBool("isGetUp", true);
                 }
             }

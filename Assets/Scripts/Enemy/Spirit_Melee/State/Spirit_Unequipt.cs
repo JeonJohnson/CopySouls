@@ -16,6 +16,22 @@ public class Spirit_Unequipt : cState
 
     public override void UpdateState()
     {
+        if (me.status.isBackHold)
+        {
+            me.SetState((int)Enums.eSpiritState.Hold);
+        }
+
+        if (!me.status.isBackHold && !me.status.isFrontHold)
+        {
+            if (me.HitCount > 0)
+            {
+                if (((Spirit)me).curState_e != Enums.eSpiritState.Damaged)
+                {
+                    me.SetState((int)Enums.eSpiritState.Damaged);
+                }
+            }
+        }
+
         if (((Spirit)me).complete_Unequipt)
         {
             me.GetComponent<FieldOfView>().viewAngle = ((Spirit)me).initFOVAngle;
@@ -35,10 +51,7 @@ public class Spirit_Unequipt : cState
                 me.SetState((int)Enums.eSpiritState.Equipt);
             }
 
-            if (me.status.isBackHold)
-            {
-                me.SetState((int)Enums.eSpiritState.Hold);
-            }
+            
         }
     }
 
