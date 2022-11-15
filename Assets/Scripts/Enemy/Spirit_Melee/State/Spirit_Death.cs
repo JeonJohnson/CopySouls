@@ -12,14 +12,13 @@ public enum DeathPattern
 public class Spirit_Death : cState
 {
     public int DeathIndex;
-    public bool Complete_Ani;
     public float timer;
     public float existTime = 3f;
 
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        if(!((Spirit)me).ragdollModel.activeSelf)
+        if(!me.ragdoll.gameObject.activeSelf)
         {
             me.status.isDead = true;
             DeathIndex = Random.Range((int)DeathPattern.Front, (int)DeathPattern.End);
@@ -32,7 +31,7 @@ public class Spirit_Death : cState
 
     public override void UpdateState()
     {
-        if (!((Spirit)me).ragdollModel.activeSelf)
+        if (!me.ragdoll.gameObject.activeSelf)
         {
             if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
@@ -40,20 +39,18 @@ public class Spirit_Death : cState
                 {
                     ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
                     ((Spirit)me).ChangeToRagDoll();
-                    Complete_Ani = true;
+                    ((Spirit)me).DeathReset();
                 }
             }
         }
-        else Complete_Ani = true;
 
-        if (Complete_Ani)
-        {
-            timer += Time.deltaTime;
-            if (timer >= existTime) me.gameObject.SetActive(false);
-        }
     }
     public override void ExitState()
     {
         
     }
+
+
+    //렉돌 위치 미쳣음
+    //애니메이션 공들이기
 }

@@ -13,7 +13,7 @@ public class Spirit : Enemy
     public Transform headPos;
     public Transform head;
     public GameObject model;
-    public GameObject ragdollModel;
+    //public GameObject ragdollModel;
     public GameObject remainderWeapon;
     public Spirit_Weapon weapon;
     public LayerMask player_Hitbox;
@@ -76,8 +76,11 @@ public class Spirit : Enemy
     {
         base.Start();
 
-        targetObj = GameObject.Find("Player");
-        if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
+        //targetObj = GameObject.Find("Player");
+        //if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
+
+        targetObj = UnitManager.Instance.GetPlayerObj;
+        if (targetObj != null) targetScript = UnitManager.Instance.GetPlayerScript;
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
         head = animCtrl.GetBoneTransform(HumanBodyBones.Head);
@@ -195,9 +198,10 @@ public class Spirit : Enemy
     {
         if(model.activeSelf)
         {
-            CopyCharacterTransfoemRoRagdoll(model.transform, ragdollModel.transform);
+            CopyCharacterTransfoemRoRagdoll(model.transform, ragdoll.transform);
             model.SetActive(false);
-            ragdollModel.SetActive(true);
+            //GameObject ragdollObj = ragdoll.gameObject;
+            ragdoll.gameObject.SetActive(true);
         }
     }
 
