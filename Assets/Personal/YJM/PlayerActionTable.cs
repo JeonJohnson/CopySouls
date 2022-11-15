@@ -56,6 +56,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.SetState(Enums.ePlayerState.Death);
         Player.instance.animator.SetTrigger("Death");
+        EnableWeaponMeshCol(0);
         print("사망");
     }
 
@@ -202,7 +203,6 @@ public class PlayerActionTable : MonoBehaviour
     int combo = 0;
     public void WeakAttack()
     {
-        Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().hittedEnemyList.Clear();
         curActAtkValue = 1.0f;
         isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 10;
@@ -510,6 +510,7 @@ public class PlayerActionTable : MonoBehaviour
     public void EnableWeaponMeshCol(int i)
     {
         //player.status.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
+        Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().hittedEnemyList.Clear();
         player.status.mainWeapon.GetComponent<Player_Weapon>().WeaponColliderOnOff(i);
     }
     
