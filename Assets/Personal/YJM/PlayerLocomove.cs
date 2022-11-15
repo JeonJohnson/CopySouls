@@ -80,6 +80,8 @@ public class PlayerLocomove : MonoBehaviour
 
 	public void Move()
     {
+        if (Inventory.inventoryActivated) return;
+
         SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -146,6 +148,7 @@ public class PlayerLocomove : MonoBehaviour
 
     void KeyInput()
     {
+        if (Inventory.inventoryActivated) return;
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (isCameraLock == false)

@@ -557,8 +557,44 @@ namespace Enums
 
 		End
 	}
-	
 
+	public enum ObjNameTable
+	{
+		Player,
+		Item_Arrow,
+		Item_Ax,
+		Item_Bar,
+		Item_Bow1,
+		Item_Bow2,
+		Item_Copper,
+		Item_Cudgel,
+		Item_Hammer,
+		Item_Knife,
+		Item_Pickax,
+		Item_Stone,
+		Item_Sword,
+		Item_Wood,
+		Tree1_Middle,
+		End
+	}
+
+	public enum ObjectType
+	{
+		None,
+		Unit,
+		Item,
+		Environment,
+		End
+	}
+
+	public enum ItemType
+	{
+		None,
+		Production_Item,
+		weapon_Equiptment_Item,
+		Defence_Equiptment_Item,
+		End
+	}
 
 	public enum eWeaponType
 	{
@@ -687,6 +723,8 @@ namespace Structs
 		public bool isInvincible;
 		public bool isParrying;
 		public bool isGuard;
+
+		public float interactionRange;
 
 		public GameObject mainWeapon;
 		public GameObject subWeapon;

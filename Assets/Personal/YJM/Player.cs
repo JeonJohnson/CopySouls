@@ -83,6 +83,22 @@ public class Player : MonoBehaviour
         {
             UnitManager.Instance.SpawnTestEnemy(this.transform.position);
         }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if (Inventory.Instance.InventoryBase.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Inventory.Instance.InventoryBase.SetActive(false);
+                Inventory.inventoryActivated = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Inventory.Instance.InventoryBase.SetActive(true);
+                Inventory.inventoryActivated = true;
+            }
+        }
     }
 
     void SetPlayerWeapon()

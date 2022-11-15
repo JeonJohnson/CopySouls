@@ -62,6 +62,7 @@ public class CameraTest : MonoBehaviour
 
     public void HandleAllCameraMovement()
     {
+        if (Inventory.inventoryActivated) return;
         FollowTarget();
         RotateCamera();
         HandleCameraCollisions();
@@ -121,6 +122,7 @@ public class CameraTest : MonoBehaviour
 
     void ZoomCamera()
     {
+        if (Inventory.inventoryActivated) return;
         defaultPosition += Input.GetAxis("Mouse ScrollWheel") * ZoomSensitivity;
         if (defaultPosition > -3.0f) defaultPosition = -3.0f;
         if (defaultPosition < -13.0f) defaultPosition = -13.0f;

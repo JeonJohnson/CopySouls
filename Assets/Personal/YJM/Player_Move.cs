@@ -13,6 +13,11 @@ public class Player_Move : Player_cState
     }
     public override void UpdateState()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerActionTable.instance.Interaction();
+        }
+        PlayerActionTable.instance.NearObjectSearch();
         PlayerLocomove.instance.Move();
 
 

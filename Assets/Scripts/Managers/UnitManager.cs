@@ -120,10 +120,9 @@ public class UnitManager : Manager<UnitManager>
         {
             Enemy enemy = allEnemyGoList[i].GetComponent<Enemy>();
 
-            SetEnemiesRagdoll(ref enemy);
-
             if (enemy != null && enemy.gameObject.activeSelf &&!allEnemyList.Contains(enemy) )
             {
+                SetEnemiesRagdoll(ref enemy);
                 allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
 
                 List<Enemy> dicList;

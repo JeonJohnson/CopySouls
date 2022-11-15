@@ -454,6 +454,61 @@ public class PlayerActionTable : MonoBehaviour
         player.animator.SetLayerWeight(1, 0);
     }
 
+    public Collider[] nearColliders;
+    public GameObject curInteractionItem;
+    bool isGet;
+
+    public void NearObjectSearch()
+    {
+        print("Searching");
+        //overlapSphere마스크
+        int m_Mask = 0;
+
+        m_Mask = 1 << LayerMask.NameToLayer("Item");
+        //m_Mask |= 1 << LayerMask.NameToLayer("Environment");
+
+        nearColliders = Physics.OverlapSphere(transform.position, Player.instance.status.interactionRange, m_Mask);
+
+        if (nearColliders != null)
+        {
+            float shortDis = 99999999;
+            Collider Object = null;
+            foreach (Collider found in nearColliders)
+            {
+                float Distance = Vector3.Distance(gameObject.transform.position, found.transform.position);
+                if (Distance < shortDis)
+                {
+                    Object = found;
+                    shortDis = Distance;
+                }
+            }
+            if (Object != null) curInteractionItem = Object.gameObject;
+            else curInteractionItem = null;
+        }
+    }
+
+    public void Interaction()
+    {
+            if (curInteractionItem != null)
+            {
+                Item obj = curInteractionItem.GetComponent<Item>();
+                if (obj.ObjectType == Enums.ObjectType.Item)
+                {
+                    if (!isGet)
+                    {
+                        Item curItem = obj.GetComponent<Item>();
+                        
+                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
+                        isGet = true;
+                    }
+                }
+                else if (obj.ObjectType == Enums.ObjectType.Environment)
+                {
+                    //anim.SetTrigger("");
+                }
+            }
+    }
+
     public void UseItem()
     {
         Player.instance.SetState(ePlayerState.Interacting);

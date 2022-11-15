@@ -10,6 +10,11 @@ public class Player_Idle : Player_cState
     }
     public override void UpdateState()
     {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerActionTable.instance.Interaction();
+        }
+        PlayerActionTable.instance.NearObjectSearch();
         Player.instance.playerModel.transform.position = Player.instance.transform.position;
         if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
         {
