@@ -81,6 +81,11 @@ public abstract class Enemy : MonoBehaviour
         UnitManager.Instance.EraseDeathEnemy(this);
     }
 
+    public virtual void ResetEnemy()
+    {//화톳불 앉거나 플레이어 다시 살아날 경우 할 것들
+        Debug.Log($"{gameObject.name}is reset");
+    }
+    
 
 
     public void HoldTransPos_Enemy(Transform dir,Vector3 forwardVec)
