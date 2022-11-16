@@ -65,7 +65,6 @@ public class UnitManager : Manager<UnitManager>
         {
             //난중에 여기서 카메라들도 세팅해주셈
             playerObj = Instantiate(playerPrefab);
-            
         }
 
         if (cameraObj == null && cameraPrefab)

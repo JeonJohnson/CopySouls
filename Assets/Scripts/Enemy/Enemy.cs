@@ -37,6 +37,7 @@ public abstract class Enemy : MonoBehaviour
     public Structs.EnemyStatus status;
     public Collider DamagedCollider;
 
+    [HideInInspector]
     public Vector3 initPos;
     public Vector3 initForward;
 

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1516075434677458061}
   - component: {fileID: 1516075434674111909}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Renderer
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,9 +141,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458065}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Ankle_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,9 +172,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458067}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Ankle_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,9 +203,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458069}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Ball_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,9 +234,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458071}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Ball_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,9 +265,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458081}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Eyebrows
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,9 +298,9 @@ GameObject:
   - component: {fileID: 7152463952478495247}
   - component: {fileID: 7152463952478495246}
   - component: {fileID: 7152463952478495240}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Elbow_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,9 +405,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458085}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_01
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,9 +436,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458087}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Eyes
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,9 +466,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458089}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_02
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -497,9 +497,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458091}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_01 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -528,9 +528,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458093}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_03
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -559,9 +559,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458095}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_02 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,9 +590,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458105}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Clavicle_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -622,9 +622,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1516075434677458107}
   - component: {fileID: 3861587886019520559}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Skeleton_Spirit_Ragdoll 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,9 +669,9 @@ GameObject:
   - component: {fileID: 7152463951994772702}
   - component: {fileID: 7152463951994772701}
   - component: {fileID: 7152463951994772703}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Elbow_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -776,9 +776,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458111}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Clavicle_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -807,9 +807,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458113}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_02
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -838,9 +838,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458115}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_01 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -869,9 +869,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458117}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_03
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -900,9 +900,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458119}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_02 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -931,9 +931,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458121}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_04
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -961,9 +961,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458123}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_03 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,9 +992,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458127}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_04 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1022,9 +1022,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458129}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_04
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1052,9 +1052,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458131}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_03 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1083,9 +1083,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458133}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Hand_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1116,9 +1116,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458135}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Finger_04 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1149,9 +1149,9 @@ GameObject:
   - component: {fileID: 7152463951477089806}
   - component: {fileID: 7152463951477089805}
   - component: {fileID: 7152463951477089807}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Head
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1258,9 +1258,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458139}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Hand_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1291,9 +1291,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458141}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: IndexFinger_01
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1324,9 +1324,9 @@ GameObject:
   - component: {fileID: 1516075434677458143}
   - component: {fileID: 7152463953080422640}
   - component: {fileID: 7152463953080422647}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Hips
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1390,9 +1390,9 @@ GameObject:
   - component: {fileID: 7152463952777444370}
   - component: {fileID: 7152463952777444369}
   - component: {fileID: 7152463952777444371}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: LowerLeg_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1497,9 +1497,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458149}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Neck
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1531,9 +1531,9 @@ GameObject:
   - component: {fileID: 7152463952519361748}
   - component: {fileID: 7152463952519361755}
   - component: {fileID: 7152463952519361749}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: LowerLeg_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1641,9 +1641,9 @@ GameObject:
   - component: {fileID: 7152463952888372351}
   - component: {fileID: 7152463952888372349}
   - component: {fileID: 7152463952888372350}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Shoulder_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1748,9 +1748,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458155}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Root
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1782,9 +1782,9 @@ GameObject:
   - component: {fileID: 7152463952278407757}
   - component: {fileID: 7152463952278407763}
   - component: {fileID: 7152463952278407756}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Shoulder_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1891,9 +1891,9 @@ GameObject:
   - component: {fileID: 1516075434677458177}
   - component: {fileID: 1516075434676131035}
   - component: {fileID: 1516075434675033755}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: SM_Item_Shrunken_Head
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1973,9 +1973,9 @@ GameObject:
   - component: {fileID: 7152463953001591707}
   - component: {fileID: 7152463953001591705}
   - component: {fileID: 7152463953001591706}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Spine_01
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2079,9 +2079,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458185}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Spine_03
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2112,9 +2112,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458187}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Spine_02
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2144,9 +2144,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458189}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_01 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2175,9 +2175,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458191}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_01
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2208,9 +2208,9 @@ GameObject:
   - component: {fileID: 1516075434677458199}
   - component: {fileID: 1516075434676130985}
   - component: {fileID: 1516075434675033705}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: SM_Item_Goblin_Hair
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2289,9 +2289,9 @@ GameObject:
   - component: {fileID: 1516075434677458201}
   - component: {fileID: 1516075434676131027}
   - component: {fileID: 1516075434675033747}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: SM_Item_Mask_01
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2370,9 +2370,9 @@ GameObject:
   - component: {fileID: 1516075434677458205}
   - component: {fileID: 1516075434676131031}
   - component: {fileID: 1516075434675033751}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: SM_Item_Shield
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2449,9 +2449,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458225}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_02 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2480,9 +2480,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458227}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_02
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2511,9 +2511,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458229}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_03 1
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2541,9 +2541,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458231}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Thumb_03
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2571,9 +2571,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458233}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Toes_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2601,9 +2601,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516075434677458235}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Toes_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2634,9 +2634,9 @@ GameObject:
   - component: {fileID: 7152463953130427522}
   - component: {fileID: 7152463953130427520}
   - component: {fileID: 7152463953130427521}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: UpperLeg_R
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2744,9 +2744,9 @@ GameObject:
   - component: {fileID: 7152463953205266656}
   - component: {fileID: 7152463953205266662}
   - component: {fileID: 7152463953205266663}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: UpperLeg_L
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2851,9 +2851,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2136071126761516815}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Model
-  m_TagString: Enemy
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
