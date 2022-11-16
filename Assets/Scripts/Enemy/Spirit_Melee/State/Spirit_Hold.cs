@@ -75,6 +75,8 @@ public class Spirit_Hold : cState
         {
             if (!me.animCtrl.GetBool("isHold") && !me.animCtrl.GetBool("isGetUp"))
             {
+                if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
                 if (me.weaponEquipState == eEquipState.Equip)
                 {
                     if (me.distToTarget <= me.status.atkRange)

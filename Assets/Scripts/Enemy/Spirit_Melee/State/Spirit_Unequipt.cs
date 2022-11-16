@@ -33,6 +33,8 @@ public class Spirit_Unequipt : cState
 
         if (((Spirit)me).complete_Unequipt)
         {
+            if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
             me.GetComponent<FieldOfView>().viewAngle = ((Spirit)me).initFOVAngle;
             if(me.combatState == eCombatState.Alert)
             {

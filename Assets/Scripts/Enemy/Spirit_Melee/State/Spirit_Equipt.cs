@@ -41,6 +41,8 @@ public class Spirit_Equipt : cState
 
         if (((Spirit)me).complete_Equipt)
         {
+            if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
             if (me.combatState == eCombatState.Alert)
             {
                 me.animCtrl.SetBool("isEquipt", false);

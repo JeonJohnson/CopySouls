@@ -36,6 +36,8 @@ public class Spirit_Groggy : cState
         {
             ((Spirit)me).complete_Groggy = false;
 
+            if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
             if (me.combatState == eCombatState.Alert)
             {
                 if (me.distToTarget <= me.status.atkRange)

@@ -49,7 +49,9 @@ public class Spirit_Atk : cState
 
         if (!((Spirit)me).complete_Atk)
         {
-            if(CurPattern == eSpirit_AtkPattern.DoubleAtk)
+            if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
+            if (CurPattern == eSpirit_AtkPattern.DoubleAtk)
             {
                 if (((Spirit)me).doubleAttCheck)
                 {

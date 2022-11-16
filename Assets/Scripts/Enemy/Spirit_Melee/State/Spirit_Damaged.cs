@@ -53,6 +53,8 @@ public class Spirit_Damaged : cState
                 ((Spirit)me).HitCount--;
                 me.animCtrl.SetBool("ChangeDamaged", false);
 
+                if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
+
                 if (me.combatState == eCombatState.Alert)
                 {
                     if (me.weaponEquipState == eEquipState.Equip)
