@@ -94,6 +94,7 @@ public class UnitManager : Manager<UnitManager>
     public List<Enemy> allEnemyList = new List<Enemy>(); //ㄹㅇ 맵상의 죽었든 살았든 모든 Enemy
     public List<Enemy> aliveEnemyList = new List<Enemy>(); //현재 살아있는 Enemy만
 
+    public Enemy boss_Golem;
     //// <EnemyVar>
 
 
@@ -118,6 +119,11 @@ public class UnitManager : Manager<UnitManager>
 
             if (enemy != null && enemy.gameObject.activeSelf &&!allEnemyList.Contains(enemy) )
             {
+                if (enemy.status.name_e == eEnemyName.Golem)
+                {
+                    boss_Golem = enemy;
+                }
+
                 SetEnemiesRagdoll(ref enemy);
 
                 allEnemyList.Add(enemy);
@@ -156,6 +162,11 @@ public class UnitManager : Manager<UnitManager>
 
     private void SetEnemiesRagdoll(ref Enemy script)
     {
+        if (script.status.name_e == eEnemyName.Golem)
+        {
+            return;
+        }
+
         if (!script.ragdoll)
         {
             GameObject ragdollObj = Instantiate(enemyRagdollPrefabList[(int)script.status.name_e], ragdollBox);

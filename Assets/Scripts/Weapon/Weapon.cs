@@ -33,6 +33,8 @@ public enum eWeaponType
 
 public abstract class Weapon : MonoBehaviour
 {
+    List<GameObject> hitObjs;
+
     public Collider col;
     public eWeaponType type;
     public int Dmg;
@@ -52,7 +54,9 @@ public abstract class Weapon : MonoBehaviour
         col = GetComponent<Collider>();
         PlayerLayer = LayerMask.GetMask("Player_Hitbox");
         EnemyLayer = LayerMask.GetMask("Enemy");
-    }
+
+        hitObjs = new List<GameObject>();
+	}
 
     protected virtual void Start()
     {
@@ -79,6 +83,7 @@ public abstract class Weapon : MonoBehaviour
         if (owner != null)
         {
             col.enabled = value;
+            hitObjs.Clear();
         }
     }
 
@@ -87,6 +92,7 @@ public abstract class Weapon : MonoBehaviour
         if (owner != null)
         {
             col.enabled = Funcs.I2B(value);
+            hitObjs.Clear();
         }
     }
 
@@ -177,15 +183,20 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        //Enemy -> Player
+        if (hitObjs.Find(x => x == other.transform.root.gameObject))
+        {
+            return;    
+        }
+            //Enemy -> Player
         if (owner.gameObject.GetComponent<Enemy>() != null)
         {
             if(!owner.gameObject.GetComponent<Enemy>().status.isDead)
             {
                 if(other.transform.root.GetComponent<Player>() != null)
                 {
-                    Att(other.gameObject);
-                }
+					Att(other.gameObject);
+					hitObjs.Add(other.transform.root.gameObject);
+				}
             }
         }
     }

@@ -12,6 +12,8 @@ public enum eArrowState
 
 public class CommonArrow : Weapon, IPoolingObject
 {
+    
+
     public Rigidbody rd;
 
     public eArrowState state = eArrowState.Draw;
@@ -90,6 +92,8 @@ public class CommonArrow : Weapon, IPoolingObject
     protected override void Awake()
     {
         base.Awake();
+
+        
     }
     protected override void Start()
     {

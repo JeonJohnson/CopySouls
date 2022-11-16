@@ -486,6 +486,7 @@ namespace Enums
 	{ 
 		Spirit,
 		Archer,
+		Golem,
 		//Magician,
 		//Knight,
 		//Boss,
