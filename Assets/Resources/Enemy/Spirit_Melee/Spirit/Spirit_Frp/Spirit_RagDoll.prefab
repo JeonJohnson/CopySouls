@@ -380,7 +380,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 59f177f0da348194fb9654f4bfdd6b68, type: 2}
+  - {fileID: 2100000, guid: f4132b552d0b7154083688d34ea59307, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8860,3 +8860,4 @@ MonoBehaviour:
   me: {fileID: 0}
   initPos: {fileID: 3552883046321031335}
   transPos: {fileID: 2554038503189724171}
+  att_close: 0

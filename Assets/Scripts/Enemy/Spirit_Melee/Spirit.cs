@@ -13,6 +13,12 @@ public class Spirit : Enemy
     public Transform headPos;
     public Transform head;
     public GameObject model;
+
+    public Transform RightHand;
+    public Transform RightElbow;
+    public Transform RightShoulder;
+
+
     //public GameObject ragdollModel;
     public GameObject remainderWeapon;
     public Spirit_Weapon weapon;
@@ -84,6 +90,9 @@ public class Spirit : Enemy
 
         player_Hitbox = 1 << LayerMask.NameToLayer("Player_Hitbox");
         head = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+        RightHand = animCtrl.GetBoneTransform(HumanBodyBones.RightThumbProximal);
+        RightElbow = animCtrl.GetBoneTransform(HumanBodyBones.RightLowerArm);
+        RightShoulder = animCtrl.GetBoneTransform(HumanBodyBones.RightUpperArm);
     }
 
     protected override void Update()
@@ -225,6 +234,12 @@ public class Spirit : Enemy
         boneTr.LookAt(targetTr);
         boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
     }
+
+    public void boneRotation(Transform boneTr, Vector3 offsetEulerRotate)
+    {
+        boneTr.rotation = boneTr.rotation * Quaternion.Euler(offsetEulerRotate);
+    }
+
 
     //=============================================================================
 

@@ -37,7 +37,7 @@ public class Spirit_Death : cState
             {
                 if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 0.5f))
                 {
-                    ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
+                    //((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
                     ((Spirit)me).ChangeToRagDoll();
                     ((Spirit)me).DeathReset();
                 }

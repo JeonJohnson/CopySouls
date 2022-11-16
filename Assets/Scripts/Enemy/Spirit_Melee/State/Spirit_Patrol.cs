@@ -55,6 +55,13 @@ public class Spirit_Patrol : cState
             Spirit_PatrolMoveOder();
         }
     }
+    public override void LateUpdateState()
+    {
+        ((Spirit)me).boneRotation(((Spirit)me).RightShoulder, new Vector3(0, -10f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightElbow, new Vector3(0, -25f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(0f, -15f, 90f));
+    }
+
 
     public void Spirit_PatrolMoveOder()
     {

@@ -56,8 +56,11 @@ public class Spirit_Trace : cState
     public override void LateUpdateState()
     {
         ((Spirit)me).boneRotation(HumanBodyBones.Head, ((Spirit)me).targetHeadPos, new Vector3(0, 0, 0));
-    }
 
+        ((Spirit)me).boneRotation(((Spirit)me).RightShoulder, new Vector3(0, -10f, 45f));
+        ((Spirit)me).boneRotation(((Spirit)me).RightElbow, new Vector3(0, -15f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(45f, -15f, 45f));
+    }
 
     public override void ExitState()
     {

@@ -7,7 +7,6 @@ public class Spirit_Unequipt : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        Debug.Log("장비해제");
         ((Spirit)me).isEquipt = false;
         me.weaponEquipState = eEquipState.UnEquip;
         me.MoveStop();
@@ -53,6 +52,11 @@ public class Spirit_Unequipt : cState
 
             
         }
+    }
+
+    public override void LateUpdateState()
+    {
+        ((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(0f, -15f, 0f));
     }
 
     public override void ExitState()

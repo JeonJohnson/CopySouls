@@ -60,6 +60,12 @@ public class Spirit_Equipt : cState
         }
     }
 
+    public override void LateUpdateState()
+    {
+        ((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(0f, 180f, 0f));
+    }
+
+
     public override void ExitState()
     {
         ((Spirit)me).complete_Equipt = false;
