@@ -34,17 +34,20 @@ public class Spirit_Return : cState
 
         if(Complete_Schouting)
         {
-            if(Vector3.Distance(me.transform.position,((Spirit)me).respawnPos) > 0.5f)
+
+            Debug.Log("µµÂø °Å¸® : " + Vector3.Distance(((Spirit)me).respawnPos, me.transform.position));
+
+            if(Vector3.Distance(((Spirit)me).respawnPos, me.transform.position) > 1f)
             {
                 Debug.Log("µµÂø ¸øÇÔ");
                 me.MoveOrder(((Spirit)me).respawnPos);
             }
-            else if(Vector3.Distance(me.transform.position, ((Spirit)me).respawnPos) <= 0.5f || me.transform.position == ((Spirit)me).respawnPos)
+            else if(Vector3.Distance(((Spirit)me).respawnPos, me.transform.position) <= 1f || me.transform.position == ((Spirit)me).respawnPos)
             {
                 Debug.Log("µµÂø!!!!!!!!!");
                 me.MoveStop();
+                me.animCtrl.SetBool("isSchouting", false);
                 me.animCtrl.SetBool("isReturn", false);
-                ((Spirit)me).isReturn = false;
                 Complete_Schouting = false;
                 me.SetState((int)Enums.eSpiritState.Idle);
             }
@@ -54,6 +57,8 @@ public class Spirit_Return : cState
     {
         me.animCtrl.SetBool("isReturn", false);
         Complete_Schouting = false;
+        ((Spirit)me).isReturn = false;
+
     }
 
 
