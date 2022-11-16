@@ -34,17 +34,12 @@ public class Spirit_Return : cState
 
         if(Complete_Schouting)
         {
-
-            Debug.Log("µµÂø °Å¸® : " + Vector3.Distance(((Spirit)me).respawnPos, me.transform.position));
-
             if(Vector3.Distance(((Spirit)me).respawnPos, me.transform.position) > 1f)
             {
-                Debug.Log("µµÂø ¸øÇÔ");
                 me.MoveOrder(((Spirit)me).respawnPos);
             }
             else if(Vector3.Distance(((Spirit)me).respawnPos, me.transform.position) <= 1f || me.transform.position == ((Spirit)me).respawnPos)
             {
-                Debug.Log("µµÂø!!!!!!!!!");
                 me.MoveStop();
                 me.animCtrl.SetBool("isSchouting", false);
                 me.animCtrl.SetBool("isReturn", false);
