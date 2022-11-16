@@ -12,6 +12,7 @@ public class Spirit_Return : cState
         me.MoveStop();
         me.animCtrl.SetBool("isReturn", true);
         me.GetComponent<FieldOfView>().viewAngle = ((Spirit)me).initFOVAngle;
+        me.col.enabled = false;
     }
 
     public override void UpdateState()
@@ -53,7 +54,7 @@ public class Spirit_Return : cState
         me.animCtrl.SetBool("isReturn", false);
         Complete_Schouting = false;
         ((Spirit)me).isReturn = false;
-
+        me.col.enabled = true;
     }
 
 
