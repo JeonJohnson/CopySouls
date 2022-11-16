@@ -314,13 +314,13 @@ public class PlayerActionTable : MonoBehaviour
 
         Enemy target = null;
         float distance = float.MaxValue;
-        for (int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
+        for (int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
         {
-            if (Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position) < distance)
+            if (Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position) < distance)
             {
-                distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
+                distance = Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position);
                 print(distance);
-                target = UnitManager.Instance.allEnemyList[i];
+                target = UnitManager.Instance.aliveEnemyList[i];
             }
         }
 

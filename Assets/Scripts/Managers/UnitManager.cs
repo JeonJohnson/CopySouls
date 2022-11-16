@@ -91,13 +91,10 @@ public class UnitManager : Manager<UnitManager>
     public List<GameObject> enemyRagdollPrefabList;
     public Transform ragdollBox;
 
-    public Dictionary<eEnemyName, List<Enemy>> enemyDic;
-    public List<Enemy> allEnemyList = new List<Enemy>();
+    public Dictionary<eEnemyName, List<Enemy>> aliveEnemyDic; //얘는 잘 안쓸꺼 같지만 살아있는 애만
+    public List<Enemy> allEnemyList = new List<Enemy>(); //ㄹㅇ 맵상의 죽었든 살았든 모든 Enemy
+    public List<Enemy> aliveEnemyList = new List<Enemy>(); //현재 살아있는 Enemy만
 
-
-
-
-  
     //// <EnemyVar>
 
 
@@ -123,10 +120,12 @@ public class UnitManager : Manager<UnitManager>
             if (enemy != null && enemy.gameObject.activeSelf &&!allEnemyList.Contains(enemy) )
             {
                 SetEnemiesRagdoll(ref enemy);
-                allEnemyList.Add(allEnemyGoList[i].GetComponent<Enemy>());
+
+                allEnemyList.Add(enemy);
+                aliveEnemyList.Add(enemy);
 
                 List<Enemy> dicList;
-                if (enemyDic.TryGetValue(enemy.status.name_e, out dicList))
+                if (aliveEnemyDic.TryGetValue(enemy.status.name_e, out dicList))
                 {
                     dicList.Add(enemy);
                 }
@@ -136,21 +135,19 @@ public class UnitManager : Manager<UnitManager>
 
     public void EraseDeathEnemy(Enemy script)
     {
-        if (allEnemyList.Count == 0 |
-            !allEnemyList.Contains(script))
+        if (aliveEnemyList.Count == 0 |
+            !aliveEnemyList.Contains(script))
         {
             Debug.Log("이 에너미는 리스트에 없는디요?");
             return;
         }
 
-
         if (script.status.isDead)
         {
-            allEnemyList.Remove(script);
-
+            aliveEnemyList.Remove(script);
 
             List<Enemy> dicList;
-            if (enemyDic.TryGetValue(script.status.name_e, out dicList))
+            if (aliveEnemyDic.TryGetValue(script.status.name_e, out dicList))
             {
                 dicList.Remove(script);
             }
@@ -188,11 +185,11 @@ public class UnitManager : Manager<UnitManager>
 
     private void Awake()
     {
-        enemyDic = new Dictionary<eEnemyName, List<Enemy>>();
+        aliveEnemyDic = new Dictionary<eEnemyName, List<Enemy>>();
 
         for (int i = 0; i < (int)eEnemyName.End; ++i)
         {
-            enemyDic.Add((eEnemyName)i, new List<Enemy>());
+            aliveEnemyDic.Add((eEnemyName)i, new List<Enemy>());
         }
         ragdollBox = Funcs.CheckGameObjectExist("RagdollBox").transform;
 

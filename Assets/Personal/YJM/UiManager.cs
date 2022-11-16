@@ -28,9 +28,9 @@ public class UiManager : Manager<UiManager>
 
     void TestMakeHpBar()
     {
-        for(int i = 0; i < UnitManager.Instance.allEnemyList.Count; i++)
+        for(int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
         {
-            InstantiateHpBar(UnitManager.Instance.allEnemyList[i]);
+            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
         }
     }
 }

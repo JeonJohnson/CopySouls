@@ -177,13 +177,13 @@ public class PlayerLocomove : MonoBehaviour
     void SearchTarget()
     {
         float distance = float.MaxValue;
-        for(int i =0; i < UnitManager.Instance.allEnemyList.Count; i++)
+        for(int i =0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
         {
-            if(Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position) < distance)
+            if(Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position) < distance)
             {
-                distance = Vector3.Distance(UnitManager.Instance.allEnemyList[i].transform.position, this.transform.position);
-                targetEnemy = UnitManager.Instance.allEnemyList[i].transform;
-                print(UnitManager.Instance.allEnemyList[i]);
+                distance = Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position);
+                targetEnemy = UnitManager.Instance.aliveEnemyList[i].transform;
+                print(UnitManager.Instance.aliveEnemyList[i]);
             }
         }
     }
