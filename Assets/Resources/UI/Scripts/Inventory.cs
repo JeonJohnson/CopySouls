@@ -47,14 +47,10 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
-       
+
     }
     public void update()
     {
-        
-        
-        //esc -> 현재 창 끄기
-        //enter -> 분할 창 끄기
     }
     public void TryOpenInventory()
     {
@@ -103,11 +99,11 @@ public class Inventory : MonoBehaviour
     }
 
 
-    
 
-    public bool ItemIn(Item _item,int _count = 1)
+
+    public bool ItemIn(Item _item, int _count = 1)
     {
-        if(_item.itemType == Enums.ItemType.Production_Item)
+        if (_item.itemType == Enums.ItemType.Production_Item || _item.itemType == Enums.ItemType.supply_Item)
         {
             for (int i = 0; i < slots.Length; i++)
             {
@@ -266,7 +262,18 @@ public class Inventory : MonoBehaviour
     public void UseSupply()
     {
         curSlot.SetSlotCount(-1);
+        use();
+    }
+
+    public void use()
+    {
         Debug.Log("아이템 사용!");
     }
-   
+
+    public void Equipt()
+    {
+        curSlot.SetSlotCount(-1);
+        Debug.Log("장착!");
+    }
+
 }

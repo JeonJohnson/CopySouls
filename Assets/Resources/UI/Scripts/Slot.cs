@@ -86,7 +86,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
                     //Equipt(rightMouse)
-                    //Inventory.Instance.Equipt();
+                    Inventory.Instance.Equipt();
                 }
                 else
                 {
