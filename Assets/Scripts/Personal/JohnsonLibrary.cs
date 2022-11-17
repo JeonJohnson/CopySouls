@@ -563,20 +563,10 @@ namespace Enums
 	public enum ObjNameTable
 	{
 		Player,
-		Item_Arrow,
-		Item_Ax,
-		Item_Bar,
-		Item_Bow1,
-		Item_Bow2,
-		Item_Copper,
-		Item_Cudgel,
-		Item_Hammer,
-		Item_Knife,
-		Item_Pickax,
-		Item_Stone,
-		Item_Sword,
-		Item_Wood,
-		Tree1_Middle,
+		Item_Crystal,
+		Item_Food,
+		Item_Weapon,
+		Item_Defence,
 		End
 	}
 
