@@ -28,6 +28,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     //아이템 갯수 이미지(아이템이 있을때만 출력)
     [SerializeField]
     private GameObject go_CountImage;
+    [SerializeField]
+    private GameObject text_Equipt;
 
     void Start()
     {
@@ -62,6 +64,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         if (itemCount <= 0) ClearSlot();
     }
 
+    public void SetEquipt(bool value)
+    {
+        text_Equipt.SetActive(value);
+    }
+
     //슬롯 초기화
     private void ClearSlot()
     {
@@ -82,6 +89,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
+                Inventory.Instance.curSlot = this;
+
                 if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
@@ -96,7 +105,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (itemCount < 2) return;
                         else
                         {
-                            Inventory.Instance.curSlot = this;
                             Inventory.Instance.TryOpenDivision();
                         }
                     }
@@ -105,7 +113,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (item.itemType == Enums.ItemType.supply_Item)
                         {
                             //use(rightMouse)
-                            Inventory.Instance.curSlot = this;
                             Inventory.Instance.UseSupply();
                         }
                         else return; 

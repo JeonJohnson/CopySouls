@@ -263,6 +263,7 @@ public class Inventory : MonoBehaviour
     {
         curSlot.SetSlotCount(-1);
         use();
+        curSlot = null;
     }
 
     public void use()
@@ -272,8 +273,16 @@ public class Inventory : MonoBehaviour
 
     public void Equipt()
     {
-        curSlot.SetSlotCount(-1);
         Debug.Log("장착!");
+        curSlot.SetEquipt(true);
+        curSlot = null;
+    }
+
+    public void UnEquipt()
+    {
+        Debug.Log("장착 해제 or 무기 교체!!");
+        //해제
+        //교체
     }
 
 }
