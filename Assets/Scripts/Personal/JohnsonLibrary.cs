@@ -595,6 +595,7 @@ namespace Enums
 		Production_Item,
 		weapon_Equiptment_Item,
 		Defence_Equiptment_Item,
+		supply_Item,
 		End
 	}
 

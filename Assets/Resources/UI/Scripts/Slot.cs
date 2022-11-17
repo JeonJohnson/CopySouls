@@ -90,12 +90,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 else
                 {
                     //Division
-                    if (itemCount < 2) return;
-                    else
+                    if(Input.GetKey(KeyCode.LeftShift))
                     {
-                        Inventory.Instance.curSlot = this;
-                        Inventory.Instance.TryOpenDivision();
+                        if (itemCount < 2) return;
+                        else
+                        {
+                            Inventory.Instance.curSlot = this;
+                            Inventory.Instance.TryOpenDivision();
+                        }
                     }
+                    //use
+
                 }
             }
         }
