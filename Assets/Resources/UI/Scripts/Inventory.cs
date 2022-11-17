@@ -51,15 +51,7 @@ public class Inventory : MonoBehaviour
     }
     public void update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-
-        }
-        else if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            Debug.Log("엔터 분할");
-            Division_Button();
-        }
+        
         
         //esc -> 현재 창 끄기
         //enter -> 분할 창 끄기
@@ -212,8 +204,8 @@ public class Inventory : MonoBehaviour
            if(DivisionInputField.text != "")
            {
                int divisionCount = int.Parse(DivisionInputField.text);
-               if (divisionCount > 0 && divisionCount < curSlot.itemCount)
-               {
+                if (divisionCount > 0 && divisionCount < curSlot.itemCount)
+                {
                     if (DivisionInputField.text != "") DivisionInputField.text = "";
 
                     if (DivisionItemIn(curSlot.item, divisionCount))
@@ -226,7 +218,13 @@ public class Inventory : MonoBehaviour
                         return;
                     }
                 }
-               else return;
+                else
+                {
+                    if (DivisionInputField.text != "") DivisionInputField.text = "";
+                    return;
+            
+                }
+
            }
         }
     }

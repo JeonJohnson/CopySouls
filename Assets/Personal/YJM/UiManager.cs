@@ -25,6 +25,17 @@ public class UiManager : Manager<UiManager>
     {
 
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("ESC");
+        }
+        else if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Inventory.Instance.Division_Button();
+        }
+    }
 
     void TestMakeHpBar()
     {
