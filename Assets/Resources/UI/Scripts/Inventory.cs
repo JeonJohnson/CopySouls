@@ -166,7 +166,20 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    
+
+    private void Exit_inventory_Button()
+    {
+        if (!DivisionActivated)
+        {
+            inventoryActivated = false;
+            InventoryBase.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("분할창 켜져있음");
+        }
+    }
+
 
 
     public void Slider()
@@ -222,9 +235,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (DivisionInputField.text != "") DivisionInputField.text = "";
                     return;
-            
                 }
-
            }
         }
     }

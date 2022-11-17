@@ -27,15 +27,33 @@ public class UiManager : Manager<UiManager>
     }
     private void Update()
     {
+        UI_KeyboardShortcut();
+    }
+
+    //UI단축키
+    public void UI_KeyboardShortcut()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("ESC");
+            if (Inventory.inventoryActivated && Inventory.DivisionActivated)
+            {
+                //분할창 끄기
+                Inventory.Instance.Exit_Division_Button();
+            }
+            else if (Inventory.inventoryActivated && !Inventory.DivisionActivated)
+            {
+                //인벤토리 창 끄기
+                Inventory.Instance.Exit_Inventory_Button();
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
+            //분할 ENTER적용
             Inventory.Instance.Division_Button();
         }
     }
+
+
 
     void TestMakeHpBar()
     {
