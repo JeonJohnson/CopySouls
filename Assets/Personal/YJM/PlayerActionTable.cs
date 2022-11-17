@@ -494,13 +494,13 @@ public class PlayerActionTable : MonoBehaviour
                 Item obj = curInteractionItem.GetComponent<Item>();
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    if (!isGet)
-                    {
+                    //if (!isGet)
+                    //{
                         Item curItem = obj.GetComponent<Item>();
                         
-                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
-                        isGet = true;
-                    }
+                        if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
+                      //  isGet = true;
+                    //}
                 }
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {

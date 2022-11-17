@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour
     //인벤토리 활성화시 모든 포커스가 인벤토리로 갈수 있도록 해주는 정적변수
     public static bool inventoryActivated = false;
 
-    public static bool SortActivated = false;
+    //public static bool SortActivated = false;
 
     public Slot curSlot;
 
@@ -33,9 +33,9 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject SlotParent;
     [SerializeField]
-    private GameObject SortParent;
+    private GameObject DivisionParent;
     [SerializeField]
-    public InputField SortInputField;
+    public InputField DivisionInputField;
     [SerializeField]
     private Slider slider;
 
@@ -43,10 +43,10 @@ public class Inventory : MonoBehaviour
     //슬롯들
     [SerializeField]
     private Slot[] slots;
-
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
+        if (SlotParent.activeSelf) SlotParent.SetActive(false);
     }
     public void update()
     {
@@ -56,12 +56,9 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            if (SortActivated == false)
-            {
-                inventoryActivated = !inventoryActivated;
-                if (inventoryActivated) OpenInventory();
-                else CloseInventory();
-            }
+            inventoryActivated = !inventoryActivated;
+            if (inventoryActivated) OpenInventory();
+            else CloseInventory();
         }
     }
 
@@ -74,23 +71,6 @@ public class Inventory : MonoBehaviour
         InventoryBase.SetActive(false);
     }
 
-    public void TryOpenSort()
-    {
-        if(inventoryActivated == true)
-        {
-            SortActivated = !SortActivated;
-            if (SortActivated) OpenSort();
-            else CloseSort();
-        }
-    }
-    private void OpenSort()
-    {
-        SortParent.SetActive(true);
-    }
-    private void CloseSort()
-    {
-        SortParent.SetActive(false);
-    }
     public bool ItemIn(Item _item,int _count = 1)
     {
         if(_item.itemType == Enums.ItemType.Production_Item)
@@ -120,7 +100,7 @@ public class Inventory : MonoBehaviour
 
     public void Exit_Inventory_Button()
     {
-        if(SortActivated == false) InventoryBase.SetActive(false);
+        if(inventoryActivated) InventoryBase.SetActive(false);
     }
 
 
@@ -128,48 +108,50 @@ public class Inventory : MonoBehaviour
     {
         slider.minValue = 1;
         slider.maxValue = curSlot.itemCount;
-        SortInputField.text = (slider.value).ToString();
+        DivisionInputField.text = (slider.value).ToString();
     }
+
+    
 
     public void DivisionTextUpdate()
     {
         if (!Input.GetKeyDown(KeyCode.Backspace))
         {
-            int value = int.Parse(SortInputField.text);
+            int value = int.Parse(DivisionInputField.text);
             if (curSlot.itemCount < value)
             {
                 value = curSlot.itemCount;
-                SortInputField.text = value.ToString();
+                DivisionInputField.text = value.ToString();
             }
             else if (value <= 0)
             {
                 value = 1;
-                SortInputField.text = value.ToString();
+                DivisionInputField.text = value.ToString();
             }
             slider.value = value;
         }
     }
 
-    public void Division()
-    {
-        if(curSlot != null)
-        {
-            if(SortInputField.text != "")
-            {
-                int divisionCount = int.Parse(SortInputField.text);
-                if (divisionCount > curSlot.itemCount) divisionCount = curSlot.itemCount;
-                else if (divisionCount <= 0) divisionCount = 1;
-                else if (divisionCount == curSlot.itemCount)
-                {
-                    TryOpenSort();
-                    return;
-                }
-                DivisionItemIn(curSlot.item, divisionCount);
-                curSlot.SetSlotCount(-divisionCount);
-                TryOpenSort();
-            }
-        }
-    }
+    //public void Division()
+    //{
+    //    if(curSlot != null)
+    //    {
+    //        if(SortInputField.text != "")
+    //        {
+    //            int divisionCount = int.Parse(SortInputField.text);
+    //            if (divisionCount > curSlot.itemCount) divisionCount = curSlot.itemCount;
+    //            else if (divisionCount <= 0) divisionCount = 1;
+    //            else if (divisionCount == curSlot.itemCount)
+    //            {
+    //                TryOpenSort();
+    //                return;
+    //            }
+    //            DivisionItemIn(curSlot.item, divisionCount);
+    //            curSlot.SetSlotCount(-divisionCount);
+    //            TryOpenSort();
+    //        }
+    //    }
+    //}
     public void DivisionItemIn(Item _item,int _count)
     {
         //return true 받고 밖으로 하나 튕겨서 버리기

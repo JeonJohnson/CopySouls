@@ -7,7 +7,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 {
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true && Inventory.SortActivated == false)
+        if (Inventory.inventoryActivated == true)
         {
             transform.position = eventData.position;
         }
@@ -15,7 +15,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true && Inventory.SortActivated == false)
+        if (Inventory.inventoryActivated == true)
         {
             transform.position = eventData.position;
         }
@@ -23,7 +23,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true && Inventory.SortActivated == false)
+        if (Inventory.inventoryActivated == true)
         {
             transform.position = eventData.position;
         }

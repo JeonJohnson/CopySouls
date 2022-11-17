@@ -82,24 +82,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
-                if (Inventory.SortActivated == false)
+                if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
+                || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
-                    if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
-                    || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
-                    {
-                        //장착
-                        //GameObject.Find("Player").GetComponent<Player>().ChangeWeapon(item);
-                    }
-                    else
-                    {
-                        //버리기 ,나누기 ,사용하기
-                        if (itemCount >= 2)
-                        {
-                            Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
-                            inven.curSlot = this;
-                            inven.TryOpenSort();
-                        }
-                    }
+                    //장착
+                    //GameObject.Find("Player").GetComponent<Player>().ChangeWeapon(item);
+                }
+                else
+                {
+                    //분할
                 }
             }
         }
@@ -110,50 +101,40 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     //드래그 처음 시작시 슬롯위치를 마우스 위치로 받기
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (Inventory.SortActivated == false)
+        if (item != null)
         {
-            if (item != null)
-            {
-                DragSlot.instance.dragSlot = this;
-                DragSlot.instance.DragSetImage(item);
-                DragSlot.instance.transform.position = eventData.position;
-            }
+            DragSlot.instance.dragSlot = this;
+            DragSlot.instance.DragSetImage(item);
+            DragSlot.instance.transform.position = eventData.position;
         }
     }
 
     //드래그 중일때 슬롯이 마우스 위치 따라다니게 하기
     public void OnDrag(PointerEventData eventData)
     {
-        if (Inventory.SortActivated == false)
+        if (item != null)
         {
-            if (item != null)
-            {
-                DragSlot.instance.transform.position = eventData.position;
-            }
+            DragSlot.instance.transform.position = eventData.position;
         }
     }
 
     //드래그가 끝났을 떄 슬롯이 다시 원래 위치로 돌아가게하기
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Inventory.SortActivated == false)
+        if(DragSlot.instance.dragSlot != null)
         {
-            if(DragSlot.instance.dragSlot != null)
+            if (eventData.pointerCurrentRaycast.gameObject != null)
             {
-
-                if ((eventData.pointerCurrentRaycast.gameObject != null))
-                {
-                    DragSlot.instance.SetColor(0);
-                    DragSlot.instance.dragSlot = null;
-
-                }
-                else
-                {
-                    Throw(item, itemCount);
-                    DragSlot.instance.SetColor(0);
-                    DragSlot.instance.dragSlot = null;
-                    ClearSlot();
-                }
+                DragSlot.instance.SetColor(0);
+                DragSlot.instance.dragSlot = null;
+            }
+            else
+            {
+                ItemThrow();
+                //Throw(item, itemCount);
+                DragSlot.instance.SetColor(0);
+                DragSlot.instance.dragSlot = null;
+                ClearSlot();
             }
         }
     }
@@ -163,32 +144,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     //OnDrop은 해당 프리팹 위에서 종료시 호출
     public void OnDrop(PointerEventData eventData)
     {
-        if (Inventory.SortActivated == false)
+        if (DragSlot.instance.dragSlot != null)
         {
-            if (DragSlot.instance.dragSlot != null)
+            if(item != null)
             {
-                if(item != null)
+                if (DragSlot.instance.dragSlot.item.objName == item.objName && DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
                 {
-                    if (DragSlot.instance.dragSlot.item.objName == item.objName && DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
-                    {
-                        SumSlot();
-                    }
-                    else if (DragSlot.instance.dragSlot.item.objName != item.objName)
-                    {
-                        if(this.GetComponent<EquiptSlot>() == null)
-                        {
-                            ChangeSlot();
-                        }
-                        else
-                        {
-                            //EquiptChangSlot();
-                        }
-                    }
+                    SumSlot();
                 }
-                else
+                else if (DragSlot.instance.dragSlot.item.objName != item.objName)
                 {
-
-                    if (this.GetComponent<EquiptSlot>() == null)
+                    if(this.GetComponent<EquiptSlot>() == null)
                     {
                         ChangeSlot();
                     }
@@ -196,6 +162,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     {
                         //EquiptChangSlot();
                     }
+                }
+            }
+            else
+            {
+                if (this.GetComponent<EquiptSlot>() == null)
+                {
+                    ChangeSlot();
+                }
+                else
+                {
+                    //EquiptChangSlot();
                 }
             }
         }
@@ -246,4 +223,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             _item.rigid.AddForce(Vector3.forward * 1 + Vector3.up * 1, ForceMode.Impulse);
         }
     }
+
+    private void ItemThrow()
+    {
+        DragSlot.instance.dragSlot.ClearSlot();
+    }
+
 }
