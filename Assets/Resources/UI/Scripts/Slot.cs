@@ -85,11 +85,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
-                    //Equipt
+                    //Equipt(rightMouse)
+                    //Inventory.Instance.Equipt();
                 }
                 else
                 {
-                    //Division
+                    //Division(shift + rightMouse)
                     if(Input.GetKey(KeyCode.LeftShift))
                     {
                         if (itemCount < 2) return;
@@ -99,7 +100,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                             Inventory.Instance.TryOpenDivision();
                         }
                     }
-                    //use
+                    else
+                    {
+                        if (item.itemType == Enums.ItemType.supply_Item)
+                        {
+                            //use(rightMouse)
+                            Inventory.Instance.curSlot = this;
+                            Inventory.Instance.UseSupply();
+                        }
+                        else return; 
+                    }
 
                 }
             }
