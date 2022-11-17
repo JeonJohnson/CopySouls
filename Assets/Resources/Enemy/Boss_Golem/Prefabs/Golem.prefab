@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 1814817405526944564}
   - component: {fileID: 1814817405520037008}
   - component: {fileID: 1705065869}
+  - component: {fileID: 2970970323139778894}
   - component: {fileID: 5463170941810859010}
   m_Layer: 7
   m_Name: Golem
@@ -110,6 +111,7 @@ Transform:
   m_Children:
   - {fileID: 1814817405526944566}
   - {fileID: 1814817405526944568}
+  - {fileID: 5662787448952324614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,21 +151,21 @@ MonoBehaviour:
     name_e: 2
     type: 2
     isDead: 0
-    maxHp: 0
-    curHp: 0
-    maxStamina: 0
-    curStamina: 0
+    maxHp: 1000
+    curHp: 1000
+    maxStamina: 10
+    curStamina: 10
     maxMp: 0
     curMp: 0
-    moveSpd: 0
+    moveSpd: 3
     runSpd: 0
     moveMileage: 0
-    atkRange: 0
+    atkRange: 3
     patrolRange: 0
-    ricognitionRange: 0
-    fovAngle: 0
+    ricognitionRange: 20
+    fovAngle: 360
     lookAtSpd: 0
-    isSuperArmor: 0
+    isSuperArmor: 1
     isGroggy: 0
     isFrontHold: 0
     isBackHold: 0
@@ -179,16 +181,30 @@ MonoBehaviour:
   combatState: 0
   weaponEquipState: 0
   PatrolPos: []
-  ragdoll: {fileID: 0}
+  ragdoll: {fileID: 2359562337917510920}
   preState_i: -1
   curState_i: -1
   animCtrl: {fileID: 0}
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
-  meshObj: {fileID: 0}
-  rootObj: {fileID: 0}
-  headTr: {fileID: 0}
+  meshObj: {fileID: 1814817405527308056}
+  rootObj: {fileID: 1814817405527308054}
+  headBoneTr: {fileID: 0}
+  fragScript: {fileID: 0}
+  actTable: {fileID: 0}
+--- !u!114 &2970970323139778894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814817405527308052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fc162608272094e9c2bcf52b1c4e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &5463170941810859010
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1457,3 +1473,76 @@ Transform:
   m_Father: {fileID: 1814817405526944618}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2113465614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1814817405526944564}
+    m_Modifications:
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662787450081604392, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+      propertyPath: m_Name
+      value: Golem_Frag
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+--- !u!4 &5662787448952324614 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5662787450081177352, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+  m_PrefabInstance: {fileID: 2113465614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2359562337917510920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2359562336778209286, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+  m_PrefabInstance: {fileID: 2113465614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fce41c39161254e8045b94211e8820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

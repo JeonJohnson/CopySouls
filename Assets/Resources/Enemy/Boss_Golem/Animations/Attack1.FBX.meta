@@ -353,7 +353,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -378,7 +378,7 @@ ModelImporter:
       lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.06
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -388,9 +388,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -784,13 +784,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Golem@Attack1(Clone)
+    - name: Attack1(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: -0.00024837325, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: Golem@Attack1(Clone)
+      parentName: Attack1(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}

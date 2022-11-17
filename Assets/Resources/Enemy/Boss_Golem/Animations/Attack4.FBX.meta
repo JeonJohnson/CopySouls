@@ -353,7 +353,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -388,9 +388,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -456,7 +456,7 @@ ModelImporter:
         weight: 1
       - path: root/GOLEM_/GOLEM_ Pelvis/GOLEM_ Spine/GOLEM_ Spine1/GOLEM_ Neck/GOLEM_
           Head/GOLEM_ Queue de cheval 1
-        weight: 1
+        weight: 0
       - path: root/GOLEM_/GOLEM_ Pelvis/GOLEM_ Spine/GOLEM_ Spine1/GOLEM_ R Clavicle
         weight: 1
       - path: root/GOLEM_/GOLEM_ Pelvis/GOLEM_ Spine/GOLEM_ Spine1/GOLEM_ R Clavicle/GOLEM_

@@ -96,3 +96,44 @@ FSM 부모 인터페이스 IState
 보스) 리소스보고,,,
 	가장 좋은건 1,2페 있는 방식으로 만들면 좋을 듯
 
+
+**** 보스 ****
+최대 스테미너 10
+기본 공격 타수마다 1코스트 + 회전 1코스트 + 이동 한다면 2코스트 추가
+
+////////// 공격 //////////
+2HitCombo_A / Forward => 양쪽 뺨때기
+2HitCombo_B => 어퍼컷, 내려찍기
+2HitCombo_C / Forward => 가위 너낌
+
+3HitCombo / Forward => 뺨때기 +내려찍기
+
+Attack1 / Forward => 오른손 / 달려가면서 왼손
+Attack2  => 왼손
+Attack3 / Forward => 가위 / 달려가면서 찍기
+Attack4 / Forward => 찍기 / 달려가면서 가위
+Attack5 => 밥상엎기
+
+AttackLeft - Turn90 => 찍기
+AttackRight - Turn90 => 찍기
+
+//////// 이동 //////////
+Walk 
+Turn - Right 90
+Turn - Left 90
+
+//////// 상태 ////////
+Roar
+Idle
+Death
+Hit - Light, Medium, Heavy
+
+****계획****
+1. Think 패턴 
+	=> 여기서는 그냥 단순히 간만 보면서 
+		스테미너를 채우거나 어떤 공격을 할지 정할 예정.
+	=> But 좌, 우, 뒤로 걷는 애니메이션이 없음 
+	=> 거리가 가깝다면(사거리 내) 90도 도는 애니메이션으로 돌기만, 거리가 멀다면 walk로 걸어 오기만.
+=> 즉 이동은 한 행동이 끝난 Think에서만 해주는걸로. 그외에는 다 공격임.
+
+2. 게임 측에서 특정 상황이거나 골렘 사거리 내에 들어오면

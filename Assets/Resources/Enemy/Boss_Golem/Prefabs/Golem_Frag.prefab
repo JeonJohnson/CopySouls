@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5662787450081177344}
   - component: {fileID: 5662787450080374560}
   - component: {fileID: 5662787450079407584}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FOOT_R001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5662787450081177346}
   - component: {fileID: 5662787450080374562}
   - component: {fileID: 5662787450079407586}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FOOT_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5662787450081177348}
   - component: {fileID: 5662787450080374564}
   - component: {fileID: 5662787450079407588}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: "FI\xB5NGER_2_R"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 5662787450081177350}
   - component: {fileID: 5662787450080374566}
   - component: {fileID: 5662787450079407590}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FINGER_2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,9 +334,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5662787450081177352}
   - component: {fileID: 5662787450074169590}
-  m_Layer: 0
+  - component: {fileID: 2359562336778209286}
+  m_Layer: 15
   m_Name: Golem_Frag
-  m_TagString: Untagged
+  m_TagString: EnemyRagdoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -367,14 +368,28 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 32ac5acc014618143b020fca78d807f8, type: 3}
   m_Controller: {fileID: 9100000, guid: ab34c57c345259749a6251a02da59e1b, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2359562336778209286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662787450081604392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fce41c39161254e8045b94211e8820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 0
+  animCtrl: {fileID: 5662787450074169590}
 --- !u!1 &5662787450081604394
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5662787450081177354}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GOLEM_SPIT_ROOT_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +453,7 @@ GameObject:
   - component: {fileID: 5662787450081177356}
   - component: {fileID: 5662787450080374572}
   - component: {fileID: 5662787450079407596}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FOREARM_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +534,7 @@ GameObject:
   - component: {fileID: 5662787450081177358}
   - component: {fileID: 5662787450080374574}
   - component: {fileID: 5662787450079407598}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FOREARM_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +615,7 @@ GameObject:
   - component: {fileID: 5662787450081177360}
   - component: {fileID: 5662787450080374576}
   - component: {fileID: 5662787450079407600}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BODY_UPPER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +696,7 @@ GameObject:
   - component: {fileID: 5662787450081177362}
   - component: {fileID: 5662787450080374578}
   - component: {fileID: 5662787450079407602}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BODY_LOWER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +777,7 @@ GameObject:
   - component: {fileID: 5662787450081177364}
   - component: {fileID: 5662787450080374580}
   - component: {fileID: 5662787450079407604}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ARM_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +858,7 @@ GameObject:
   - component: {fileID: 5662787450081177366}
   - component: {fileID: 5662787450080374582}
   - component: {fileID: 5662787450079407606}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ARM_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +939,7 @@ GameObject:
   - component: {fileID: 5662787450081177368}
   - component: {fileID: 5662787450080374584}
   - component: {fileID: 5662787450079407608}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FINGER_1_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1005,7 +1020,7 @@ GameObject:
   - component: {fileID: 5662787450081177370}
   - component: {fileID: 5662787450080374586}
   - component: {fileID: 5662787450079407610}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FINGER_1_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,7 +1101,7 @@ GameObject:
   - component: {fileID: 5662787450081177372}
   - component: {fileID: 5662787450080374588}
   - component: {fileID: 5662787450079407612}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CALF_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,7 +1182,7 @@ GameObject:
   - component: {fileID: 5662787450081177374}
   - component: {fileID: 5662787450080374590}
   - component: {fileID: 5662787450079407614}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CALF_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1263,7 @@ GameObject:
   - component: {fileID: 5662787450081177392}
   - component: {fileID: 5662787450080374612}
   - component: {fileID: 5662787450079407380}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: THIGH_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,7 +1344,7 @@ GameObject:
   - component: {fileID: 5662787450081177394}
   - component: {fileID: 5662787450080374614}
   - component: {fileID: 5662787450079407382}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: HEAD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1410,7 +1425,7 @@ GameObject:
   - component: {fileID: 5662787450081177396}
   - component: {fileID: 5662787450080374568}
   - component: {fileID: 5662787450079407592}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: HAND_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1491,7 +1506,7 @@ GameObject:
   - component: {fileID: 5662787450081177398}
   - component: {fileID: 5662787450080374570}
   - component: {fileID: 5662787450079407594}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: HAND_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1570,7 +1585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5662787450081177400}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GOLEM_SPIT_ROOT_nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1602,7 +1617,7 @@ GameObject:
   - component: {fileID: 5662787450081177402}
   - component: {fileID: 5662787450080374622}
   - component: {fileID: 5662787450079407390}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: THUMB_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1683,7 +1698,7 @@ GameObject:
   - component: {fileID: 5662787450081177404}
   - component: {fileID: 5662787450080374608}
   - component: {fileID: 5662787450079407376}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: THUM_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1764,7 +1779,7 @@ GameObject:
   - component: {fileID: 5662787450081177406}
   - component: {fileID: 5662787450080374610}
   - component: {fileID: 5662787450079407378}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: THIGH_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
