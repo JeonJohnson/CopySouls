@@ -162,10 +162,6 @@ public class UnitManager : Manager<UnitManager>
 
     private void SetEnemiesRagdoll(ref Enemy script)
     {
-        if (script.status.name_e == eEnemyName.Golem)
-        {
-            return;
-        }
 
         if (!script.ragdoll)
         {

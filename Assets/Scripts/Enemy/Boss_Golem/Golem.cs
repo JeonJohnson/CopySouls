@@ -1,13 +1,23 @@
-using Structs;
+﻿using Structs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Golem : Enemy
 {
+	[Header("Golem's ")]
+	public GameObject meshObj;
+	public GameObject rootObj;
+	public Transform headBoneTr;
+
+
+
 	public override void DeathReset()
 	{
 		base.DeathReset();
+	}
+	public override void ResetEnemy()
+	{
 	}
 
 	public override void Hit(DamagedStruct dmgStruct)
@@ -17,13 +27,8 @@ public class Golem : Enemy
 
 	public override void InitializeState()
 	{
-		throw new System.NotImplementedException();
 	}
 
-	public override void ResetEnemy()
-	{
-		base.ResetEnemy();
-	}
 
 	protected override void Awake()
 	{
@@ -47,6 +52,7 @@ public class Golem : Enemy
 	{
 		base.FixedUpdate();
 	}
+
 	protected override void OnTriggerEnter(Collider other)
 	{
 		base.OnTriggerEnter(other);

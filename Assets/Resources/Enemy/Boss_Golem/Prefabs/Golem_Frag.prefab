@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 5662787450081177352}
   - component: {fileID: 5662787450074169590}
   m_Layer: 0
-  m_Name: GolemSplit
+  m_Name: Golem_Frag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -47,10 +47,12 @@ MonoBehaviour:
   playerPrefab: {fileID: 7030777313930249932, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
   cameraPrefab: {fileID: 6348691163088468843, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
   enemyAllCount: 0
-  enemyPrefabList:
-  - {fileID: 0}
   enemyRagdollPrefabList:
   - {fileID: 250935303004513437, guid: 6cb7c07ba775c774d9ed3b87a23a5b60, type: 3}
   - {fileID: 3210124164430206608, guid: c2d2f71b30606774686e047e04e5e675, type: 3}
+  - {fileID: 5662787450081604392, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
+  ragdollBox: {fileID: 0}
   allEnemyList: []
+  aliveEnemyList: []
+  boss_Golem: {fileID: 0}
   testEmptyEnemyPrefab: {fileID: 8863429976459781557, guid: b26e4b00632c30f47b41da9a7fd802ce, type: 3}
