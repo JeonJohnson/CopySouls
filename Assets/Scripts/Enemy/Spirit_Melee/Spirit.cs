@@ -48,6 +48,7 @@ public class Spirit : Enemy
     public bool doubleAttCheck;
     public bool isReturn;
     public bool stepWait;
+    public bool isBoneChanged;
    
     public override void InitializeState()
 	{
@@ -107,21 +108,21 @@ public class Spirit : Enemy
         //TestCtrl
 
         //-->Hit
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            preHp = status.curHp;
-            status.curHp--;
-            HitCount++;
-        }
-
-        //->Groggy
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            if (curState_e == eSpiritState.Atk)
-            {
-                status.isGroggy = true;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    preHp = status.curHp;
+        //    status.curHp--;
+        //    HitCount++;
+        //}
+        //
+        ////->Groggy
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    if (curState_e == eSpiritState.Atk)
+        //    {
+        //        status.isGroggy = true;
+        //    }
+        //}
         //=======================================
 
 
@@ -205,13 +206,23 @@ public class Spirit : Enemy
     //=============================================================================
     public void ChangeToRagDoll()
     {
-        if(model.activeSelf)
+        if (model.activeSelf)
         {
-            CopyCharacterTransfoemRoRagdoll(model.transform, ragdoll.transform);
             model.SetActive(false);
-            //GameObject ragdollObj = ragdoll.gameObject;
-            ragdoll.gameObject.SetActive(true);
+            GameObject ragdollObj = ragdoll.gameObject;
+            ragdollObj.SetActive(true);
+            ragdollObj.transform.position = transform.position;
+            ragdollObj.transform.rotation = transform.rotation;
+            Funcs.RagdollObjTransformSetting(transform, ragdollObj.transform);
         }
+       
+
+        //if (model.activeSelf)
+        //{
+        //    CopyCharacterTransfoemRoRagdoll(model.transform, ragdoll.transform);
+        //    model.SetActive(false);
+        //    ragdoll.gameObject.SetActive(true);
+        //}
     }
 
     private void CopyCharacterTransfoemRoRagdoll(Transform origin, Transform ragdoll)

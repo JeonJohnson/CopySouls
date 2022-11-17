@@ -204,5 +204,3 @@ public abstract class Weapon : MonoBehaviour
 
 }
 
-// 비대면 온라인 채팅
-//용석 : dsgjsfg;

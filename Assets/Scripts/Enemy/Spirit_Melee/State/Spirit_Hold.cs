@@ -45,7 +45,7 @@ public class Spirit_Hold : cState
 
             if (me.status.isDead)
             {
-                ((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
+                //((Spirit)me).CreateRemainderWeapon(((Spirit)me).weapon.transform);
                 ((Spirit)me).ChangeToRagDoll();
                 me.SetState((int)Enums.eSpiritState.Death);
             }
