@@ -543,14 +543,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ L Thigh
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: GOLEM_ R Thigh
       humanName: RightUpperLeg
       limit:
@@ -559,24 +551,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ L Calf
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: GOLEM_ R Calf
       humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ L Foot
-      humanName: LeftFoot
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -599,8 +575,40 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ Spine1
-      humanName: Chest
+    - boneName: GOLEM_ L Finger0
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Clavicle
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R UpperArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Forearm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Hand
+      humanName: RightHand
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -631,24 +639,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Clavicle
-      humanName: RightShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: GOLEM_ L UpperArm
       humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ R UpperArm
-      humanName: RightUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -663,14 +655,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Forearm
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: GOLEM_ L Hand
       humanName: LeftHand
       limit:
@@ -679,16 +663,32 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Hand
-      humanName: RightHand
+    - boneName: GOLEM_ L Thigh
+      humanName: LeftUpperLeg
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ L Finger0
-      humanName: Left Thumb Proximal
+    - boneName: GOLEM_ L Calf
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ Spine1
+      humanName: Chest
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -696,22 +696,6 @@ ModelImporter:
         length: 0
         modified: 0
     - boneName: GOLEM_ L Finger01
-      humanName: Left Thumb Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ L Finger1
-      humanName: Left Index Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ L Finger11
       humanName: Left Index Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -719,7 +703,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ L Finger2
+    - boneName: GOLEM_ L Finger1
       humanName: Left Middle Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -727,7 +711,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ L Finger21
+    - boneName: GOLEM_ L Finger11
       humanName: Left Middle Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -735,23 +719,23 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+    - boneName: GOLEM_ L Finger2
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger21
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
     - boneName: GOLEM_ R Finger0
-      humanName: Right Thumb Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ R Finger01
-      humanName: Right Thumb Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: GOLEM_ R Finger1
       humanName: Right Index Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -759,7 +743,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Finger11
+    - boneName: GOLEM_ R Finger01
       humanName: Right Index Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -767,7 +751,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Finger2
+    - boneName: GOLEM_ R Finger1
       humanName: Right Middle Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -775,7 +759,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: GOLEM_ R Finger21
+    - boneName: GOLEM_ R Finger11
       humanName: Right Middle Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -783,14 +767,30 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+    - boneName: GOLEM_ R Finger2
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger21
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
     skeleton:
-    - name: Golem@Roar(Clone)
+    - name: Roar(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: -0.00024823938, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: Golem@Roar(Clone)
+      parentName: Roar(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
@@ -867,7 +867,7 @@ ModelImporter:
     - name: GOLEM_ L Finger0
       parentName: GOLEM_ L Hand
       position: {x: -0.37103575, y: 0.11760307, z: -0.40530914}
-      rotation: {x: 0.02021881, y: 0.30339447, z: -0.048812844, w: -0.9513991}
+      rotation: {x: 0.022519486, y: 0.1941649, z: -0.03654556, w: -0.9800292}
       scale: {x: 1, y: 1, z: 1}
     - name: GOLEM_ L Finger01
       parentName: GOLEM_ L Finger0
@@ -877,7 +877,7 @@ ModelImporter:
     - name: GOLEM_ L Finger1
       parentName: GOLEM_ L Hand
       position: {x: -0.8119711, y: -0.051021803, z: -0.19483678}
-      rotation: {x: -0, y: 0.06468993, z: 0.0027737455, w: 0.99790156}
+      rotation: {x: 0.0013530245, y: -0.040436354, z: 0.019135395, w: 0.9989979}
       scale: {x: 0.9999998, y: 0.99999994, z: 1}
     - name: GOLEM_ L Finger11
       parentName: GOLEM_ L Finger1
@@ -887,7 +887,7 @@ ModelImporter:
     - name: GOLEM_ L Finger2
       parentName: GOLEM_ L Hand
       position: {x: -0.83581626, y: -0.0106719965, z: 0.24888608}
-      rotation: {x: -0, y: 0.064690664, z: 0.0027738535, w: 0.99790156}
+      rotation: {x: 0.0013528458, y: -0.04043676, z: 0.01913563, w: 0.998998}
       scale: {x: 0.99999994, y: 0.99999994, z: 0.9999998}
     - name: GOLEM_ L Finger21
       parentName: GOLEM_ L Finger2
@@ -932,7 +932,7 @@ ModelImporter:
     - name: GOLEM_ R Finger0
       parentName: GOLEM_ R Hand
       position: {x: -0.37103605, y: 0.117603, z: 0.40530902}
-      rotation: {x: 0.020272247, y: 0.3033284, z: 0.048941325, w: 0.95141244}
+      rotation: {x: 0.022562195, y: 0.19416162, z: 0.036598016, w: 0.9800269}
       scale: {x: 1, y: 1.0000001, z: 1}
     - name: GOLEM_ R Finger01
       parentName: GOLEM_ R Finger0
@@ -942,7 +942,7 @@ ModelImporter:
     - name: GOLEM_ R Finger1
       parentName: GOLEM_ R Hand
       position: {x: -0.81197125, y: -0.051022034, z: 0.19483672}
-      rotation: {x: -0, y: -0.06469065, z: 0.0027736207, w: 0.99790156}
+      rotation: {x: -0.001352816, y: 0.040436186, z: 0.019135483, w: 0.9989979}
       scale: {x: 1, y: 1, z: 0.99999994}
     - name: GOLEM_ R Finger11
       parentName: GOLEM_ R Finger1
@@ -952,7 +952,7 @@ ModelImporter:
     - name: GOLEM_ R Finger2
       parentName: GOLEM_ R Hand
       position: {x: -0.8358165, y: -0.0106719965, z: -0.24888614}
-      rotation: {x: -0, y: -0.0646901, z: 0.0027738293, w: 0.99790156}
+      rotation: {x: -0.0013527565, y: 0.040435437, z: 0.019135399, w: 0.99899805}
       scale: {x: 0.99999994, y: 0.99999994, z: 0.9999998}
     - name: GOLEM_ R Finger21
       parentName: GOLEM_ R Finger2
@@ -972,7 +972,7 @@ ModelImporter:
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  autoGenerateAvatarMappingIfUnspecified: 1
+  autoGenerateAvatarMappingIfUnspecified: 0
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1

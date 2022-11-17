@@ -665,8 +665,8 @@ namespace Structs
 		public int maxHp;
 		public int curHp;
 
-		public int maxStamina;
-		public int curStamina;
+		public float maxStamina;
+		public float curStamina;
 
 		public int maxMp;
 		public int curMp;
@@ -680,7 +680,7 @@ namespace Structs
 		[Range(5, 50)]
 		public float patrolRange;
         public float ricognitionRange;
-		[Range(0, 180)]
+		[Range(0, 360)]
 		public float fovAngle;
 
 		public float lookAtSpd;
