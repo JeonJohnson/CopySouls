@@ -85,56 +85,68 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
-                    //장착
-                    //GameObject.Find("Player").GetComponent<Player>().ChangeWeapon(item);
+                    //Equipt
                 }
                 else
                 {
-                    //분할
+                    //Division
+                    if (itemCount < 2) return;
+                    else
+                    {
+                        Inventory.Instance.curSlot = this;
+                        Inventory.Instance.TryOpenDivision();
+                    }
                 }
             }
         }
     }
-   
 
 
     //드래그 처음 시작시 슬롯위치를 마우스 위치로 받기
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            DragSlot.instance.dragSlot = this;
-            DragSlot.instance.DragSetImage(item);
-            DragSlot.instance.transform.position = eventData.position;
+            if (item != null)
+            {
+                DragSlot.instance.dragSlot = this;
+                DragSlot.instance.DragSetImage(item);
+                DragSlot.instance.transform.position = eventData.position;
+            }
         }
     }
 
     //드래그 중일때 슬롯이 마우스 위치 따라다니게 하기
     public void OnDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            DragSlot.instance.transform.position = eventData.position;
+            if (item != null)
+            {
+                DragSlot.instance.transform.position = eventData.position;
+            }
         }
     }
 
     //드래그가 끝났을 떄 슬롯이 다시 원래 위치로 돌아가게하기
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(DragSlot.instance.dragSlot != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (eventData.pointerCurrentRaycast.gameObject != null)
+            if (DragSlot.instance.dragSlot != null)
             {
-                DragSlot.instance.SetColor(0);
-                DragSlot.instance.dragSlot = null;
-            }
-            else
-            {
-                ItemThrow();
-                //Throw(item, itemCount);
-                DragSlot.instance.SetColor(0);
-                DragSlot.instance.dragSlot = null;
-                ClearSlot();
+                if (eventData.pointerCurrentRaycast.gameObject != null)
+                {
+                    DragSlot.instance.SetColor(0);
+                    DragSlot.instance.dragSlot = null;
+                }
+                else
+                {
+                    ItemThrow(item,itemCount);
+                    DragSlot.instance.SetColor(0);
+                    DragSlot.instance.dragSlot = null;
+                    ClearSlot();
+                }
             }
         }
     }
@@ -144,17 +156,33 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     //OnDrop은 해당 프리팹 위에서 종료시 호출
     public void OnDrop(PointerEventData eventData)
     {
-        if (DragSlot.instance.dragSlot != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if(item != null)
+            if (DragSlot.instance.dragSlot != null)
             {
-                if (DragSlot.instance.dragSlot.item.objName == item.objName && DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
+                if (item != null)
                 {
-                    SumSlot();
+                    if (DragSlot.instance.dragSlot.item.objName == item.objName 
+                        && DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
+                    {
+                        SumSlot();
+                    }
+                    else if (DragSlot.instance.dragSlot.item.objName != item.objName)
+                    {
+                        //드래그로 장비
+                        if (this.GetComponent<EquiptSlot>() == null)
+                        {
+                            ChangeSlot();
+                        }
+                        else
+                        {
+                            //EquiptChangSlot();
+                        }
+                    }
                 }
-                else if (DragSlot.instance.dragSlot.item.objName != item.objName)
+                else
                 {
-                    if(this.GetComponent<EquiptSlot>() == null)
+                    if (this.GetComponent<EquiptSlot>() == null)
                     {
                         ChangeSlot();
                     }
@@ -162,17 +190,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     {
                         //EquiptChangSlot();
                     }
-                }
-            }
-            else
-            {
-                if (this.GetComponent<EquiptSlot>() == null)
-                {
-                    ChangeSlot();
-                }
-                else
-                {
-                    //EquiptChangSlot();
                 }
             }
         }
@@ -206,26 +223,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             int rest = itemCount + DragSlot.instance.dragSlot.itemCount - MaxCount;
             SetSlotCount(MaxCount - itemCount);
             DragSlot.instance.dragSlot.ClearSlot();
-            GameObject.Find("Inventory").GetComponent<Inventory>().DivisionItemIn(item, rest);
+            Inventory.Instance.DivisionItemIn(item, rest);
         }
     }
-
-
-    //현재 기능 이상있음(오브젝트 풀링시 같이 수정하도록)
-    private void Throw(Item _item,int _count)
+    private void ItemThrow(Item _item, int _count)
     {
         Debug.Log(item.objName + " " + itemCount + " 개 버리기");
-        Player player = GameObject.Find("Player").GetComponent<Player>();
-        for(int i = 0; i < _count; i++)
-        {
-            _item.transform.position = player.transform.position;
-            _item.gameObject.SetActive(true);
-            _item.rigid.AddForce(Vector3.forward * 1 + Vector3.up * 1, ForceMode.Impulse);
-        }
-    }
-
-    private void ItemThrow()
-    {
         DragSlot.instance.dragSlot.ClearSlot();
     }
 

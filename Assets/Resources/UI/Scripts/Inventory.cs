@@ -8,22 +8,12 @@ public class Inventory : MonoBehaviour
 {
     static public Inventory Instance;
 
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
     //인벤토리 활성화시 모든 포커스가 인벤토리로 갈수 있도록 해주는 정적변수
     public static bool inventoryActivated = false;
 
-    //public static bool SortActivated = false;
+    //나누기 창
+    public static bool DivisionActivated = false;
+
 
     public Slot curSlot;
 
@@ -43,33 +33,85 @@ public class Inventory : MonoBehaviour
     //슬롯들
     [SerializeField]
     private Slot[] slots;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
-        if (SlotParent.activeSelf) SlotParent.SetActive(false);
+       
     }
     public void update()
     {
-        TryOpenInventory();
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+
+        }
+        else if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Debug.Log("엔터 분할");
+            Division_Button();
+        }
+        
+        //esc -> 현재 창 끄기
+        //enter -> 분할 창 끄기
     }
     public void TryOpenInventory()
     {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryActivated = !inventoryActivated;
-            if (inventoryActivated) OpenInventory();
-            else CloseInventory();
-        }
+        inventoryActivated = !inventoryActivated;
+        if (inventoryActivated) OpenInventory();
+        else CloseInventory();
     }
-
     private void OpenInventory()
     {
-        InventoryBase.SetActive(true);
+        if (!DivisionActivated)
+        {
+            InventoryBase.SetActive(true);
+        }
     }
     private void CloseInventory()
     {
-        InventoryBase.SetActive(false);
+        if (!DivisionActivated)
+        {
+            InventoryBase.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("분할창 켜져있음");
+        }
     }
+
+
+    public void TryOpenDivision()
+    {
+        if (inventoryActivated)
+        {
+            DivisionActivated = !DivisionActivated;
+            if (DivisionActivated) OpenDivision();
+            else CloseDivision();
+        }
+        else return;
+    }
+
+    private void OpenDivision()
+    {
+        DivisionParent.SetActive(true);
+    }
+    private void CloseDivision()
+    {
+        DivisionParent.SetActive(false);
+    }
+
+
+    
 
     public bool ItemIn(Item _item,int _count = 1)
     {
@@ -100,8 +142,39 @@ public class Inventory : MonoBehaviour
 
     public void Exit_Inventory_Button()
     {
-        if(inventoryActivated) InventoryBase.SetActive(false);
+        if (inventoryActivated)
+        {
+            if (!DivisionActivated) InventoryBase.SetActive(false);
+        }
     }
+    public void Division_Button()
+    {
+        if (inventoryActivated)
+        {
+            if (DivisionActivated)
+            {
+                Division();
+                DivisionParent.SetActive(false);
+                DivisionActivated = !DivisionActivated;
+                curSlot = null;
+            }
+        }
+    }
+
+    public void Exit_Division_Button()
+    {
+        if (inventoryActivated)
+        {
+            if (DivisionActivated)
+            {
+                DivisionCancel();
+                DivisionParent.SetActive(false);
+                DivisionActivated = !DivisionActivated;
+                curSlot = null;
+            }
+        }
+    }
+    
 
 
     public void Slider()
@@ -132,29 +205,33 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    //public void Division()
-    //{
-    //    if(curSlot != null)
-    //    {
-    //        if(SortInputField.text != "")
-    //        {
-    //            int divisionCount = int.Parse(SortInputField.text);
-    //            if (divisionCount > curSlot.itemCount) divisionCount = curSlot.itemCount;
-    //            else if (divisionCount <= 0) divisionCount = 1;
-    //            else if (divisionCount == curSlot.itemCount)
-    //            {
-    //                TryOpenSort();
-    //                return;
-    //            }
-    //            DivisionItemIn(curSlot.item, divisionCount);
-    //            curSlot.SetSlotCount(-divisionCount);
-    //            TryOpenSort();
-    //        }
-    //    }
-    //}
-    public void DivisionItemIn(Item _item,int _count)
+    public void Division()
     {
-        //return true 받고 밖으로 하나 튕겨서 버리기
+        if(curSlot != null)
+        {
+           if(DivisionInputField.text != "")
+           {
+               int divisionCount = int.Parse(DivisionInputField.text);
+               if (divisionCount > 0 && divisionCount < curSlot.itemCount)
+               {
+                    if (DivisionInputField.text != "") DivisionInputField.text = "";
+
+                    if (DivisionItemIn(curSlot.item, divisionCount))
+                    {
+                        curSlot.SetSlotCount(-divisionCount);
+                    }
+                    else
+                    {
+                        Debug.Log("인벤토리 칸이 부족합니다!!");
+                        return;
+                    }
+                }
+               else return;
+           }
+        }
+    }
+    public bool DivisionItemIn(Item _item,int _count)
+    {
         if (_item.itemType == Enums.ItemType.Production_Item)
         {
             for (int i = 0; i < slots.Length; i++)
@@ -162,11 +239,19 @@ public class Inventory : MonoBehaviour
                 if (slots[i].item == null)
                 {
                     slots[i].AddItem(_item, _count);
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
+    public void DivisionCancel()
+    {
+        if(DivisionInputField.text != "")
+        {
+            DivisionInputField.text = "";
+        }
+    }
    
 }

@@ -89,14 +89,17 @@ public class Player : MonoBehaviour
             if (Inventory.Instance.InventoryBase.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                Inventory.Instance.InventoryBase.SetActive(false);
-                Inventory.inventoryActivated = false;
+                Inventory.Instance.TryOpenInventory();
+                
+                //Inventory.Instance.InventoryBase.SetActive(false);
+                //Inventory.inventoryActivated = false;
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Confined;
-                Inventory.Instance.InventoryBase.SetActive(true);
-                Inventory.inventoryActivated = true;
+                Inventory.Instance.TryOpenInventory();
+                //Inventory.Instance.InventoryBase.SetActive(true);
+                //Inventory.inventoryActivated = true;
             }
         }
     }
@@ -123,6 +126,8 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Atk] = new Player_Atk();
         fsm[(int)ePlayerState.Interacting] = new Player_Interacting();
         SetState(Enums.ePlayerState.Idle);
+
+        status.interactionRange = 2f;
     }
 
     void ColliderSetting()
