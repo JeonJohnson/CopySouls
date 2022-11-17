@@ -262,5 +262,11 @@ public class Inventory : MonoBehaviour
             DivisionInputField.text = "";
         }
     }
+
+    public void UseSupply()
+    {
+        curSlot.SetSlotCount(-1);
+        Debug.Log("아이템 사용!");
+    }
    
 }
