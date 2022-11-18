@@ -123,7 +123,8 @@ public class Inventory : MonoBehaviour
     {
         SelectionActivated = !SelectionActivated;
         SelectParent.SetActive(true);
-        SelectParent.transform.position = vec;
+        Vector3 vec1 = new Vector3(vec.x + 60f, vec.y - 15f);
+        SelectParent.transform.position = vec1;
         if (_itemType == Enums.ItemType.supply_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
