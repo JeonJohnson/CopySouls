@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Entrance : cState
+public class Golem_Think : cState
 {
 	Golem golem = null;
 	Golem_ActionTable table = null;
@@ -22,36 +22,9 @@ public class Golem_Entrance : cState
 
 	public override void UpdateState()
 	{
-		switch (golem.combatState)
-		{
-			case eCombatState.Idle:
-				{
-					if (golem.distToTarget <= golem.status.ricognitionRange)
-					{
-						golem.combatState = eCombatState.Alert;
-						golem.FragScript.Assemble();
-					}
-				}
-				break;
-			case eCombatState.Alert:
-				{ 
-					
-				}
-				break;
-			case eCombatState.Combat:
-				{ 
-				
-				}
-				break;
-			case eCombatState.End:
-				{ 
-				
-				}
-				break;
+		golem.status.curStamina += Time.deltaTime;
+		golem.status.curStamina = Mathf.Clamp(golem.status.curStamina, 0f, golem.status.maxStamina);
 
-			default:
-				break;
-		}
 
 
 	}

@@ -139,4 +139,15 @@ Hit - Light, Medium, Heavy
 2. 게임 측에서 특정 상황이라고 하거나(플레이어의 보스방 입장)
 	 골렘 사거리 내에 들어오면 Frag Assemble 시키고
 	Roar 플레이 시키고 바로 시작.
- 
+  Think,
+    Entrance,
+    MeleeAtk_1Hit,
+    MeleeAtk_2Hit,
+    MeleeAtk_3Hit,
+    TurnAtk,
+    ForwardAtk_1Hit,
+    ForwardAtk_2Hit,
+    ForwardAtk_3Hit,
+    Hit,
+    Death, //(explode)
+    End

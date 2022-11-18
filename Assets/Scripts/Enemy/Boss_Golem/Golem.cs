@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Golem : Enemy
 {
+	[Header("Target")]
+	public Transform targetHeadTr;
+
 	[Header("Golem's")]
 	public GameObject meshObj;
 	public GameObject rootObj;
 	public Transform headBoneTr;
-	public Golem_Frag fragScript;
+	private Golem_Frag fragScript;
 	public Golem_Frag FragScript
 	{ 
 		get
@@ -32,10 +35,26 @@ public class Golem : Enemy
 
 	public Golem_ActionTable actTable;
 
+	public void SearchTarget()
+	{
+		if (!targetObj)
+		{
+			targetObj = UnitManager.Instance.GetPlayerObj;
+			targetScript = UnitManager.Instance.GetPlayerScript;
+			targetHeadTr = targetScript.headTr;
+		}
+	}
+
+	public void SearchMyBone()
+	{
+		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+	}
 
 	public override void DeathReset()
 	{
 		base.DeathReset();
+
+
 	}
 	public override void ResetEnemy()
 	{
@@ -49,34 +68,58 @@ public class Golem : Enemy
 
 	public override void InitializeState()
 	{
+		fsm = new cState[(int)eGolemState.End];
 
+		fsm[(int)eGolemState.Think] = new Golem_Think();
+
+		fsm[(int)eGolemState.Entrance] = new Golem_Entrance();
+		
+		fsm[(int)eGolemState.MeleeAtk_1Hit] = new Golem_MeleeAtk_1Hit();
+		fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit();
+		fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit();
+
+		fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk();
+		
+		fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit();
+		fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit();
+		fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit();
+
+		fsm[(int)eGolemState.Hit] = new Golem_Hit();
+		fsm[(int)eGolemState.Death] = new Golem_Death();
+
+		SetState((int)eGolemState.Entrance);
 	}
 
 
 	protected override void Awake()
 	{
 		base.Awake();
-		actTable = GetComponent<Golem_ActionTable>();
 		
+		actTable = GetComponent<Golem_ActionTable>();
+
+		meshObj.SetActive(false);
+		rootObj.SetActive(false);
+		ragdoll.gameObject.SetActive(true);
+
+		initPos = transform.position;
+		initForward = transform.forward;
 	}
 
 	protected override void Start()
 	{
 		base.Start();
-		
-		meshObj.SetActive(false);
-		rootObj.SetActive(false);
-		ragdoll.gameObject.SetActive(true);
+
+		SearchMyBone();
+		SearchTarget();
 	}
 
 	protected override void Update()
 	{
 		base.Update();
 
-		status.curStamina += Time.deltaTime;
-		status.curStamina = Mathf.Clamp(status.curStamina, 0f, status.maxStamina);
-
+	
 	}
+
 	protected override void LateUpdate()
 	{
 		base.LateUpdate();

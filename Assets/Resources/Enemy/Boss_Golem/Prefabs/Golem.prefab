@@ -179,7 +179,7 @@ MonoBehaviour:
   dirToTarget: {x: 0, y: 0, z: 0}
   HitCount: 0
   combatState: 0
-  weaponEquipState: 0
+  weaponEquipState: 2
   PatrolPos: []
   ragdoll: {fileID: 2359562337917510920}
   preState_i: -1
@@ -188,6 +188,7 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  targetHeadTr: {fileID: 0}
   meshObj: {fileID: 1814817405527308056}
   rootObj: {fileID: 1814817405527308054}
   headBoneTr: {fileID: 0}
