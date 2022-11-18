@@ -95,9 +95,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {
                     //Equipt(rightMouse)
-                    //Inventory.Instance.Equipt();
                     //선택 창 띄우기(장비, 퀵등록)
-                    Inventory.Instance.TryOpenSelection(item.itemType);
+                    Inventory.Instance.TryOpenSelection(item.itemType, eventData.position);
                 }
                 else
                 {
@@ -115,8 +114,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (item.itemType == Enums.ItemType.supply_Item)
                         {
                             //use(rightMouse)
-                            Inventory.Instance.TryOpenSelection(item.itemType);
-
+                            Inventory.Instance.TryOpenSelection(item.itemType, eventData.position);
                         }
                         else return; 
                     }

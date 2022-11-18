@@ -101,13 +101,13 @@ public class Inventory : MonoBehaviour
         DivisionParent.SetActive(false);
     }
 
-    public void TryOpenSelection(Enums.ItemType _itemType)
+    public void TryOpenSelection(Enums.ItemType _itemType, Vector3 Vec)
     {
         
         if(inventoryActivated && !DivisionActivated && !SelectionActivated)
         {
             Debug.Log("선택창 띄우기");
-            OpenSelection(_itemType);
+            OpenSelection(_itemType,Vec);
         }
 
         //if (inventoryActivated)
@@ -119,10 +119,11 @@ public class Inventory : MonoBehaviour
         //else return;
     }
 
-    public void OpenSelection(Enums.ItemType _itemType)
+    public void OpenSelection(Enums.ItemType _itemType,Vector3 vec)
     {
         SelectionActivated = !SelectionActivated;
         SelectParent.SetActive(true);
+        SelectParent.transform.position = vec;
         if (_itemType == Enums.ItemType.supply_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
