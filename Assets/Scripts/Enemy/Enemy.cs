@@ -84,6 +84,9 @@ public abstract class Enemy : MonoBehaviour
     public virtual void ResetEnemy()
     {//화톳불 앉거나 플레이어 다시 살아날 경우 할 것들
         Debug.Log($"{gameObject.name}is reset");
+
+        transform.position = initPos;
+        transform.forward = initForward;
     }
     
 
@@ -434,15 +437,15 @@ public abstract class Enemy : MonoBehaviour
         //patrolPosList.Add(new Vector3(10,0,10));
         //patrolPosList.Add(new Vector3(5,0,-10));
         //for Test
-
         //Enemy상속 받은 객체 각자 스크립트에서 설정해주기
         InitializeState();
+
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+ 
     }
 
     public void GetPlayerState()

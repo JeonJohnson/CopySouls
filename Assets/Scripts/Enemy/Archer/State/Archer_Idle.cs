@@ -5,7 +5,6 @@ using UnityEngine;
 using Enums;
 public class Archer_Idle : cState
 {
-
 	Archer archer = null;
 
 	public override void EnterState(Enemy script)
