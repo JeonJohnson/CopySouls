@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
+
 
 public enum eGolemState
 {
     Think,
     Entrance,
-    MeleeAtk_1Hit,
+    //melee Attack
+	MeleeAtk_1Hit,
     MeleeAtk_2Hit,
     MeleeAtk_3Hit,
     TurnAtk,
-    ForwardAtk_1Hit,
+    
+	//Range Attack
+	ForwardAtk_1Hit,
     ForwardAtk_2Hit,
-    ForwardAtk_3Hit,
+    //ForwardAtk_3Hit,
+	ThrowRock,
+	JumpAtk,
+
     Hit,
     Death, //(explode)
     End
@@ -23,6 +32,25 @@ public class Golem_ActionTable : MonoBehaviour
 {
 	Golem golem = null;
 
+	//List<cState> statePerCost;
+	Dictionary<int, List<cGolemState>> statePerCost;
+
+	public void OrganizeStatePerCost()
+	{
+		statePerCost = new Dictionary<int, List<cGolemState>>();
+
+		for (int i = 0; i < (int)golem.status.maxStamina; ++i)
+		{
+			statePerCost.Add(i, new List<cGolemState>());
+		}
+
+		foreach (cGolemState state in golem.fsm)
+		{
+			int cost = state.stateCost;
+
+			statePerCost[cost].Add(state);
+		}
+	}
 
 	public void Awake()
 	{
@@ -30,6 +58,11 @@ public class Golem_ActionTable : MonoBehaviour
 		{
 			golem = GetComponent<Golem>();
 		}
+	}
+
+	public void Start()
+	{
+		OrganizeStatePerCost();
 	}
 
 	public bool CheckPlayerClose()
@@ -47,7 +80,18 @@ public class Golem_ActionTable : MonoBehaviour
 		return false;
 	}
 
-
+	public void /*cState*/ Decision()
+	{
+		if (golem.distToTarget <= golem.status.atkRange)
+		{
+			//가까우면 근접 공격 우선
+			//
+		}
+		else
+		{ 
+		
+		}
+	}
 
 
 }

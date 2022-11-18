@@ -14,7 +14,7 @@ public class Golem : Enemy
 	public Transform headBoneTr;
 	private Golem_Frag fragScript;
 	public Golem_Frag FragScript
-	{ 
+	{
 		get
 		{
 			if (!fragScript)
@@ -34,6 +34,10 @@ public class Golem : Enemy
 	//enemy_ragdoll -> Golem_Frag 다운 캐스팅이라서 확인하고 쓰자!
 
 	public Golem_ActionTable actTable;
+
+	[Header("Status Vars")]
+	public float rangeAtkRange;
+
 
 	public void SearchTarget()
 	{
@@ -70,22 +74,26 @@ public class Golem : Enemy
 	{
 		fsm = new cState[(int)eGolemState.End];
 
-		fsm[(int)eGolemState.Think] = new Golem_Think();
+		fsm[(int)eGolemState.Think] = new Golem_Think(0);
 
-		fsm[(int)eGolemState.Entrance] = new Golem_Entrance();
+		fsm[(int)eGolemState.Entrance] = new Golem_Entrance(0);
 		
-		fsm[(int)eGolemState.MeleeAtk_1Hit] = new Golem_MeleeAtk_1Hit();
-		fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit();
-		fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit();
+		fsm[(int)eGolemState.MeleeAtk_1Hit] = new Golem_MeleeAtk_1Hit(1);
+		fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit(2);
+		fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit(3);
 
-		fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk();
+		fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk(1);
 		
-		fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit();
-		fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit();
-		fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit();
+		fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit(3);
+		fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit(4);
+		//fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
 
-		fsm[(int)eGolemState.Hit] = new Golem_Hit();
-		fsm[(int)eGolemState.Death] = new Golem_Death();
+		fsm[(int)eGolemState.ThrowRock] = new Golem_ThrowRock(4);
+		fsm[(int)eGolemState.JumpAtk] = new Golem_ThrowRock(6);
+
+
+		fsm[(int)eGolemState.Hit] = new Golem_Hit(0);
+		fsm[(int)eGolemState.Death] = new Golem_Death(0);
 
 		SetState((int)eGolemState.Entrance);
 	}
@@ -134,8 +142,37 @@ public class Golem : Enemy
 		base.OnTriggerEnter(other);
 	}
 
+	public void OnDrawGizmos()
+	{
+
+		////공격 사정거리
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, status.atkRange);
+		////공격 사정거리
+
+		////공격 사정거리
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(transform.position, rangeAtkRange);
+		////공격 사정거리
+	}
 	protected override void OnDrawGizmosSelected()
 	{
 		base.OnDrawGizmosSelected();
+
+
+
+		//////공격 사정거리
+		//Gizmos.color = Color.green;
+		//Gizmos.DrawWireSphere(transform.position, throwAtkRange);
+		//////공격 사정거리
+
+		//////공격 사정거리
+		//Gizmos.color = Color.blue;
+		//Gizmos.DrawWireSphere(transform.position, jumpAtkRange);
+		//////공격 사정거리
+
+
 	}
+
+
 }

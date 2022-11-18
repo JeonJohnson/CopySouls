@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_ForwardAtk_2Hit : cState
+public class Golem_ForwardAtk_2Hit : cGolemState
 {
-	Golem golem = null;
-	Golem_ActionTable table = null;
-	int stateCost;
+	public Golem_ForwardAtk_2Hit(int cost) : base(cost)
+	{
+	}
 
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
-
-		if (!golem)
-		{
-			golem = script as Golem;
-			table = golem.actTable;
-		}
 
 	}
 

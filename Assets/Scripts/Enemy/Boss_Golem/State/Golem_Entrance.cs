@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Entrance : cState
+public class Golem_Entrance : cGolemState
 {
-	Golem golem = null;
-	Golem_ActionTable table = null;
-	int stateCost;
+	public Golem_Entrance(int cost) : base(cost)
+	{
+	}
 
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
-
-		if (!golem)
-		{
-			golem = script as Golem;
-			table = golem.actTable;
-		}
 
 	}
 
@@ -34,13 +28,25 @@ public class Golem_Entrance : cState
 				}
 				break;
 			case eCombatState.Alert:
-				{ 
-					
+				{
+					if (Funcs.IsAnimationCompletelyFinish(golem.FragScript.animCtrl, "Assemble"))
+					{
+						golem.combatState = eCombatState.Combat;
+
+						golem.meshObj.SetActive(true);
+						golem.rootObj.SetActive(true);
+						golem.ragdoll.gameObject.SetActive(false);
+
+						golem.animCtrl.SetTrigger("tRoar");
+					}
 				}
 				break;
 			case eCombatState.Combat:
-				{ 
-				
+				{
+					if (Funcs.IsAnimationCompletelyFinish(golem.animCtrl, "Roar"))
+					{
+						golem.SetState((int)eGolemState.Think);
+					}
 				}
 				break;
 			case eCombatState.End:
