@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class QuickSlot : MonoBehaviour
+public class QuickSlot : Slot
 {
-    public Slot quickSlot;
-
-    void Start()
+    public void DragRegister()
     {
-        
+        Debug.Log("드래그로 퀵 등록!");
     }
-
-    void Update()
+    public void ButtonRegister()
     {
-        
+        Debug.Log("버튼으로 퀵 등록!");
     }
 }

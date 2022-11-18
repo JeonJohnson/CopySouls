@@ -237,7 +237,8 @@ public class Inventory : MonoBehaviour
     }
     public void SelectionRegister_Button()
     {
-        Register();
+        //Register();
+        
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
     }
@@ -256,11 +257,12 @@ public class Inventory : MonoBehaviour
         Debug.Log("»ç¿ë!");
 
     }
-    public void Register()
+    public void Register(QuickSlot _quickSlot,Item _item, int _itemCount)
     {
         Debug.Log("Äü µî·Ï!");
+        _quickSlot.DragRegister();
     }
-
+    
     //=========================================================================
 
     public void DivisionTextUpdate()

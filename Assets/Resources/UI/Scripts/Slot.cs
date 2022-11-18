@@ -50,7 +50,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         itemCount = _count;
         item_Image.sprite = item.itemImage;
 
-        go_CountImage.SetActive(true);
+        if(go_CountImage != null) go_CountImage.SetActive(true);
+
         text_Count.text = itemCount.ToString();
 
         SetColor(1);
@@ -166,10 +167,39 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (DragSlot.instance.dragSlot != null)
             {
-                if (eventData.pointerCurrentRaycast.gameObject != null)
+                //if (eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<QuickSlot>() != null)
+                //{
+                //    Debug.Log("Äü µî·Ï!");
+                //    QuickSlot quickSlot = eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<QuickSlot>();
+                //}
+                //else if (eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Inventory>() != null)
+                //{
+                //    DragSlot.instance.SetColor(0);
+                //    DragSlot.instance.dragSlot = null;
+                //}
+                //else if(eventData.pointerCurrentRaycast.gameObject == null)
+                //{
+                //    ItemThrow(item, itemCount);
+                //    DragSlot.instance.SetColor(0);
+                //    DragSlot.instance.dragSlot = null;
+                //    ClearSlot();
+                //}
+
+                GameObject obj = eventData.pointerCurrentRaycast.gameObject;
+                if (obj != null)
                 {
-                    DragSlot.instance.SetColor(0);
-                    DragSlot.instance.dragSlot = null;
+                    if(obj.GetComponentInParent<QuickSlot>() != null)
+                    {
+                        QuickSlot quickSlot = obj.GetComponentInParent<QuickSlot>();
+                        quickSlot.DragRegister();
+                        DragSlot.instance.SetColor(0);
+                        DragSlot.instance.dragSlot = null;
+                    }
+                    else
+                    {
+                        DragSlot.instance.SetColor(0);
+                        DragSlot.instance.dragSlot = null;
+                    }
                 }
                 else
                 {
@@ -178,6 +208,20 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     DragSlot.instance.dragSlot = null;
                     ClearSlot();
                 }
+
+
+                //if (eventData.pointerCurrentRaycast.gameObject != null)
+                //{
+                //    DragSlot.instance.SetColor(0);
+                //    DragSlot.instance.dragSlot = null;
+                //}
+                //else
+                //{
+                //    ItemThrow(item, itemCount);
+                //    DragSlot.instance.SetColor(0);
+                //    DragSlot.instance.dragSlot = null;
+                //    ClearSlot();
+                //}
             }
         }
     }
@@ -191,6 +235,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (DragSlot.instance.dragSlot != null)
             {
+
+                
+
                 if (item != null)
                 {
                     if (DragSlot.instance.dragSlot.item.objName == item.objName 
