@@ -84,6 +84,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (Inventory.SelectionActivated)
+        {
+            if (eventData.pointerCurrentRaycast.gameObject != Inventory.Instance.SelectParent)
+            {
+                Inventory.Instance.CloseSelection();
+            }
+        }
+
         //우클릭시
         if (eventData.button == PointerEventData.InputButton.Right)
         {
