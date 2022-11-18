@@ -10,9 +10,10 @@ public class Inventory : MonoBehaviour
 
     //인벤토리 활성화시 모든 포커스가 인벤토리로 갈수 있도록 해주는 정적변수
     public static bool inventoryActivated = false;
-
     //나누기 창
     public static bool DivisionActivated = false;
+    //선택 창
+    public static bool SelectionActivated = false;
 
 
     public Slot curSlot;
@@ -26,8 +27,9 @@ public class Inventory : MonoBehaviour
     private GameObject DivisionParent;
     [SerializeField]
     public InputField DivisionInputField;
-    [SerializeField]
-    private Slider slider;
+    //[SerializeField]
+    public GameObject SelectParent;
+
 
 
     //슬롯들
@@ -69,6 +71,7 @@ public class Inventory : MonoBehaviour
     {
         if (!DivisionActivated)
         {
+            if (SelectionActivated) CloseSelection();
             InventoryBase.SetActive(false);
         }
         else
@@ -96,6 +99,47 @@ public class Inventory : MonoBehaviour
     private void CloseDivision()
     {
         DivisionParent.SetActive(false);
+    }
+
+    public void TryOpenSelection(Enums.ItemType _itemType)
+    {
+        
+        if(inventoryActivated && !DivisionActivated && !SelectionActivated)
+        {
+            Debug.Log("선택창 띄우기");
+            OpenSelection(_itemType);
+        }
+
+        //if (inventoryActivated)
+        //{
+        //    DivisionActivated = !DivisionActivated;
+        //    if (DivisionActivated) OpenDivision();
+        //    else CloseDivision();
+        //}
+        //else return;
+    }
+
+    public void OpenSelection(Enums.ItemType _itemType)
+    {
+        SelectionActivated = !SelectionActivated;
+        SelectParent.SetActive(true);
+        if (_itemType == Enums.ItemType.supply_Item)
+        {
+            SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
+            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
+        }
+        else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
+        {
+            SelectParent.GetComponent<Selection>().selection_Equipt.SetActive(true);
+            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
+        }
+    }
+
+    public void CloseSelection()
+    {
+        SelectionActivated = !SelectionActivated;
+        SelectParent.SetActive(false);
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
     }
 
 
@@ -130,8 +174,9 @@ public class Inventory : MonoBehaviour
 
     public void Exit_Inventory_Button()
     {
-        if (inventoryActivated)
+        if (inventoryActivated && !DivisionActivated)
         {
+            if (SelectionActivated) CloseSelection();
             if (!DivisionActivated) InventoryBase.SetActive(false);
         }
     }
@@ -176,16 +221,45 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
-
-    public void Slider()
+    public void SelectionEquipt_Button()
     {
-        slider.minValue = 1;
-        slider.maxValue = curSlot.itemCount;
-        DivisionInputField.text = (slider.value).ToString();
+        Equipt();
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
+        SelectionActivated = !SelectionActivated;
+    }
+    public void SelectionUse_Button()
+    {
+        Use();
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
+        SelectionActivated = !SelectionActivated;
+    }
+    public void SelectionRegister_Button()
+    {
+        Register();
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
+        SelectionActivated = !SelectionActivated;
     }
 
-    
+
+    //=========================================================================
+    // 여기가 실제 기능 구현 하는 곳
+    //=========================================================================
+
+    public void Equipt()
+    {
+        Debug.Log("장비!");
+    }
+    public void Use()
+    {
+        Debug.Log("사용!");
+
+    }
+    public void Register()
+    {
+        Debug.Log("퀵 등록!");
+    }
+
+    //=========================================================================
 
     public void DivisionTextUpdate()
     {
@@ -202,7 +276,6 @@ public class Inventory : MonoBehaviour
                 value = 1;
                 DivisionInputField.text = value.ToString();
             }
-            slider.value = value;
         }
     }
 
@@ -259,30 +332,30 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void UseSupply()
-    {
-        curSlot.SetSlotCount(-1);
-        use();
-        curSlot = null;
-    }
+    //public void UseSupply()
+    //{
+    //    curSlot.SetSlotCount(-1);
+    //    use();
+    //    curSlot = null;
+    //}
 
-    public void use()
-    {
-        Debug.Log("아이템 사용!");
-    }
+    //public void use()
+    //{
+    //    Debug.Log("아이템 사용!");
+    //}
 
-    public void Equipt()
-    {
-        Debug.Log("장착!");
-        curSlot.SetEquipt(true);
-        curSlot = null;
-    }
+    //public void Equipt()
+    //{
+    //    Debug.Log("장착!");
+    //    curSlot.SetEquipt(true);
+    //    curSlot = null;
+    //}
 
-    public void UnEquipt()
-    {
-        Debug.Log("장착 해제 or 무기 교체!!");
-        //해제
-        //교체
-    }
+    //public void UnEquipt()
+    //{
+    //    Debug.Log("장착 해제 or 무기 교체!!");
+    //    //해제
+    //    //교체
+    //}
 
 }
