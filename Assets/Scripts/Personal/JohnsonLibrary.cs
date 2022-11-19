@@ -564,6 +564,7 @@ namespace Enums
 	{
 		Player,
 		Item_Crystal,
+		Item_Key,
 		Item_Food,
 		Item_Weapon,
 		Item_Defence,

@@ -29,7 +29,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     [SerializeField]
     private GameObject go_CountImage;
     [SerializeField]
-    private GameObject text_Equipt;
+    private Text Register_Text;
+
+    public bool isQuick;
 
     void Start()
     {
@@ -65,9 +67,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         if (itemCount <= 0) ClearSlot();
     }
 
-    public void SetEquipt(bool value)
+    public void SetRegister(bool value)
     {
-        text_Equipt.SetActive(value);
+        isQuick = value;
+        Register_Text.gameObject.SetActive(value);
     }
 
     //슬롯 초기화
@@ -120,7 +123,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     }
                     else
                     {
-                        if (item.itemType == Enums.ItemType.supply_Item)
+                        if (item.itemType == Enums.ItemType.supply_Item || item.itemType == Enums.ItemType.Production_Item)
                         {
                             //use(rightMouse)
                             Inventory.Instance.TryOpenSelection(item.itemType, eventData.position);
@@ -167,31 +170,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (DragSlot.instance.dragSlot != null)
             {
-                //if (eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<QuickSlot>() != null)
-                //{
-                //    Debug.Log("퀵 등록!");
-                //    QuickSlot quickSlot = eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<QuickSlot>();
-                //}
-                //else if (eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Inventory>() != null)
-                //{
-                //    DragSlot.instance.SetColor(0);
-                //    DragSlot.instance.dragSlot = null;
-                //}
-                //else if(eventData.pointerCurrentRaycast.gameObject == null)
-                //{
-                //    ItemThrow(item, itemCount);
-                //    DragSlot.instance.SetColor(0);
-                //    DragSlot.instance.dragSlot = null;
-                //    ClearSlot();
-                //}
-
                 GameObject obj = eventData.pointerCurrentRaycast.gameObject;
                 if (obj != null)
                 {
                     if(obj.GetComponentInParent<QuickSlot>() != null)
                     {
                         QuickSlot quickSlot = obj.GetComponentInParent<QuickSlot>();
-                        quickSlot.DragRegister();
+                        quickSlot.DragRegister(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
                         DragSlot.instance.SetColor(0);
                         DragSlot.instance.dragSlot = null;
                     }
@@ -208,20 +193,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     DragSlot.instance.dragSlot = null;
                     ClearSlot();
                 }
-
-
-                //if (eventData.pointerCurrentRaycast.gameObject != null)
-                //{
-                //    DragSlot.instance.SetColor(0);
-                //    DragSlot.instance.dragSlot = null;
-                //}
-                //else
-                //{
-                //    ItemThrow(item, itemCount);
-                //    DragSlot.instance.SetColor(0);
-                //    DragSlot.instance.dragSlot = null;
-                //    ClearSlot();
-                //}
             }
         }
     }
@@ -235,9 +206,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (DragSlot.instance.dragSlot != null)
             {
-
-                
-
                 if (item != null)
                 {
                     if (DragSlot.instance.dragSlot.item.objName == item.objName 
@@ -247,27 +215,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     }
                     else if (DragSlot.instance.dragSlot.item.objName != item.objName)
                     {
-                        //드래그로 장비
-                        if (this.GetComponent<EquiptSlot>() == null)
-                        {
-                            ChangeSlot();
-                        }
-                        else
-                        {
-                            //EquiptChangSlot();
-                        }
+                        ChangeSlot();
                     }
                 }
                 else
                 {
-                    if (this.GetComponent<EquiptSlot>() == null)
-                    {
-                        ChangeSlot();
-                    }
-                    else
-                    {
-                        //EquiptChangSlot();
-                    }
+                    ChangeSlot();
                 }
             }
         }
@@ -276,6 +229,24 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     {
         Item tempItem = item;
         int tempItemCount = itemCount;
+        if (DragSlot.instance.dragSlot.isQuick)
+        {
+            if(!isQuick)
+            {
+                SetRegister(true);
+                DragSlot.instance.dragSlot.SetRegister(false);
+            }
+        }
+        else
+        {
+            if(isQuick)
+            {
+                DragSlot.instance.dragSlot.SetRegister(true);
+                SetRegister(false);
+            }
+        } 
+
+
 
         AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
         if(tempItem != null)
@@ -286,6 +257,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             DragSlot.instance.dragSlot.ClearSlot();
         }
+
     }
     private void SumSlot()
     {

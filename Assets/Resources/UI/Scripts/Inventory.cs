@@ -30,11 +30,10 @@ public class Inventory : MonoBehaviour
     //[SerializeField]
     public GameObject SelectParent;
 
-
-
     //슬롯들
     [SerializeField]
     private Slot[] slots;
+
     private void Awake()
     {
         if (Instance == null)
@@ -125,7 +124,7 @@ public class Inventory : MonoBehaviour
         SelectParent.SetActive(true);
         Vector3 vec1 = new Vector3(vec.x + 60f, vec.y - 15f);
         SelectParent.transform.position = vec1;
-        if (_itemType == Enums.ItemType.supply_Item)
+        if (_itemType == Enums.ItemType.supply_Item || _itemType == Enums.ItemType.Production_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
             SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
@@ -225,22 +224,49 @@ public class Inventory : MonoBehaviour
 
     public void SelectionEquipt_Button()
     {
-        Equipt();
+        Equipt(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
     }
     public void SelectionUse_Button()
     {
-        Use();
+        Use(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
     }
+    public void QuickSlotUse(QuickSlot _quickSlot)
+    {
+        if(_quickSlot.item != null) Use(_quickSlot.item, _quickSlot);
+    }
+
     public void SelectionRegister_Button()
     {
-        //Register();
-        
+        ButtonRegister(curSlot);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+    }
+    public void ButtonRegister(Slot _slot)
+    {
+        if(_slot != null)
+        {
+            _slot.SetRegister(true);
+            if (_slot.item.itemType == Enums.ItemType.Production_Item)
+            {
+                UiManager.Instance.quickSlot1.AddRegister(_slot.item, _slot.itemCount);
+            }
+            else if (_slot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+            {
+                UiManager.Instance.quickSlot2.AddRegister(_slot.item, _slot.itemCount);
+            }
+            else if (_slot.item.itemType == Enums.ItemType.supply_Item)
+            {
+                UiManager.Instance.quickSlot3.AddRegister(_slot.item, _slot.itemCount);
+            }
+            else if (_slot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
+            {
+                UiManager.Instance.quickSlot4.AddRegister(_slot.item, _slot.itemCount);
+            }
+        }
     }
 
 
@@ -248,22 +274,57 @@ public class Inventory : MonoBehaviour
     // 여기가 실제 기능 구현 하는 곳
     //=========================================================================
 
-    public void Equipt()
+    public void Equipt(Item _item)
     {
         Debug.Log("장비!");
     }
-    public void Use()
-    {
-        Debug.Log("사용!");
 
-    }
-    public void Register(QuickSlot _quickSlot,Item _item, int _itemCount)
+    public void Use(Item _item)
     {
-        Debug.Log("퀵 등록!");
-        _quickSlot.DragRegister();
+        if (_item.itemType == Enums.ItemType.Production_Item)
+        {
+            Debug.Log("상호 작용!");
+        }
+        else if (_item.itemType == Enums.ItemType.supply_Item)
+        {
+            Debug.Log("아이템 사용!");
+        }
+        curSlot.SetSlotCount(-1);
     }
-    
+    public void Use(Item _item,QuickSlot quickSlot)
+    {
+        if(_item.itemType == Enums.ItemType.Production_Item)
+        {
+            Debug.Log("상호 작용!");
+        }
+        else if (_item.itemType == Enums.ItemType.supply_Item)
+        {
+            Debug.Log("아이템 사용!");
+        }
+
+        Slot findSlot =  FindRegisterSlotFromInventory(quickSlot);
+        if (findSlot) findSlot.SetSlotCount(-1);
+        else Debug.Log("퀵에 등록된 아이템이 없음");
+
+        quickSlot.SetSlotCount_q(-1);
+    }
+
     //=========================================================================
+
+    public Slot FindRegisterSlotFromInventory(QuickSlot _quickSlot)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].isQuick)
+            {
+                if(_quickSlot.item == slots[i].item)
+                {
+                    return slots[i];
+                }
+            }
+        }
+        return null;
+    }
 
     public void DivisionTextUpdate()
     {
@@ -336,30 +397,5 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    //public void UseSupply()
-    //{
-    //    curSlot.SetSlotCount(-1);
-    //    use();
-    //    curSlot = null;
-    //}
-
-    //public void use()
-    //{
-    //    Debug.Log("아이템 사용!");
-    //}
-
-    //public void Equipt()
-    //{
-    //    Debug.Log("장착!");
-    //    curSlot.SetEquipt(true);
-    //    curSlot = null;
-    //}
-
-    //public void UnEquipt()
-    //{
-    //    Debug.Log("장착 해제 or 무기 교체!!");
-    //    //해제
-    //    //교체
-    //}
-
+    
 }
