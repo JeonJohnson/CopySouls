@@ -227,12 +227,14 @@ public class Inventory : MonoBehaviour
         Equipt(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
     public void SelectionUse_Button()
     {
         Use(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
     public void QuickSlotUse(QuickSlot _quickSlot)
     {
@@ -244,6 +246,7 @@ public class Inventory : MonoBehaviour
         ButtonRegister(curSlot);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
     public void ButtonRegister(Slot _slot)
     {
@@ -252,19 +255,47 @@ public class Inventory : MonoBehaviour
             _slot.SetRegister(true);
             if (_slot.item.itemType == Enums.ItemType.Production_Item)
             {
-                UiManager.Instance.quickSlot1.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot1.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot1.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot1.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot1.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
             {
-                UiManager.Instance.quickSlot2.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot2.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot2.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot2.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot2.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.supply_Item)
             {
-                UiManager.Instance.quickSlot3.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot3.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot3.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot3.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot3.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
             {
-                UiManager.Instance.quickSlot4.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot4.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot4.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot4.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot4.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
         }
     }
@@ -358,6 +389,17 @@ public class Inventory : MonoBehaviour
                     if (DivisionItemIn(curSlot.item, divisionCount))
                     {
                         curSlot.SetSlotCount(-divisionCount);
+                        if (curSlot.isQuick)
+                        {
+                            if(curSlot.item.itemType == Enums.ItemType.Production_Item)
+                            {
+                                UiManager.Instance.quickSlot1.SetSlotCount_q(-divisionCount);
+                            }
+                            else if (curSlot.item.itemType == Enums.ItemType.supply_Item)
+                            {
+                                UiManager.Instance.quickSlot2.SetSlotCount_q(-divisionCount);
+                            }
+                        }
                     }
                     else
                     {
@@ -375,7 +417,7 @@ public class Inventory : MonoBehaviour
     }
     public bool DivisionItemIn(Item _item,int _count)
     {
-        if (_item.itemType == Enums.ItemType.Production_Item)
+        if (_item.itemType == Enums.ItemType.Production_Item || _item.itemType == Enums.ItemType.supply_Item)
         {
             for (int i = 0; i < slots.Length; i++)
             {

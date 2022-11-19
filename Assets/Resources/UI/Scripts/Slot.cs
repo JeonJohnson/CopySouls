@@ -76,6 +76,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     //ΩΩ∑‘ √ ±‚»≠
     private void ClearSlot()
     {
+        isQuick = false;
         item = null;
         itemCount = 0;
         item_Image.sprite = null;
@@ -93,6 +94,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             if (eventData.pointerCurrentRaycast.gameObject != Inventory.Instance.SelectParent)
             {
                 Inventory.Instance.CloseSelection();
+                Inventory.Instance.curSlot = null;
             }
         }
 
@@ -208,20 +210,36 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             {
                 if (item != null)
                 {
-                    if (DragSlot.instance.dragSlot.item.objName == item.objName 
-                        && DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
+                    if (DragSlot.instance.dragSlot.isQuick && !isQuick)
                     {
-                        SumSlot();
+                        ChangeSlot();
                     }
-                    else if (DragSlot.instance.dragSlot.item.objName != item.objName)
+                    else if (!DragSlot.instance.dragSlot.isQuick && isQuick)
+                    {
+                        if (DragSlot.instance.dragSlot.item.objName == item.objName
+                            && (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item
+                            || DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item))
+                        {
+                            SumSlot();
+                        }
+                        else ChangeSlot();
+                    }
+                    else if (!DragSlot.instance.dragSlot.isQuick && !isQuick)
+                    {
+                        if (DragSlot.instance.dragSlot.item.objName == item.objName
+                            && (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item
+                            || DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item))
+                        {
+                            SumSlot();
+                        }
+                        else ChangeSlot();
+                    }
+                    else if (DragSlot.instance.dragSlot.isQuick && isQuick)
                     {
                         ChangeSlot();
                     }
                 }
-                else
-                {
-                    ChangeSlot();
-                }
+                else ChangeSlot();
             }
         }
     }
@@ -233,6 +251,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if(!isQuick)
             {
+                UiManager.Instance.quickSlot1.invenSlot = this;
                 SetRegister(true);
                 DragSlot.instance.dragSlot.SetRegister(false);
             }
@@ -241,12 +260,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if(isQuick)
             {
-                DragSlot.instance.dragSlot.SetRegister(true);
+                UiManager.Instance.quickSlot1.invenSlot = DragSlot.instance.dragSlot;
                 SetRegister(false);
+                DragSlot.instance.dragSlot.SetRegister(true);
             }
         } 
-
-
 
         AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
         if(tempItem != null)
@@ -262,9 +280,21 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     private void SumSlot()
     {
         int sum = itemCount + DragSlot.instance.dragSlot.itemCount;
+
         if (sum <= MaxCount && sum >= 1)
         {
             SetSlotCount(DragSlot.instance.dragSlot.itemCount);
+            if (isQuick)
+            {
+                if(DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
+                {
+                    UiManager.Instance.quickSlot1.SetSlotCount_q(DragSlot.instance.dragSlot.itemCount);
+                }
+                else if (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item)
+                {
+                    UiManager.Instance.quickSlot3.SetSlotCount_q(DragSlot.instance.dragSlot.itemCount);
+                }
+            }
             DragSlot.instance.dragSlot.ClearSlot();
         }
         else if(itemCount == MaxCount) return;
@@ -272,6 +302,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             int rest = itemCount + DragSlot.instance.dragSlot.itemCount - MaxCount;
             SetSlotCount(MaxCount - itemCount);
+            if (isQuick)
+            {
+                if (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item)
+                {
+                    UiManager.Instance.quickSlot1.SetSlotCount_q(MaxCount - UiManager.Instance.quickSlot1.itemCount);
+                }
+                else if (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item)
+                {
+                    UiManager.Instance.quickSlot3.SetSlotCount_q(MaxCount - UiManager.Instance.quickSlot3.itemCount);
+                }
+            }
             DragSlot.instance.dragSlot.ClearSlot();
             Inventory.Instance.DivisionItemIn(item, rest);
         }
@@ -283,3 +324,20 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
 
 }
+
+    //    if (DragSlot.instance.dragSlot.item.objName == item.objName
+    //        && (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item
+    //        || DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item))
+    //    {
+    //        SumSlot();
+    //    }
+    //    //else if(DragSlot.instance.dragSlot != this)
+    //    else if (DragSlot.instance.dragSlot.item.objName != item.objName)
+    //    {
+    //        ChangeSlot();
+    //    }
+    //}
+    //else
+    //{
+    //    ChangeSlot();
+    //}

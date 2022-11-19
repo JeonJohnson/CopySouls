@@ -10,22 +10,25 @@ public class QuickSlot : MonoBehaviour
     public Image Item_Image;
     public int itemCount;
     public Text ItemCount_Text;
+    public Slot invenSlot;
 
     public void DragRegister(Item _item,int _itemCount)
     {
         if (_item.itemType == OnlyType)
         {
-            AddRegister(_item, _itemCount);
+            //AddRegister(_item, _itemCount);
         }
     }
-    public void AddRegister(Item _item, int _itemCount)
+    public void AddRegister(Slot _invenSlot, Item _item, int _itemCount)
     {
+        if(invenSlot != null) invenSlot.SetRegister(false);
+        invenSlot = _invenSlot;
+        _invenSlot.SetRegister(true);
         item = _item;
         Item_Image.sprite = _item.itemImage;
         itemCount = _itemCount;
         ItemCount_Text.text = _itemCount.ToString();
         SetColor_q(1);
-
     }
 
     public void SetColor_q(float _alpha)
@@ -43,6 +46,9 @@ public class QuickSlot : MonoBehaviour
 
     public void ClearSlot_q()
     {
+        invenSlot.isQuick = false;
+        invenSlot.SetRegister(false);
+        invenSlot = null;
         item = null;
         itemCount = 0;
         Item_Image.sprite = null;
