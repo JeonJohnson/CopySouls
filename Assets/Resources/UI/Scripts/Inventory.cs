@@ -315,10 +315,12 @@ public class Inventory : MonoBehaviour
         if (_item.itemType == Enums.ItemType.Production_Item)
         {
             Debug.Log("상호 작용!");
+            UiManager.Instance.quickSlot1.SetSlotCount_q(-1);
         }
         else if (_item.itemType == Enums.ItemType.supply_Item)
         {
             Debug.Log("아이템 사용!");
+            UiManager.Instance.quickSlot2.SetSlotCount_q(-1);
         }
         curSlot.SetSlotCount(-1);
     }

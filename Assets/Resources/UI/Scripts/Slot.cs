@@ -146,6 +146,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
+
                 DragSlot.instance.dragSlot = this;
                 DragSlot.instance.DragSetImage(item);
                 DragSlot.instance.transform.position = eventData.position;
@@ -160,6 +161,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
+                Inventory.Instance.curSlot = this;
+
                 DragSlot.instance.transform.position = eventData.position;
             }
         }
@@ -178,7 +181,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     if(obj.GetComponentInParent<QuickSlot>() != null)
                     {
                         QuickSlot quickSlot = obj.GetComponentInParent<QuickSlot>();
-                        quickSlot.DragRegister(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+                        quickSlot.DragRegister(Inventory.Instance.curSlot,DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
                         DragSlot.instance.SetColor(0);
                         DragSlot.instance.dragSlot = null;
                     }
@@ -196,6 +199,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     ClearSlot();
                 }
             }
+            Inventory.Instance.curSlot = null;
         }
     }
 

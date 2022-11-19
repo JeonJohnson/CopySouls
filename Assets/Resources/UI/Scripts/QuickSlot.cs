@@ -12,11 +12,11 @@ public class QuickSlot : MonoBehaviour
     public Text ItemCount_Text;
     public Slot invenSlot;
 
-    public void DragRegister(Item _item,int _itemCount)
+    public void DragRegister(Slot _invenSlot,Item _item,int _itemCount)
     {
         if (_item.itemType == OnlyType)
         {
-            //AddRegister(_item, _itemCount);
+            AddRegister(_invenSlot,_item, _itemCount);
         }
     }
     public void AddRegister(Slot _invenSlot, Item _item, int _itemCount)
