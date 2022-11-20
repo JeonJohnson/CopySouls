@@ -12,6 +12,7 @@ public class cGolemState : cState
 	public Golem golem = null;
 	public Golem_ActionTable table = null;
 	public int stateCost;
+	public eGolemStateAtkType atkType;
 
 	public override void EnterState(Enemy script)
 	{

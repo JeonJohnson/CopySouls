@@ -7,6 +7,8 @@ public class Golem : Enemy
 {
 	[Header("Target")]
 	public Transform targetHeadTr;
+	public float angleToTarget;
+	public eSideDirection targetWhichSide;
 
 	[Header("Golem's")]
 	public GameObject meshObj;
@@ -82,6 +84,7 @@ public class Golem : Enemy
 		fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit(2);
 		fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit(3);
 
+		fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
 		fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk(1);
 		
 		fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit(3);
@@ -89,7 +92,7 @@ public class Golem : Enemy
 		//fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
 
 		fsm[(int)eGolemState.ThrowRock] = new Golem_ThrowRock(4);
-		fsm[(int)eGolemState.JumpAtk] = new Golem_ThrowRock(6);
+		fsm[(int)eGolemState.JumpAtk] = new Golem_JumpAtk(6);
 
 
 		fsm[(int)eGolemState.Hit] = new Golem_Hit(0);
@@ -111,6 +114,8 @@ public class Golem : Enemy
 
 		initPos = transform.position;
 		initForward = transform.forward;
+
+		navAgent.stoppingDistance = status.atkRange;
 	}
 
 	protected override void Start()

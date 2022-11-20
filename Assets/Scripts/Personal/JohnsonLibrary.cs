@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Funcs
@@ -11,6 +12,7 @@ public static class Funcs
 	{//where 조건 struct, IConvertible => Enum으로 제한
 		return Enum.GetName(typeof(T), index);
 	}
+
 
 	public static string TrimUnderBar(string str)
 	{
@@ -27,6 +29,22 @@ public static class Funcs
 	public static bool I2B(int integer)
 	{
 		return Convert.ToBoolean(integer);
+	}
+
+	public static List<T> ListShuffle<T>(ref List<T> list)
+	{
+		System.Random rnd = new System.Random();
+		int n = list.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = rnd.Next(n + 1);
+			T value = list[k];
+			list[k] = list[n];
+			list[n] = value;
+		}
+
+		return list;
 	}
 
 	public static bool IntegerRandomCheck(int percent)

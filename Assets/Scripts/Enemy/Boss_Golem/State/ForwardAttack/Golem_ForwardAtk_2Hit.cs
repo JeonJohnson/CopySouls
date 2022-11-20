@@ -6,6 +6,7 @@ public class Golem_ForwardAtk_2Hit : cGolemState
 {
 	public Golem_ForwardAtk_2Hit(int cost) : base(cost)
 	{
+		atkType = eGolemStateAtkType.MiddleAtk;
 	}
 
 	public override void EnterState(Enemy script)
