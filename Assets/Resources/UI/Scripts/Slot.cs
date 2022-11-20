@@ -74,7 +74,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
 
     //슬롯 초기화
-    private void ClearSlot()
+    public void ClearSlot()
     {
         isQuick = false;
         item = null;
@@ -89,11 +89,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Inventory.SelectionActivated)
+        if (SelectionProcess.SelectionActivated)
         {
-            if (eventData.pointerCurrentRaycast.gameObject != Inventory.Instance.SelectParent)
+            if (eventData.pointerCurrentRaycast.gameObject != Inventory.Instance.SelectionParent)
             {
-                Inventory.Instance.CloseSelection();
+                Inventory.Instance.SelectionParent.CloseSelection();
                 Inventory.Instance.curSlot = null;
             }
         }
@@ -110,7 +110,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 {
                     //Equipt(rightMouse)
                     //선택 창 띄우기(장비, 퀵등록)
-                    Inventory.Instance.TryOpenSelection(item.itemType, eventData.position);
+                    Inventory.Instance.SelectionParent.TryOpenSelection(item.itemType, eventData.position);
                 }
                 else
                 {
@@ -120,7 +120,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (itemCount < 2) return;
                         else
                         {
-                            Inventory.Instance.TryOpenDivision();
+                            Inventory.Instance.DivisionParent.TryOpenDivision();
                         }
                     }
                     else
@@ -128,7 +128,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (item.itemType == Enums.ItemType.supply_Item || item.itemType == Enums.ItemType.Production_Item)
                         {
                             //use(rightMouse)
-                            Inventory.Instance.TryOpenSelection(item.itemType, eventData.position);
+                            Inventory.Instance.SelectionParent.TryOpenSelection(item.itemType, eventData.position);
                         }
                         else return; 
                     }
@@ -146,7 +146,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
-                if (Inventory.DivisionActivated) return;
+                if (DivisionProcess.DivisionActivated) return;
 
                 DragSlot.instance.dragSlot = this;
                 DragSlot.instance.DragSetImage(item);
@@ -160,7 +160,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (Inventory.DivisionActivated) return;
+            if (DivisionProcess.DivisionActivated) return;
 
             if (item != null)
             {
@@ -252,7 +252,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
     private void ChangeSlot()
     {
-        if (Inventory.DivisionActivated) return;
+        if (DivisionProcess.DivisionActivated) return;
 
         Item tempItem = item;
         int tempItemCount = itemCount;
@@ -288,7 +288,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
     private void SumSlot()
     {
-        if (Inventory.DivisionActivated) return;
+        if (DivisionProcess.DivisionActivated) return;
 
         int sum = itemCount + DragSlot.instance.dragSlot.itemCount;
 

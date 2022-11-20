@@ -40,27 +40,27 @@ public class UiManager : Manager<UiManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Inventory.inventoryActivated && Inventory.DivisionActivated)
+            if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
                 //분할창 끄기
-                Inventory.Instance.Exit_Division_Button();
+                //Inventory.Instance.Exit_Division_Button();
             }
-            else if (Inventory.inventoryActivated && !Inventory.DivisionActivated)
-            {
-                //인벤토리 창 끄기
-                Inventory.Instance.Exit_Inventory_Button();
-            }
+            //else if (Inventory.inventoryActivated && !Inventory.DivisionActivated)
+            //{
+            //    //인벤토리 창 끄기
+            //    Inventory.Instance.Exit_Inventory_Button();
+            //}
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
             //분할 ENTER적용
-            Inventory.Instance.Division_Button();
+            //Inventory.Instance.Division_Button();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) Inventory.Instance.QuickSlotUse(quickSlot1);
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) Inventory.Instance.QuickSlotUse(quickSlot2);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) Inventory.Instance.QuickSlotUse(quickSlot3);
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) Inventory.Instance.QuickSlotUse(quickSlot4);
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) Inventory.Instance.QuickSlotUse(quickSlot1);
+        //else if (Input.GetKeyDown(KeyCode.Alpha2)) Inventory.Instance.QuickSlotUse(quickSlot2);
+        //else if (Input.GetKeyDown(KeyCode.Alpha3)) Inventory.Instance.QuickSlotUse(quickSlot3);
+        //else if (Input.GetKeyDown(KeyCode.Alpha4)) Inventory.Instance.QuickSlotUse(quickSlot4);
     }
 
 
