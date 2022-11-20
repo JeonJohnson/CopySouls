@@ -4,32 +4,64 @@ using UnityEngine;
 
 public class Golem_TurnAtk : cGolemState
 {
+	//string animName;
 	public Golem_TurnAtk(int cost) : base(cost)
 	{
 		atkType = eGolemStateAtkType.CloseAtk;
 	}
+	//public void Attack()
+	//{
+	//	golem.status.curStamina -= stateCost;
 
-	public override void EnterState(Enemy script)
-	{
-		base.EnterState(script);
 
+	//	switch (golem.targetWhichSide)
+	//	{
+	//		case eSideDirection.Left:
+	//			{
+	//				animName = "Attack_Left";
+	//				golem.animCtrl.SetTrigger("tAtk1");
+	//				golem.animCtrl.SetInteger("iRotDir", -1);
+	//			}
+	//			break;
+	//		case eSideDirection.Right:
+	//			{
+	//				animName = "Attack_Right";
+	//				golem.animCtrl.SetTrigger("tAtk1");
+	//				golem.animCtrl.SetInteger("iRotDir", 1);
+	//			}
+	//			break;
+	//		default:
+	//			break;
+	//	}
 
-	}
+	//}
 
-	public override void UpdateState()
-	{
-	}
+	//public override void EnterState(Enemy script)
+	//{
+	//	base.EnterState(script);
 
-	public override void LateUpdateState()
-	{
-		base.LateUpdateState();
-	}
-	public override void FixedUpdateState()
-	{
-		base.FixedUpdateState();
-	}
+	//	Attack();
+	//}
 
-	public override void ExitState()
-	{
-	}
+	//public override void UpdateState()
+	//{
+	//	if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, animName))
+	//	{
+	//		golem.SetState((int)eGolemState.Think);
+	//	}
+	//}
+
+	//public override void LateUpdateState()
+	//{
+	//	base.LateUpdateState();
+	//}
+	//public override void FixedUpdateState()
+	//{
+	//	base.FixedUpdateState();
+	//}
+
+	//public override void ExitState()
+	//{
+	//	golem.animCtrl.applyRootMotion = false;
+	//}
 }

@@ -13,11 +13,26 @@ public class Golem_Walk : cGolemState
 	{
 		base.EnterState(script);
 
-
+		//if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+		//{
+		golem.navAgent.isStopped = false;
+		golem.animCtrl.SetTrigger("tMove");
+		//}
+		//golem.navAgent.SetDestination(golem.targetObj.transform.position);
 	}
 
 	public override void UpdateState()
 	{
+		//table.FillStamina();
+
+		golem.navAgent.SetDestination(golem.targetObj.transform.position);
+
+		if (golem.distToTarget <= golem.status.atkRange)
+		{
+			if (golem.angleToTarget >= 45f)
+			{ golem.SetState((int)eGolemState.Turn); }
+			else { golem.SetState((int)eGolemState.Idle); }
+		}
 	}
 
 	public override void LateUpdateState()
@@ -31,5 +46,6 @@ public class Golem_Walk : cGolemState
 
 	public override void ExitState()
 	{
+		golem.navAgent.isStopped = false;
 	}
 }

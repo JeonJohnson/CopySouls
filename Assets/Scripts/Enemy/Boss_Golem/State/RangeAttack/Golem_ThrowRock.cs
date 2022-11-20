@@ -12,11 +12,21 @@ public class Golem_ThrowRock : cGolemState
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
+
+		golem.status.curStamina -= stateCost;
+
+		golem.animCtrl.SetTrigger("tThrow");
 	}
 
 	public override void UpdateState()
 	{
 		base.UpdateState();
+
+		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, "Throw"))
+		{
+			golem.SetState((int)eGolemState.Think);
+		}
+
 	}
 	public override void LateUpdateState()
 	{

@@ -40,5 +40,6 @@ public class cGolemState : cState
 
 	public override void ExitState()
 	{
+		golem.decisionTime = Random.Range(1f, 2f);
 	}
 }
