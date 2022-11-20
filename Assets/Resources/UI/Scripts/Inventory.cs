@@ -29,6 +29,7 @@ public class Inventory : MonoBehaviour
     public InputField DivisionInputField;
     //[SerializeField]
     public GameObject SelectParent;
+    public GameObject ThrowParent;
 
     //슬롯들
     [SerializeField]
@@ -102,10 +103,8 @@ public class Inventory : MonoBehaviour
 
     public void TryOpenSelection(Enums.ItemType _itemType, Vector3 Vec)
     {
-        
         if(inventoryActivated && !DivisionActivated && !SelectionActivated)
         {
-            Debug.Log("선택창 띄우기");
             OpenSelection(_itemType,Vec);
         }
 
@@ -127,13 +126,13 @@ public class Inventory : MonoBehaviour
         if (_itemType == Enums.ItemType.supply_Item || _itemType == Enums.ItemType.Production_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
-            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
         }
         else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Equipt.SetActive(true);
-            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
         }
+        SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
+        SelectParent.GetComponent<Selection>().selection_Throw.SetActive(true);
     }
 
     public void CloseSelection()
@@ -222,18 +221,35 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //====
+    //버튼 기능
     public void SelectionEquipt_Button()
     {
         Equipt(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
     public void SelectionUse_Button()
     {
         Use(curSlot.item);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
+    public void SelectionThrow_Button()
+    {
+        //Throw(curSlot.item);
+        //tryOpenThrow
+        Debug.Log("버리기");
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
+        SelectionActivated = !SelectionActivated;
+        curSlot = null;
+    }
+
+    //====
+
+
     public void QuickSlotUse(QuickSlot _quickSlot)
     {
         if(_quickSlot.item != null) Use(_quickSlot.item, _quickSlot);
@@ -244,6 +260,7 @@ public class Inventory : MonoBehaviour
         ButtonRegister(curSlot);
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
+        curSlot = null;
     }
     public void ButtonRegister(Slot _slot)
     {
@@ -252,19 +269,47 @@ public class Inventory : MonoBehaviour
             _slot.SetRegister(true);
             if (_slot.item.itemType == Enums.ItemType.Production_Item)
             {
-                UiManager.Instance.quickSlot1.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot1.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot1.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot1.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot1.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
             {
-                UiManager.Instance.quickSlot2.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot2.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot2.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot2.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot2.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.supply_Item)
             {
-                UiManager.Instance.quickSlot3.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot3.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot3.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot3.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot3.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
             else if (_slot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
             {
-                UiManager.Instance.quickSlot4.AddRegister(_slot.item, _slot.itemCount);
+                if (UiManager.Instance.quickSlot4.invenSlot != null)
+                {
+                    if (UiManager.Instance.quickSlot4.invenSlot != _slot)
+                    {
+                        UiManager.Instance.quickSlot4.invenSlot.SetRegister(false);
+                    }
+                }
+                UiManager.Instance.quickSlot4.AddRegister(_slot, _slot.item, _slot.itemCount);
             }
         }
     }
@@ -284,10 +329,12 @@ public class Inventory : MonoBehaviour
         if (_item.itemType == Enums.ItemType.Production_Item)
         {
             Debug.Log("상호 작용!");
+            UiManager.Instance.quickSlot1.SetSlotCount_q(-1);
         }
         else if (_item.itemType == Enums.ItemType.supply_Item)
         {
             Debug.Log("아이템 사용!");
+            UiManager.Instance.quickSlot2.SetSlotCount_q(-1);
         }
         curSlot.SetSlotCount(-1);
     }
@@ -358,6 +405,17 @@ public class Inventory : MonoBehaviour
                     if (DivisionItemIn(curSlot.item, divisionCount))
                     {
                         curSlot.SetSlotCount(-divisionCount);
+                        if (curSlot.isQuick)
+                        {
+                            if(curSlot.item.itemType == Enums.ItemType.Production_Item)
+                            {
+                                UiManager.Instance.quickSlot1.SetSlotCount_q(-divisionCount);
+                            }
+                            else if (curSlot.item.itemType == Enums.ItemType.supply_Item)
+                            {
+                                UiManager.Instance.quickSlot2.SetSlotCount_q(-divisionCount);
+                            }
+                        }
                     }
                     else
                     {
@@ -375,7 +433,7 @@ public class Inventory : MonoBehaviour
     }
     public bool DivisionItemIn(Item _item,int _count)
     {
-        if (_item.itemType == Enums.ItemType.Production_Item)
+        if (_item.itemType == Enums.ItemType.Production_Item || _item.itemType == Enums.ItemType.supply_Item)
         {
             for (int i = 0; i < slots.Length; i++)
             {
