@@ -12,6 +12,9 @@ public class Inventory : MonoBehaviour
     public static bool inventoryActivated = false;
     //나누기 창
     public static bool DivisionActivated = false;
+    //버리기 창
+    public static bool ThrowingActivated = false;
+
     //선택 창
     public static bool SelectionActivated = false;
 
@@ -101,20 +104,33 @@ public class Inventory : MonoBehaviour
         DivisionParent.SetActive(false);
     }
 
+    public void TryOpenThrow()
+    {
+        if (inventoryActivated && !DivisionActivated)
+        {
+            ThrowingActivated = !ThrowingActivated;
+            if (ThrowingActivated) OpenThrow();
+            else CloseThrow();
+        }
+        else return;
+    }
+
+    private void OpenThrow()
+    {
+        ThrowParent.SetActive(true);
+    }
+    private void CloseThrow()
+    {
+        ThrowParent.SetActive(false);
+    }
+
+
     public void TryOpenSelection(Enums.ItemType _itemType, Vector3 Vec)
     {
         if(inventoryActivated && !DivisionActivated && !SelectionActivated)
         {
             OpenSelection(_itemType,Vec);
         }
-
-        //if (inventoryActivated)
-        //{
-        //    DivisionActivated = !DivisionActivated;
-        //    if (DivisionActivated) OpenDivision();
-        //    else CloseDivision();
-        //}
-        //else return;
     }
 
     public void OpenSelection(Enums.ItemType _itemType,Vector3 vec)
@@ -240,12 +256,36 @@ public class Inventory : MonoBehaviour
     public void SelectionThrow_Button()
     {
         //Throw(curSlot.item);
-        //tryOpenThrow
+        TryOpenThrow();
         Debug.Log("버리기");
         SelectParent.GetComponent<Selection>().Selection_AllOff();
         SelectionActivated = !SelectionActivated;
         curSlot = null;
     }
+
+    public void Throw_Button()
+    {
+        Throw();
+        ThrowParent.SetActive(false);
+        ThrowingActivated = !ThrowingActivated;
+        curSlot = null;
+    }
+
+    public void ThrowAll_Button()
+    {
+        Throw();
+        ThrowParent.SetActive(false);
+        ThrowingActivated = !ThrowingActivated;
+        curSlot = null;
+    }
+
+    public void ThrowCancel_Button()
+    {
+        ThrowParent.SetActive(false);
+        ThrowingActivated = !ThrowingActivated;
+        curSlot = null;
+    }
+
 
     //====
 
@@ -454,6 +494,12 @@ public class Inventory : MonoBehaviour
             DivisionInputField.text = "";
         }
     }
+
+    public void Throw()
+    {
+        Debug.Log("버리기");
+    }
+
 
     
 }

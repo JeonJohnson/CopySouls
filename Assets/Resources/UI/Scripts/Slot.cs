@@ -146,6 +146,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (item != null)
             {
+                if (Inventory.DivisionActivated) return;
 
                 DragSlot.instance.dragSlot = this;
                 DragSlot.instance.DragSetImage(item);
@@ -159,6 +160,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (Inventory.DivisionActivated) return;
+
             if (item != null)
             {
                 Inventory.Instance.curSlot = this;
@@ -249,6 +252,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
     private void ChangeSlot()
     {
+        if (Inventory.DivisionActivated) return;
+
         Item tempItem = item;
         int tempItemCount = itemCount;
         if (DragSlot.instance.dragSlot.isQuick)
@@ -283,6 +288,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     }
     private void SumSlot()
     {
+        if (Inventory.DivisionActivated) return;
+
         int sum = itemCount + DragSlot.instance.dragSlot.itemCount;
 
         if (sum <= MaxCount && sum >= 1)
