@@ -113,6 +113,7 @@ public class Golem_ActionTable : MonoBehaviour
 	public void Update()
 	{
 		CheckAnglToTarget();
+		FillStamina();
 	}
 
 	public bool CheckPlayerClose()
