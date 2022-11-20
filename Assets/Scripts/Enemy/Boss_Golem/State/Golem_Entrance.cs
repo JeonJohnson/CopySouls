@@ -6,6 +6,7 @@ public class Golem_Entrance : cGolemState
 {
 	public Golem_Entrance(int cost) : base(cost)
 	{
+		atkType = eGolemStateAtkType.None;
 	}
 
 	public override void EnterState(Enemy script)

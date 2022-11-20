@@ -737,7 +737,7 @@ public class Archer_ActionTable : MonoBehaviour
 	}
 
 
-		private void LegRotateInPlaceLayerWieght(float angle)
+	private void LegRotateInPlaceLayerWieght(float angle)
 	{
 		if (archer.isMove)
 		{

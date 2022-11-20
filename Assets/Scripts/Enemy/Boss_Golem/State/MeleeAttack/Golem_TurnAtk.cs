@@ -6,6 +6,7 @@ public class Golem_TurnAtk : cGolemState
 {
 	public Golem_TurnAtk(int cost) : base(cost)
 	{
+		atkType = eGolemStateAtkType.CloseAtk;
 	}
 
 	public override void EnterState(Enemy script)

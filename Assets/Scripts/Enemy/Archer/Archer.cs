@@ -13,7 +13,6 @@ public enum eSideDirection
 	Left = -1,
 	Straight, //Forward or Backward
 	Right = 1
-		
 }
 
 //public enum eLegState

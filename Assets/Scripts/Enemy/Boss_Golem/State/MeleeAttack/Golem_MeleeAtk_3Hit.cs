@@ -6,17 +6,26 @@ public class Golem_MeleeAtk_3Hit : cGolemState
 {
 	public Golem_MeleeAtk_3Hit(int cost) : base(cost)
 	{
+		atkType = eGolemStateAtkType.CloseAtk;
+
+		
 	}
 
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
 
+		golem.animCtrl.SetTrigger("tAtk3");
+		
 
 	}
 
 	public override void UpdateState()
 	{
+		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, "3Attack"))
+		{
+			golem.SetState((int)eGolemState.Think);
+		}
 	}
 
 	public override void LateUpdateState()
