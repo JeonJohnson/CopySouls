@@ -15,6 +15,8 @@ public class Golem_MeleeAtk_3Hit : cGolemState
 	{
 		base.EnterState(script);
 
+		golem.status.curStamina -= stateCost;
+
 		golem.animCtrl.SetTrigger("tAtk3");
 		
 
@@ -26,6 +28,8 @@ public class Golem_MeleeAtk_3Hit : cGolemState
 		{
 			golem.SetState((int)eGolemState.Think);
 		}
+
+
 	}
 
 	public override void LateUpdateState()

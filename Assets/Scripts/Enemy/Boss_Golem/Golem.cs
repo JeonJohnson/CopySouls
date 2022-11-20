@@ -39,7 +39,7 @@ public class Golem : Enemy
 
 	[Header("Status Vars")]
 	public float rangeAtkRange;
-
+	public float decisionTime;
 
 	public void SearchTarget()
 	{
@@ -78,18 +78,22 @@ public class Golem : Enemy
 
 		fsm[(int)eGolemState.Think] = new Golem_Think(0);
 
+		fsm[(int)eGolemState.Idle] = new Golem_Idle(0);
+		fsm[(int)eGolemState.Walk] = new Golem_Walk(0);
+		fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
+
 		fsm[(int)eGolemState.Entrance] = new Golem_Entrance(0);
 		
 		fsm[(int)eGolemState.MeleeAtk_1Hit] = new Golem_MeleeAtk_1Hit(1);
 		fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit(2);
 		fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit(3);
 
-		fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
-		fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk(1);
+		//fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
+		//fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk(1);
 		
 		fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit(3);
 		fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit(4);
-		//fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
+		fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
 
 		fsm[(int)eGolemState.ThrowRock] = new Golem_ThrowRock(4);
 		fsm[(int)eGolemState.JumpAtk] = new Golem_JumpAtk(6);
@@ -124,6 +128,8 @@ public class Golem : Enemy
 
 		SearchMyBone();
 		SearchTarget();
+
+		decisionTime = Random.Range(1f, 2f);
 	}
 
 	protected override void Update()

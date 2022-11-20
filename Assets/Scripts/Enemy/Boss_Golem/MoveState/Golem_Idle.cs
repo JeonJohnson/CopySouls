@@ -13,11 +13,22 @@ public class Golem_Idle : cGolemState
 	{
 		base.EnterState(script);
 
-
+		golem.animCtrl.SetTrigger("tIdle");
 	}
 
 	public override void UpdateState()
 	{
+		//table.FillStamina();
+
+		if (golem.distToTarget > golem.status.atkRange)
+		{
+			golem.SetState((int)eGolemState.Walk);
+		}
+		else if (golem.angleToTarget >= 45f)
+		{
+			golem.SetState((int)eGolemState.Turn);
+		}
+
 	}
 
 	public override void LateUpdateState()

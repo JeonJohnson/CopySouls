@@ -15,6 +15,10 @@ public class Golem_MeleeAtk_1Hit : cGolemState
 	{
 		base.EnterState(script);
 
+		golem.animCtrl.applyRootMotion = false;
+
+		golem.status.curStamina -= stateCost;
+
 		golem.animCtrl.SetTrigger("tAtk1");
 		int iRand = Random.Range(1, 6);
 		animName = $"Attack_{iRand}";
@@ -28,8 +32,6 @@ public class Golem_MeleeAtk_1Hit : cGolemState
 		{
 			golem.SetState((int)eGolemState.Think);
 		}
-
-
 	}
 
 	public override void LateUpdateState()
@@ -43,5 +45,7 @@ public class Golem_MeleeAtk_1Hit : cGolemState
 
 	public override void ExitState()
 	{
+		base.ExitState();
+
 	}
 }

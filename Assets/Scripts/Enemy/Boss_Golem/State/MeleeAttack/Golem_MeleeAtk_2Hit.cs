@@ -14,6 +14,7 @@ public class Golem_MeleeAtk_2Hit : cGolemState
 	{
 		base.EnterState(script);
 
+		golem.status.curStamina -= stateCost;
 
 		golem.animCtrl.SetTrigger("tAtk2");
 		int iRand = Random.Range(1, 3);

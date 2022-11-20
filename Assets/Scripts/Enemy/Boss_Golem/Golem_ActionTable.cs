@@ -9,24 +9,39 @@ public enum eGolemState
 {
     Think,
 
+	Idle,
+	Walk,
+	Turn,
+
     Entrance,
     //melee Attack
 	MeleeAtk_1Hit,
     MeleeAtk_2Hit,
     MeleeAtk_3Hit,
     
-	Turn,
-	TurnAtk,
+	//Turn,
+	//TurnAtk,
     
 	//Range Attack
 	ForwardAtk_1Hit,
     ForwardAtk_2Hit,
-    //ForwardAtk_3Hit,
+    ForwardAtk_3Hit,
+
 	ThrowRock,
 	JumpAtk,
 
     Hit,
     Death, //(explode)
+	End
+}
+
+public enum eGolemMoveState
+{ 
+	Idle,
+	Walk,
+	Turn,
+	//Rotate_Left,
+	//Rotate_Right,
 	End
 }
 
@@ -39,14 +54,6 @@ public enum eGolemStateAtkType
 	End
 }
 
-
-public enum eGolemMoveState
-{ 
-	Move,
-	Rotate_Left,
-	Rotate_Right,
-	End
-}
 
 public enum eGolemMovePriority
 { 
@@ -75,27 +82,53 @@ public class Golem_ActionTable : MonoBehaviour
 {
 	Golem golem = null;
 
-	public List<cState> moveFsm;
+	//public cGolemState[] moveFsm;
+	//public cGolemState curMoveState = null;
+	//public eGolemMoveState curMoveState_e = eGolemMoveState.End;
+
 
 	//List<cState> statePerCost;
 	Dictionary<int, List<cGolemState>> statePerCost;
 
-	public void OrganizeStatePerCost()
+	public Coroutine decisionCoroutine = null;
+
+	//string rotateAnimName;
+
+	bool isLookAt = false;
+
+	#region animationEvents
+
+	public void LookAtEvent(int val)
 	{
-		statePerCost = new Dictionary<int, List<cGolemState>>();
-
-		for (int i = 0; i < (int)golem.status.maxStamina; ++i)
-		{
-			statePerCost.Add(i, new List<cGolemState>());
-		}
-
-		foreach (cGolemState state in golem.fsm)
-		{
-			int cost = state.stateCost;
-
-			statePerCost[cost].Add(state);
-		}
+		isLookAt = Funcs.I2B(val);
 	}
+
+	public void PickupRockEvent()
+	{ 
+	
+	}
+	public void ThrowRockEvent()
+	{ 
+	
+	
+	}
+	#endregion
+	//public void OrganizeStatePerCost()
+	//{
+	//	statePerCost = new Dictionary<int, List<cGolemState>>();
+
+	//	for (int i = 0; i < (int)golem.status.maxStamina; ++i)
+	//	{
+	//		statePerCost.Add(i, new List<cGolemState>());
+	//	}
+
+	//	foreach (cGolemState state in golem.fsm)
+	//	{
+	//		int cost = state.stateCost;
+
+	//		statePerCost[cost].Add(state);
+	//	}
+	//}
 
 	public void Awake()
 	{
@@ -103,10 +136,13 @@ public class Golem_ActionTable : MonoBehaviour
 		{
 			golem = GetComponent<Golem>();
 		}
+
+		
 	}
 
 	public void Start()
 	{
+		//InitMoveFsm();
 		//OrganizeStatePerCost();
 	}
 
@@ -114,7 +150,36 @@ public class Golem_ActionTable : MonoBehaviour
 	{
 		CheckAnglToTarget();
 		FillStamina();
+
+		if (isLookAt)
+		{
+			LookAtBody(4f);
+		}
 	}
+
+	//public void InitMoveFsm()
+	//{
+	//	moveFsm = new cGolemState[(int)eGolemMoveState.End];
+
+	//	moveFsm[(int)eGolemMoveState.Idle] = new Golem_Idle(0);
+	//	moveFsm[(int)eGolemMoveState.Walk] = new Golem_Walk(0);
+	//	moveFsm[(int)eGolemMoveState.Turn] = new Golem_Turn(0);
+
+	//	SetMoveState(eGolemMoveState.Walk);
+	//	//curMoveState = moveFsm[(int)eGolemMoveState.Walk];
+	//}
+
+	//public void SetMoveState(eGolemMoveState state)
+	//{
+	//	if (curMoveState != null)
+	//	{
+	//		curMoveState.ExitState();
+	//	}
+
+	//	curMoveState = moveFsm[(int)state];
+	//	curMoveState.EnterState(golem);
+	//	curMoveState_e = state;
+	//}
 
 	public bool CheckPlayerClose()
 	{
@@ -187,24 +252,17 @@ public class Golem_ActionTable : MonoBehaviour
 		{
 			refList.Remove(findAllState[i]);
 		}
-	
 	}
 
-	public void /*cState*/ Decision()
-	{
-		bool isMove = Funcs.I2B(Random.Range(0, 2));
-
-
-		if (golem.distToTarget <= golem.status.atkRange)
-		{
-			//가까우면 근접 공격 우선
-			//
-		}
-		else
-		{ 
+	public void AddCondition(ref List<cGolemState> refList, System.Predicate<cGolemState> match)
+	{ 
 		
-		}
 	}
+
+	//public void /*cState*/ Decision(ref List<eGolemState)
+	//{
+
+	//}
 
 	public eSideDirection TargetOnWhichSide(Vector3 forward, Vector3 dir, Vector3 up, float offset = 0f)
 	{
@@ -232,7 +290,7 @@ public class Golem_ActionTable : MonoBehaviour
 		golem.targetWhichSide = TargetOnWhichSide(transform.forward, golem.dirToTarget, transform.up);
 	}
 
-	public void LookAtTargetHead()
+	public void LookAtHead()
 	{
 		//일단 회전 각도 부터 체크하고 일정 각도 이하일때만 돌아가도록.	
 		if (golem.angleToTarget < 90f)
@@ -241,30 +299,64 @@ public class Golem_ActionTable : MonoBehaviour
 		}
 	}
 
-
-
-	public void Move()
+	public void LookAtBody(float spd)
 	{
-		if (golem.distToTarget <= golem.status.atkRange + 1f)
-		{ //이러면 회전만
-			if (golem.angleToTarget >= 90f)
-			{
-				golem.animCtrl.applyRootMotion = true;
-				if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("turn90Right"))
-				{
-					golem.animCtrl.SetTrigger("tRotate");
-					golem.animCtrl.SetInteger("iRotDir", 1);
-				}
-			}
-		}
-		else
-		{
-			if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-			{
-				golem.animCtrl.SetTrigger("tMove");
-			}
-			golem.navAgent.SetDestination(golem.targetObj.transform.position);
+		Vector3 tempDir = golem.dirToTarget;
+		tempDir.y = 0;
 
-		}
+		Quaternion angle = Quaternion.LookRotation(tempDir);
+
+		transform.rotation = Quaternion.Lerp(golem.transform.rotation, angle, Time.deltaTime * spd);
 	}
+
+
+
+	//public void Move()
+	//{
+	//	if (golem.distToTarget <= golem.status.atkRange + 0.5f)
+	//	{ //이러면 회전만
+	//		if (golem.angleToTarget >=45f)
+	//		{
+	//			//golem.SetState((int)eGolemState.Turn);
+
+	//			//golem.animCtrl.applyRootMotion = true;
+	//			LookAtBody(transform, golem.targetObj.transform, 2f);
+	//			if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName(rotateAnimName))
+	//			{
+	//				golem.animCtrl.SetTrigger("tRotate");
+
+	//				switch (golem.targetWhichSide)
+	//				{
+	//					case eSideDirection.Left:
+	//						{
+	//							rotateAnimName = "Turn_Left";
+	//							golem.animCtrl.SetInteger("iRot", -1);
+	//						}
+	//						break;
+	//					case eSideDirection.Right:
+	//						{
+	//							rotateAnimName = "Turn_Right";
+	//							golem.animCtrl.SetInteger("iRot", 1);
+	//						}
+	//						break;
+	//					default:
+	//						break;
+	//				}
+	//			}
+	//		}
+	//		else
+	//		{
+	//			golem.animCtrl.SetTrigger("tIdle");
+	//		} 
+	//	}
+	//	else if (golem.distToTarget > golem.status.atkRange + 0.5f)
+	//	{
+	//		//if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName(rotateAnimName))
+	//		//{
+	//			golem.animCtrl.applyRootMotion = false;
+
+	//		//}
+	//	}
+	
+	//}
 }
