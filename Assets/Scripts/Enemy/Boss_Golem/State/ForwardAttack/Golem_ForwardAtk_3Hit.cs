@@ -9,14 +9,24 @@ public class Golem_ForwardAtk_3Hit : cGolemState
 
 	}
 
+	string animName;
 	public override void EnterState(Enemy script)
 	{
 		base.EnterState(script);
 
+		golem.animCtrl.applyRootMotion = true;
+
+		golem.status.curStamina -= stateCost;
+
+		golem.animCtrl.SetTrigger("tForAtk3");
 	}
 
 	public override void UpdateState()
 	{
+		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, "ForAtk3"))
+		{
+			golem.SetState((int)eGolemState.Think);
+		}
 	}
 
 	public override void LateUpdateState()
@@ -30,5 +40,6 @@ public class Golem_ForwardAtk_3Hit : cGolemState
 
 	public override void ExitState()
 	{
+		golem.animCtrl.applyRootMotion = false;
 	}
 }

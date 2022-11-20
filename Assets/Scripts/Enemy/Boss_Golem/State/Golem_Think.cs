@@ -44,7 +44,9 @@ public class Golem_Think : cGolemState
 	{
 		foreach (cState state in golem.fsm)
 		{
-			canState.Add(state as cGolemState);
+			cGolemState golemState = state as cGolemState;
+			if(golemState != null)
+			canState.Add(golemState);
 		}
 
 		table.EraseCondition(ref canState, x => x.stateCost == 0);
@@ -118,11 +120,11 @@ public class Golem_Think : cGolemState
 	{
 		base.EnterState(script);
 
-		movePriority = eGolemMovePriority.None;
-		//movePriority = (eGolemMovePriority)Random.Range((int)eGolemMovePriority.Move, (int)eGolemMovePriority.End);
+		//movePriority = eGolemMovePriority.None;
+		movePriority = (eGolemMovePriority)Random.Range((int)eGolemMovePriority.Move, (int)eGolemMovePriority.End);
 		
-		costPriority = eGolemCostPriority.High;
-		//costPriority = (eGolemCostPriority)Random.Range((int)eGolemCostPriority.High, (int)eGolemCostPriority.End);
+		//costPriority = eGolemCostPriority.High;
+		costPriority = (eGolemCostPriority)Random.Range((int)eGolemCostPriority.High, (int)eGolemCostPriority.End);
 		
 		costWait = eGolemCostWait.None;
 		//costWait = (eGolemCostWait)Random.Range((int)eGolemCostWait.Wait, (int)eGolemCostWait.End);

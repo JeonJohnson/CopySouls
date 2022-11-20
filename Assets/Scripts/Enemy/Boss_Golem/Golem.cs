@@ -14,6 +14,7 @@ public class Golem : Enemy
 	public GameObject meshObj;
 	public GameObject rootObj;
 	public Transform headBoneTr;
+	public Transform rightHandBoneTr;
 	private Golem_Frag fragScript;
 	public Golem_Frag FragScript
 	{
@@ -54,6 +55,7 @@ public class Golem : Enemy
 	public void SearchMyBone()
 	{
 		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
+		rightHandBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightHand);
 	}
 
 	public override void DeathReset()
@@ -95,8 +97,8 @@ public class Golem : Enemy
 		fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit(4);
 		fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
 
-		fsm[(int)eGolemState.ThrowRock] = new Golem_ThrowRock(4);
-		fsm[(int)eGolemState.JumpAtk] = new Golem_JumpAtk(6);
+		fsm[(int)eGolemState.ThrowRock] = new Golem_ThrowRock(5);
+		//fsm[(int)eGolemState.JumpAtk] = new Golem_JumpAtk(6);
 
 
 		fsm[(int)eGolemState.Hit] = new Golem_Hit(0);

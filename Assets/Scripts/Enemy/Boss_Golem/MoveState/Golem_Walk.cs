@@ -15,7 +15,8 @@ public class Golem_Walk : cGolemState
 
 		//if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
 		//{
-			golem.animCtrl.SetTrigger("tMove");
+		golem.navAgent.isStopped = false;
+		golem.animCtrl.SetTrigger("tMove");
 		//}
 		//golem.navAgent.SetDestination(golem.targetObj.transform.position);
 	}
@@ -45,5 +46,6 @@ public class Golem_Walk : cGolemState
 
 	public override void ExitState()
 	{
+		golem.navAgent.isStopped = false;
 	}
 }

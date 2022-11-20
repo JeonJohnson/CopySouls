@@ -28,7 +28,7 @@ public enum eGolemState
     ForwardAtk_3Hit,
 
 	ThrowRock,
-	JumpAtk,
+	//JumpAtk,
 
     Hit,
     Death, //(explode)
@@ -92,6 +92,7 @@ public class Golem_ActionTable : MonoBehaviour
 
 	public Coroutine decisionCoroutine = null;
 
+	public RockFrag rockScript;
 	//string rotateAnimName;
 
 	bool isLookAt = false;
@@ -104,13 +105,17 @@ public class Golem_ActionTable : MonoBehaviour
 	}
 
 	public void PickupRockEvent()
-	{ 
-	
+	{
+		GameObject rock = ObjectPoolingCenter.Instance.LentalObj("RockFrag");
+		rockScript = rock.GetComponent<RockFrag>();
+		rockScript.owner = this.gameObject;
+		rockScript.golemRightHandTr = golem.rightHandBoneTr;
 	}
 	public void ThrowRockEvent()
-	{ 
-	
-	
+	{
+		rockScript.dir = (golem.targetObj.transform.position - rockScript.transform.position).normalized;
+		rockScript.Throw();
+
 	}
 	#endregion
 	//public void OrganizeStatePerCost()
@@ -153,7 +158,7 @@ public class Golem_ActionTable : MonoBehaviour
 
 		if (isLookAt)
 		{
-			LookAtBody(4f);
+			LookAtBody(5f);
 		}
 	}
 
@@ -248,6 +253,10 @@ public class Golem_ActionTable : MonoBehaviour
 	{
 		List<cGolemState> findAllState = refList.FindAll(match);
 
+		if (findAllState == null)
+		{
+			return;
+		}
 		for (int i = 0; i < findAllState.Count; ++i)
 		{
 			refList.Remove(findAllState[i]);

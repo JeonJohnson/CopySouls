@@ -67,7 +67,7 @@ public class Golem_Turn: cGolemState
 
 	public override void ExitState()
 	{
-		golem.animCtrl.SetInteger("tRotDir", 0);
+		golem.animCtrl.SetInteger("iRotDir", 0);
 		golem.animCtrl.applyRootMotion = false;
 	}
 }
