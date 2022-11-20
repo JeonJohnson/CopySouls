@@ -7,6 +7,7 @@ public class Selection : MonoBehaviour
     public GameObject selection_Equipt;
     public GameObject selection_Use;
     public GameObject selection_Register;
+    public GameObject selection_Throw;
 
     public void Selection_EquiptOnOff(bool value) { selection_Equipt.gameObject.SetActive(value); }
     public void Selection_UseOnOff(bool value) { selection_Use.gameObject.SetActive(value); }
@@ -18,7 +19,8 @@ public class Selection : MonoBehaviour
         selection_Equipt.SetActive(false);
         selection_Use.SetActive(false);
         selection_Register.SetActive(false);
+        selection_Throw.SetActive(false);
     }
 
-    
+
 }

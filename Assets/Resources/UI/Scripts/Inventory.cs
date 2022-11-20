@@ -29,6 +29,7 @@ public class Inventory : MonoBehaviour
     public InputField DivisionInputField;
     //[SerializeField]
     public GameObject SelectParent;
+    public GameObject ThrowParent;
 
     //슬롯들
     [SerializeField]
@@ -102,10 +103,8 @@ public class Inventory : MonoBehaviour
 
     public void TryOpenSelection(Enums.ItemType _itemType, Vector3 Vec)
     {
-        
         if(inventoryActivated && !DivisionActivated && !SelectionActivated)
         {
-            Debug.Log("선택창 띄우기");
             OpenSelection(_itemType,Vec);
         }
 
@@ -127,13 +126,13 @@ public class Inventory : MonoBehaviour
         if (_itemType == Enums.ItemType.supply_Item || _itemType == Enums.ItemType.Production_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Use.SetActive(true);
-            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
         }
         else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
         {
             SelectParent.GetComponent<Selection>().selection_Equipt.SetActive(true);
-            SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
         }
+        SelectParent.GetComponent<Selection>().selection_Register.SetActive(true);
+        SelectParent.GetComponent<Selection>().selection_Throw.SetActive(true);
     }
 
     public void CloseSelection()
@@ -222,6 +221,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //====
+    //버튼 기능
     public void SelectionEquipt_Button()
     {
         Equipt(curSlot.item);
@@ -236,6 +237,19 @@ public class Inventory : MonoBehaviour
         SelectionActivated = !SelectionActivated;
         curSlot = null;
     }
+    public void SelectionThrow_Button()
+    {
+        //Throw(curSlot.item);
+        //tryOpenThrow
+        Debug.Log("버리기");
+        SelectParent.GetComponent<Selection>().Selection_AllOff();
+        SelectionActivated = !SelectionActivated;
+        curSlot = null;
+    }
+
+    //====
+
+
     public void QuickSlotUse(QuickSlot _quickSlot)
     {
         if(_quickSlot.item != null) Use(_quickSlot.item, _quickSlot);
