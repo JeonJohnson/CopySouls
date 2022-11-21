@@ -154,6 +154,7 @@ public class SelectionProcess : MonoBehaviour
         if (_curSlot.item.itemType == Enums.ItemType.Production_Item)
         {
             Debug.Log("상호 작용!");
+            _curSlot.item.PlayFuncs();
         }
         else if (_curSlot.item.itemType == Enums.ItemType.supply_Item)
         {

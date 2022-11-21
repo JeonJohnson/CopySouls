@@ -15,6 +15,10 @@ public class Player_Interacting : Player_cState
         {
             PlayerLocomove.instance.Move();
         }
+        else
+        {
+            PlayerLocomove.instance.isMove = false;
+        }
     }
 
     public override void ExitState()

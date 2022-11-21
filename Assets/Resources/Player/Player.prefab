@@ -208,7 +208,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   status:
-    name: Sword
+    name: Just Normal Sword
     type: 0
     range: 0
     price: 10
@@ -225,11 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659c15f82d53d4c4ab736edd63cad29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objName: 0
-  ObjectType: 0
+  objName: 4
+  ObjectType: 2
   rigid: {fileID: 0}
-  itemType: 0
-  itemImage: {fileID: 21300000, guid: 3caf6d932cf9d4d43ae3229969abea6c, type: 3}
+  itemType: 2
+  itemImage: {fileID: 21300000, guid: 7c11da5b01c892f4996d1689aa293e83, type: 3}
   weapon: {fileID: 1189113979338820134}
 --- !u!136 &2661690400710338373
 CapsuleCollider:
@@ -2443,6 +2443,7 @@ MonoBehaviour:
   animator: {fileID: 7030777313876229777}
   spine3Tr: {fileID: 7030777313883107055}
   headTr: {fileID: 7030777313883104995}
+  handTr: {fileID: 7030777313883182563}
   modelColliders: []
   status:
     name: player

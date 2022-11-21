@@ -25,6 +25,7 @@ public class Item_Weapon : Item
 
     public override void PlayFuncs()
     {
-        
+        gameObject.tag = "Weapon";
+        gameObject.layer = LayerMask.NameToLayer("PlayerWeapon");
     }
 }

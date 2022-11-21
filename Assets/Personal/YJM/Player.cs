@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     public Transform spine3Tr;
     public Transform headTr;
+    public Transform handTr;
     [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
