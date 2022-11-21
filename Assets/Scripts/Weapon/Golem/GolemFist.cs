@@ -34,7 +34,6 @@ public class GolemFist : Weapon
 
 
 
-
 	public override void OnTriggerEnter(Collider other)
 	{
 		base.OnTriggerEnter(other);

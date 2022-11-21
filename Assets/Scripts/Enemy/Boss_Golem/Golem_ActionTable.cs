@@ -97,6 +97,7 @@ public class Golem_ActionTable : MonoBehaviour
 	[Header("Weapons")]
 	public int rockThrowDmg;
 	public RockFrag rockScript;
+	public int fistDmg;
 	public GolemFist[] fistScript;
 
 
@@ -122,12 +123,31 @@ public class Golem_ActionTable : MonoBehaviour
 		rockScript.golemRightHandTr = golem.rightHandBoneTr;
 		rockScript.golemLeftHandTr = golem.leftHandBoneTr;
 	}
+	public void AimRockEvent()
+	{
+		rockScript.Aiming();
+	}
 	public void ThrowRockEvent()
 	{
 		rockScript.dir = (golem.targetObj.transform.position - rockScript.transform.position).normalized;
 		rockScript.Throw();
 		rockScript = null;
 	}
+
+	public void LeftHandCol(int val)
+	{
+		fistScript[Defines.left].WeaponColliderOnOff(val);
+	}
+	public void RightHandCol(int val)
+	{
+		fistScript[Defines.right].WeaponColliderOnOff(val);
+	}
+	public void BothHandCol(int val)
+	{
+		LeftHandCol(val);
+		RightHandCol(val);
+	}
+
 	#endregion
 	//public void OrganizeStatePerCost()
 	//{
@@ -158,8 +178,11 @@ public class Golem_ActionTable : MonoBehaviour
 
 	public void Start()
 	{
-		//InitMoveFsm();
-		//OrganizeStatePerCost();
+		foreach (GolemFist fist in fistScript)
+		{
+			fist.owner = gameObject;
+			fist.Dmg = fistDmg;
+		}
 	}
 
 	public void Update()

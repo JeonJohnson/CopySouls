@@ -7,6 +7,7 @@ public class RockFrag : Weapon, IPoolingObject
 	enum eState
 	{ 
 		PickUp,
+		Aiming,
 		Throw,
 		End
 	}
@@ -33,6 +34,11 @@ public class RockFrag : Weapon, IPoolingObject
 		dir = Vector3.zero;
 	}
 
+	public void Aiming()
+	{
+		curState = eState.Aiming;
+	
+	}
 	public void Throw()
 	{
 		curState = eState.Throw;
@@ -62,6 +68,11 @@ public class RockFrag : Weapon, IPoolingObject
 		switch (curState)
 		{
 			case eState.PickUp:
+				{
+					transform.position = golemRightHandTr.position;
+				}
+				break;
+			case eState.Aiming:
 				{
 					Vector3 pos = Vector3.Lerp(golemLeftHandTr.position, golemRightHandTr.position, 0.5f);
 					transform.position = pos;

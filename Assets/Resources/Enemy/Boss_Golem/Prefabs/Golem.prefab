@@ -155,13 +155,13 @@ MonoBehaviour:
     maxHp: 1000
     curHp: 1000
     maxStamina: 10
-    curStamina: 1
+    curStamina: 10
     maxMp: 0
     curMp: 0
     moveSpd: 3
     runSpd: 0
     moveMileage: 0
-    atkRange: 4
+    atkRange: 5
     patrolRange: 0
     ricognitionRange: 30
     fovAngle: 360
@@ -212,8 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc162608272094e9c2bcf52b1c4e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockThrowDmg: 0
+  rockThrowDmg: 10
   rockScript: {fileID: 0}
+  fistDmg: 3
   fistScript:
   - {fileID: 4783900925492734397}
   - {fileID: 181847462544556577}
@@ -612,7 +613,7 @@ SphereCollider:
   m_GameObject: {fileID: 1814817405527308074}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: -1, y: 0, z: 0}
@@ -1218,7 +1219,7 @@ SphereCollider:
   m_GameObject: {fileID: 1814817405527308106}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: -1, y: 0, z: 0}
