@@ -13,8 +13,12 @@ public class ThrowingProcess : MonoBehaviour
     public GameObject ThrowAll_Button;
     public GameObject ThrowCancel_Button;
 
+    private Vector3 initPos = new Vector2(683.0f,297.5f);
+
     public void TryOpenThrow()
     {
+        if (transform.position != initPos) transform.position = initPos;
+
         if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
         {
             ThrowingActivated = !ThrowingActivated;
@@ -23,6 +27,20 @@ public class ThrowingProcess : MonoBehaviour
         }
         else return;
     }
+
+    public void TryOpenThrow(Vector3 vec)
+    {
+        gameObject.transform.position = vec;
+        Debug.Log(gameObject.GetComponent<RectTransform>().anchoredPosition);
+        if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
+        {
+            ThrowingActivated = !ThrowingActivated;
+            if (ThrowingActivated) OpenThrow();
+            else CloseThrow();
+        }
+        else return;
+    }
+
     private void OpenThrow()
     {
         gameObject.SetActive(true);
@@ -85,8 +103,9 @@ public class ThrowingProcess : MonoBehaviour
 
     private void Throw(Slot _curSlot, int _itemCount)
     {
+        if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-_itemCount);
+
         Debug.Log(_curSlot.item.objName + " " + _itemCount + "개 버리기");
         _curSlot.SetSlotCount(-_itemCount);
     }
-
 }

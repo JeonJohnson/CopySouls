@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Structs;
 
 public class Inventory : MonoBehaviour
 {
@@ -35,22 +36,31 @@ public class Inventory : MonoBehaviour
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
-        if (inventoryActivated) OpenInventory();
-        else CloseInventory();
+        if (inventoryActivated)
+        {
+            OpenInventory();
+        }
+        else
+        {
+            CloseInventory();
+        }
     }
     private void OpenInventory()
     {
-        if (!DivisionProcess.DivisionActivated)
+        if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
+            Player.instance.ActivatePlayerInput(false);
         }
     }
     private void CloseInventory()
     {
-        if (!DivisionProcess.DivisionActivated)
+        if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             if (SelectionProcess.SelectionActivated) SelectionParent.CloseSelection();
             InventoryBase.SetActive(false);
+            Player.instance.ActivatePlayerInput(true);
+            inventoryActivated = false;
         }
         else
         {
@@ -68,6 +78,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (slots[i].item.objName == _item.objName)
                     {
+                        if (slots[i].isQuick) slots[i].curRegisterQuickSlot.SetSlotCount_q(_count);
                         slots[i].SetSlotCount(_count);
                         return true;
                     }
@@ -101,15 +112,6 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    //public void Exit_Inventory_Button()
-    //{
-    //    if (inventoryActivated && !DivisionActivated)
-    //    {
-    //        if (SelectionActivated) CloseSelection();
-    //        if (!DivisionActivated) InventoryBase.SetActive(false);
-    //    }
-    //}
-
     public void Button_InventoryExit()
     {
         if (!DivisionProcess.DivisionActivated)
@@ -122,23 +124,4 @@ public class Inventory : MonoBehaviour
             Debug.Log("분할창 켜져있음");
         }
     }
-
-    public Slot FindRegisterSlotFromInventory(QuickSlot _quickSlot)
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].isQuick)
-            {
-                if(_quickSlot.item == slots[i].item)
-                {
-                    return slots[i];
-                }
-            }
-        }
-        return null;
-    }
-    //public void QuickSlotUse(QuickSlot _quickSlot)
-    //{
-    //    if (_quickSlot.item != null) Use(_quickSlot.item, _quickSlot);
-    //}
 }

@@ -13,13 +13,20 @@ public class Player_Move : Player_cState
     }
     public override void UpdateState()
     {
+        PlayerLocomove.instance.Move();
+
+        if (PlayerLocomove.instance.isRun == false)
+        {
+            PlayerActionTable.instance.UpdateStamina();
+        }
+
+        if (Player.instance.status.isInputtable == false) return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             PlayerActionTable.instance.Interaction();
         }
         PlayerActionTable.instance.NearObjectSearch();
-        PlayerLocomove.instance.Move();
-
 
         if (PlayerActionTable.instance.StaminaCheck() == true)
         {
@@ -53,12 +60,6 @@ public class Player_Move : Player_cState
                 }
             }
             PlayerActionTable.instance.Guard();
-        }
-
-
-        if(PlayerLocomove.instance.isRun == false)
-        {
-            PlayerActionTable.instance.UpdateStamina();
         }
     }
 

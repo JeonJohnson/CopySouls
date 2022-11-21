@@ -13,6 +13,8 @@ public class Player_Atk : Player_cState
     }
     public override void UpdateState()
     {
+        if (Player.instance.status.isInputtable == false) return;
+
         if (PlayerActionTable.instance.StaminaCheck() == true)
         {
             if (PlayerActionTable.instance.isComboCheck == true)

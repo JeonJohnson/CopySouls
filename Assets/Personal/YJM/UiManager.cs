@@ -34,6 +34,13 @@ public class UiManager : Manager<UiManager>
     {
         UI_KeyboardShortcut();
     }
+    void TestMakeHpBar()
+    {
+        for (int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
+        {
+            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
+        }
+    }
 
     //UI단축키
     public void UI_KeyboardShortcut()
@@ -43,33 +50,55 @@ public class UiManager : Manager<UiManager>
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
                 //분할창 끄기
-                //Inventory.Instance.Exit_Division_Button();
+                Inventory.Instance.DivisionParent.Button_DivisionCancel();
             }
-            //else if (Inventory.inventoryActivated && !Inventory.DivisionActivated)
-            //{
-            //    //인벤토리 창 끄기
-            //    Inventory.Instance.Exit_Inventory_Button();
-            //}
+            else if (Inventory.inventoryActivated && ThrowingProcess.ThrowingActivated)
+            {
+                //버리기 창 끄기
+                Inventory.Instance.ThrowingParent.Button_ThrowCancel();
+            }
+            else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
+            {
+                //인벤토리 창 끄기
+                Inventory.Instance.Button_InventoryExit();
+                if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            //분할 ENTER적용
-            //Inventory.Instance.Division_Button();
+            if(DivisionProcess.DivisionActivated)
+            {
+                //분할 ENTER적용
+                Inventory.Instance.DivisionParent.Button_Division();
+            }
+            else if (ThrowingProcess.ThrowingActivated)
+            {
+                //버리기 ENTER적용
+                Inventory.Instance.ThrowingParent.Button_Throw();
+            }
         }
 
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) Inventory.Instance.QuickSlotUse(quickSlot1);
-        //else if (Input.GetKeyDown(KeyCode.Alpha2)) Inventory.Instance.QuickSlotUse(quickSlot2);
-        //else if (Input.GetKeyDown(KeyCode.Alpha3)) Inventory.Instance.QuickSlotUse(quickSlot3);
-        //else if (Input.GetKeyDown(KeyCode.Alpha4)) Inventory.Instance.QuickSlotUse(quickSlot4);
-    }
-
-
-
-    void TestMakeHpBar()
-    {
-        for(int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot1.QuickSlotUse();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot2.QuickSlotEquipt();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot3.QuickSlotUse();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot4.QuickSlotEquipt();
         }
     }
+
+    
 }

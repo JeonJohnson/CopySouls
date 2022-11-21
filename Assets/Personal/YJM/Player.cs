@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     public Transform spine3Tr;
     public Transform headTr;
+    public Transform handTr;
     [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
         InitializeState();
         ColliderSetting();
         SetPlayerWeapon();
+        status.isInputtable = true;
     }
     #endregion
 
@@ -72,7 +74,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //RigidBodySetting();
-        
     }
 
     // Update is called once per frame
@@ -88,7 +89,6 @@ public class Player : MonoBehaviour
         {
             if (Inventory.Instance.InventoryBase.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.Locked;
                 Inventory.Instance.TryOpenInventory();
                 
                 //Inventory.Instance.InventoryBase.SetActive(false);
@@ -96,11 +96,24 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Confined;
                 Inventory.Instance.TryOpenInventory();
                 //Inventory.Instance.InventoryBase.SetActive(true);
                 //Inventory.inventoryActivated = true;
             }
+        }
+    }
+
+    public void ActivatePlayerInput(bool b)
+    {
+        if(b == true)
+        {
+            Player.instance.status.isInputtable = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Player.instance.status.isInputtable = false;
+            Cursor.lockState = CursorLockMode.Confined;
         }
     }
 
