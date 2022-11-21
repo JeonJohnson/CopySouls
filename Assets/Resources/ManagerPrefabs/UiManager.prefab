@@ -8089,7 +8089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6533659661822679938, guid: ea6d5c0e663acec42aa18a08707ed5c6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Exit_Inventory_Button
+      value: TryOpenInventory
       objectReference: {fileID: 0}
     - target: {fileID: 6533659661822679938, guid: ea6d5c0e663acec42aa18a08707ed5c6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
