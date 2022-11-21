@@ -92,7 +92,7 @@ public class SelectionProcess : MonoBehaviour
                         UiManager.Instance.quickSlot1.invenSlot.SetRegister(false);
                     }
                 }
-                UiManager.Instance.quickSlot1.AddRegister(_slot, _slot.item, _slot.itemCount);
+                UiManager.Instance.quickSlot1.AddRegister(_slot, _slot.item, _slot.itemCount, UiManager.Instance.quickSlot1);
             }
             else if (_slot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
             {
@@ -103,7 +103,7 @@ public class SelectionProcess : MonoBehaviour
                         UiManager.Instance.quickSlot2.invenSlot.SetRegister(false);
                     }
                 }
-                UiManager.Instance.quickSlot2.AddRegister(_slot, _slot.item, _slot.itemCount);
+                UiManager.Instance.quickSlot2.AddRegister(_slot, _slot.item, _slot.itemCount, UiManager.Instance.quickSlot2);
             }
             else if (_slot.item.itemType == Enums.ItemType.supply_Item)
             {
@@ -114,7 +114,7 @@ public class SelectionProcess : MonoBehaviour
                         UiManager.Instance.quickSlot3.invenSlot.SetRegister(false);
                     }
                 }
-                UiManager.Instance.quickSlot3.AddRegister(_slot, _slot.item, _slot.itemCount);
+                UiManager.Instance.quickSlot3.AddRegister(_slot, _slot.item, _slot.itemCount, UiManager.Instance.quickSlot3);
             }
             else if (_slot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
             {
@@ -125,7 +125,7 @@ public class SelectionProcess : MonoBehaviour
                         UiManager.Instance.quickSlot4.invenSlot.SetRegister(false);
                     }
                 }
-                UiManager.Instance.quickSlot4.AddRegister(_slot, _slot.item, _slot.itemCount);
+                UiManager.Instance.quickSlot4.AddRegister(_slot, _slot.item, _slot.itemCount, UiManager.Instance.quickSlot4);
             }
         }
     }

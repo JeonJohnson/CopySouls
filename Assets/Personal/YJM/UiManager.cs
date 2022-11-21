@@ -34,6 +34,13 @@ public class UiManager : Manager<UiManager>
     {
         UI_KeyboardShortcut();
     }
+    void TestMakeHpBar()
+    {
+        for (int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
+        {
+            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
+        }
+    }
 
     //UI단축키
     public void UI_KeyboardShortcut()
@@ -59,23 +66,23 @@ public class UiManager : Manager<UiManager>
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            //분할 ENTER적용
-            Inventory.Instance.DivisionParent.Button_Division();
+            if(DivisionProcess.DivisionActivated)
+            {
+                //분할 ENTER적용
+                Inventory.Instance.DivisionParent.Button_Division();
+            }
+            else if (ThrowingProcess.ThrowingActivated)
+            {
+                //버리기 ENTER적용
+                Inventory.Instance.ThrowingParent.Button_Throw();
+            }
         }
 
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) Inventory.Instance.QuickSlotUse(quickSlot1);
-        //else if (Input.GetKeyDown(KeyCode.Alpha2)) Inventory.Instance.QuickSlotUse(quickSlot2);
-        //else if (Input.GetKeyDown(KeyCode.Alpha3)) Inventory.Instance.QuickSlotUse(quickSlot3);
-        //else if (Input.GetKeyDown(KeyCode.Alpha4)) Inventory.Instance.QuickSlotUse(quickSlot4);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) quickSlot1.QuickSlotUse();
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) quickSlot2.QuickSlotEquipt();
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) quickSlot3.QuickSlotUse();
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) quickSlot4.QuickSlotEquipt();
     }
 
-
-
-    void TestMakeHpBar()
-    {
-        for(int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
-        {
-            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
-        }
-    }
+    
 }

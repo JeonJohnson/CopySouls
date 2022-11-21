@@ -16,14 +16,19 @@ public class QuickSlot : MonoBehaviour
     {
         if (_item.itemType == OnlyType)
         {
-            AddRegister(_invenSlot,_item, _itemCount);
+            //AddRegister(_invenSlot,_item, _itemCount);
         }
     }
-    public void AddRegister(Slot _invenSlot, Item _item, int _itemCount)
+    public void AddRegister(Slot _invenSlot, Item _item, int _itemCount,QuickSlot _quickSlot)
     {
-        if(invenSlot != null) invenSlot.SetRegister(false);
+        if (invenSlot != null)
+        {
+            invenSlot.SetRegister(false);
+            invenSlot.curRegisterQuickSlot = null;
+        }
         invenSlot = _invenSlot;
         _invenSlot.SetRegister(true);
+        _invenSlot.curRegisterQuickSlot = _quickSlot;
         item = _item;
         Item_Image.sprite = _item.itemImage;
         itemCount = _itemCount;
@@ -54,5 +59,19 @@ public class QuickSlot : MonoBehaviour
         Item_Image.sprite = null;
         SetColor_q(0);
         ItemCount_Text.text = "";
+    }
+    public void QuickSlotUse()
+    {
+        if (item != null)
+        {
+            Inventory.Instance.SelectionParent.Use(item,this);
+        }
+    }
+    public void QuickSlotEquipt()
+    {
+        if (item != null)
+        {
+            Inventory.Instance.SelectionParent.Equipt(item);
+        }
     }
 }

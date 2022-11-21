@@ -12,7 +12,6 @@ public class ThrowingProcess : MonoBehaviour
     public GameObject Throw_Button;
     public GameObject ThrowAll_Button;
     public GameObject ThrowCancel_Button;
-
     public void TryOpenThrow()
     {
         if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
@@ -57,6 +56,8 @@ public class ThrowingProcess : MonoBehaviour
     {
         if (Inventory.Instance.curSlot == null) return;
 
+        
+
         if (ThrowInputField.text != "")
         {
             int ThrowCount = int.Parse(ThrowInputField.text);
@@ -98,8 +99,9 @@ public class ThrowingProcess : MonoBehaviour
 
     private void Throw(Slot _curSlot, int _itemCount)
     {
+        //if(_curSlot.isQuick) _curSlot
+
         Debug.Log(_curSlot.item.objName + " " + _itemCount + "개 버리기");
         _curSlot.SetSlotCount(-_itemCount);
     }
-
 }

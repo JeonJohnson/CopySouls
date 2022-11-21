@@ -32,6 +32,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     private Text Register_Text;
 
     public bool isQuick;
+    public QuickSlot curRegisterQuickSlot;
 
     void Start()
     {
@@ -64,7 +65,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     {
         itemCount += _count;
         text_Count.text = itemCount.ToString();
-        if (itemCount <= 0) ClearSlot();
+        if (itemCount <= 0)
+        {
+            if (isQuick) SetRegister(false);
+            ClearSlot();
+        }
     }
 
     public void SetRegister(bool value)
@@ -187,6 +192,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         quickSlot.DragRegister(Inventory.Instance.curSlot,DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
                         DragSlot.instance.SetColor(0);
                         DragSlot.instance.dragSlot = null;
+                        Inventory.Instance.curSlot = null;
                     }
                     else
                     {
@@ -198,11 +204,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 {
                     Inventory.Instance.ThrowingParent.TryOpenThrow(eventData.position);
                     DragSlot.instance.SetColor(0);
-                    DragSlot.instance.dragSlot = null;
+                    //DragSlot.instance.dragSlot = null;
                     //ClearSlot();
                 }
             }
-            Inventory.Instance.curSlot = null;
+            //Inventory.Instance.curSlot = null;
         }
     }
 
@@ -260,18 +266,31 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if(!isQuick)
             {
-                UiManager.Instance.quickSlot1.invenSlot = this;
                 SetRegister(true);
                 DragSlot.instance.dragSlot.SetRegister(false);
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = this;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
+            }
+            else
+            {
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
             }
         }
         else
         {
             if(isQuick)
             {
-                UiManager.Instance.quickSlot1.invenSlot = DragSlot.instance.dragSlot;
                 SetRegister(false);
                 DragSlot.instance.dragSlot.SetRegister(true);
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = curRegisterQuickSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
+                curRegisterQuickSlot = null;
             }
         } 
 

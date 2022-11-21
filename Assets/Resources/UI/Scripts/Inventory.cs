@@ -107,15 +107,6 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    //public void Exit_Inventory_Button()
-    //{
-    //    if (inventoryActivated && !DivisionActivated)
-    //    {
-    //        if (SelectionActivated) CloseSelection();
-    //        if (!DivisionActivated) InventoryBase.SetActive(false);
-    //    }
-    //}
-
     public void Button_InventoryExit()
     {
         if (!DivisionProcess.DivisionActivated)
@@ -143,8 +134,5 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
-    //public void QuickSlotUse(QuickSlot _quickSlot)
-    //{
-    //    if (_quickSlot.item != null) Use(_quickSlot.item, _quickSlot);
-    //}
+    
 }

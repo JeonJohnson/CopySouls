@@ -1536,6 +1536,7 @@ MonoBehaviour:
   Throw_Button: {fileID: 4739335511963234614}
   ThrowAll_Button: {fileID: 4207401738012702406}
   ThrowCancel_Button: {fileID: 7429216986961397669}
+  initPos: {fileID: 0}
 --- !u!1 &3757497869192792793
 GameObject:
   m_ObjectHideFlags: 0
