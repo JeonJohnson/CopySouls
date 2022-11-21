@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1989159238663227869}
   - component: {fileID: 6519643691989843963}
   - component: {fileID: 9201923820778953084}
-  - component: {fileID: 154332038774583283}
   - component: {fileID: 827385437278117644}
+  - component: {fileID: 6415314603246979312}
   m_Layer: 12
   m_Name: RockFrag
   m_TagString: EnemyWeapon
@@ -83,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &154332038774583283
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786422314430456112}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.25
-  m_Center: {x: 0.011300266, y: -0.0074473936, z: -0.017131448}
 --- !u!114 &827385437278117644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,10 +101,26 @@ MonoBehaviour:
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   EnemyLayer:
     serializedVersion: 2
-    m_Bits: 0
-  spd: 2
+    m_Bits: 2560
+  rd: {fileID: 0}
+  spd: 30
   golemRightHandTr: {fileID: 0}
+  golemLeftHandTr: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
+--- !u!136 &6415314603246979312
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786422314430456112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.75
+  m_Height: 2.4
+  m_Direction: 0
+  m_Center: {x: 0.011300027, y: -0.0074473917, z: -0.017131329}

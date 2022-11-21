@@ -92,10 +92,13 @@ public class Golem_ActionTable : MonoBehaviour
 
 	public Coroutine decisionCoroutine = null;
 
-	public RockFrag rockScript;
-	//string rotateAnimName;
 
 	bool isLookAt = false;
+	[Header("Weapons")]
+	public int rockThrowDmg;
+	public RockFrag rockScript;
+	public GolemFist[] fistScript;
+
 
 	#region animationEvents
 
@@ -107,15 +110,23 @@ public class Golem_ActionTable : MonoBehaviour
 	public void PickupRockEvent()
 	{
 		GameObject rock = ObjectPoolingCenter.Instance.LentalObj("RockFrag");
+		if (!rock)
+		{
+			Debug.LogError("돌덩이 읎는디요");
+		}
 		rockScript = rock.GetComponent<RockFrag>();
 		rockScript.owner = this.gameObject;
+		rockScript.Dmg = rockThrowDmg;
+
+		rock.transform.rotation = Random.rotation;
 		rockScript.golemRightHandTr = golem.rightHandBoneTr;
+		rockScript.golemLeftHandTr = golem.leftHandBoneTr;
 	}
 	public void ThrowRockEvent()
 	{
 		rockScript.dir = (golem.targetObj.transform.position - rockScript.transform.position).normalized;
 		rockScript.Throw();
-
+		rockScript = null;
 	}
 	#endregion
 	//public void OrganizeStatePerCost()

@@ -6,7 +6,7 @@ public class Golem_ForwardAtk_3Hit : cGolemState
 {
 	public Golem_ForwardAtk_3Hit(int cost) : base(cost)
 	{
-
+		atkType = eGolemStateAtkType.MiddleAtk;
 	}
 
 	string animName;

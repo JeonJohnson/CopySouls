@@ -15,6 +15,7 @@ public class Golem : Enemy
 	public GameObject rootObj;
 	public Transform headBoneTr;
 	public Transform rightHandBoneTr;
+	public Transform leftHandBoneTr;
 	private Golem_Frag fragScript;
 	public Golem_Frag FragScript
 	{
@@ -42,6 +43,9 @@ public class Golem : Enemy
 	public float rangeAtkRange;
 	public float decisionTime;
 
+	
+
+
 	public void SearchTarget()
 	{
 		if (!targetObj)
@@ -56,6 +60,7 @@ public class Golem : Enemy
 	{
 		headBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.Head);
 		rightHandBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.RightHand);
+		leftHandBoneTr = animCtrl.GetBoneTransform(HumanBodyBones.LeftHand);
 	}
 
 	public override void DeathReset()

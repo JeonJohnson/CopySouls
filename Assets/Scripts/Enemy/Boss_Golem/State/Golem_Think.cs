@@ -99,6 +99,7 @@ public class Golem_Think : cGolemState
 			}
 			else
 			{
+				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
 				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
 			}
 		}

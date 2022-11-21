@@ -1,0 +1,597 @@
+fileFormatVersion: 2
+guid: c98d63c7e14e696459221dbfb5ebaae5
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Mutant Jump Attack
+  - first:
+      74: -203655887218126122
+    second: mixamo.com
+  - first:
+      74: -3412118355008324347
+    second: JumpAttack
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: JumpAttack
+      takeName: mixamo.com
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 111
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: mixamo.com
+      takeName: mixamo.com
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 111
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: GOLEM_ Pelvis
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Thigh
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Thigh
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Calf
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Calf
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Foot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Clavicle
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Clavicle
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L UpperArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R UpperArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Forearm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Forearm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Hand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Hand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger0
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger01
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger11
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger2
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ L Finger21
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger0
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger01
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger11
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger2
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GOLEM_ R Finger21
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: SK_Golem@Mutant Jump Attack(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0.0065870583, z: 0, w: 0.9999783}
+      scale: {x: 1, y: 1, z: 1}
+    - name: root
+      parentName: SK_Golem@Mutant Jump Attack(Clone)
+      position: {x: 0.03996646, y: -0.36634994, z: 0.29281095}
+      rotation: {x: -0.708566, y: -0.0024582872, z: 0.011743145, w: 0.70554256}
+      scale: {x: 1, y: 1, z: 1}
+    - name: GOLEM_
+      parentName: root
+      position: {x: -0, y: 0.24499999, z: 1.992}
+      rotation: {x: 0, y: 0, z: 0.7071062, w: 0.70710737}
+      scale: {x: 1, y: 1, z: 1}
+    - name: GOLEM_ Pelvis
+      parentName: GOLEM_
+      position: {x: -0.0015886746, y: -0.00722812, z: 0.36035097}
+      rotation: {x: 0.49272823, y: -0.4971563, z: -0.50063163, w: -0.5093354}
+      scale: {x: 0.99999976, y: 1, z: 0.99999994}
+    - name: GOLEM_ L Thigh
+      parentName: GOLEM_ Pelvis
+      position: {x: 0.00000061035155, y: 0.000000705719, z: 0.43761054}
+      rotation: {x: -0.104636416, y: 0.98838246, z: 0.07683732, w: 0.07904061}
+      scale: {x: 0.99999964, y: 1.0000001, z: 0.99999964}
+    - name: GOLEM_ L Calf
+      parentName: GOLEM_ L Thigh
+      position: {x: -0.9880496, y: 0, z: 0}
+      rotation: {x: -0.00000010430813, y: -0.000000029802322, z: 0.32929933, w: 0.94422567}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.9999999}
+    - name: GOLEM_ L Foot
+      parentName: GOLEM_ L Calf
+      position: {x: -0.76858383, y: 0.000000038146972, z: 0}
+      rotation: {x: -0.042180028, y: 0.039403174, z: -0.21293168, w: 0.97536063}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: GOLEM_ Spine
+      parentName: GOLEM_ Pelvis
+      position: {x: -0.3138469, y: -0.00040922163, z: 0.00000043581036}
+      rotation: {x: -0.0000019669533, y: -0.0000005662441, z: -0.107191026, w: 0.9942385}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000006}
+    - name: GOLEM_ Spine1
+      parentName: GOLEM_ Spine
+      position: {x: -0.52609605, y: -0.00071281433, z: -0.0000000019770232}
+      rotation: {x: -0, y: -0, z: -0.000000044703484, w: 1}
+      scale: {x: 0.99999976, y: 1.0000004, z: 1.0000001}
+    - name: GOLEM_ L Clavicle
+      parentName: GOLEM_ Spine1
+      position: {x: -0.9279925, y: -0.000026779175, z: 0.30193138}
+      rotation: {x: -0.58208054, y: -0.021399392, z: 0.8127258, w: 0.014181892}
+      scale: {x: 0.9999994, y: 0.999999, z: 0.99999976}
+    - name: GOLEM_ L UpperArm
+      parentName: GOLEM_ L Clavicle
+      position: {x: -0.6377217, y: 0, z: 0.00000030517577}
+      rotation: {x: -0.041455045, y: 0.13164584, z: 0.028702129, w: 0.99001366}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1}
+    - name: GOLEM_ L Forearm
+      parentName: GOLEM_ L UpperArm
+      position: {x: -0.9314484, y: 0.000000076293944, z: 0}
+      rotation: {x: -0.011260939, y: 0.028227024, z: 0.030620176, w: 0.99906904}
+      scale: {x: 1, y: 1.0000002, z: 1.0000004}
+    - name: GOLEM_ L Hand
+      parentName: GOLEM_ L Forearm
+      position: {x: -0.9153779, y: 0, z: 0.00000030517577}
+      rotation: {x: 0.66584104, y: -0.02863463, z: -0.03449394, w: -0.7447456}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.000001}
+    - name: GOLEM_ L Finger0
+      parentName: GOLEM_ L Hand
+      position: {x: -0.37103605, y: 0.117603146, z: -0.40530914}
+      rotation: {x: -0.70215034, y: 0.17479481, z: -0.21524826, w: -0.65582}
+      scale: {x: 0.9999996, y: 1.0000006, z: 1.0000005}
+    - name: GOLEM_ L Finger01
+      parentName: GOLEM_ L Finger0
+      position: {x: -0.3347155, y: 0.00000015258789, z: 0}
+      rotation: {x: 0.00000008940697, y: -0.00000011920929, z: -0.2561384, w: 0.9666402}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000001}
+    - name: GOLEM_ L Finger1
+      parentName: GOLEM_ L Hand
+      position: {x: -0.8119711, y: -0.051022034, z: -0.19483688}
+      rotation: {x: 0.007274118, y: 0.08967243, z: -0.043197714, w: 0.9950075}
+      scale: {x: 0.99999976, y: 1, z: 1}
+    - name: GOLEM_ L Finger11
+      parentName: GOLEM_ L Finger1
+      position: {x: -0.35920805, y: 0, z: 0}
+      rotation: {x: 0.0000000074505797, y: 0.00000012665986, z: -0.02284164, w: 0.9997391}
+      scale: {x: 0.9999997, y: 1.0000005, z: 1.0000001}
+    - name: GOLEM_ L Finger2
+      parentName: GOLEM_ L Hand
+      position: {x: -0.83581614, y: -0.010671692, z: 0.24888603}
+      rotation: {x: -0.023776462, y: 0.12262494, z: -0.06654116, w: 0.9899344}
+      scale: {x: 0.99999976, y: 0.9999996, z: 1.0000001}
+    - name: GOLEM_ L Finger21
+      parentName: GOLEM_ L Finger2
+      position: {x: -0.2642987, y: -0.00000061035155, z: 0.00000019073485}
+      rotation: {x: -0.00000006705523, y: 0.000000029802326, z: -0.062303353, w: 0.9980573}
+      scale: {x: 1, y: 1.0000005, z: 1.0000008}
+    - name: GOLEM_ Neck
+      parentName: GOLEM_ Spine1
+      position: {x: -0.9445935, y: -0.047894362, z: 0.000000037570135}
+      rotation: {x: 0.00000002333341, y: 0.0000003180778, z: -0.13171253, w: 0.991288}
+      scale: {x: 0.9999992, y: 0.9999997, z: 0.9999997}
+    - name: GOLEM_ Head
+      parentName: GOLEM_ Neck
+      position: {x: -0.5278691, y: 0, z: 0}
+      rotation: {x: -0.000000029802322, y: -0.00000051409006, z: 0.16289681, w: 0.98664314}
+      scale: {x: 1.0000005, y: 1.000001, z: 1.0000004}
+    - name: GOLEM_ Queue de cheval 1
+      parentName: GOLEM_ Head
+      position: {x: 0.13160613, y: 0.19238907, z: 0.000001332245}
+      rotation: {x: -0.000000014477221, y: 0.0000020902623, z: -0.7432084, w: 0.66906}
+      scale: {x: 0.9999991, y: 1.0000014, z: 1.0000004}
+    - name: GOLEM_ R Clavicle
+      parentName: GOLEM_ Spine1
+      position: {x: -0.9279925, y: -0.000025100708, z: -0.30193138}
+      rotation: {x: -0.58208036, y: -0.021397393, z: -0.81272596, w: -0.014180258}
+      scale: {x: 1.0000005, y: 0.9999998, z: 1.0000002}
+    - name: GOLEM_ R UpperArm
+      parentName: GOLEM_ R Clavicle
+      position: {x: -0.63772184, y: 0.000000076293944, z: 0}
+      rotation: {x: 0.041455023, y: -0.13164616, z: 0.028702138, w: 0.9900136}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
+    - name: GOLEM_ R Forearm
+      parentName: GOLEM_ R UpperArm
+      position: {x: -0.9314485, y: -0.000000038146972, z: 0.00000030517577}
+      rotation: {x: -0.011260447, y: 0.028227095, z: -0.030620202, w: -0.999069}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000004}
+    - name: GOLEM_ R Hand
+      parentName: GOLEM_ R Forearm
+      position: {x: -0.9153779, y: -0.00000015258789, z: 0.00000030517577}
+      rotation: {x: 0.6658413, y: -0.028633598, z: 0.03449349, w: 0.74474543}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: GOLEM_ R Finger0
+      parentName: GOLEM_ R Hand
+      position: {x: -0.3710362, y: 0.117603146, z: 0.4053092}
+      rotation: {x: 0.7021502, y: -0.17479393, z: -0.2152496, w: -0.65581995}
+      scale: {x: 1, y: 1.0000001, z: 1.0000007}
+    - name: GOLEM_ R Finger01
+      parentName: GOLEM_ R Finger0
+      position: {x: -0.33471534, y: -0.00000015258789, z: 0}
+      rotation: {x: 0.00000017881388, y: -0.00000008940694, z: -0.2561383, w: 0.9666401}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000011}
+    - name: GOLEM_ R Finger1
+      parentName: GOLEM_ R Hand
+      position: {x: -0.8119714, y: -0.051022034, z: 0.19483703}
+      rotation: {x: -0.0072739413, y: -0.08967331, z: -0.043197423, w: 0.9950074}
+      scale: {x: 1.0000013, y: 1.0000012, z: 1.0000007}
+    - name: GOLEM_ R Finger11
+      parentName: GOLEM_ R Finger1
+      position: {x: -0.35920852, y: 0, z: 0.000000038146972}
+      rotation: {x: 0.00000004936008, y: -0.00000009685751, z: -0.02284155, w: 0.9997391}
+      scale: {x: 1.0000005, y: 1.0000008, z: 1}
+    - name: GOLEM_ R Finger2
+      parentName: GOLEM_ R Hand
+      position: {x: -0.8358168, y: -0.0106719965, z: -0.24888611}
+      rotation: {x: 0.023776408, y: -0.122627035, z: -0.066537894, w: 0.9899344}
+      scale: {x: 1.000001, y: 1.0000011, z: 1.0000008}
+    - name: GOLEM_ R Finger21
+      parentName: GOLEM_ R Finger2
+      position: {x: -0.26429823, y: 0, z: 0.00000015258789}
+      rotation: {x: -0.000000029802319, y: 0.0000000034924592, z: -0.062303327, w: 0.99805725}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: GOLEM_ R Thigh
+      parentName: GOLEM_ Pelvis
+      position: {x: -0.00000061035155, y: -0.0000005149841, z: -0.43761048}
+      rotation: {x: -0.10463606, y: 0.9883825, z: -0.07683892, w: -0.07903933}
+      scale: {x: 1.0000006, y: 0.99999976, z: 1.0000002}
+    - name: GOLEM_ R Calf
+      parentName: GOLEM_ R Thigh
+      position: {x: -0.98804975, y: 0, z: 0}
+      rotation: {x: -0.0000000074505797, y: -0.00000008940696, z: 0.32929936, w: 0.94422555}
+      scale: {x: 1.0000001, y: 1.0000002, z: 0.9999999}
+    - name: GOLEM_ R Foot
+      parentName: GOLEM_ R Calf
+      position: {x: -0.76858354, y: -0.000000038146972, z: 0}
+      rotation: {x: 0.0421801, y: -0.0394029, z: -0.21293192, w: 0.9753606}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
+    - name: SK_Golem
+      parentName: SK_Golem@Mutant Jump Attack(Clone)
+      position: {x: -0, y: 0, z: 0.0000000082756975}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 1
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
