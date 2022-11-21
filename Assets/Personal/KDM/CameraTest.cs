@@ -62,8 +62,8 @@ public class CameraTest : MonoBehaviour
 
     public void HandleAllCameraMovement()
     {
-        if (Inventory.inventoryActivated) return;
         FollowTarget();
+        if (Inventory.inventoryActivated) return;
         RotateCamera();
         HandleCameraCollisions();
     }

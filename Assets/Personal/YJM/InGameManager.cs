@@ -23,7 +23,7 @@ public class InGameManager : Manager<InGameManager>
         Player.instance.transform.position = startPos;
         PlayerLocomove.instance.cameraManager.gameObject.transform.position = startPos;
 
-        StartCoroutine(PlayPlayerStartAnim());
+        //StartCoroutine(PlayPlayerStartAnim());
     }
 
     IEnumerator PlayPlayerStartAnim()

@@ -80,12 +80,14 @@ public class PlayerLocomove : MonoBehaviour
 
 	public void Move()
     {
-        if (Inventory.inventoryActivated) return;
-
         SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         isMove = moveInput.magnitude != 0;
+        if(Inventory.inventoryActivated)
+        {
+            isMove = false;
+        }
         if (isMove)
         {
             Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
@@ -170,7 +172,7 @@ public class PlayerLocomove : MonoBehaviour
         else
         {
             //CameraRot();
-            cameraManager.RotateCamera();
+            //cameraManager.RotateCamera();
         }
     }
 
