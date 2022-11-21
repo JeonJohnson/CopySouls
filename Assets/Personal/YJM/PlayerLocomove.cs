@@ -103,6 +103,7 @@ public class PlayerLocomove : MonoBehaviour
         }
 
         playerModel.transform.position = this.transform.position;
+        if (Player.instance.status.isInputtable == false) return;
         SetPlayerTrInputHold();
     }
 

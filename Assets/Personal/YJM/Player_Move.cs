@@ -14,7 +14,6 @@ public class Player_Move : Player_cState
     public override void UpdateState()
     {
         PlayerLocomove.instance.Move();
-        Debug.Log("move");
 
         if (PlayerLocomove.instance.isRun == false)
         {

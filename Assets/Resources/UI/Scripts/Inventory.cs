@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
             InventoryBase.SetActive(true);
         }
     }
-    private void CloseInventory()
+    public void CloseInventory()
     {
         if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
