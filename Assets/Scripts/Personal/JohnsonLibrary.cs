@@ -735,8 +735,10 @@ namespace Structs
 		public bool isInvincible;
 		public bool isParrying;
 		public bool isGuard;
+		public bool isInputtable;
 
-		public float interactionRange;
+
+        public float interactionRange;
 
 		public GameObject mainWeapon;
 		public GameObject subWeapon;

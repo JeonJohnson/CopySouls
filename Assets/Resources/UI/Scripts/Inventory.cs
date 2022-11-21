@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Structs;
 
 public class Inventory : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class Inventory : MonoBehaviour
         if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
+            Player.instance.ActivatePlayerInput(false);
         }
     }
     private void CloseInventory()
@@ -57,6 +59,8 @@ public class Inventory : MonoBehaviour
         {
             if (SelectionProcess.SelectionActivated) SelectionParent.CloseSelection();
             InventoryBase.SetActive(false);
+            Player.instance.ActivatePlayerInput(true);
+            inventoryActivated = false;
         }
         else
         {
