@@ -221,6 +221,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         {
             if (DragSlot.instance.dragSlot != null)
             {
+                if (DragSlot.instance.dragSlot == this) return;
+
                 if (item != null)
                 {
                     if (DragSlot.instance.dragSlot.isQuick && !isQuick)
@@ -256,6 +258,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             }
         }
     }
+
+    //지 자신으로 옮기는거 널값 참조
+
     private void ChangeSlot()
     {
         if (DivisionProcess.DivisionActivated) return;
