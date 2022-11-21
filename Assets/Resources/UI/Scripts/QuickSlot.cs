@@ -16,7 +16,7 @@ public class QuickSlot : MonoBehaviour
     {
         if (_item.itemType == OnlyType)
         {
-            //AddRegister(_invenSlot,_item, _itemCount);
+            AddRegister(_invenSlot,_item, _itemCount, this);
         }
     }
     public void AddRegister(Slot _invenSlot, Item _item, int _itemCount,QuickSlot _quickSlot)
@@ -64,7 +64,7 @@ public class QuickSlot : MonoBehaviour
     {
         if (item != null)
         {
-            Inventory.Instance.SelectionParent.Use(item,this);
+            Inventory.Instance.SelectionParent.Use(invenSlot);
         }
     }
     public void QuickSlotEquipt()

@@ -119,20 +119,4 @@ public class Inventory : MonoBehaviour
             Debug.Log("분할창 켜져있음");
         }
     }
-
-    public Slot FindRegisterSlotFromInventory(QuickSlot _quickSlot)
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].isQuick)
-            {
-                if(_quickSlot.item == slots[i].item)
-                {
-                    return slots[i];
-                }
-            }
-        }
-        return null;
-    }
-    
 }

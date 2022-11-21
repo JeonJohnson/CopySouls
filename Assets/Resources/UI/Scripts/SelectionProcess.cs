@@ -9,6 +9,7 @@ public class SelectionProcess : MonoBehaviour
     public GameObject Equipt_Button;
     public GameObject Use_Button;
     public GameObject Register_Button;
+    public GameObject Deregistration_Button;
     public GameObject Throw_Button;
 
     public void Selection_AllOff()
@@ -18,18 +19,19 @@ public class SelectionProcess : MonoBehaviour
         Equipt_Button.SetActive(false);
         Use_Button.SetActive(false);
         Register_Button.SetActive(false);
+        Deregistration_Button.SetActive(false);
         Throw_Button.SetActive(false);
     }
 
-    public void TryOpenSelection(Enums.ItemType _itemType, Vector3 Vec)
+    public void TryOpenSelection(Slot curSlot,Enums.ItemType _itemType, Vector3 Vec)
     {
         if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !SelectionActivated)
         {
-            OpenSelection(_itemType, Vec);
+            OpenSelection(curSlot,_itemType, Vec);
         }
     }
 
-    public void OpenSelection(Enums.ItemType _itemType, Vector3 vec)
+    public void OpenSelection(Slot _curSlot,Enums.ItemType _itemType, Vector3 vec)
     {
         SelectionActivated = !SelectionActivated;
         gameObject.SetActive(true);
@@ -43,7 +45,10 @@ public class SelectionProcess : MonoBehaviour
         {
             Equipt_Button.SetActive(true);
         }
-        Register_Button.SetActive(true);
+
+        if (_curSlot.isQuick) Deregistration_Button.SetActive(true);
+        else Register_Button.SetActive(true);
+
         Throw_Button.SetActive(true);
     }
 
@@ -61,7 +66,7 @@ public class SelectionProcess : MonoBehaviour
     }
     public void Button_Use()
     {
-        Use(Inventory.Instance.curSlot.item);
+        Use(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
@@ -76,6 +81,13 @@ public class SelectionProcess : MonoBehaviour
     {
         Inventory.Instance.ThrowingParent.TryOpenThrow();
         Selection_AllOff();
+    }
+
+    public void Button_Deregistration()
+    {
+        Deregisteration(Inventory.Instance.curSlot);
+        Selection_AllOff();
+        Inventory.Instance.curSlot = null;
     }
 
     public void ButtonRegister(Slot _slot)
@@ -136,35 +148,25 @@ public class SelectionProcess : MonoBehaviour
         Debug.Log("장비!");
     }
 
-    public void Use(Item _item)
+    public void Use(Slot _curSlot)
     {
-        if (_item.itemType == Enums.ItemType.Production_Item)
+
+        if (_curSlot.item.itemType == Enums.ItemType.Production_Item)
         {
             Debug.Log("상호 작용!");
-            //UiManager.Instance.quickSlot1.SetSlotCount_q(-1);
         }
-        else if (_item.itemType == Enums.ItemType.supply_Item)
+        else if (_curSlot.item.itemType == Enums.ItemType.supply_Item)
         {
             Debug.Log("아이템 사용!");
-            //UiManager.Instance.quickSlot2.SetSlotCount_q(-1);
         }
-        Inventory.Instance.curSlot.SetSlotCount(-1);
+        if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-1);
+        _curSlot.SetSlotCount(-1);
     }
-    public void Use(Item _item, QuickSlot quickSlot)
+
+    public void Deregisteration(Slot _curSlot)
     {
-        if (_item.itemType == Enums.ItemType.Production_Item)
-        {
-            Debug.Log("상호 작용!");
-        }
-        else if (_item.itemType == Enums.ItemType.supply_Item)
-        {
-            Debug.Log("아이템 사용!");
-        }
-
-        Slot findSlot = Inventory.Instance.FindRegisterSlotFromInventory(quickSlot);
-        if (findSlot) findSlot.SetSlotCount(-1);
-        else Debug.Log("퀵에 등록된 아이템이 없음");
-
-        quickSlot.SetSlotCount_q(-1);
+        _curSlot.SetRegister(false);
+        _curSlot.curRegisterQuickSlot.ClearSlot_q();
+        _curSlot.curRegisterQuickSlot = null;
     }
 }

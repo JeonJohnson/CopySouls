@@ -62,7 +62,6 @@ public class UiManager : Manager<UiManager>
                 //인벤토리 창 끄기
                 Inventory.Instance.Button_InventoryExit();
             }
-            
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {

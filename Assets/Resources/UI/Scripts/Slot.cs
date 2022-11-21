@@ -115,7 +115,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 {
                     //Equipt(rightMouse)
                     //선택 창 띄우기(장비, 퀵등록)
-                    Inventory.Instance.SelectionParent.TryOpenSelection(item.itemType, eventData.position);
+                    Inventory.Instance.SelectionParent.TryOpenSelection(Inventory.Instance.curSlot, item.itemType, eventData.position);
                 }
                 else
                 {
@@ -133,7 +133,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                         if (item.itemType == Enums.ItemType.supply_Item || item.itemType == Enums.ItemType.Production_Item)
                         {
                             //use(rightMouse)
-                            Inventory.Instance.SelectionParent.TryOpenSelection(item.itemType, eventData.position);
+                            Inventory.Instance.SelectionParent.TryOpenSelection(Inventory.Instance.curSlot,item.itemType, eventData.position);
                         }
                         else return; 
                     }

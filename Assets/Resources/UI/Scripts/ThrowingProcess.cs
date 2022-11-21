@@ -99,7 +99,7 @@ public class ThrowingProcess : MonoBehaviour
 
     private void Throw(Slot _curSlot, int _itemCount)
     {
-        //if(_curSlot.isQuick) _curSlot
+        if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-_itemCount);
 
         Debug.Log(_curSlot.item.objName + " " + _itemCount + "개 버리기");
         _curSlot.SetSlotCount(-_itemCount);
