@@ -88,8 +88,6 @@ public class Player : MonoBehaviour
         {
             if (Inventory.Instance.InventoryBase.activeSelf)
             {
-                status.isInputtable = true;
-                Cursor.lockState = CursorLockMode.Locked;
                 Inventory.Instance.TryOpenInventory();
                 
                 //Inventory.Instance.InventoryBase.SetActive(false);
@@ -97,12 +95,24 @@ public class Player : MonoBehaviour
             }
             else
             {
-                status.isInputtable = false;
-                Cursor.lockState = CursorLockMode.Confined;
                 Inventory.Instance.TryOpenInventory();
                 //Inventory.Instance.InventoryBase.SetActive(true);
                 //Inventory.inventoryActivated = true;
             }
+        }
+    }
+
+    public void ActivatePlayerInput(bool b)
+    {
+        if(b == true)
+        {
+            Player.instance.status.isInputtable = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Player.instance.status.isInputtable = false;
+            Cursor.lockState = CursorLockMode.Confined;
         }
     }
 
