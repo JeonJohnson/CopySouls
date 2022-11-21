@@ -5,11 +5,15 @@ using UnityEngine.EventSystems;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+
+    public Vector2 diffVec;
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (Inventory.inventoryActivated == true)
         {
-            transform.position = eventData.position;
+            diffVec =  new Vector2(eventData.position.x - transform.position.x, eventData.position.y - transform.position.y);
+            transform.position = eventData.position - diffVec;
+            //transform.position = eventData.position;
         }
     }
 
@@ -17,7 +21,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         if (Inventory.inventoryActivated == true)
         {
-            transform.position = eventData.position;
+            transform.position = eventData.position - diffVec;
+            //transform.position = eventData.position;
         }
     }
 
@@ -25,7 +30,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         if (Inventory.inventoryActivated == true)
         {
-            transform.position = eventData.position;
+            transform.position = eventData.position - diffVec;
+            //transform.position = eventData.position;
         }
 
     }

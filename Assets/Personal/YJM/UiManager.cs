@@ -61,6 +61,7 @@ public class UiManager : Manager<UiManager>
             {
                 //인벤토리 창 끄기
                 Inventory.Instance.Button_InventoryExit();
+                if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Return))
@@ -77,10 +78,26 @@ public class UiManager : Manager<UiManager>
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) quickSlot1.QuickSlotUse();
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) quickSlot2.QuickSlotEquipt();
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) quickSlot3.QuickSlotUse();
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) quickSlot4.QuickSlotEquipt();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot1.QuickSlotUse();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot2.QuickSlotEquipt();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot3.QuickSlotUse();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            quickSlot4.QuickSlotEquipt();
+        }
     }
 
     

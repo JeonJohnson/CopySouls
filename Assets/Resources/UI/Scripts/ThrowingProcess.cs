@@ -12,8 +12,13 @@ public class ThrowingProcess : MonoBehaviour
     public GameObject Throw_Button;
     public GameObject ThrowAll_Button;
     public GameObject ThrowCancel_Button;
+
+    private Vector3 initPos = new Vector2(683.0f,297.5f);
+
     public void TryOpenThrow()
     {
+        if (transform.position != initPos) transform.position = initPos;
+
         if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
         {
             ThrowingActivated = !ThrowingActivated;
@@ -26,6 +31,7 @@ public class ThrowingProcess : MonoBehaviour
     public void TryOpenThrow(Vector3 vec)
     {
         gameObject.transform.position = vec;
+        Debug.Log(gameObject.GetComponent<RectTransform>().anchoredPosition);
         if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
         {
             ThrowingActivated = !ThrowingActivated;
@@ -55,8 +61,6 @@ public class ThrowingProcess : MonoBehaviour
     public void Button_Throw()
     {
         if (Inventory.Instance.curSlot == null) return;
-
-        
 
         if (ThrowInputField.text != "")
         {
