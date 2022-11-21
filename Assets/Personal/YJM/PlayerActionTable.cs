@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Structs;
 using Enums;
+using System;
+using System.Runtime.CompilerServices;
 
 public class PlayerActionTable : MonoBehaviour
 {
@@ -509,10 +511,9 @@ public class PlayerActionTable : MonoBehaviour
             }
     }
 
-    public void UseItem()
+    public void UseFood()
     {
         Player.instance.SetState(ePlayerState.Interacting);
-        //일단은 드링크만 사용하게(인벤토리 안만듬)
         Player.instance.animator.SetTrigger("UseDrink");
         player.animator.SetLayerWeight(1, 1f);
     }
@@ -521,7 +522,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         GameObject healingEffect = ObjectPoolingCenter.Instance.LentalObj("Healing",1);
         healingEffect.transform.SetParent(Player.instance.transform);
-        healingEffect.transform.position = Player.instance.transform.position;
+        healingEffect.transform.position = Player.instance.spine3Tr.position;
         healingEffect.GetComponent<ParticleSystem>().Play();
         Player.instance.status.curHp += 10;
         if(Player.instance.status.curHp > Player.instance.status.maxHp)

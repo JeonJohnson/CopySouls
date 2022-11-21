@@ -10,7 +10,9 @@ public class Player_Idle : Player_cState
     }
     public override void UpdateState()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Player.instance.status.isInputtable == false) return;
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
             PlayerActionTable.instance.Interaction();
         }
@@ -23,7 +25,7 @@ public class Player_Idle : Player_cState
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PlayerActionTable.instance.UseItem();
+            
         }
 
         if (PlayerActionTable.instance.StaminaCheck() == true)

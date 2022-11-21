@@ -158,6 +158,7 @@ public class SelectionProcess : MonoBehaviour
         else if (_curSlot.item.itemType == Enums.ItemType.supply_Item)
         {
             Debug.Log("아이템 사용!");
+            _curSlot.item.PlayFuncs();
         }
         if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-1);
         _curSlot.SetSlotCount(-1);

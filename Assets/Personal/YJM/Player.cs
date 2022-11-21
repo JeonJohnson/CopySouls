@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         InitializeState();
         ColliderSetting();
         SetPlayerWeapon();
+        status.isInputtable = true;
     }
     #endregion
 
@@ -72,7 +73,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //RigidBodySetting();
-        
     }
 
     // Update is called once per frame
@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
         {
             if (Inventory.Instance.InventoryBase.activeSelf)
             {
+                status.isInputtable = true;
                 Cursor.lockState = CursorLockMode.Locked;
                 Inventory.Instance.TryOpenInventory();
                 
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                status.isInputtable = false;
                 Cursor.lockState = CursorLockMode.Confined;
                 Inventory.Instance.TryOpenInventory();
                 //Inventory.Instance.InventoryBase.SetActive(true);
