@@ -78,6 +78,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (slots[i].item.objName == _item.objName)
                     {
+                        if (slots[i].isQuick) slots[i].curRegisterQuickSlot.SetSlotCount_q(_count);
                         slots[i].SetSlotCount(_count);
                         return true;
                     }
