@@ -43,18 +43,24 @@ public class UiManager : Manager<UiManager>
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
                 //분할창 끄기
-                //Inventory.Instance.Exit_Division_Button();
+                Inventory.Instance.DivisionParent.Button_DivisionCancel();
             }
-            //else if (Inventory.inventoryActivated && !Inventory.DivisionActivated)
-            //{
-            //    //인벤토리 창 끄기
-            //    Inventory.Instance.Exit_Inventory_Button();
-            //}
+            else if (Inventory.inventoryActivated && ThrowingProcess.ThrowingActivated)
+            {
+                //버리기 창 끄기
+                Inventory.Instance.ThrowingParent.Button_ThrowCancel();
+            }
+            else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
+            {
+                //인벤토리 창 끄기
+                Inventory.Instance.Button_InventoryExit();
+            }
+            
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
             //분할 ENTER적용
-            //Inventory.Instance.Division_Button();
+            Inventory.Instance.DivisionParent.Button_Division();
         }
 
         //if (Input.GetKeyDown(KeyCode.Alpha1)) Inventory.Instance.QuickSlotUse(quickSlot1);

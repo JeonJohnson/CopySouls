@@ -35,19 +35,25 @@ public class Inventory : MonoBehaviour
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
-        if (inventoryActivated) OpenInventory();
-        else CloseInventory();
+        if (inventoryActivated)
+        {
+            OpenInventory();
+        }
+        else
+        {
+            CloseInventory();
+        }
     }
     private void OpenInventory()
     {
-        if (!DivisionProcess.DivisionActivated)
+        if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
         }
     }
     private void CloseInventory()
     {
-        if (!DivisionProcess.DivisionActivated)
+        if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             if (SelectionProcess.SelectionActivated) SelectionParent.CloseSelection();
             InventoryBase.SetActive(false);

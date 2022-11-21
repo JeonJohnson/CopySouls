@@ -196,10 +196,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 }
                 else
                 {
-                    ItemThrow(item,itemCount);
+                    Inventory.Instance.ThrowingParent.TryOpenThrow(eventData.position);
                     DragSlot.instance.SetColor(0);
                     DragSlot.instance.dragSlot = null;
-                    ClearSlot();
+                    //ClearSlot();
                 }
             }
             Inventory.Instance.curSlot = null;

@@ -23,6 +23,19 @@ public class ThrowingProcess : MonoBehaviour
         }
         else return;
     }
+
+    public void TryOpenThrow(Vector3 vec)
+    {
+        gameObject.transform.position = vec;
+        if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated)
+        {
+            ThrowingActivated = !ThrowingActivated;
+            if (ThrowingActivated) OpenThrow();
+            else CloseThrow();
+        }
+        else return;
+    }
+
     private void OpenThrow()
     {
         gameObject.SetActive(true);
