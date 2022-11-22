@@ -113,7 +113,7 @@ MonoBehaviour:
   objName: 3
   ObjectType: 2
   rigid: {fileID: 0}
-  itemType: 4
+  itemType: 6
   itemImage: {fileID: 21300000, guid: bc786f3784c9c5a48b9df041d5202618, type: 3}
 --- !u!1 &8992831255158809837
 GameObject:

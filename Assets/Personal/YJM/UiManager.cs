@@ -11,11 +11,17 @@ public class UiManager : Manager<UiManager>
 
     [SerializeField] GameObject hpBarPrefab;
 
+    [Header("QuickSlot")]
     [SerializeField] public QuickSlot quickSlot1;
     [SerializeField] public QuickSlot quickSlot2;
     [SerializeField] public QuickSlot quickSlot3;
     [SerializeField] public QuickSlot quickSlot4;
 
+    [Header("EquiptSlot")]
+    [SerializeField] private EquiptSlot EquiptSlot_Defence;
+    [SerializeField] private EquiptSlot EquiptSlot_Weapon;
+    [SerializeField] private EquiptSlot EquiptSlot_Helmet;
+    [SerializeField] private EquiptSlot EquiptSlot_Armor;
 
     public void InstantiateHpBar(Enemy target)
     {

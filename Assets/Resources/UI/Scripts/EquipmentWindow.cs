@@ -12,7 +12,7 @@ public class EquipmentWindow : MonoBehaviour
     [SerializeField]
     private GameObject SlotParent;
     [SerializeField]
-    private QuickSlot[] slots;
+    private EquiptSlot[] slots;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class EquipmentWindow : MonoBehaviour
     }
     void Start()
     {
-        slots = SlotParent.GetComponentsInChildren<QuickSlot>();
+        slots = SlotParent.GetComponentsInChildren<EquiptSlot>();
     }
 
     public void TryOpenEquiptment()
@@ -48,7 +48,7 @@ public class EquipmentWindow : MonoBehaviour
         EquipmentActivated = false;
     }
 
-    public QuickSlot GetEquiptSlot(Enums.ItemType _itemType)
+    public EquiptSlot GetEquiptSlot(Enums.ItemType _itemType)
     {
         if (_itemType == Enums.ItemType.supply_Item || _itemType == Enums.ItemType.Production_Item) return null;
         for(int i = 0; i < slots.Length; i++)

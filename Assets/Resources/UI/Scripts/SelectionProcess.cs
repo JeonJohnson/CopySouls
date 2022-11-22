@@ -43,7 +43,8 @@ public class SelectionProcess : MonoBehaviour
         }
         else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
         {
-            Equipt_Button.SetActive(true);
+            if(!_curSlot.isEquiptment) Equipt_Button.SetActive(true);
+            else Equipt_Button.SetActive(false);
         }
 
         if (_curSlot.isQuick) Deregistration_Button.SetActive(true);
@@ -60,7 +61,7 @@ public class SelectionProcess : MonoBehaviour
 
     public void Button_Equipt()
     {
-        Equipt(Inventory.Instance.curSlot.item);
+        Equipt(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
@@ -92,6 +93,8 @@ public class SelectionProcess : MonoBehaviour
 
     public void ButtonRegister(Slot _slot)
     {
+        if (_slot.isEquiptment) return;
+
         if (_slot != null)
         {
             _slot.SetRegister(true);
@@ -143,34 +146,35 @@ public class SelectionProcess : MonoBehaviour
     }
 
 
-    public void Equipt(Item _item)
+    public void Equipt(Slot _curSlot)
     {
-        Debug.Log("장비!");
         //우클릭으로 장비 시 
-        QuickSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_item.itemType);
-        EquiptSlot.AddRegister(Inventory.Instance.curSlot, _item, 1, EquiptSlot);
-        //드래그로 장비 시
-        EquiptSlot.DragRegister(Inventory.Instance.curSlot, _item, 1);
+        EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
+        if (EquiptSlot) EquiptSlot.AddEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1, EquiptSlot);
+        else Debug.Log("EquiptSlot == null");
 
-        _item.PlayFuncs();
+        //드래그로 장비 시
+        //EquiptSlot.DragEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1);
+        _curSlot.item.PlayFuncs();
     }
 
     public void Use(Slot _curSlot)
     {
-        if (Player.instance.curState_e != Enums.ePlayerState.Idle || Player.instance.curState_e != Enums.ePlayerState.Move) return;
-
-        if (_curSlot.item.itemType == Enums.ItemType.Production_Item)
+        if (Player.instance.curState_e == Enums.ePlayerState.Idle || Player.instance.curState_e == Enums.ePlayerState.Move)
         {
-            Debug.Log("상호 작용!");
-            _curSlot.item.PlayFuncs();
+            if (_curSlot.item.itemType == Enums.ItemType.Production_Item)
+            {
+                Debug.Log("상호 작용!");
+                _curSlot.item.PlayFuncs();
+            }
+            else if (_curSlot.item.itemType == Enums.ItemType.supply_Item)
+            {
+                Debug.Log("아이템 사용!");
+                _curSlot.item.PlayFuncs();
+            }
+            if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-1);
+            _curSlot.SetSlotCount(-1);
         }
-        else if (_curSlot.item.itemType == Enums.ItemType.supply_Item)
-        {
-            Debug.Log("아이템 사용!");
-            _curSlot.item.PlayFuncs();
-        }
-        if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-1);
-        _curSlot.SetSlotCount(-1);
     }
 
     public void Deregisteration(Slot _curSlot)

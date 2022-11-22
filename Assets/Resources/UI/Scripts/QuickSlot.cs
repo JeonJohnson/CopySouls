@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum SlotType
+{
+    QuickSlot,
+    EquiptSlot,
+    End,
+}
+
 public class QuickSlot : MonoBehaviour
 {
+    public SlotType SlotType;
     public Enums.ItemType OnlyType;
     public Item item;
     public Image Item_Image;
@@ -14,6 +22,8 @@ public class QuickSlot : MonoBehaviour
 
     public void DragRegister(Slot _invenSlot,Item _item,int _itemCount)
     {
+        if (_invenSlot.isEquiptment) return;
+
         if (_item.itemType == OnlyType)
         {
             AddRegister(_invenSlot,_item, _itemCount, this);
@@ -21,6 +31,11 @@ public class QuickSlot : MonoBehaviour
     }
     public void AddRegister(Slot _invenSlot, Item _item, int _itemCount,QuickSlot _quickSlot)
     {
+        //여기서 분기점이 갈림
+        //장비하고 있는 무기를 퀵에 등록할 수 있는가? 없다
+        //-> 그럼 이미 장비중인 아이템에서 선택창을 띄울 시 선택지 안줌
+        //-> 드래그로 퀵슬롯 등록시 그냥 반환 처리
+
         if (invenSlot != null)
         {
             invenSlot.SetRegister(false);
@@ -42,6 +57,37 @@ public class QuickSlot : MonoBehaviour
         }
         SetColor_q(1);
     }
+    public void DragEquiptment(Slot _invenSlot, Item _item, int _itemCount)
+    {
+        if (_item.itemType == OnlyType)
+        {
+            AddEquiptment(_invenSlot, _item, _itemCount, (EquiptSlot)this);
+        }
+    }
+    public void AddEquiptment(Slot _invenSlot, Item _item, int _itemCount, EquiptSlot _equiptSlot)
+    {
+        if (invenSlot != null)
+        {
+            invenSlot.SetEquiptment(false);
+            invenSlot.curRegisterQuickSlot = null;
+        }
+        invenSlot = _invenSlot;
+        _invenSlot.SetEquiptment(true);
+        _invenSlot.curRegisterQuickSlot = _equiptSlot;
+        item = _item;
+        Item_Image.sprite = _item.itemImage;
+        itemCount = _itemCount;
+        if (item.itemType == Enums.ItemType.Defence_Equiptment_Item || item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+        {
+            ItemCount_Text.text = "";
+        }
+        else
+        {
+            ItemCount_Text.text = _itemCount.ToString();
+        }
+        SetColor_q(1);
+    }
+
 
     public void SetColor_q(float _alpha)
     {
@@ -66,7 +112,9 @@ public class QuickSlot : MonoBehaviour
     public void ClearSlot_q()
     {
         invenSlot.isQuick = false;
+        invenSlot.isEquiptment = false;
         invenSlot.SetRegister(false);
+        invenSlot.SetEquiptment(false);
         invenSlot = null;
         item = null;
         itemCount = 0;
@@ -85,7 +133,7 @@ public class QuickSlot : MonoBehaviour
     {
         if (item != null)
         {
-            Inventory.Instance.SelectionParent.Equipt(item);
+            //Inventory.Instance.SelectionParent.Equipt(item);
         }
     }
 }
