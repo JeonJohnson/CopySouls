@@ -17,11 +17,15 @@ public class UiManager : Manager<UiManager>
     [SerializeField] public QuickSlot quickSlot3;
     [SerializeField] public QuickSlot quickSlot4;
 
-    [Header("EquiptSlot")]
-    [SerializeField] private EquiptSlot EquiptSlot_Defence;
-    [SerializeField] private EquiptSlot EquiptSlot_Weapon;
-    [SerializeField] private EquiptSlot EquiptSlot_Helmet;
-    [SerializeField] private EquiptSlot EquiptSlot_Armor;
+    //[Header("EquiptSlot")]
+    //public EquiptSlot EquiptSlot_Defence;
+    //public EquiptSlot EquiptSlot_Weapon;
+    //public EquiptSlot EquiptSlot_Helmet;
+    //public EquiptSlot EquiptSlot_Armor;
+
+    [Header("EquiptSlot_Q")]
+    public EquiptSlot_Q EquiptSlot_Defence;
+    public EquiptSlot_Q EquiptSlot_Weapon;
 
     public void InstantiateHpBar(Enemy target)
     {

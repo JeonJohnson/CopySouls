@@ -43,8 +43,7 @@ public class SelectionProcess : MonoBehaviour
         }
         else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
         {
-            if(!_curSlot.isEquiptment) Equipt_Button.SetActive(true);
-            else Equipt_Button.SetActive(false);
+            Equipt_Button.SetActive(true);
         }
 
         if (_curSlot.isQuick) Deregistration_Button.SetActive(true);
@@ -148,13 +147,21 @@ public class SelectionProcess : MonoBehaviour
 
     public void Equipt(Slot _curSlot)
     {
-        //우클릭으로 장비 시 
         EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
-        if (EquiptSlot) EquiptSlot.AddEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1, EquiptSlot);
+        if (EquiptSlot)
+        {
+            EquiptSlot.AddEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1, EquiptSlot);
+            if (_curSlot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+            {
+                UiManager.Instance.EquiptSlot_Weapon.matchEquiptmentSlot_Q(_curSlot.item);
+            }
+            else if (_curSlot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
+            {
+                UiManager.Instance.EquiptSlot_Defence.matchEquiptmentSlot_Q(_curSlot.item);
+            }
+        }
         else Debug.Log("EquiptSlot == null");
 
-        //드래그로 장비 시
-        //EquiptSlot.DragEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1);
         _curSlot.item.PlayFuncs();
     }
 

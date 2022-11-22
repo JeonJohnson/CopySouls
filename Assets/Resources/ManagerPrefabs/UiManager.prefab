@@ -360,9 +360,9 @@ GameObject:
   - component: {fileID: 4163619319306240105}
   - component: {fileID: 6262038287178041802}
   - component: {fileID: 412614059538271771}
-  - component: {fileID: 7213793247365063991}
+  - component: {fileID: 1661689656705666456}
   m_Layer: 0
-  m_Name: EquiptSlot4
+  m_Name: EquiptSlot_Defence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7213793247365063991
+--- !u!114 &1661689656705666456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -439,11 +439,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 349937550332778995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1e15ee3d685544698084a3cee2dd45, type: 3}
+  m_Script: {fileID: 11500000, guid: 27a176bf85ede7241b964d403b42a6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SlotType: 0
-  OnlyType: 3
+  OnlyType: 2
   item: {fileID: 0}
   Item_Image: {fileID: 6007417457252545207}
   itemCount: 0
@@ -3614,9 +3614,9 @@ GameObject:
   - component: {fileID: 840751420729726936}
   - component: {fileID: 5861275336785733925}
   - component: {fileID: 1674881573929952258}
-  - component: {fileID: 8822023473570202727}
+  - component: {fileID: 5251031017867508359}
   m_Layer: 0
-  m_Name: EquiptSlot2
+  m_Name: EquiptSlot_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3684,7 +3684,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8822023473570202727
+--- !u!114 &5251031017867508359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3693,11 +3693,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3869340460500559773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1e15ee3d685544698084a3cee2dd45, type: 3}
+  m_Script: {fileID: 11500000, guid: 27a176bf85ede7241b964d403b42a6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SlotType: 0
-  OnlyType: 2
+  OnlyType: 1
   item: {fileID: 0}
   Item_Image: {fileID: 7396638989901832247}
   itemCount: 0
@@ -8244,10 +8244,8 @@ MonoBehaviour:
   quickSlot2: {fileID: 4463114903539130000}
   quickSlot3: {fileID: 6593324128240132733}
   quickSlot4: {fileID: 5582950147743438856}
-  EquiptSlot_Defence: {fileID: 0}
-  EquiptSlot_Weapon: {fileID: 0}
-  EquiptSlot_Helmet: {fileID: 0}
-  EquiptSlot_Armor: {fileID: 0}
+  EquiptSlot_Defence: {fileID: 1661689656705666456}
+  EquiptSlot_Weapon: {fileID: 5251031017867508359}
 --- !u!1 &7728901173212143268
 GameObject:
   m_ObjectHideFlags: 0
