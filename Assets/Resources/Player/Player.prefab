@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4566793394835587828}
   - component: {fileID: 1766665787417196094}
   - component: {fileID: 6786771962270340907}
+  - component: {fileID: 3999847204699441619}
   m_Layer: 14
   m_Name: Shield
   m_TagString: Untagged
@@ -101,6 +102,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3999847204699441619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253478508636526571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9eea57f9d3f86b48a1a0d3e433d8d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
+  type: 2
+  Dmg: 5
+  owner: {fileID: 0}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  status:
+    name: Normal Shield
+    type: 0
+    range: 1
+    price: 5
+  hittedEnemyList: []
 --- !u!1 &1189113979338820136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,8 +2522,8 @@ MonoBehaviour:
     isGuard: 0
     isInputtable: 0
     interactionRange: 0
-    mainWeapon: {fileID: 1189113979338820136}
-    subWeapon: {fileID: 6274456743026991043}
+    mainWeapon: {fileID: 1189113979338820134}
+    subWeapon: {fileID: 3999847204699441619}
   preState_e: 7
   curState_e: 7
 --- !u!114 &7030777313930249931

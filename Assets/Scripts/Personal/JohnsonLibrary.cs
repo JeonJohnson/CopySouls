@@ -740,8 +740,8 @@ namespace Structs
 
         public float interactionRange;
 
-		public GameObject mainWeapon;
-		public GameObject subWeapon;
+		public Weapon mainWeapon;
+		public Weapon subWeapon;
 		//공격력 -> 무기쪽에서
 
 	}

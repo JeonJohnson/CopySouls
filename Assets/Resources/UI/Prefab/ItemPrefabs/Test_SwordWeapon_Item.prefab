@@ -122,10 +122,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   status:
-    name: 
+    name: Super Duper Sword
     type: 0
-    range: 0
-    price: 0
+    range: 3
+    price: 500
   hittedEnemyList: []
 --- !u!114 &1351056330041920395
 MonoBehaviour:

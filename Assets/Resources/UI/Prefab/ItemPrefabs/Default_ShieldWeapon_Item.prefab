@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3711218530577091815}
   - component: {fileID: 3711218530577091814}
   m_Layer: 16
-  m_Name: Test_ShieldWeapon_Item
+  m_Name: Default_ShieldWeapon_Item
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
