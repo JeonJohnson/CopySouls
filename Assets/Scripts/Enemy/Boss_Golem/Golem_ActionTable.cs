@@ -78,6 +78,7 @@ public enum eGolemCostWait
 }
 
 
+
 public class Golem_ActionTable : MonoBehaviour
 {
 	Golem golem = null;
@@ -90,9 +91,19 @@ public class Golem_ActionTable : MonoBehaviour
 	//List<cState> statePerCost;
 	//	Dictionary<int, List<cGolemState>> statePerCost;
 
-	public cGolemState nextState = null;
+	public float thinkMinTime;
+	public float thinkMaxTime;
+
 
 	public Coroutine decisionCoroutine = null;
+	public cGolemState nextState = null;
+	
+	public bool isWaitForCost;
+	public bool isWaitForDist;
+
+	public float curMoveTime;
+	public float maxMoveTime;
+
 
 	bool isLookAt = false;
 	[Header("Weapons")]
@@ -303,11 +314,62 @@ public class Golem_ActionTable : MonoBehaviour
 		}
 	}
 
-	public void CheckNoThinkLongTime()
-	{ 
-		//가끔 Think 씹혀서 오랫동안 움직일때 체크해서 다시 생각하기 위해서 
-		
+	public bool CheckNoThinkLongTime()
+	{
+		//가끔 Think 씹혀서 오랫동안 움직이기만 할 때 체크해서 다시 생각하기 위해서 
+
+		if (curMoveTime >= maxMoveTime )	
+		{
+			if (decisionCoroutine == null)
+			{
+				golem.SetState((int)eGolemState.Think);
+				curMoveTime = 0f;
+				return true;
+			}
+		}
+
+		return false;
 	}
+
+	public void CheckNextStateCondition()
+	{
+		if (nextState == null)
+		{
+			return;
+		}
+
+		if (isWaitForCost)
+		{
+			if (golem.status.curStamina >= nextState.stateCost)
+			{
+				golem.SetState(nextState);
+				isWaitForCost = false;
+			}
+		}
+
+		if (isWaitForDist)
+		{
+			if (nextState.atkType == eGolemStateAtkType.CloseAtk)
+			{
+				if (golem.distToTarget <= golem.status.atkRange)
+				{
+					golem.SetState(nextState);
+					isWaitForDist = false;
+				}
+			}
+			else if (nextState.atkType == eGolemStateAtkType.MiddleAtk)
+			{
+				if (golem.distToTarget <= golem.rangeAtkRange)
+				{
+					golem.SetState(nextState);
+					isWaitForDist = false;
+				}
+			}
+		}
+
+
+	}
+
 
 	public void AddCondition(ref List<cGolemState> refList, System.Predicate<cGolemState> match)
 	{ 
