@@ -56,8 +56,14 @@ public class HFSMCustomInspector : Editor
 		}
 		else
 		{
+
+			if(controller.curBaseState.preSubState != null)
 			EditorGUILayout.LabelField("Pre SubState: ", controller.curBaseState.preSubState.ToString());
+
+			if(controller.curBaseState.curSubState != null)
 			EditorGUILayout.LabelField("Cur SubState: ", controller.curBaseState.curSubState.ToString());
+
+			if(controller.curBaseState.nextSubState != null)
 			EditorGUILayout.LabelField("Next SubState: ", controller.curBaseState.nextSubState.ToString());
 
 		}

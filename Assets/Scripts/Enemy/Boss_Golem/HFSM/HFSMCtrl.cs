@@ -7,36 +7,8 @@ public enum eGolemBaseState
 	Emotion,
 	Move,
 	Attack,
-	Hit,
+	Damaged,
 	End
-}
-
-public enum eGolemEmotionState
-{
-	Entrance,
-	Win,
-	End,
-}
-
-public enum eGolemMoveState
-{
-	Idle,
-	Walk,
-	Turn,
-	End
-}
-
-public enum eGolemAttackState
-{
-	Melee,
-	Forward,
-	Range,
-	End
-}
-
-public enum eGolemHitState
-{
-
 }
 
 public class HFSMCtrl : MonoBehaviour
@@ -53,10 +25,26 @@ public class HFSMCtrl : MonoBehaviour
 	public Golem_BaseState curBaseState;
 	public Golem_BaseState nextBaseState;
 
+	public Golem_BaseState GetBaseState(int index)
+	{
+		if (index >= baseStates.Length)
+		{
+			return null;
+		}
+
+		return baseStates[index];
+	}
 	
 	public void InitBaseState()
-	{ 
-		
+	{
+		baseStates = new Golem_BaseState[(int)eGolemBaseState.End];
+
+		baseStates[(int)eGolemBaseState.Emotion] = new Base_Emotion(this,"Emotion");
+		baseStates[(int)eGolemBaseState.Move] = new Base_Move(this, "Move");
+		baseStates[(int)eGolemBaseState.Attack] = new Base_Attack(this, "Attack");
+		baseStates[(int)eGolemBaseState.Damaged] = new Base_Damaged(this, "Damaged");
+
+		nextBaseState = baseStates[(int)eGolemBaseState.Emotion];
 	}
 
 	public void SetNextBaseState(Golem_BaseState state)
@@ -70,9 +58,12 @@ public class HFSMCtrl : MonoBehaviour
 
 	private void ChangeNextBastState()
 	{
-		curBaseState.ExitBaseState();
-
-		preBaseState = curBaseState;
+		if (curBaseState != null)
+		{ 
+			curBaseState.ExitBaseState();
+			preBaseState = curBaseState;
+		}
+		
 		curBaseState = nextBaseState;
 		nextBaseState = null;
 
@@ -90,7 +81,6 @@ public class HFSMCtrl : MonoBehaviour
 	public void Start()
     {
 		InitBaseState();
-
     }
 
     // Update is called once per frame

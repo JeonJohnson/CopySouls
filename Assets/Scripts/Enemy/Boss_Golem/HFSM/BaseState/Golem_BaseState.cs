@@ -7,22 +7,16 @@ public class Golem_BaseState
 {
 	public string stateName;
 
-	[HideInInspector]
 	public Golem golem = null;
-	[HideInInspector]
 	public Golem_ActionTable table = null;
-	[HideInInspector]
 	public HFSMCtrl hfsmCtrl = null;
 
-	[HideInInspector]
 	public Golem_SubState[] subStates;
-	[HideInInspector]
-	public Golem_SubState preSubState;
-	public Golem_SubState curSubState;
-	public Golem_SubState nextSubState;
+	public Golem_SubState preSubState = null;
+	public Golem_SubState curSubState = null;
+	public Golem_SubState nextSubState = null;
 
-	[HideInInspector]
-	public Golem_SubState referSubState;
+	public Golem_SubState referSubState = null;
 
 	public Golem_BaseState(HFSMCtrl script, string name)
 	{
@@ -30,13 +24,26 @@ public class Golem_BaseState
 		golem = script.golem;
 		table = script.table;
 		stateName = name;
+
+		InitBaseState();
 	}
 
 	public virtual void InitBaseState()
 	{ }
 
-	public virtual void SetSubState(Golem_SubState subState)
+	public Golem_SubState GetSubState(int index)
 	{
+		if (index >= subStates.Length)
+		{
+			return null;
+		}
+
+		return subStates[index];
+	}
+
+	public void SetSubState(Golem_SubState subState)
+	{
+
 		if (subState == null)
 		{
 			Debug.LogError("GolemSubState Null Error");
@@ -45,7 +52,7 @@ public class Golem_BaseState
 		nextSubState = subState;
 	}
 
-	protected virtual void ChangeNextState()
+	protected void ChangeNextState()
 	{
 		curSubState.ExitState();
 
@@ -58,7 +65,7 @@ public class Golem_BaseState
 
 	public virtual void EnterBaseState()
 	{
-
+		
 	}
 
 	public virtual void UpdateBaseState()
@@ -91,6 +98,11 @@ public class Golem_BaseState
 
 	public virtual void ExitBaseState()
 	{
-
+		if (curSubState != null)
+		{
+			curSubState.ExitState();
+			preSubState = curSubState;
+			curSubState = null;
+		}
 	}
 }

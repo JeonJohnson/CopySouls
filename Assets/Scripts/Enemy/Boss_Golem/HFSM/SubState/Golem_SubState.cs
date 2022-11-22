@@ -13,7 +13,7 @@ public enum eGolemAtkRangeType
 //[System.Serializable]
 public class Golem_SubState 
 {
-	//public string name;
+	public string stateName;
 
 	[HideInInspector]
 	public Golem golem = null;
@@ -26,8 +26,19 @@ public class Golem_SubState
 	public Golem_BaseState baseState;
 
 	public int stateCost;
-	public eGolemAtkRangeType atkRangeType;
+	public eGolemAtkRangeType atkRangeType = eGolemAtkRangeType.None;
 
+	public Golem_SubState(Golem_BaseState _baseState, string name)
+	{
+		baseState = _baseState;
+		golem = _baseState.golem;
+		table = _baseState.table;
+		hfsmCtrl = _baseState.hfsmCtrl;
+
+		stateName = name;
+	}
+
+	
 
 	public virtual void EnterState()
 	{
@@ -42,8 +53,6 @@ public class Golem_SubState
 	public virtual void FixedUpdateState()
 	{
 	}
-
-
 	public virtual void ExitState()
 	{
 	}
