@@ -601,9 +601,11 @@ namespace Enums
 	public enum ItemType
 	{
 		None,
-		Production_Item,
 		weapon_Equiptment_Item,
 		Defence_Equiptment_Item,
+		Helmet_Equiptment_Item,
+		Armor_Equiptment_Item,
+		Production_Item,
 		supply_Item,
 		End
 	}

@@ -244,12 +244,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2cf024ff12ab14d9a6f15fd62937a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxCount: 10
+  MaxCount: 100
   item: {fileID: 0}
   itemCount: 0
   item_Image: {fileID: 0}
   text_Count: {fileID: 0}
   go_CountImage: {fileID: 0}
+  Register_Text: {fileID: 0}
+  isQuick: 0
+  curRegisterQuickSlot: {fileID: 0}
+  isEquiptment: 0
 --- !u!1 &7470513370221080902
 GameObject:
   m_ObjectHideFlags: 0

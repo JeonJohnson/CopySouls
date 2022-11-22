@@ -34,13 +34,15 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        
         if (Instance == null) Instance = this;
         else Destroy(this.gameObject);
     }
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
-        GetStartEquiptment();
+        
+        //GetStartEquiptment();
     }
     public void TryOpenInventory()
     {
