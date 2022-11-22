@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UiManager : Manager<UiManager>
 {
+    public static bool UIActivated = false;
+
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
 
@@ -13,6 +15,7 @@ public class UiManager : Manager<UiManager>
     [SerializeField] public QuickSlot quickSlot2;
     [SerializeField] public QuickSlot quickSlot3;
     [SerializeField] public QuickSlot quickSlot4;
+
 
     public void InstantiateHpBar(Enemy target)
     {
@@ -33,6 +36,8 @@ public class UiManager : Manager<UiManager>
     private void Update()
     {
         UI_KeyboardShortcut();
+        if(UIActivated) Player.instance.ActivatePlayerInput(false);
+        else Player.instance.ActivatePlayerInput(true);
     }
     void TestMakeHpBar()
     {
@@ -43,8 +48,29 @@ public class UiManager : Manager<UiManager>
     }
 
     //UI단축키
+
+
+    //ui중에 하나라도 켜지면 마우스 활성화
+    //
     public void UI_KeyboardShortcut()
     {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            Inventory.Instance.TryOpenInventory();
+            //플레이어 뭔 제약들 ...
+        }
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            //마우스 나오게
+            //if(!Inventory.inventoryActivated 
+            //    && !DivisionProcess.DivisionActivated 
+            //    && !SelectionProcess.SelectionActivated 
+            //    && !ThrowingProcess.ThrowingActivated)
+            Player.instance.ActivatePlayerInput(false);
+            Debug.Log("sgsgfhfdh");
+
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)

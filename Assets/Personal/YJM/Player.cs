@@ -87,19 +87,19 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.I))
         {
-            if (Inventory.Instance.InventoryBase.activeSelf)
-            {
-                Inventory.Instance.TryOpenInventory();
-                
-                //Inventory.Instance.InventoryBase.SetActive(false);
-                //Inventory.inventoryActivated = false;
-            }
-            else
-            {
-                Inventory.Instance.TryOpenInventory();
-                //Inventory.Instance.InventoryBase.SetActive(true);
-                //Inventory.inventoryActivated = true;
-            }
+            //if (Inventory.Instance.InventoryBase.activeSelf)
+            //{
+            //    Inventory.Instance.TryOpenInventory();
+            //    
+            //    //Inventory.Instance.InventoryBase.SetActive(false);
+            //    //Inventory.inventoryActivated = false;
+            //}
+            //else
+            //{
+            //    Inventory.Instance.TryOpenInventory();
+            //    //Inventory.Instance.InventoryBase.SetActive(true);
+            //    //Inventory.inventoryActivated = true;
+            //}
         }
     }
 

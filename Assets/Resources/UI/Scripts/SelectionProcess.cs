@@ -151,6 +151,7 @@ public class SelectionProcess : MonoBehaviour
 
     public void Use(Slot _curSlot)
     {
+        if (Player.instance.curState_e != Enums.ePlayerState.Idle || Player.instance.curState_e != Enums.ePlayerState.Move) return;
 
         if (_curSlot.item.itemType == Enums.ItemType.Production_Item)
         {

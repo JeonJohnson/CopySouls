@@ -63,7 +63,7 @@ public class CameraTest : MonoBehaviour
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        if (Inventory.inventoryActivated) return;
+        if (!Player.instance.status.isInputtable) return;
         RotateCamera();
         HandleCameraCollisions();
     }
