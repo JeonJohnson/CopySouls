@@ -45,19 +45,19 @@ ModelImporter:
       lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.1
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -361,18 +361,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: SK_Golem@Agony(Clone)
+    - name: Agony(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0.17010473, y: -0.059754122, z: -0.006572618, w: 0.98359066}
-      scale: {x: 1, y: 1, z: 1}
-    - name: SK_Golem
-      parentName: SK_Golem@Agony(Clone)
-      position: {x: -0, y: 0, z: 0.0000000082756975}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: SK_Golem@Agony(Clone)
+      parentName: Agony(Clone)
       position: {x: 0.12400857, y: -0.057129666, z: 0.90688485}
       rotation: {x: -0.815599, y: 0.03762089, z: 0.04688827, w: 0.57548624}
       scale: {x: 1, y: 1, z: 1}
@@ -383,8 +378,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: GOLEM_ Pelvis
       parentName: GOLEM_
-      position: {x: 0.59958667, y: 0.00000011920929, z: 0.3531462}
-      rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+      position: {x: -0.02772561, y: 0.028740877, z: 0.13002598}
+      rotation: {x: 0.5437016, y: -0.4333552, z: -0.3801307, w: -0.6099939}
       scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
     - name: GOLEM_ L Thigh
       parentName: GOLEM_ Pelvis
@@ -401,6 +396,21 @@ ModelImporter:
       position: {x: -0.76858383, y: 0.000000038146972, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: GOLEM_ R Thigh
+      parentName: GOLEM_ Pelvis
+      position: {x: -0.00000061035155, y: -0.0000005149841, z: -0.43761048}
+      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+      scale: {x: 1.0000002, y: 1, z: 1.0000002}
+    - name: GOLEM_ R Calf
+      parentName: GOLEM_ R Thigh
+      position: {x: -0.98804975, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000008, z: 1.0000005}
+    - name: GOLEM_ R Foot
+      parentName: GOLEM_ R Calf
+      position: {x: -0.76858354, y: -0.000000038146972, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000006}
     - name: GOLEM_ Spine
       parentName: GOLEM_ Pelvis
       position: {x: -0.3138469, y: -0.00040922163, z: 0.00000043581036}
@@ -434,7 +444,7 @@ ModelImporter:
     - name: GOLEM_ L Finger0
       parentName: GOLEM_ L Hand
       position: {x: -0.37103605, y: 0.117603146, z: -0.40530914}
-      rotation: {x: 0, y: 0.3826835, z: 0, w: -0.9238795}
+      rotation: {x: 0.00089931465, y: 0.32215938, z: -0.0021714414, w: -0.9466825}
       scale: {x: 1.0000004, y: 0.99999964, z: 1.0000005}
     - name: GOLEM_ L Finger01
       parentName: GOLEM_ L Finger0
@@ -444,7 +454,7 @@ ModelImporter:
     - name: GOLEM_ L Finger1
       parentName: GOLEM_ L Hand
       position: {x: -0.8119711, y: -0.051022034, z: -0.19483688}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      rotation: {x: -0.00000008940696, y: 0.064690776, z: 0.0027735995, w: 0.99790156}
       scale: {x: 0.99999994, y: 1, z: 1.0000002}
     - name: GOLEM_ L Finger11
       parentName: GOLEM_ L Finger1
@@ -454,7 +464,7 @@ ModelImporter:
     - name: GOLEM_ L Finger2
       parentName: GOLEM_ L Hand
       position: {x: -0.83581614, y: -0.010671692, z: 0.24888603}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      rotation: {x: -0.00000017881392, y: 0.06468978, z: 0.0027733257, w: 0.9979016}
       scale: {x: 0.9999998, y: 0.99999964, z: 1.0000001}
     - name: GOLEM_ L Finger21
       parentName: GOLEM_ L Finger2
@@ -499,7 +509,7 @@ ModelImporter:
     - name: GOLEM_ R Finger0
       parentName: GOLEM_ R Hand
       position: {x: -0.3710362, y: 0.117603146, z: 0.4053092}
-      rotation: {x: 0, y: 0.38268346, z: 0, w: 0.9238795}
+      rotation: {x: 0.00089928496, y: 0.3221591, z: 0.0021711884, w: 0.9466827}
       scale: {x: 1.0000004, y: 1, z: 1.0000007}
     - name: GOLEM_ R Finger01
       parentName: GOLEM_ R Finger0
@@ -509,7 +519,7 @@ ModelImporter:
     - name: GOLEM_ R Finger1
       parentName: GOLEM_ R Hand
       position: {x: -0.8119714, y: -0.051022034, z: 0.19483703}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      rotation: {x: -0, y: -0.0646893, z: 0.0027735995, w: 0.9979016}
       scale: {x: 1.0000001, y: 1.0000006, z: 1.0000007}
     - name: GOLEM_ R Finger11
       parentName: GOLEM_ R Finger1
@@ -519,28 +529,18 @@ ModelImporter:
     - name: GOLEM_ R Finger2
       parentName: GOLEM_ R Hand
       position: {x: -0.8358168, y: -0.0106719965, z: -0.24888611}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      rotation: {x: -0, y: -0.064691804, z: 0.0027738323, w: 0.99790144}
       scale: {x: 1.0000005, y: 1.0000006, z: 1.000001}
     - name: GOLEM_ R Finger21
       parentName: GOLEM_ R Finger2
       position: {x: -0.26429823, y: 0, z: 0.00000015258789}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 0.9999998, y: 1, z: 0.99999994}
-    - name: GOLEM_ R Thigh
-      parentName: GOLEM_ Pelvis
-      position: {x: -0.00000061035155, y: -0.0000005149841, z: -0.43761048}
-      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-      scale: {x: 1.0000002, y: 1, z: 1.0000002}
-    - name: GOLEM_ R Calf
-      parentName: GOLEM_ R Thigh
-      position: {x: -0.98804975, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1.0000008, z: 1.0000005}
-    - name: GOLEM_ R Foot
-      parentName: GOLEM_ R Calf
-      position: {x: -0.76858354, y: -0.000000038146972, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000006}
+    - name: SK_Golem
+      parentName: Agony(Clone)
+      position: {x: -0, y: 0, z: 0.0000000082756975}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

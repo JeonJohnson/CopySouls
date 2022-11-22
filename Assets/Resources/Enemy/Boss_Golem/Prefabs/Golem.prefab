@@ -212,6 +212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc162608272094e9c2bcf52b1c4e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thinkMinTime: 0.5
+  thinkMaxTime: 2.5
+  isWaitForCost: 0
+  isWaitForDist: 0
+  curMoveTime: 0
+  maxMoveTime: 3
   rockThrowDmg: 10
   rockScript: {fileID: 0}
   fistDmg: 3

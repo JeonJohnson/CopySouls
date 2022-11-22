@@ -20,6 +20,12 @@ public class Golem_Idle : cGolemState
 	{
 		//table.FillStamina();
 
+		if (table.CheckNoThinkLongTime())
+		{
+			return;
+		}
+		table.CheckNextStateCondition();
+
 		if (golem.distToTarget > golem.status.atkRange)
 		{
 			golem.SetState((int)eGolemState.Move);

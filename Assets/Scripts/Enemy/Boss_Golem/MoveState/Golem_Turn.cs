@@ -42,6 +42,13 @@ public class Golem_Turn: cGolemState
 	{
 		//table.FillStamina();
 
+		if (table.CheckNoThinkLongTime())
+		{
+			return;
+		}
+
+		table.CheckNextStateCondition();
+
 		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, animName))
 		{
 			if (golem.distToTarget > golem.status.atkRange)

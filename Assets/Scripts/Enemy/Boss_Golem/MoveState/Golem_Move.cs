@@ -34,18 +34,31 @@ public class Golem_Move : cGolemState
 
 	public override void UpdateState()
 	{
-		//table.FillStamina();
+		if (table.CheckNoThinkLongTime())
+		{
+			return;
+		}
+
+		table.CheckNextStateCondition();
+
 		CalcSpd();
 
 		golem.navAgent.SetDestination(golem.targetObj.transform.position);
 		golem.navAgent.speed = curSpd;
 		golem.animCtrl.SetFloat("fMoveSpd", curSpd);
 
-		if (golem.distToTarget <= golem.status.atkRange)
+		if (table.nextState == null)
 		{
-			if (golem.angleToTarget >= 45f)
-			{ golem.SetState((int)eGolemState.Turn); }
-			else { golem.SetState((int)eGolemState.Idle); }
+			if (golem.distToTarget <= golem.status.atkRange)
+			{
+				if (golem.angleToTarget >= 45f)
+				{ golem.SetState((int)eGolemState.Turn); }
+				else { golem.SetState((int)eGolemState.Idle); }
+			}
+		}
+		else
+		{ 
+			
 		}
 	}
 

@@ -51,33 +51,18 @@ public class Golem_Think : cGolemState
 
 		if (golem.distToTarget <= golem.status.atkRange)
 		{//근접공격
-
 			if (movePriority == eGolemMovePriority.None)
-			{//공격 범위타입 다른애들 다 지우기
-				//if (golem.angleToTarget >= 45f)
-				//{
-				//	canState.Clear();
-
-				//	cGolemState tempState = golem.fsm[(int)eGolemState.TurnAtk] as cGolemState;
-
-				//	if (tempState != null)
-				//	{ canState.Add(tempState); }
-				//}
-				//else
-				//{
-					table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.RangeAtk);
-					table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
-				//}
-
+			{
+				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
+				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.RangeAtk);
 			}
 			else
-			{ //포워드 까지 포함
+			{
 				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.RangeAtk);
 			}
 		}
 		else if (golem.distToTarget <= golem.rangeAtkRange)
-		{
-			//기본 포워드
+		{//전진 공격
 			if (movePriority == eGolemMovePriority.None)
 			{
 				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
@@ -89,16 +74,16 @@ public class Golem_Think : cGolemState
 			}
 		}
 		else
-		{
+		{//사거리 공격
 			if (movePriority == eGolemMovePriority.None)
 			{
-				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
 				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
+				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
 			}
 			else
 			{
-				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
-				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
+				//table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.MiddleAtk);
+				//table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
 			}
 		}
 
@@ -106,14 +91,72 @@ public class Golem_Think : cGolemState
 		
 		table.SortStateByCostWait(ref canState, costWait);
 
-		if (canState.Count != 0)
+		cGolemState nextState = null;
+		//최종 결정 조건
+		//1. 남아있는 조건이 없다? 이건 다시 Think돌리기
+		//2. wait인디 코스트가 모자르다? Next State에 넣어두고 Move 돌리기
+		//3. move인디 사거리 조건에 부합하지 않는다? Next State에 넣어두고 Move 돌리기
+		//=> move / Turn / Idle 에서 일정 시간 이상 지나가면 다시 Think돌리기
+		if (canState.Count == 0)
 		{
-			golem.SetState(canState[0]);
+			golem.decisionTime = Random.Range(table.thinkMinTime, table.thinkMaxTime);
+			table.decisionCoroutine = table.StartCoroutine(DecisionCoroutine());
 		}
 		else
 		{
-			ResetCanState();
+			 nextState = canState[0];
 		}
+		
+		if(costWait == eGolemCostWait.Wait && nextState.stateCost > golem.status.curStamina)
+		{ //wait인디 코스트가 모자를 경우
+			table.nextState = nextState;
+			golem.SetState((int)eGolemState.Idle);
+			table.isWaitForCost = true;
+		}
+
+		if (movePriority == eGolemMovePriority.Move)
+		{
+			//move인디 사거리 조건에 부합하지 않는 경우
+			if (nextState.atkType == eGolemStateAtkType.CloseAtk)
+			{
+				if (golem.distToTarget > golem.status.atkRange)
+				{
+					table.nextState = nextState;
+					golem.SetState((int)eGolemState.Move);
+					table.isWaitForDist = true;
+				}
+				else 
+				{
+					golem.SetState(nextState);
+				}
+			}
+			else if (nextState.atkType == eGolemStateAtkType.MiddleAtk)
+			{
+				if (golem.distToTarget < golem.rangeAtkRange)
+				{
+					golem.SetState(nextState);
+				}
+				else
+				{
+					table.nextState = nextState;
+					golem.SetState((int)eGolemState.Move);
+					table.isWaitForDist = true;
+				}
+			}
+			else if (nextState.atkType == eGolemStateAtkType.RangeAtk)
+			{ //얜 걍 던짐됌 ㅋㅋ
+				golem.SetState(nextState);
+			}
+		}
+
+		//if (canState.Count != 0)
+		//{
+		//	golem.SetState(canState[0]);
+		//}
+		//else
+		//{
+		//	ResetCanState();
+		//}
 	}
 
 	public override void EnterState(Enemy script)
@@ -136,7 +179,7 @@ public class Golem_Think : cGolemState
 
 		if (table.decisionCoroutine == null)
 		{
-			golem.decisionTime = Random.Range(0.5f, 1.5f);
+			golem.decisionTime = Random.Range(table.thinkMinTime, table.thinkMaxTime);
 			table.decisionCoroutine = table.StartCoroutine(DecisionCoroutine());
 		}
 

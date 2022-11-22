@@ -77,6 +77,19 @@ public class Golem : Enemy
 	public override void Hit(DamagedStruct dmgStruct)
 	{
 		base.Hit(dmgStruct);
+
+		if (status.curHp > 0)
+		{
+			int rand = Random.Range(0, 100);
+			if (rand < 30)
+			{
+				SetState((int)eGolemState.Hit);
+			}
+		}
+		else 
+		{
+			SetState((int)eGolemState.Death);
+		}
 	}
 
 	public override void InitializeState()

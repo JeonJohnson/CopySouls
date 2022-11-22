@@ -14,6 +14,8 @@ public class Golem_Hit : cGolemState
 		base.EnterState(script);
 
 
+		golem.animCtrl.SetTrigger("tHit");
+		golem.animCtrl.SetFloat("fHpRatio", golem.status.curHp / golem.status.maxHp);
 	}
 
 	public override void UpdateState()
