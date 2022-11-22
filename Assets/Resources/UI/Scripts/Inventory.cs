@@ -5,6 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Structs;
 
+enum itemNameIndex
+{
+    DefaultWeapon = 5,
+    DefaultDefence = 6,
+    End,
+}
+
+
 public class Inventory : MonoBehaviour
 {
     static public Inventory Instance;
@@ -32,11 +40,12 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
+        GetStartEquiptment();
     }
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
-        UiManager.UIActivated = inventoryActivated;
+        //UiManager.UIActivated = inventoryActivated;
         if (inventoryActivated)
         {
             OpenInventory();
@@ -125,4 +134,22 @@ public class Inventory : MonoBehaviour
             Debug.Log("분할창 켜져있음");
         }
     }
+
+    public void InventoryComand()
+    {
+        for(int i = 0; i < ObjectPoolingCenter.Instance.prefabs.Length; i++)
+        {
+            Item item = ObjectPoolingCenter.Instance.prefabs[i].GetComponent<Item>();
+            if(item) ItemIn(item, 10);
+        }
+    }
+
+    private void GetStartEquiptment()
+    {
+        Item DefaultWeapon = ObjectPoolingCenter.Instance.prefabs[(int)itemNameIndex.DefaultWeapon].GetComponent<Item>();
+        if (DefaultWeapon) ItemIn(DefaultWeapon, 1);
+        Item DefaultDefence = ObjectPoolingCenter.Instance.prefabs[(int)itemNameIndex.DefaultDefence].GetComponent<Item>();
+        if (DefaultDefence) ItemIn(DefaultDefence, 1);
+    }
+
 }

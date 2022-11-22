@@ -15,7 +15,7 @@ using UnityEngine.EventSystems;
 public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     //한칸에 들어갈 수 있는 최대 아이템 개수
-    public int MaxCount = 10;
+    public int MaxCount;
     //획든한 아이템
     public Item item;
     //획득한 아이템 개수
@@ -33,6 +33,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
 
     public bool isQuick;
     public QuickSlot curRegisterQuickSlot;
+
+    public bool isEquiptment;
 
     void Start()
     {
@@ -53,9 +55,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         itemCount = _count;
         item_Image.sprite = item.itemImage;
 
-        if(go_CountImage != null) go_CountImage.SetActive(true);
-
-        text_Count.text = itemCount.ToString();
+        if(_item.itemType == Enums.ItemType.Defence_Equiptment_Item || _item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+        {
+            if (go_CountImage != null) go_CountImage.SetActive(false);
+        }
+        else
+        {
+            if (go_CountImage != null) go_CountImage.SetActive(true);
+            text_Count.text = itemCount.ToString();
+        }
 
         SetColor(1);
     }
