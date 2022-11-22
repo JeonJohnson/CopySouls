@@ -75,14 +75,16 @@ public class DivisionProcess : MonoBehaviour
                         Inventory.Instance.curSlot.SetSlotCount(-divisionCount);
                         if (Inventory.Instance.curSlot.isQuick)
                         {
-                            if (Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Production_Item)
-                            {
-                                UiManager.Instance.quickSlot1.SetSlotCount_q(-divisionCount);
-                            }
-                            else if (Inventory.Instance.curSlot.item.itemType == Enums.ItemType.supply_Item)
-                            {
-                                UiManager.Instance.quickSlot2.SetSlotCount_q(-divisionCount);
-                            }
+                            Inventory.Instance.curSlot.curRegisterQuickSlot.SetSlotCount_q(-divisionCount);
+
+                            //if (Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Production_Item)
+                            //{
+                            //    UiManager.Instance.quickSlot1.SetSlotCount_q(-divisionCount);
+                            //}
+                            //else if (Inventory.Instance.curSlot.item.itemType == Enums.ItemType.supply_Item)
+                            //{
+                            //    UiManager.Instance.quickSlot2.SetSlotCount_q(-divisionCount);
+                            //}
                         }
                     }
                     else
