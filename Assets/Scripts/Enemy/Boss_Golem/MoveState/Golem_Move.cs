@@ -2,11 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Walk : cGolemState
+public class Golem_Move : cGolemState
 {
-	public Golem_Walk(int cost) : base(cost)
+	//public delegate void ConditionFunc();
+
+	public float curSpd;
+
+	public Golem_Move(int cost) : base(cost)
 	{
 		atkType = eGolemStateAtkType.None;
+	}
+
+	public void CalcSpd()
+	{
+		float ratio = 0f;
+		ratio = (golem.distToTarget - golem.status.atkRange) / (golem.rangeAtkRange - golem.status.atkRange);
+		curSpd = Mathf.Lerp(golem.status.moveSpd, golem.status.runSpd, ratio);
 	}
 
 	public override void EnterState(Enemy script)
@@ -24,8 +35,11 @@ public class Golem_Walk : cGolemState
 	public override void UpdateState()
 	{
 		//table.FillStamina();
+		CalcSpd();
 
 		golem.navAgent.SetDestination(golem.targetObj.transform.position);
+		golem.navAgent.speed = curSpd;
+		golem.animCtrl.SetFloat("fMoveSpd", curSpd);
 
 		if (golem.distToTarget <= golem.status.atkRange)
 		{

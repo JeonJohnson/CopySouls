@@ -14,8 +14,6 @@ public class Golem_Think : cGolemState
 	List<cGolemState> canState = new List<cGolemState>();
 
 	
-	float curTime = 0f;
-
 	public Golem_Think(int cost) : base(cost)
 	{
 		atkType = eGolemStateAtkType.None;
@@ -87,7 +85,7 @@ public class Golem_Think : cGolemState
 			}
 			else
 			{
-
+				table.EraseCondition(ref canState, x => x.atkType == eGolemStateAtkType.CloseAtk);
 			}
 		}
 		else
@@ -105,6 +103,7 @@ public class Golem_Think : cGolemState
 		}
 
 		table.SortStateByCostPriority(ref canState, costPriority);
+		
 		table.SortStateByCostWait(ref canState, costWait);
 
 		if (canState.Count != 0)

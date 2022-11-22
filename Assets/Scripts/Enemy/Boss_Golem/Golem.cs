@@ -86,7 +86,7 @@ public class Golem : Enemy
 		fsm[(int)eGolemState.Think] = new Golem_Think(0);
 
 		fsm[(int)eGolemState.Idle] = new Golem_Idle(0);
-		fsm[(int)eGolemState.Walk] = new Golem_Walk(0);
+		fsm[(int)eGolemState.Move] = new Golem_Move(0);
 		fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
 
 		fsm[(int)eGolemState.Entrance] = new Golem_Entrance(0);

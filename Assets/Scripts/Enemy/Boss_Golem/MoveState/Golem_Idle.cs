@@ -22,7 +22,7 @@ public class Golem_Idle : cGolemState
 
 		if (golem.distToTarget > golem.status.atkRange)
 		{
-			golem.SetState((int)eGolemState.Walk);
+			golem.SetState((int)eGolemState.Move);
 		}
 		else if (golem.angleToTarget >= 45f)
 		{

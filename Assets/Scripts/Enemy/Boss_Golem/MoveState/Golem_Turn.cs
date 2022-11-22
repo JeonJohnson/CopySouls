@@ -46,7 +46,7 @@ public class Golem_Turn: cGolemState
 		{
 			if (golem.distToTarget > golem.status.atkRange)
 			{
-				golem.SetState((int)eGolemState.Walk);
+				golem.SetState((int)eGolemState.Move);
 			}
 			else
 			{

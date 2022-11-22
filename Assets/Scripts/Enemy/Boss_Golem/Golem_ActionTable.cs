@@ -10,7 +10,7 @@ public enum eGolemState
     Think,
 
 	Idle,
-	Walk,
+	Move,
 	Turn,
 
     Entrance,
@@ -88,10 +88,11 @@ public class Golem_ActionTable : MonoBehaviour
 
 
 	//List<cState> statePerCost;
-	Dictionary<int, List<cGolemState>> statePerCost;
+	//	Dictionary<int, List<cGolemState>> statePerCost;
+
+	public cGolemState nextState = null;
 
 	public Coroutine decisionCoroutine = null;
-
 
 	bool isLookAt = false;
 	[Header("Weapons")]
@@ -281,6 +282,11 @@ public class Golem_ActionTable : MonoBehaviour
 		{
 			EraseCondition(ref list, (x => x.stateCost > golem.status.curStamina));
 		}
+		else
+		{ 
+			
+			
+		}
 	}
 
 	public void EraseCondition(ref List<cGolemState> refList, System.Predicate<cGolemState> match)
@@ -295,6 +301,12 @@ public class Golem_ActionTable : MonoBehaviour
 		{
 			refList.Remove(findAllState[i]);
 		}
+	}
+
+	public void CheckNoThinkLongTime()
+	{ 
+		//가끔 Think 씹혀서 오랫동안 움직일때 체크해서 다시 생각하기 위해서 
+		
 	}
 
 	public void AddCondition(ref List<cGolemState> refList, System.Predicate<cGolemState> match)
