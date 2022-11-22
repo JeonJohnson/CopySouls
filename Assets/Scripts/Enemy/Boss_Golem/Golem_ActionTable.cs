@@ -35,18 +35,11 @@ public enum eGolemState
 	End
 }
 
-public enum eGolemMoveState
-{ 
-	Idle,
-	Walk,
-	Turn,
-	//Rotate_Left,
-	//Rotate_Right,
-	End
-}
+
+
 
 public enum eGolemStateAtkType
-{ 
+{
 	None,
 	CloseAtk,
 	MiddleAtk,

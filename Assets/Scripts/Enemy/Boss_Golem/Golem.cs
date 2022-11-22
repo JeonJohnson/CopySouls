@@ -39,6 +39,8 @@ public class Golem : Enemy
 
 	public Golem_ActionTable actTable;
 
+	public HFSMCtrl hfsmCtrl;
+
 	[Header("Status Vars")]
 	public float rangeAtkRange;
 	public float decisionTime;
@@ -125,12 +127,20 @@ public class Golem : Enemy
 		SetState((int)eGolemState.Entrance);
 	}
 
+	private void SetHFSMCtrl()
+	{
+		if (!hfsmCtrl) return;
+		hfsmCtrl.golem = this;
+		hfsmCtrl.table = actTable;
+	}
 
 	protected override void Awake()
 	{
 		base.Awake();
 		
 		actTable = GetComponent<Golem_ActionTable>();
+		hfsmCtrl = GetComponent<HFSMCtrl>();
+		//SetHFSMCtrl();
 
 		meshObj.SetActive(false);
 		rootObj.SetActive(false);

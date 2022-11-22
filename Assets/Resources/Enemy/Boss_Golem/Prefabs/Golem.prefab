@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 1814817405526944564}
   - component: {fileID: 1814817405520037008}
   - component: {fileID: 1705065869}
+  - component: {fileID: 9151268490090874779}
   - component: {fileID: 2970970323139778894}
   - component: {fileID: 7366577288407627356}
   - component: {fileID: 5463170941810859010}
@@ -153,7 +154,7 @@ MonoBehaviour:
     type: 2
     isDead: 0
     maxHp: 1000
-    curHp: 1000
+    curHp: 10
     maxStamina: 10
     curStamina: 10
     maxMp: 0
@@ -200,6 +201,20 @@ MonoBehaviour:
   actTable: {fileID: 0}
   rangeAtkRange: 12
   decisionTime: 0
+--- !u!114 &9151268490090874779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814817405527308052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6ff3c54f8fabc45bb919bf457c1e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  golem: {fileID: 0}
+  table: {fileID: 0}
 --- !u!114 &2970970323139778894
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -460,10 +460,10 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        curState.UpdateState();
+        if (curState != null)
+        { curState.UpdateState(); }
 
-        GetPlayerState();
-        
+        //GetPlayerState();
         CalcAboutTarget();
 
         
@@ -474,12 +474,16 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        curState.FixedUpdateState();
+        if (curState != null)
+        { curState.FixedUpdateState(); }
     }
 
     protected virtual void LateUpdate()
     {
-        curState.LateUpdateState();
+        if (curState != null)
+        { curState.LateUpdateState(); }
+        
+
     }
 
 

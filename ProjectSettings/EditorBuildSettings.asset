@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/inGame(Inprogress).unity
     guid: 2dfc13c5bc643fe4f97aab400570e4b3
-  - enabled: 1
-    path: Assets/Scenes/TestScene/YoungSeokTestScene.unity
-    guid: 880f6cb69f58bc0488c0c73dd44741dc
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
