@@ -11,8 +11,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
     public GameObject[] prefabs; //프리팹들 담아둘곳
 
-
-    GameObject[] objBoxes; //각 오브젝트 담아 놓을 박스
+	GameObject[] objBoxes; //각 오브젝트 담아 놓을 박스
     //빈 게임오브젝트, 인스펙터창에 실제로 만들꺼임
     //그니까 각 오브젝트 최상위 EmptyGameObject
 

@@ -53,16 +53,26 @@ public class UiManager : Manager<UiManager>
 
     public void UI_KeyboardShortcut()
     {
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (!UIActivated) UIActivated = true;
+            else UIActivated = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Inventory.Instance.InventoryComand();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory.Instance.TryOpenInventory();
         }
-        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            if(!UIActivated) UIActivated = true;
-            else UIActivated = false;
+            EquipmentWindow.Instance.TryOpenEquiptment();
         }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
@@ -81,6 +91,10 @@ public class UiManager : Manager<UiManager>
                 Inventory.Instance.Button_InventoryExit();
                 if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             }
+            else if(EquipmentWindow.EquipmentActivated)
+            {
+                EquipmentWindow.Instance.TryOpenEquiptment();
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -95,7 +109,6 @@ public class UiManager : Manager<UiManager>
                 Inventory.Instance.ThrowingParent.Button_Throw();
             }
         }
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();

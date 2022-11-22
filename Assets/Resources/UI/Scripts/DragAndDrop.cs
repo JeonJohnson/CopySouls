@@ -9,7 +9,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     Vector2 eventPos;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true)
+        if (Inventory.inventoryActivated || EquipmentWindow.EquipmentActivated)
         {
             ImagePos = transform.position;
             eventPos = eventData.position;
@@ -18,7 +18,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true)
+        if (Inventory.inventoryActivated || EquipmentWindow.EquipmentActivated)
         {
             Vector2 moveValue = eventData.position - eventPos;
             transform.position = transform.position + new Vector3 (moveValue.x,moveValue.y,0f);
@@ -28,9 +28,5 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Inventory.inventoryActivated == true)
-        {
-        }
-
     }
 }

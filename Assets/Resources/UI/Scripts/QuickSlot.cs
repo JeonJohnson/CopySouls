@@ -32,7 +32,14 @@ public class QuickSlot : MonoBehaviour
         item = _item;
         Item_Image.sprite = _item.itemImage;
         itemCount = _itemCount;
-        ItemCount_Text.text = _itemCount.ToString();
+        if (item.itemType == Enums.ItemType.Defence_Equiptment_Item || item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+        {
+            ItemCount_Text.text = "";
+        }
+        else
+        {
+            ItemCount_Text.text = _itemCount.ToString();
+        }
         SetColor_q(1);
     }
 
@@ -45,7 +52,14 @@ public class QuickSlot : MonoBehaviour
     public void SetSlotCount_q(int _count)
     {
         itemCount += _count;
-        ItemCount_Text.text = itemCount.ToString();
+        if (item.itemType == Enums.ItemType.Defence_Equiptment_Item || item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+        {
+            ItemCount_Text.text = "";
+        }
+        else
+        {
+            ItemCount_Text.text = itemCount.ToString();
+        }
         if (itemCount <= 0) ClearSlot_q();
     }
 

@@ -146,6 +146,12 @@ public class SelectionProcess : MonoBehaviour
     public void Equipt(Item _item)
     {
         Debug.Log("장비!");
+        //우클릭으로 장비 시 
+        QuickSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_item.itemType);
+        EquiptSlot.AddRegister(Inventory.Instance.curSlot, _item, 1, EquiptSlot);
+        //드래그로 장비 시
+        EquiptSlot.DragRegister(Inventory.Instance.curSlot, _item, 1);
+
         _item.PlayFuncs();
     }
 

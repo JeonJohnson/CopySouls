@@ -14,7 +14,7 @@ public class Icon : MonoBehaviour
     }
     public void Button_IconEquiptment()
     {
-
+        EquipmentWindow.Instance.TryOpenEquiptment();
     }
     public void Button_IconChatting()
     {
