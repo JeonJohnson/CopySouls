@@ -26,9 +26,13 @@ public class Item_Weapon : Item
     public override void PlayFuncs()
     {
         Player_Weapon playerWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
-        if (weapon.type == eWeaponType.Sheild && playerWeapon.type == eWeaponType.Sheild)
+        if (playerWeapon.type == eWeaponType.Sheild && weapon.type != eWeaponType.Sheild)
         {
-
+            Player_Weapon playerSubWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
+            playerSubWeapon.type = playerWeapon.type;
+            playerSubWeapon.Dmg = playerWeapon.Dmg;
+            playerSubWeapon.status = playerWeapon.status;
+            playerSubWeapon.gameObject.GetComponent<MeshFilter>().mesh = playerWeapon.gameObject.GetComponent<MeshFilter>().mesh;
         }
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
