@@ -36,6 +36,7 @@ public class Inventory : MonoBehaviour
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
+        UiManager.UIActivated = inventoryActivated;
         if (inventoryActivated)
         {
             OpenInventory();

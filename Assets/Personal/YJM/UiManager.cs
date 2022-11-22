@@ -48,27 +48,19 @@ public class UiManager : Manager<UiManager>
     }
 
     //UI단축키
+    //인벤 장비창 켜지거나 alt눌르면 마우스 활성화
+    //인벤이나 장비창이 꺼지거나 alt한번 더 누르면 마우스 비활성화
 
-
-    //ui중에 하나라도 켜지면 마우스 활성화
-    //
     public void UI_KeyboardShortcut()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory.Instance.TryOpenInventory();
-            //플레이어 뭔 제약들 ...
         }
-        if(Input.GetKeyDown(KeyCode.K))
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            //마우스 나오게
-            //if(!Inventory.inventoryActivated 
-            //    && !DivisionProcess.DivisionActivated 
-            //    && !SelectionProcess.SelectionActivated 
-            //    && !ThrowingProcess.ThrowingActivated)
-            Player.instance.ActivatePlayerInput(false);
-            Debug.Log("sgsgfhfdh");
-
+            if(!UIActivated) UIActivated = true;
+            else UIActivated = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
