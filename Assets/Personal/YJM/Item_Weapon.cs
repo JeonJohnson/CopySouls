@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item_Weapon : Item
 {
-    public Weapon weapon;
+    public Player_Weapon weapon;
     public override void Initialize()
     {
 
@@ -25,7 +25,19 @@ public class Item_Weapon : Item
 
     public override void PlayFuncs()
     {
-        gameObject.tag = "Weapon";
-        gameObject.layer = LayerMask.NameToLayer("PlayerWeapon");
+        Player_Weapon playerWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
+        if (weapon.type == eWeaponType.Sheild && playerWeapon.type == eWeaponType.Sheild)
+        {
+
+        }
+        playerWeapon.type = weapon.type;
+        playerWeapon.Dmg = weapon.Dmg;
+        playerWeapon.status = weapon.status;
+
+
+        //playerWeapon.col = weapon.col;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        //gameObject.tag = "Weapon";
+        //gameObject.layer = LayerMask.NameToLayer("PlayerWeapon");
     }
 }

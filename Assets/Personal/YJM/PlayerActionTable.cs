@@ -462,7 +462,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void NearObjectSearch()
     {
-        print("Searching");
         //overlapSphere마스크
         int m_Mask = 0;
 

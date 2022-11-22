@@ -84,7 +84,6 @@ public class PlayerLocomove : MonoBehaviour
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         isMove = moveInput.magnitude != 0;
-        print(isMove + "임");
         if (isMove)
         {
             Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;

@@ -122,6 +122,7 @@ public class Player : MonoBehaviour
         if (status.mainWeapon != null)
         {
             status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+            status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
         }
         if (status.subWeapon != null)
         {

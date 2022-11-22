@@ -146,6 +146,7 @@ public class SelectionProcess : MonoBehaviour
     public void Equipt(Item _item)
     {
         Debug.Log("¿Â∫Ò!");
+        _item.PlayFuncs();
     }
 
     public void Use(Slot _curSlot)

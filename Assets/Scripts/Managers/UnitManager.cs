@@ -109,7 +109,6 @@ public class UnitManager : Manager<UnitManager>
     }
     private void SearchEnemy()
     {
-        print("모든 적군 써치");
 
         GameObject[] allEnemyGoList = GameObject.FindGameObjectsWithTag("Enemy");
 
