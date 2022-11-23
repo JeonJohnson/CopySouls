@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Structs;
 using Enums;
+using UnityEditor.Animations;
 
 public class Player : MonoBehaviour
 {
@@ -76,13 +77,34 @@ public class Player : MonoBehaviour
         //RigidBodySetting();
     }
 
+    public AnimationClip animClip0;
+    Motion testMotion;
+
+    void GetWalkRunSpeedFromBlendTree(Animator usedAnimator)
+    {
+        Motion testMotion = animClip0;
+        RuntimeAnimatorController temp = usedAnimator.runtimeAnimatorController;
+        AnimatorController c = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimatorController>(UnityEditor.AssetDatabase.GetAssetPath(temp)); 
+        ChildMotion[] tempMotions = ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children;
+        print(c.layers[0].stateMachine.states[0].state.name);
+        print(tempMotions[0]);
+        tempMotions[0].motion = animClip0;
+        ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children = tempMotions;
+    }
+
     // Update is called once per frame
     private void Update()
     {
+
         curState.UpdateState();
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            UnitManager.Instance.SpawnTestEnemy(this.transform.position);
+            //UnitManager.Instance.SpawnTestEnemy(this.transform.position);
+            //DamagedStruct dmgst = new DamagedStruct();
+            //dmgst.atkType = eAttackType.Strong;
+            //dmgst.dmg = 1f;
+            //PlayerActionTable.instance.Hit(dmgst);
+            //GetWalkRunSpeedFromBlendTree(animator);
         }
 
         if(Input.GetKeyDown(KeyCode.I))

@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 3711218530577091832}
   type: 2
-  Dmg: 30
+  Dmg: 15
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
@@ -122,7 +122,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   status:
-    name: Duper Shield
+    name: Super Duper Shield
     type: 0
     range: 3
     price: 300
