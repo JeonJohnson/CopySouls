@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using UnityEditor.Animations;
 public enum eGolemAtkRangeType
 {
 	None,
@@ -15,6 +17,7 @@ public class Golem_SubState
 {
 	public string stateName;
 
+	
 	[HideInInspector]
 	public Golem golem = null;
 	[HideInInspector]
@@ -40,9 +43,11 @@ public class Golem_SubState
 
 	public virtual void EnterState()
 	{
+
+		
 	}
 
-	public virtual void UpdateState()
+    public virtual void UpdateState()
 	{
 	}
 	public virtual void LateUpdateState()

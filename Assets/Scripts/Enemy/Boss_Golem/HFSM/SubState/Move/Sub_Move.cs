@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEditor;
+using UnityEditor.Animations;
+
 public class Sub_Move : Golem_SubState
 {
 	public Sub_Move(Golem_BaseState _baseState, string name) : base(_baseState, name)
@@ -46,7 +49,9 @@ public class Sub_Move : Golem_SubState
             }
         }
 
-	}
+	
+
+    }
 
 	public override void FixedUpdateState()
 	{

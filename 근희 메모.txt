@@ -1,6 +1,23 @@
 		근희 메모장
 ------------------------------------------------------------
 
+
+
+
+//using UnityEditor;
+//using UnityEditor.Animations;
+	Motion testMotion = golem.testClip;
+	RuntimeAnimatorController temp = golem.animCtrl.runtimeAnimatorController;
+	AnimatorController c = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(temp));
+	ChildMotion[] tempMotions = ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children;
+	tempMotions[0].motion = testMotion;
+	((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children = tempMotions;
+
+
+
+
+
+
 애니메이션 
 ~~root transform rotation
 Bake into Pos -> 체크하면 게임오브젝트의 rotation이 Animation에 의해 변경되지 않음.

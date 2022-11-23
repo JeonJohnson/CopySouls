@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Golem : Enemy
 {
+
+	public AnimationClip testClip;
 	[Header("Target")]
 	public Transform targetHeadTr;
 	public float angleToTarget;
