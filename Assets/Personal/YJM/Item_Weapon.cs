@@ -35,17 +35,19 @@ public class Item_Weapon : Item
             playerSubWeapon.status = playerWeapon.status;
             playerSubWeapon.gameObject.GetComponent<MeshFilter>().mesh = playerWeapon.gameObject.GetComponent<MeshFilter>().mesh;
             print(playerSubWeapon.gameObject.GetComponent<MeshFilter>().mesh);
+            Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
             Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
         }
         else if(weapon.type == eWeaponType.Sheild)
         {
+            Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
             Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
             print("쉴드 픽");
         }
         else if(weapon.type == eWeaponType.Melee)
         {
+            Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[0]);
             Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
-            print("이건 아닌듯");
             print("쏘오드 픽");
         }
         playerWeapon.type = weapon.type;

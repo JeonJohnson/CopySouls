@@ -77,18 +77,16 @@ public class Player : MonoBehaviour
         //RigidBodySetting();
     }
 
-    public AnimationClip animClip0;
-    Motion testMotion;
+    public AnimationClip[] idleAnimClips;
 
-    void GetWalkRunSpeedFromBlendTree(Animator usedAnimator)
+    public void ChangeAnimClipInBlendTree(AnimationClip animClip)
     {
-        Motion testMotion = animClip0;
-        RuntimeAnimatorController temp = usedAnimator.runtimeAnimatorController;
+        RuntimeAnimatorController temp = animator.runtimeAnimatorController;
         AnimatorController c = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimatorController>(UnityEditor.AssetDatabase.GetAssetPath(temp)); 
         ChildMotion[] tempMotions = ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children;
         print(c.layers[0].stateMachine.states[0].state.name);
         print(tempMotions[0]);
-        tempMotions[0].motion = animClip0;
+        tempMotions[0].motion = animClip;
         ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children = tempMotions;
     }
 
@@ -104,7 +102,6 @@ public class Player : MonoBehaviour
             //dmgst.atkType = eAttackType.Strong;
             //dmgst.dmg = 1f;
             //PlayerActionTable.instance.Hit(dmgst);
-            //GetWalkRunSpeedFromBlendTree(animator);
         }
 
         if(Input.GetKeyDown(KeyCode.I))
@@ -145,10 +142,13 @@ public class Player : MonoBehaviour
         {
             status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
             status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
+            ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);// юс╫ц
+
         }
         if (status.subWeapon != null)
         {
             status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+            ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
         }
     }
 

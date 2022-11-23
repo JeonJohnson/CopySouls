@@ -2526,7 +2526,10 @@ MonoBehaviour:
     subWeapon: {fileID: 6274456743026991044}
   preState_e: 7
   curState_e: 7
-  animClip0: {fileID: 7400000, guid: 1c9407b3c0b36b2459f75d826e056964, type: 2}
+  idleAnimClips:
+  - {fileID: 7400000, guid: 147f04b16a738e14786ce73659c0e749, type: 2}
+  - {fileID: 7400000, guid: 73e6427b708464b4a8ea1f03f3d5e801, type: 2}
+  - {fileID: 7400000, guid: d7823825151dc994ba05dc63597b504b, type: 2}
 --- !u!114 &7030777313930249931
 MonoBehaviour:
   m_ObjectHideFlags: 0
