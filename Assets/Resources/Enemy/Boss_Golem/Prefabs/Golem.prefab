@@ -88,8 +88,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1814817405526944564}
   - component: {fileID: 1814817405520037008}
-  - component: {fileID: 1705065869}
   - component: {fileID: 9151268490090874779}
+  - component: {fileID: 1705065869}
   - component: {fileID: 2970970323139778894}
   - component: {fileID: 7366577288407627356}
   - component: {fileID: 5463170941810859010}
@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 1814817405527308052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_Children:
   - {fileID: 1814817405526944566}
   - {fileID: 1814817405526944568}
@@ -136,6 +136,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9151268490090874779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814817405527308052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6ff3c54f8fabc45bb919bf457c1e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  golem: {fileID: 0}
+  table: {fileID: 0}
 --- !u!114 &1705065869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +178,7 @@ MonoBehaviour:
     moveMileage: 0
     atkRange: 5
     patrolRange: 0
-    ricognitionRange: 30
+    ricognitionRange: 50
     fovAngle: 360
     lookAtSpd: 0
     isSuperArmor: 1
@@ -199,22 +213,9 @@ MonoBehaviour:
   rightHandBoneTr: {fileID: 0}
   leftHandBoneTr: {fileID: 0}
   actTable: {fileID: 0}
-  rangeAtkRange: 12
+  hfsmCtrl: {fileID: 0}
+  rangeAtkRange: 10
   decisionTime: 0
---- !u!114 &9151268490090874779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814817405527308052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6ff3c54f8fabc45bb919bf457c1e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  golem: {fileID: 0}
-  table: {fileID: 0}
 --- !u!114 &2970970323139778894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,12 +254,12 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 240
-  m_StoppingDistance: 0
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 3.75
-  m_BaseOffset: -0.5
+  m_BaseOffset: -0.075
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5463170941810859010

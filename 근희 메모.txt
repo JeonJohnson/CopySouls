@@ -474,3 +474,7 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 08:45 2022-11-23	HFSM 중간 작업 중 
 	할거 : BaseState 바꿀때 Enter에서 nextSubState있으면 그거로 바꾸고 없으면 refer으로 바꾸기.
 		둘다 없으면,,, pre state로 시작하기
+
+12:22 2022-11-23	HFSM 되는거 확인
+	개병신같은 animator rootMotion
+	rootMotion적용 안하고 animation 90각도 한도로 내가 직접 돌리기 병 ㅡ 신 겜 

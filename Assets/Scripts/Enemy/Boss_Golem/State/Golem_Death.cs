@@ -35,18 +35,18 @@ public class Golem_Death : cGolemState
 		golem.navAgent.isStopped = true;
 		golem.status.isDead = true;
 
-		//Explode();
+		Explode();
 
-		golem.animCtrl.SetTrigger("tDeath");
+		//golem.animCtrl.SetTrigger("tDeath");
 		//golem.StartCoroutine(Explode(2f));
 	}
 
 	public override void UpdateState()
 	{
-		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, "Agony", 0.8f))
-		{
-			Explode();
-		}
+		//if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, "Agony", 0.8f))
+		//{
+		//	Explode();
+		//}
 
 	}
 

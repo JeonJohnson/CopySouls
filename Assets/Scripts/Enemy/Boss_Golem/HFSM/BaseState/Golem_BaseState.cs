@@ -54,9 +54,11 @@ public class Golem_BaseState
 
 	protected void ChangeNextState()
 	{
-		curSubState.ExitState();
-
-		preSubState = curSubState;
+		if(curSubState != null)
+		{ 
+			curSubState.ExitState();
+			preSubState = curSubState;
+		}
 		curSubState = nextSubState;
 		nextSubState = null;
 
@@ -65,7 +67,19 @@ public class Golem_BaseState
 
 	public virtual void EnterBaseState()
 	{
-		
+		if (nextSubState != null)
+		{
+			ChangeNextState();
+		}
+		else if (referSubState != null)
+		{
+			curSubState = referSubState;
+			curSubState.EnterState();
+		}
+		else if (preSubState != null)
+		{ 
+
+		}
 	}
 
 	public virtual void UpdateBaseState()

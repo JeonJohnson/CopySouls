@@ -17,7 +17,7 @@ public class HFSMCtrl : MonoBehaviour
 	public Golem golem;
 	[HideInInspector]
 	public Golem_ActionTable table;
-	
+
 	[HideInInspector]
 	public Golem_BaseState[] baseStates;
 	[HideInInspector]
@@ -34,12 +34,12 @@ public class HFSMCtrl : MonoBehaviour
 
 		return baseStates[index];
 	}
-	
+
 	public void InitBaseState()
 	{
 		baseStates = new Golem_BaseState[(int)eGolemBaseState.End];
 
-		baseStates[(int)eGolemBaseState.Emotion] = new Base_Emotion(this,"Emotion");
+		baseStates[(int)eGolemBaseState.Emotion] = new Base_Emotion(this, "Emotion");
 		baseStates[(int)eGolemBaseState.Move] = new Base_Move(this, "Move");
 		baseStates[(int)eGolemBaseState.Attack] = new Base_Attack(this, "Attack");
 		baseStates[(int)eGolemBaseState.Damaged] = new Base_Damaged(this, "Damaged");
@@ -56,6 +56,16 @@ public class HFSMCtrl : MonoBehaviour
 		nextBaseState = state;
 	}
 
+	public void SetNextBaseStateWithSubStateIndex(Golem_BaseState state, int index)
+	{
+		if (state == null)
+		{
+			Debug.LogError("Golem BaseState Null Error");
+		}
+		state.nextSubState = state.GetSubState(index);
+		nextBaseState = state;
+	}
+	
 	private void ChangeNextBastState()
 	{
 		if (curBaseState != null)

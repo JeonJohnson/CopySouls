@@ -26,6 +26,9 @@ public class Base_Move : Golem_BaseState
 		subStates[(int)eGolemMoveState.Idle] = new Sub_Idle(this, "Idle");
 		subStates[(int)eGolemMoveState.Move] = new Sub_Move(this, "Move");
 		subStates[(int)eGolemMoveState.Turn] = new Sub_Turn(this, "Turn");
+
+		//referSubState = subStates[(int)eGolemMoveState.Idle];
+		referSubState = subStates[(int)eGolemMoveState.Move];
 	}
 	public override void EnterBaseState()
 	{

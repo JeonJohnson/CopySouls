@@ -29,7 +29,7 @@ public class Base_Emotion : Golem_BaseState
 		subStates[(int)eGolemEmotionState.Entrance] = new Sub_Entrance(this, "Entrance");
 		subStates[(int)eGolemEmotionState.Win] = new Sub_Win(this, "Win");
 
-		nextSubState = subStates[(int)eGolemEmotionState.Entrance];
+		referSubState = subStates[(int)eGolemEmotionState.Entrance];
 	}
 
 	public override void UpdateBaseState()
