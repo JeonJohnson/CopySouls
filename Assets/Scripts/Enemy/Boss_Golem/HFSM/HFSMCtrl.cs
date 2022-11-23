@@ -25,6 +25,9 @@ public class HFSMCtrl : MonoBehaviour
 	public Golem_BaseState curBaseState;
 	public Golem_BaseState nextBaseState;
 
+	public float thinkMinTime;
+	public float thinkMaxTime;
+	public float thinkTime;
 	public Golem_BaseState GetBaseState(int index)
 	{
 		if (index >= baseStates.Length)
@@ -55,6 +58,16 @@ public class HFSMCtrl : MonoBehaviour
 		}
 		nextBaseState = state;
 	}
+
+	public void SetNextBaseStateByIndex(int index)
+	{
+		//if (state == null)
+		//{
+		//	Debug.LogError("Golem BaseState Null Error");
+		//}
+		nextBaseState = baseStates[index];
+	}
+
 
 	public void SetNextBaseStateWithSubStateIndex(Golem_BaseState state, int index)
 	{

@@ -496,4 +496,8 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 	개병신같은 animator rootMotion
 	rootMotion적용 안하고 animation 90각도 한도로 내가 직접 돌리기 병 ㅡ 신 겜 
 
-23:50 2022-11-23	Turn확인, 이제 Attack으로 넘어가는거 테스트
+23:50 2022-11-23	Turn 수정완료.
+	할거 : 이제 Attack으로 넘어가는거 테스트
+
+04:01 2022-11-24	Attack 패턴들 작동하는거 확인완료.
+	할거 : Think에서 정해진 패턴이 거리 조건 안맞으면 움직이는거

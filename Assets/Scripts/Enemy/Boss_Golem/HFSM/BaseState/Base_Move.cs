@@ -10,9 +10,10 @@ public enum eGolemMoveState
 	End
 }
 
-
 public class Base_Move : Golem_BaseState
 {
+	float curTime;
+
 	public Base_Move(HFSMCtrl script, string name) : base(script, name)
 	{
 
@@ -33,11 +34,19 @@ public class Base_Move : Golem_BaseState
 	public override void EnterBaseState()
 	{
 		base.EnterBaseState();
+		hfsmCtrl.thinkTime = Random.Range(hfsmCtrl.thinkMinTime, hfsmCtrl.thinkMaxTime);
 	}
 
 	public override void UpdateBaseState()
 	{
 		base.UpdateBaseState();
+
+		curTime += Time.deltaTime;
+		if (curTime >= hfsmCtrl.thinkTime)
+		{
+			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
+			curTime = 0f;
+		}
 	}
 
 	public override void FixedUpdateBaseState()

@@ -48,27 +48,6 @@ public enum eGolemStateAtkType
 }
 
 
-public enum eGolemMovePriority
-{ 
-	None,
-	Move,
-	End
-}
-
-public enum eGolemCostPriority
-{ 
-	High,
-	Rand,
-	Low,
-	End
-}
-
-public enum eGolemCostWait
-{ 
-	Wait,
-	None,
-	End
-}
 
 
 
@@ -253,6 +232,7 @@ public class Golem_ActionTable : MonoBehaviour
 
 	}
 
+	#region fsm
 	public void SortStateByCostPriority(ref List<cGolemState> list, eGolemCostPriority priority)
 	{
 		switch (priority)
@@ -306,6 +286,63 @@ public class Golem_ActionTable : MonoBehaviour
 			refList.Remove(findAllState[i]);
 		}
 	}
+	#endregion
+
+	#region HFSM
+	public void SortStateByCostPriority(ref List<Golem_SubState> list, eGolemCostPriority priority)
+	{
+		switch (priority)
+		{
+			case eGolemCostPriority.High:
+				{
+					list = list.OrderByDescending(x => x.stateCost).ToList();
+				}
+				break;
+			case eGolemCostPriority.Rand:
+				{
+					Funcs.ListShuffle(ref list);
+				}
+				break;
+			case eGolemCostPriority.Low:
+				{
+					list = list.OrderByDescending(x => x.stateCost).ToList();
+					list.Reverse();
+				}
+				break;
+			case eGolemCostPriority.End:
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void SortStateByCostWait(ref List<Golem_SubState> list, eGolemCostWait waitState)
+	{
+		if (waitState == eGolemCostWait.None)
+		{
+			EraseCondition(ref list, (x => x.stateCost > golem.status.curStamina));
+		}
+		else
+		{
+
+
+		}
+	}
+
+	public void EraseCondition(ref List<Golem_SubState> refList, System.Predicate<Golem_SubState> match)
+	{
+		List<Golem_SubState> findAllState = refList.FindAll(match);
+
+		if (findAllState == null)
+		{
+			return;
+		}
+		for (int i = 0; i < findAllState.Count; ++i)
+		{
+			refList.Remove(findAllState[i]);
+		}
+	}
+	#endregion
 
 	public bool CheckNoThinkLongTime()
 	{

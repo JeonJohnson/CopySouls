@@ -4,9 +4,17 @@ using UnityEngine;
 public enum eGolemAttackState
 {
 	Think,
-	Melee,
-	Forward,
-	Range,
+
+	Melee1Hit,
+	Melee2Hit,
+	Melee3Hit,
+
+	Forward1Hit,
+	Forward2Hit,
+	Forward3Hit,
+
+	RockThrow,
+
 	End
 }
 
@@ -20,10 +28,18 @@ public class Base_Attack : Golem_BaseState
 		base.InitBaseState();
 
 		subStates = new Golem_SubState[(int)eGolemAttackState.End];
+
 		subStates[(int)eGolemAttackState.Think] = new Sub_Think(this,"Think");
-		subStates[(int)eGolemAttackState.Melee] = new Sub_MeleeAtk(this, "Melee");
-		subStates[(int)eGolemAttackState.Forward] = new Sub_ForwardAtk(this, "Forward");
-		subStates[(int)eGolemAttackState.Range] = new Sub_RangeAtk(this, "Range");
+
+		subStates[(int)eGolemAttackState.Melee1Hit] = new Sub_Melee1Atk(this, "Melee1");
+		subStates[(int)eGolemAttackState.Melee2Hit] = new Sub_Melee2Atk(this, "Melee2");
+		subStates[(int)eGolemAttackState.Melee3Hit] = new Sub_Melee3Atk(this, "Melee3");
+
+		subStates[(int)eGolemAttackState.Forward1Hit] = new Sub_Forward1Atk(this, "Forward1");
+		subStates[(int)eGolemAttackState.Forward2Hit] = new Sub_Forward2Atk(this, "Forward2");
+		subStates[(int)eGolemAttackState.Forward3Hit] = new Sub_Forward3Atk(this, "Forward3");
+
+		subStates[(int)eGolemAttackState.RockThrow] = new Sub_RockThrowAtk(this, "ThrowRock");
 
 		referSubState = subStates[(int)eGolemAttackState.Think];
 		nextSubState = subStates[(int)eGolemAttackState.Think];

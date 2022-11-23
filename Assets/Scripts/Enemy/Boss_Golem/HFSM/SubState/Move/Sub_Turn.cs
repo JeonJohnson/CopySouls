@@ -9,7 +9,6 @@ public class Sub_Turn : Golem_SubState
 		stateCost = 0;
 	}
 
-	string animName;
 
 	public override void EnterState()
 	{

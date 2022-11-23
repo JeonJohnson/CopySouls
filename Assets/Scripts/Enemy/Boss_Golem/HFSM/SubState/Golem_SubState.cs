@@ -16,7 +16,7 @@ public enum eGolemAtkRangeType
 public class Golem_SubState 
 {
 	public string stateName;
-
+	public string animName;
 	
 	[HideInInspector]
 	public Golem golem = null;
