@@ -38,15 +38,22 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.SetState(state);
     }
 
-    IEnumerator TakeDamageCoro(int damage, float stunTime = 0.767f)
+    IEnumerator TakeDamageCoro(DamagedStruct dmgStruct, float stunTime = 0.767f)
     {
         curActAtkValue = 1.0f;
-        player.status.curHp -= damage;
+        player.status.curHp -= (int)dmgStruct.dmg;
         if (player.status.curHp > 0)
         {
-            Player.instance.animator.SetTrigger("Hit");
-            yield return new WaitForSeconds(stunTime);
-            Player.instance.SetState(Enums.ePlayerState.Idle);
+            if (dmgStruct.atkType == eAttackType.Week)
+            {
+                Player.instance.animator.SetTrigger("Hit");
+            }
+            else
+            {
+                stunTime = 1.9f;
+                Player.instance.animator.SetTrigger("Hit_Hard");
+            }
+            yield return null;
         }
         else
         {
@@ -139,7 +146,7 @@ public class PlayerActionTable : MonoBehaviour
                 }
                 else
                 {
-                    TakeDamage((int)dmgStruct.dmg);
+                    TakeDamage(dmgStruct);
                 }
         }
         else if(player.status.isInvincible == true)
@@ -148,11 +155,11 @@ public class PlayerActionTable : MonoBehaviour
         }
         else
         {
-            TakeDamage((int)dmgStruct.dmg);
+            TakeDamage(dmgStruct);
         }
     }
 
-    void TakeDamage(float damage)
+    void TakeDamage(DamagedStruct dmgStruct)
     {
         player.status.isParrying = false;
         isComboCheck = false;
@@ -160,7 +167,7 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.SetState(Enums.ePlayerState.Hit);
         StopAllCoroutines();
         player.SetModelCollider(true);
-        StartCoroutine(TakeDamageCoro((int)damage));
+        StartCoroutine(TakeDamageCoro(dmgStruct));
     }
 
 
