@@ -9,14 +9,67 @@ public class Sub_Turn : Golem_SubState
 		stateCost = 0;
 	}
 
+	string animName;
+
 	public override void EnterState()
 	{
 		base.EnterState();
+
+		golem.navAgent.updateRotation = false;
+
+		golem.animCtrl.applyRootMotion = true;
+
+		switch (golem.targetWhichSide)
+		{
+			case eSideDirection.Left:
+				{
+					animName = "Turn_Left";
+					golem.animCtrl.SetTrigger("tRotate");
+					golem.animCtrl.SetInteger("iRotDir", -1);
+				}
+				break;
+			case eSideDirection.Right:
+				{
+					animName = "Turn_Right";
+					golem.animCtrl.SetTrigger("tRotate");
+					golem.animCtrl.SetInteger("iRotDir", 1);
+				}
+				break;
+			default:
+				break;
+		}
 	}
 
 	public override void UpdateState()
 	{
 		base.UpdateState();
+
+		if (Funcs.IsAnimationAlmostFinish(golem.animCtrl, animName, 1f))
+		{
+			if (golem.distToTarget > golem.status.atkRange + 1f)
+			{
+				baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Move));
+			}
+			else if (golem.angleToTarget >= 45f)
+			{
+				baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Turn));
+			}
+			else
+			{	
+				baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Idle));
+			}
+		}
+		//else if(!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName(animName))
+		//{
+		//	if (golem.distToTarget > golem.status.atkRange + 1f)
+		//	{
+		//		baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Move));
+		//	}
+		//	else
+		//	{
+		//		baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Idle));
+		//	}
+		//}
 	}
 
 	public override void FixedUpdateState()
@@ -32,5 +85,8 @@ public class Sub_Turn : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
+
+		golem.animCtrl.applyRootMotion = false;
+		golem.navAgent.updateRotation = true;
 	}
 }

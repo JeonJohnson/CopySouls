@@ -59,7 +59,6 @@ public class Golem_Turn: cGolemState
 			{
 				golem.SetState((int)eGolemState.Idle);
 			}
-			
 		}
 	}
 

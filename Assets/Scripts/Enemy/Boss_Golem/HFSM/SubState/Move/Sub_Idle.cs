@@ -12,11 +12,23 @@ public class Sub_Idle : Golem_SubState
 	public override void EnterState()
 	{
 		base.EnterState();
+
+
+		golem.animCtrl.SetTrigger("tIdle");
 	}
 
 	public override void UpdateState()
 	{
 		base.UpdateState();
+
+		if (golem.distToTarget > golem.status.atkRange + 1f)
+		{
+			baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Move));
+		}
+		else if (golem.angleToTarget >= 45f)
+		{
+			baseState.SetSubState(baseState.GetSubState((int)eGolemMoveState.Turn));
+		}
 	}
 
 	public override void FixedUpdateState()

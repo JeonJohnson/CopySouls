@@ -21,7 +21,7 @@ public class Base_Damaged : Golem_BaseState
 		subStates[(int)eGolemDamagedState.Hit] = new Sub_Hit(this, "Hit");
 		subStates[(int)eGolemDamagedState.Death] = new Sub_Hit(this, "Death");
 		
-
+		
 	}
 
 	public override void EnterBaseState()

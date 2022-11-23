@@ -38,8 +38,6 @@ public class Golem_SubState
 		stateName = name;
 	}
 
-	
-
 	public virtual void EnterState()
 	{
 	}
