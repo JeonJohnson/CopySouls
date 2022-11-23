@@ -495,3 +495,5 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 12:22 2022-11-23	HFSM 되는거 확인
 	개병신같은 animator rootMotion
 	rootMotion적용 안하고 animation 90각도 한도로 내가 직접 돌리기 병 ㅡ 신 겜 
+
+23:50 2022-11-23	Turn확인, 이제 Attack으로 넘어가는거 테스트
