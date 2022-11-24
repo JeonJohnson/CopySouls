@@ -8,7 +8,6 @@ public class Player_Move : Player_cState
     public override void EnterState(Player script)
     {
         base.EnterState(script);
-        PlayerLocomove.instance.ResetValue();
         isRolling = false;
     }
     public override void UpdateState()

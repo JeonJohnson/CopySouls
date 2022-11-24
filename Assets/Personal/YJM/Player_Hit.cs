@@ -16,6 +16,6 @@ public class Player_Hit : Player_cState
 
     public override void ExitState()
     {
-        PlayerLocomove.instance.PlayerPosFix();
+
     }
 }

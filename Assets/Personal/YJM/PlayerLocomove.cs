@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
 
 public class PlayerLocomove : MonoBehaviour
 {
@@ -10,20 +12,28 @@ public class PlayerLocomove : MonoBehaviour
     public bool isCameraLock = false;
     public Transform targetEnemy;
 
-    public float walkSpeed = 1f;
-    public float runSpeed = 1.5f;
-    public float accelSpeed = 80f;
-    public float gravity = -5f;
+    [Header("Stats")]
+    [SerializeField]
+    float movementSpeed = 1f;
+    [SerializeField]
+    float runningSpeed = 2f;
+    [SerializeField]
+    float rotationSpeed = 10f;
+    [SerializeField]
+    float fallingSpeed = 45f;
+    public float moveAmount = 0f;
+    float addedSpeed = 0f;
+    [SerializeField]
+    float accelSpeed = 1f;
 
     [SerializeField] public bool isRun = false;
 
     [Range(1, 300)] public float mouseSensitivity = 70;
 
-    public float curSpeed = 0f;
+    CharacterController cc;
 
     [SerializeField] GameObject playerModel;
     public Transform cameraArm;
-    //[SerializeField] Transform headPos;
     public CameraTest cameraManager;
 
     #region singletone
@@ -42,27 +52,38 @@ public class PlayerLocomove : MonoBehaviour
             Destroy(this.gameObject);
         }
         //LinkCamera();
+        cc = GetComponent<CharacterController>();
     }
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         SetAnimation();
         KeyInput();
-        if(Input.GetKeyDown(KeyCode.U))
+        GiveGravity();
+    }
+
+    private void FixedUpdate()
+    {
+    }
+
+
+    float yVelocity = 0f;
+    void GiveGravity()
+    {
+        if (cc.isGrounded == false)
         {
-            //PlayerActionTable.instance.BackHoldAttack();
+            yVelocity += fallingSpeed * Time.deltaTime;
+            Vector3 gravityVec = new Vector3(0f, -yVelocity, 0f);
+            cc.Move(gravityVec * Time.deltaTime);
+        }
+        else
+        {
+            yVelocity = 0f;
         }
     }
-    
+
     public void LinkCamera()
     {
         cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
@@ -74,73 +95,98 @@ public class PlayerLocomove : MonoBehaviour
         //cameraManager.targetTransform = Player.instance.playerModel.transform;
     }
 
-
     [HideInInspector]public bool isMove = false;
 	public Vector3 moveDir;
-
-	public void Move()
+    Vector3 normalVector;
+    public void Move()
     {
         SprintInput();
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         isMove = moveInput.magnitude != 0;
+        moveAmount = Mathf.Clamp01(Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.y));
         if (isMove)
         {
-            Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
-            Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
-            moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
-            transform.position += moveDir.normalized * Time.deltaTime * curSpeed;
+            moveDir = cameraArm.forward * moveInput.y;
+            moveDir += cameraArm.right * moveInput.x;
+            moveDir.Normalize();
+
+            moveDir = new Vector3(moveDir.x, 0f, moveDir.z);
+
+            float speed = movementSpeed + addedSpeed;
+            moveDir *= speed;
+
+            Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDir, normalVector);
+            cc.Move(projectedVelocity * Time.deltaTime);
         }
         else
         {
-            ResetValue();
+            moveAmount = 0f;
             Player.instance.SetState(Enums.ePlayerState.Idle);
         }
-
-        playerModel.transform.position = this.transform.position;
-        //if (Player.instance.status.isInputtable == false) return;
         SetPlayerTrInputHold();
+        if(isCameraLock)
+        {
+            
+        }
+        else
+        {
+
+        }
     }
 
-    void ChangeModelTrInput()
+    void HandleRotation(float delta, Vector2 moveInput)
     {
-        if (isCameraLock == true)
-        {
-            Vector3 lookDir = targetEnemy.transform.position - playerModel.transform.position;
-            lookDir.y = 0f;
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir.normalized, Time.deltaTime * 10f);
-        }
-        else if (isCameraLock == false)
-        {
-            Vector3 lookDir = moveDir;
-            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
-        }
+        Vector3 targetDir = Vector3.zero;
+        float moveOverride = moveAmount;
+
+        targetDir = cameraArm.forward * moveInput.y;
+        targetDir += cameraArm.right * moveInput.x;
+
+        targetDir.Normalize();
+        targetDir.y = 0;
+
+        if (targetDir == Vector3.zero)
+            targetDir = transform.forward;
+
+        float rs = rotationSpeed;
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rs * delta);
+
+        transform.rotation = targetRotation;
     }
 
     void SprintInput()
     {
         if (Input.GetKey(KeyCode.C))
         {
-            curSpeed += Time.deltaTime * accelSpeed;
+            print("아앍 뛴다");
+            addedSpeed += Time.deltaTime * accelSpeed;
             isRun = true;
         }
         else
         {
-            curSpeed -= Time.deltaTime * accelSpeed;
+            addedSpeed -= Time.deltaTime * accelSpeed;
             isRun = false;
         }
-        curSpeed = Mathf.Clamp(curSpeed, walkSpeed, runSpeed);
+        addedSpeed = Mathf.Clamp(addedSpeed, 0, runningSpeed);
+        print(addedSpeed);
     }
 
     void SetAnimation()
     {
         if (isMove == true)
         {
-            Player.instance.animator.SetFloat("MoveSpeed", curSpeed / runSpeed);
+            print(isMove + "임");
+            Player.instance.animator.applyRootMotion = false;
+            Player.instance.animator.SetFloat("MoveSpeed", (movementSpeed + addedSpeed) / (movementSpeed + runningSpeed));
         }
         else
         {
-            Player.instance.animator.SetFloat("MoveSpeed", 0);
+            print(isMove + "임");
+            Player.instance.animator.applyRootMotion = true;
+            Player.instance.animator.SetFloat("MoveSpeed", 0f);
         }
     }
 
@@ -188,6 +234,11 @@ public class PlayerLocomove : MonoBehaviour
 
     void CameraLock()
     {
+        if (targetEnemy != null)
+        {
+            isCameraLock = false;
+            return;
+        }
         Vector3 lookDir = targetEnemy.transform.position - cameraArm.transform.position;
         lookDir.y = 0f;
 
@@ -198,21 +249,10 @@ public class PlayerLocomove : MonoBehaviour
 
     public void ResetValue()
     {
-        curSpeed = 0f;
+        moveAmount = 0f;
+        isMove = false;
         Player.instance.animator.SetFloat("MoveSpeed", 0f);
-    }
-
-
-    public void PlayerPosFix()
-    {
-        transform.position = playerModel.transform.position;
-        playerModel.transform.localPosition = Vector3.zero;
-        //cameraArm.transform.localPosition = headPos.transform.localPosition;
-    }
-
-    public void SetPlayerPos()
-    {
-
+        Player.instance.animator.applyRootMotion = true;
     }
 
     public void SetPlayerTrImt()
@@ -255,6 +295,20 @@ public class PlayerLocomove : MonoBehaviour
         }
     }
 
+    void ChangeModelTrInput()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (isCameraLock == true)
+        {
+            Vector3 lookDir = targetEnemy.transform.position - this.transform.position;
+            playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, lookDir, Time.deltaTime * 20f);
+        }
+        else if (isCameraLock == false)
+        {
+            HandleRotation(Time.deltaTime, moveInput);
+        }
+    }
+
     float inputTimer = 0.2f;
     Coroutine SetPlayerTrInputCoro;
     bool isInput = false;
@@ -262,20 +316,9 @@ public class PlayerLocomove : MonoBehaviour
     void SetPlayerTrInputHold()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (inputTimer >= 0f)
+        if (inputTimer >= 0f && !isCameraLock)
         {
-            if(isCameraLock == false)
-            {
-                if (isInput == false)
-                {
-                    SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
-                    isInput = true;
-                }
-            }
-            else
-            {
-                ChangeModelTrInput(); 
-            }
+            SetPlayerTrInputCoro = StartCoroutine(SetPlayerTr());
         }
         else
         {
