@@ -76,7 +76,8 @@ public class Sub_Turn : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
-
+		golem.animCtrl.ResetTrigger("tRotate");
+		golem.animCtrl.SetInteger("iRotDir", 0);
 		//golem.animCtrl.applyRootMotion = false;
 		golem.navAgent.updateRotation = true;
 	}

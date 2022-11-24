@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,19 +33,75 @@ public class Base_Move : Golem_BaseState
 	}
 	public override void EnterBaseState()
 	{
+		if (golem.distToTarget <= golem.status.atkRange)
+		{
+			if (golem.angleToTarget >= 45f)
+			{
+				nextSubState = GetSubState((int)eGolemMoveState.Turn);
+			}
+			else
+			{
+				nextSubState = GetSubState((int)eGolemMoveState.Idle);
+			}
+		}
+		else
+		{
+			nextSubState = GetSubState((int)eGolemMoveState.Move);
+		}
+
 		base.EnterBaseState();
-		hfsmCtrl.thinkTime = Random.Range(hfsmCtrl.thinkMinTime, hfsmCtrl.thinkMaxTime);
+
+		if (hfsmCtrl.baseStates[(int)eGolemBaseState.Attack].nextSubState != null)
+		{
+
+		}
+		else
+		{
+			hfsmCtrl.thinkTime = Random.Range(hfsmCtrl.thinkMinTime, hfsmCtrl.thinkMaxTime);
+		}
+		
 	}
 
 	public override void UpdateBaseState()
 	{
 		base.UpdateBaseState();
 
-		curTime += Time.deltaTime;
-		if (curTime >= hfsmCtrl.thinkTime)
-		{
-			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
-			curTime = 0f;
+		if (hfsmCtrl.baseStates[(int)eGolemBaseState.Attack].nextSubState != null)
+		{//Attack 예약 된게 있으니까 해당 거리 조건 맞으면 바로 가기!
+			
+			eGolemAtkRangeType tempType = hfsmCtrl.baseStates[(int)eGolemBaseState.Attack].nextSubState.atkRangeType;
+
+			switch (tempType)
+			{
+				case eGolemAtkRangeType.CloseAtk:
+					{
+						if (golem.distToTarget <= golem.status.atkRange)
+						{
+							hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
+						}
+					}
+					break;
+				case eGolemAtkRangeType.MiddleAtk:
+					{
+						if (golem.distToTarget <= golem.rangeAtkRange)
+						{
+							hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
+						}
+					}
+					break;
+				default:
+					break;
+			}
+
+		}
+		else
+		{//Attack에 예약된거 없으면 시간 ㄱㄱㄱ
+			curTime += Time.deltaTime;
+			if (curTime >= hfsmCtrl.thinkTime)
+			{
+				hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
+				curTime = 0f;
+			}
 		}
 	}
 

@@ -2545,7 +2545,7 @@ MonoBehaviour:
   isMoveable: 1
   isCameraLock: 0
   targetEnemy: {fileID: 0}
-  walkSpeed: 5
+  walkSpeed: 15
   runSpeed: 7
   accelSpeed: 80
   gravity: -5

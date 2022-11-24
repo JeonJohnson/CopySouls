@@ -501,3 +501,6 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 
 04:01 2022-11-24	Attack 패턴들 작동하는거 확인완료.
 	할거 : Think에서 정해진 패턴이 거리 조건 안맞으면 움직이는거
+
+15:47 2022-11-24	Golem 확인 완료.
+	할거 : Hit랑 Death, Win 마저 처리해주기

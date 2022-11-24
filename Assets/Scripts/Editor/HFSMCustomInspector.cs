@@ -56,7 +56,6 @@ public class HFSMCustomInspector : Editor
 		}
 		else
 		{
-
 			if (controller.curBaseState.preSubState != null)
 			{ EditorGUILayout.LabelField("Pre SubState: ", controller.curBaseState.preSubState.ToString()); }
 			else { EditorGUILayout.LabelField("Pre SubState: ", "null"); }
@@ -71,6 +70,18 @@ public class HFSMCustomInspector : Editor
 
 		}
 
+
+		EditorGUILayout.LabelField("--Next Attack State ReadOnly--");
+
+		if (controller.baseStates != null)
+		{
+			if (controller.baseStates[(int)eGolemBaseState.Attack] != null)
+			{
+				Golem_SubState temp = controller.baseStates[(int)eGolemBaseState.Attack].nextSubState;
+				if (temp != null)
+				{ EditorGUILayout.LabelField("Next Attack SubState: ", temp.stateName); }
+			}
+		}
 
 	}
 }

@@ -42,7 +42,7 @@ public class Base_Attack : Golem_BaseState
 		subStates[(int)eGolemAttackState.RockThrow] = new Sub_RockThrowAtk(this, "ThrowRock");
 
 		referSubState = subStates[(int)eGolemAttackState.Think];
-		nextSubState = subStates[(int)eGolemAttackState.Think];
+		//nextSubState = subStates[(int)eGolemAttackState.Think];
 	}
 
 	public override void EnterBaseState()

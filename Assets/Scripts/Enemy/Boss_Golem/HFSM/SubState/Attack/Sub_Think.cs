@@ -61,6 +61,8 @@ public class Sub_Think : Golem_SubState
 			else
 			{
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.RangeAtk);
+
+
 			}
 		}
 		else if (golem.distToTarget <= golem.rangeAtkRange)
@@ -69,6 +71,8 @@ public class Sub_Think : Golem_SubState
 			{
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.CloseAtk);
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.RangeAtk);
+
+
 			}
 			else
 			{
@@ -101,15 +105,36 @@ public class Sub_Think : Golem_SubState
 		if (canStateList.Count == 0)
 		{
 			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move));
+			
 		}
 		else
 		{
 			nextState = canStateList[0];
 
 			baseState.SetSubState(nextState);
+
+			switch (nextState.atkRangeType)
+			{
+				case eGolemAtkRangeType.CloseAtk:
+					{
+						if (golem.distToTarget > golem.status.atkRange)
+						{
+							hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move));
+						}
+					}
+					break;
+				case eGolemAtkRangeType.MiddleAtk:
+					{
+						if (golem.distToTarget >= golem.rangeAtkRange)
+						{
+							hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move));
+						}
+					}
+					break;
+			}
 		}
 
-
+	
 
 		#region oldThings
 		//if (canStateList.Count == 0)
@@ -170,7 +195,7 @@ public class Sub_Think : Golem_SubState
 	{
 		base.EnterState();
 
-		Decision();
+		
 
 		//baseState.SetSubState(baseState.GetSubState((int)eGolemAttackState.RockThrow));
 	}
@@ -178,7 +203,7 @@ public class Sub_Think : Golem_SubState
 	{
 		base.UpdateState();
 
-
+		Decision(); 
 
 	}
 
