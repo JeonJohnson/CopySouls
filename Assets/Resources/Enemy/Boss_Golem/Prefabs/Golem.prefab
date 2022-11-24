@@ -150,6 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   golem: {fileID: 0}
   table: {fileID: 0}
+  thinkMinTime: 0.5
+  thinkMaxTime: 2.5
+  thinkTime: 0
 --- !u!114 &1705065869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +207,7 @@ MonoBehaviour:
   col: {fileID: 0}
   rd: {fileID: 0}
   navAgent: {fileID: 0}
+  testClip: {fileID: -203655887218126122, guid: f0be6cabd47832340b305cd071ccb4f2, type: 3}
   targetHeadTr: {fileID: 0}
   angleToTarget: 0
   targetWhichSide: 0

@@ -23,6 +23,7 @@ public class Sub_Entrance : Golem_SubState
 				{
 					if (golem.distToTarget <= golem.status.ricognitionRange)
 					{
+						golem.animCtrl.enabled = false;
 						golem.combatState = eCombatState.Alert;
 						golem.FragScript.Assemble();
 					}
@@ -37,7 +38,7 @@ public class Sub_Entrance : Golem_SubState
 						golem.meshObj.SetActive(true);
 						golem.rootObj.SetActive(true);
 						golem.ragdoll.gameObject.SetActive(false);
-
+						golem.animCtrl.enabled = true;
 						golem.animCtrl.SetTrigger("tRoar");
 					}
 				}

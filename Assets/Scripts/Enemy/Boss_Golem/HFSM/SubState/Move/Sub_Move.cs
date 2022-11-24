@@ -22,10 +22,15 @@ public class Sub_Move : Golem_SubState
 	{
 		base.EnterState();
 
-		golem.animCtrl.applyRootMotion = false;
-		golem.navAgent.isStopped = false;
+			golem.animCtrl.applyRootMotion = false;
+			golem.navAgent.isStopped = false;
 
-		golem.animCtrl.SetTrigger("tMove");
+			animName = "MoveBlendTree";
+
+			if (!golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName(animName))
+			{
+				golem.animCtrl.SetTrigger("tMove");
+			}
 	}
 
 	public override void UpdateState()
@@ -68,5 +73,7 @@ public class Sub_Move : Golem_SubState
 		base.ExitState();
 
 		golem.navAgent.isStopped = true;
+
+		golem.animCtrl.ResetTrigger("tMove");
 	}
 }
