@@ -151,7 +151,7 @@ MonoBehaviour:
   golem: {fileID: 0}
   table: {fileID: 0}
   thinkMinTime: 1
-  thinkMaxTime: 3.5
+  thinkMaxTime: 4
   thinkTime: 0
 --- !u!114 &1705065869
 MonoBehaviour:
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc162608272094e9c2bcf52b1c4e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thinkMinTime: 0.5
-  thinkMaxTime: 2.5
+  thinkMinTime: 10
+  thinkMaxTime: 10
   isWaitForCost: 0
   isWaitForDist: 0
   curMoveTime: 0

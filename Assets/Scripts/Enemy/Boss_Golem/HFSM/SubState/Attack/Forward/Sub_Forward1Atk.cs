@@ -21,6 +21,13 @@ public class Sub_Forward1Atk : Golem_SubState
 
 		golem.animCtrl.SetTrigger("tForAtk1");
 		golem.animCtrl.SetInteger("iForAtk1", rand);
+
+		if (rand == 1)
+		{ table.SetAtkType((int)Enums.eAttackType.Week); }
+		else
+		{ table.SetAtkType((int)Enums.eAttackType.Strong); }
+
+		
 	}
 	public override void UpdateState()
 	{

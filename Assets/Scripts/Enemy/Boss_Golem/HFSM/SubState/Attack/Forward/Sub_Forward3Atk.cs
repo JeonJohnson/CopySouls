@@ -21,6 +21,8 @@ public class Sub_Forward3Atk : Golem_SubState
 
 		golem.animCtrl.SetTrigger("tForAtk3");
 		animName = "ForAtk3";
+
+		table.SetAtkType((int)Enums.eAttackType.Strong);
 	}
 	public override void UpdateState()
 	{
