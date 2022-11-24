@@ -99,6 +99,7 @@ MonoBehaviour:
   col: {fileID: 0}
   type: 4
   Dmg: 0
+  atkType: 1
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2

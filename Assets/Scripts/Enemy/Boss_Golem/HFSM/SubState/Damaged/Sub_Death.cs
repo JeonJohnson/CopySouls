@@ -12,6 +12,16 @@ public class Sub_Death : Golem_SubState
 	public override void EnterState()
 	{
 		base.EnterState();
+
+		golem.status.isDead = true;
+		golem.DeathReset();
+
+		golem.meshObj.SetActive(false);
+		golem.rootObj.SetActive(false);
+		golem.FragScript.gameObject.SetActive(true);
+		golem.animCtrl.enabled = false;
+
+		golem.FragScript.animCtrl.SetTrigger("tExplode");
 	}
 	public override void UpdateState()
 	{

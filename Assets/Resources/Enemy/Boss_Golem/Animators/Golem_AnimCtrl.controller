@@ -85,8 +85,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit_Heavy
-  m_Speed: 1
+  m_Name: Hit_3
+  m_Speed: 0.75
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -416,7 +416,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit_Light
+  m_Name: Hit_1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1020,10 +1020,10 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: fHpRatio
-    m_Type: 1
+  - m_Name: iHit_Num
+    m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: -1
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: tDeath
@@ -1151,12 +1151,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: tHit
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: fHpRatio
-    m_EventTreshold: 90
-  - m_ConditionMode: 3
-    m_ConditionEvent: fHpRatio
-    m_EventTreshold: 65
+  - m_ConditionMode: 6
+    m_ConditionEvent: iHit_Num
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3403804300640372764}
   m_Solo: 0
@@ -1805,8 +1802,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit_Medium
-  m_Speed: 1
+  m_Name: Hit_2
+  m_Speed: 0.75
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -1835,9 +1832,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: tHit
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: fHpRatio
-    m_EventTreshold: 30
+  - m_ConditionMode: 6
+    m_ConditionEvent: iHit_Num
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8510470267325987584}
   m_Solo: 0
@@ -2121,12 +2118,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: tHit
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: fHpRatio
-    m_EventTreshold: 65
-  - m_ConditionMode: 3
-    m_ConditionEvent: fHpRatio
-    m_EventTreshold: 30
+  - m_ConditionMode: 6
+    m_ConditionEvent: iHit_Num
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5067394372661362304}
   m_Solo: 0

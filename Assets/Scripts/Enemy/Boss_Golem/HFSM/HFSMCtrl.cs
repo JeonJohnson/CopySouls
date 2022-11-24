@@ -22,7 +22,14 @@ public class HFSMCtrl : MonoBehaviour
 	public Golem_BaseState[] baseStates;
 	[HideInInspector]
 	public Golem_BaseState preBaseState;
-	public Golem_BaseState curBaseState;
+	private Golem_BaseState curBaseState;
+	public Golem_BaseState GetCurBaseState
+	{
+		get
+		{
+			return curBaseState;
+		}
+	}
 	public Golem_BaseState nextBaseState;
 
 	public float thinkMinTime;

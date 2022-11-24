@@ -21,6 +21,8 @@ public class Sub_Melee1Atk : Golem_SubState
 		animName = $"Attack_{iRand}";
 		golem.animCtrl.SetInteger("iAtk1_Num", iRand);
 
+
+		table.SetAtkType((int)Enums.eAttackType.Strong);
 	}
 	public override void UpdateState()
 	{

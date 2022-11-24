@@ -381,74 +381,74 @@ public class Archer : Enemy
 
 
 
-    public eArcherState Think(eArcherState curState)
-    {
+  //  public eArcherState Think(eArcherState curState)
+  //  {
 
-		eArcherState returnState = eArcherState.End;
+		//eArcherState returnState = eArcherState.End;
 
-        switch (curState)
-        {
-   //         case eArcherState.Attack_Rapid:
-   //         case eArcherState.Attack_Aiming:
-   //             {
-			//		if (distToTarget >= status.ricognitionRange
-			//			|| !CheckTargetInFovAndRange())
-			//		{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
-			//			returnState = eArcherState.LookAround;
-			//		}
-			//		else
-			//		{
-			//			returnState = eArcherState.Attack_Aiming;
-			//		}
-   //             }
-			//	break;
-   //         case eArcherState.Attack_Melee:
-   //             break;
+  //      switch (curState)
+  //      {
+  // //         case eArcherState.Attack_Rapid:
+  // //         case eArcherState.Attack_Aiming:
+  // //             {
+		//	//		if (distToTarget >= status.ricognitionRange
+		//	//			|| !CheckTargetInFovAndRange())
+		//	//		{//인지범위 밖으로 나갔거나 시야각 밖으로 나갔을 경우
+		//	//			returnState = eArcherState.LookAround;
+		//	//		}
+		//	//		else
+		//	//		{
+		//	//			returnState = eArcherState.Attack_Aiming;
+		//	//		}
+  // //             }
+		//	//	break;
+  // //         case eArcherState.Attack_Melee:
+  // //             break;
 
-			//case eArcherState.Hit:
-			//	{
-			//		if (distToTarget <= meleeAtkRange)
-			//		{
-			//			float random = UnityEngine.Random.Range(0f, 100f);
-			//			//한 30프로 확률로다가 근접공격
-			//			//30프로는 이전 상태
-			//			//40프로는 도망가기 ㅌㅌㅌ
+		//	//case eArcherState.Hit:
+		//	//	{
+		//	//		if (distToTarget <= meleeAtkRange)
+		//	//		{
+		//	//			float random = UnityEngine.Random.Range(0f, 100f);
+		//	//			//한 30프로 확률로다가 근접공격
+		//	//			//30프로는 이전 상태
+		//	//			//40프로는 도망가기 ㅌㅌㅌ
 
-			//			if (random <= 30f)
-			//			{
-			//				//returnState = eArcherState.Attack_Melee; 
-			//				returnState = eArcherState.Runaway;
-			//			}
-			//			else if (random > 30f && random <= 60f)
-			//			{
-			//				returnState = (eArcherState)preState_i;
-			//			}
-			//			else
-			//			{
-			//				returnState = eArcherState.Runaway;
-			//			}
-			//		}
-			//		else
-			//		{
-			//			float random = UnityEngine.Random.Range(0, 2);
+		//	//			if (random <= 30f)
+		//	//			{
+		//	//				//returnState = eArcherState.Attack_Melee; 
+		//	//				returnState = eArcherState.Runaway;
+		//	//			}
+		//	//			else if (random > 30f && random <= 60f)
+		//	//			{
+		//	//				returnState = (eArcherState)preState_i;
+		//	//			}
+		//	//			else
+		//	//			{
+		//	//				returnState = eArcherState.Runaway;
+		//	//			}
+		//	//		}
+		//	//		else
+		//	//		{
+		//	//			float random = UnityEngine.Random.Range(0, 2);
 
-			//			if (random == 0)
-			//			{
-			//				returnState = (eArcherState)preState_i;
-			//			}
-			//			else
-			//			{
-			//				returnState = eArcherState.Runaway;
-			//			}
-			//		}
-			//	}
-			//	break;
-   //         default:
-   //             break;
-        }
+		//	//			if (random == 0)
+		//	//			{
+		//	//				returnState = (eArcherState)preState_i;
+		//	//			}
+		//	//			else
+		//	//			{
+		//	//				returnState = eArcherState.Runaway;
+		//	//			}
+		//	//		}
+		//	//	}
+		//	//	break;
+  // //         default:
+  // //             break;
+  //      }
 
-		return returnState;
-    }
+		//return returnState;
+  //  }
 
 
 	public override void Hit(DamagedStruct dmgStruct)

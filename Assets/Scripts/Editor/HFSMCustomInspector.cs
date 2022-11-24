@@ -30,13 +30,13 @@ public class HFSMCustomInspector : Editor
 			EditorGUILayout.LabelField("Pre BaseState: ", controller.preBaseState.ToString());
 		}
 
-		if (controller.curBaseState == null)
+		if (controller.GetCurBaseState == null)
 		{
 			EditorGUILayout.LabelField("Cur BaseState: ", "null");
 		}
 		else
 		{
-			EditorGUILayout.LabelField("Cur BaseState: ", controller.curBaseState.ToString());
+			EditorGUILayout.LabelField("Cur BaseState: ", controller.GetCurBaseState.ToString());
 		}
 
 		if (controller.nextBaseState == null)
@@ -50,22 +50,22 @@ public class HFSMCustomInspector : Editor
 
 
 		EditorGUILayout.LabelField("--SubState ReadOnly--");
-		if (controller.curBaseState == null)
+		if (controller.GetCurBaseState == null)
 		{
 			EditorGUILayout.LabelField("Cur BaseState is Null");
 		}
 		else
 		{
-			if (controller.curBaseState.preSubState != null)
-			{ EditorGUILayout.LabelField("Pre SubState: ", controller.curBaseState.preSubState.ToString()); }
+			if (controller.GetCurBaseState.preSubState != null)
+			{ EditorGUILayout.LabelField("Pre SubState: ", controller.GetCurBaseState.preSubState.ToString()); }
 			else { EditorGUILayout.LabelField("Pre SubState: ", "null"); }
 
-			if(controller.curBaseState.curSubState != null)
-			EditorGUILayout.LabelField("Cur SubState: ", controller.curBaseState.curSubState.ToString());
+			if(controller.GetCurBaseState.curSubState != null)
+			EditorGUILayout.LabelField("Cur SubState: ", controller.GetCurBaseState.curSubState.ToString());
 			else { EditorGUILayout.LabelField("Cur SubState: ", "null"); }
 
-			if (controller.curBaseState.nextSubState != null)
-			EditorGUILayout.LabelField("Next SubState: ", controller.curBaseState.nextSubState.ToString());
+			if (controller.GetCurBaseState.nextSubState != null)
+			EditorGUILayout.LabelField("Next SubState: ", controller.GetCurBaseState.nextSubState.ToString());
 			else { EditorGUILayout.LabelField("Next SubState: ", "null"); }
 
 		}

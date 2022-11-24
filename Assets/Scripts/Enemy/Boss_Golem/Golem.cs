@@ -82,18 +82,25 @@ public class Golem : Enemy
 	{
 		base.Hit(dmgStruct);
 
-		if (status.curHp > 0)
+		if (hfsmCtrl.GetCurBaseState != hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack))
 		{
-			int rand = Random.Range(0, 100);
-			if (rand < 30)
-			{
-				SetState((int)eGolemState.Hit);
-			}
+			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Damaged));
 		}
-		else 
-		{
-			SetState((int)eGolemState.Death);
-		}
+		
+		
+
+		//if (status.curHp > 0)
+		//{
+		//	int rand = Random.Range(0, 100);
+		//	if (rand < 30)
+		//	{
+		//		SetState((int)eGolemState.Hit);
+		//	}
+		//}
+		//else 
+		//{
+		//	SetState((int)eGolemState.Death);
+		//}
 	}
 
 	public override void InitializeState()

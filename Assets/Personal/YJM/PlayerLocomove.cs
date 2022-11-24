@@ -230,7 +230,7 @@ public class PlayerLocomove : MonoBehaviour
 
     void CameraLock()
     {
-        if (targetEnemy != null)
+        if (targetEnemy == null)
         {
             isCameraLock = false;
             return;
