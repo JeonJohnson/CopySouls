@@ -62,6 +62,20 @@ public class Player_Move : Player_cState
             {
                 PlayerActionTable.instance.Guard();
             }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (PlayerActionTable.instance.holdType == false)
+                {
+                    PlayerActionTable.instance.ChangeWeaponHoldType(true);
+                    PlayerActionTable.instance.holdType = true;
+                }
+                else
+                {
+                    PlayerActionTable.instance.ChangeWeaponHoldType(false);
+                    PlayerActionTable.instance.holdType = false;
+                }
+            }
         }
     }
 

@@ -1274,7 +1274,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: d7823825151dc994ba05dc63597b504b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 147f04b16a738e14786ce73659c0e749, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1484,6 +1484,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: EquipL
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: TestInt
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0

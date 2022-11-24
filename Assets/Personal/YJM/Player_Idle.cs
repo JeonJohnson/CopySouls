@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Archer_Hit_Hold;
 
 public class Player_Idle : Player_cState
 {
@@ -61,9 +62,21 @@ public class Player_Idle : Player_cState
 
         if(Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("InputF");
-            PlayerActionTable.instance.ChangeWeaponHoldType();
+            if(PlayerActionTable.instance.holdType == false)
+            {
+                PlayerActionTable.instance.ChangeWeaponHoldType(true);
+                PlayerActionTable.instance.holdType = true;
+            }
+            else
+            {
+                PlayerActionTable.instance.ChangeWeaponHoldType(false);
+                PlayerActionTable.instance.holdType = false;
+            }
         }    
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
+        }
         PlayerActionTable.instance.UpdateStamina();
     }
 

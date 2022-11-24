@@ -64,6 +64,7 @@ public class Item_Weapon : Item
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
     public void SetAsSubWeapon()
@@ -74,6 +75,7 @@ public class Item_Weapon : Item
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
     public void DeselectWeapon()
@@ -82,5 +84,6 @@ public class Item_Weapon : Item
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 1;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 }

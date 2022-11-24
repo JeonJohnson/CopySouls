@@ -153,14 +153,14 @@ public class Player : MonoBehaviour
         if (status.mainWeapon != null)
         {
             status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
-            status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
-            ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);// 임시
+            //status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
+            //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);// 임시
 
         }
         if (status.subWeapon != null)
         {
             status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
-            ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
+            //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
         }
     }
 
