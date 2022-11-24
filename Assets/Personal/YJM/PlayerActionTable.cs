@@ -446,16 +446,17 @@ public class PlayerActionTable : MonoBehaviour
             {
                 case eWeaponType.None:
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
+                    StartCoroutine(waitCoro(0, true));
                     break;
                 case eWeaponType.Melee:
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-                    StartCoroutine(waitCoro(2));
+                    StartCoroutine(waitCoro(1, true));
                     break;
                 case eWeaponType.Sheild:
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-                    StartCoroutine(waitCoro(2));
+                    StartCoroutine(waitCoro(2, true));
                     break;
                 case eWeaponType.Arrow:
                     break;
@@ -492,7 +493,7 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
-    IEnumerator waitCoro(int i)
+    IEnumerator waitCoro(int i, bool isInput = false)
     {
         yield return null;
         Player.instance.animator.SetInteger("WeaponHoldTypeIndex", i);

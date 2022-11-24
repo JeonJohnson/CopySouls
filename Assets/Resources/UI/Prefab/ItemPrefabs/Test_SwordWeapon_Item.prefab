@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1351056330042189600}
   - component: {fileID: 1351056330038756604}
   - component: {fileID: 1351056330040218218}
-  - component: {fileID: 1322961623674112512}
   - component: {fileID: 1351056330041920394}
   - component: {fileID: 1351056330041920395}
+  - component: {fileID: 7322326572584479693}
   m_Layer: 16
   m_Name: Test_SwordWeapon_Item
   m_TagString: Item
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1322961623674112512
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351056330041920392}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43826581424661576, guid: 23c2830330476d8498d6e1378c25bfe6, type: 2}
 --- !u!114 &1351056330041920394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9eea57f9d3f86b48a1a0d3e433d8d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: {fileID: 1322961623674112512}
+  col: {fileID: 7322326572584479693}
   type: 1
   Dmg: 30
   owner: {fileID: 0}
@@ -126,6 +112,8 @@ MonoBehaviour:
     type: 0
     range: 3
     price: 500
+    isUsing: 0
+    holdType: 0
   hittedEnemyList: []
 --- !u!114 &1351056330041920395
 MonoBehaviour:
@@ -145,6 +133,19 @@ MonoBehaviour:
   itemType: 2
   itemImage: {fileID: 21300000, guid: 3caf6d932cf9d4d43ae3229969abea6c, type: 3}
   weapon: {fileID: 1351056330041920394}
+--- !u!65 &7322326572584479693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351056330041920392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 0.4}
+  m_Center: {x: 0, y: 0.8, z: 0.028082833}
 --- !u!1 &7926126197089027955
 GameObject:
   m_ObjectHideFlags: 0
