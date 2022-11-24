@@ -504,3 +504,4 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 
 15:47 2022-11-24	Golem 확인 완료.
 	할거 : Hit랑 Death, Win 마저 처리해주기
+		+ Base_Move에서 Attack예약 된거 있어도 좀 많은 시간 지나면 다시 Think하도록
