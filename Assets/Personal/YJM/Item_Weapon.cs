@@ -54,10 +54,33 @@ public class Item_Weapon : Item
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
 
-
-        //playerWeapon.col = weapon.col;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
-        //gameObject.tag = "Weapon";
-        //gameObject.layer = LayerMask.NameToLayer("PlayerWeapon");
+    }
+
+    public void SetAsMainWeapon()
+    {
+        Player_Weapon playerWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
+        playerWeapon.type = weapon.type;
+        playerWeapon.Dmg = weapon.Dmg;
+        playerWeapon.status = weapon.status;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+    }
+
+    public void SetAsSubWeapon()
+    {
+
+        Player_Weapon playerWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
+        playerWeapon.type = weapon.type;
+        playerWeapon.Dmg = weapon.Dmg;
+        playerWeapon.status = weapon.status;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+    }
+
+    public void DeselectWeapon()
+    {
+        Player_Weapon playerWeapon = this.gameObject.GetComponent<Player_Weapon>();
+        playerWeapon.type = eWeaponType.None;
+        playerWeapon.Dmg = 1;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
     }
 }

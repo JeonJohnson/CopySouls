@@ -12,6 +12,7 @@ public class Player_Weapon : Weapon
 
     protected override void weaponInitialize()
     {
+        status.isUsing = true;
     }
 
     protected override void Awake()

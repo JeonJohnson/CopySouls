@@ -739,9 +739,10 @@ namespace Structs
 		public bool isGuard;
 		public bool isInputtable;
 
-
         public float interactionRange;
 
+		public Weapon lastMainWeapon;
+		public Weapon lastSubWeapon;
 		public Weapon mainWeapon;
 		public Weapon subWeapon;
 		//공격력 -> 무기쪽에서
@@ -755,6 +756,8 @@ namespace Structs
 		public Enums.eWeaponType type;
 		public float range;
 		public float price;
+		public bool isUsing;
+		public int holdType;
 	}
 
 

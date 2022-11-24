@@ -435,6 +435,62 @@ public class PlayerActionTable : MonoBehaviour
         enemy.HoldTransPos_Enemy(dir, forwardVec);
     }
 
+    bool swt = false;
+    public void ChangeWeaponHoldType()
+    {
+        if (swt == false)
+        {
+            Player_Weapon mainWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
+            Player_Weapon subWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
+            subWeapon.status.isUsing = false;
+            switch (mainWeapon.type)
+            {
+                case eWeaponType.None:
+                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
+                    break;
+                case eWeaponType.Melee:
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
+                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
+                    break;
+                case eWeaponType.Sheild:
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
+                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
+                    break;
+                case eWeaponType.Arrow:
+                    break;
+                case eWeaponType.Range:
+                    break;
+            }
+            swt = true;
+        }
+        else
+        {
+            var mainWeapon = Player.instance.status.mainWeapon.gameObject.GetComponent<Player_Weapon>();
+            var subWeapon = Player.instance.status.subWeapon.gameObject.GetComponent<Player_Weapon>();
+            subWeapon.status.isUsing = true;
+            print("양손잡!" + mainWeapon.type);
+            switch(mainWeapon.type)
+            {
+                case eWeaponType.None:
+                    break;
+                case eWeaponType.Melee:
+                    print("메인");
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
+                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[0]);
+                    break;
+                case eWeaponType.Sheild:
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
+                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
+                    break;
+                case eWeaponType.Arrow:
+                    break;
+                case eWeaponType.Range:
+                    break;
+            }
+            swt = false;
+        }
+    }
+
     float guardParam = 0;
     public void Guard()
     {

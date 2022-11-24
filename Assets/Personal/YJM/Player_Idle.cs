@@ -58,6 +58,12 @@ public class Player_Idle : Player_cState
         {
             PlayerActionTable.instance.Guard();
         }
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("InputF");
+            PlayerActionTable.instance.ChangeWeaponHoldType();
+        }    
         PlayerActionTable.instance.UpdateStamina();
     }
 

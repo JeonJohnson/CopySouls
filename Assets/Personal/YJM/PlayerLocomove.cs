@@ -161,7 +161,6 @@ public class PlayerLocomove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C))
         {
-            print("아앍 뛴다");
             addedSpeed += Time.deltaTime * accelSpeed;
             isRun = true;
         }
@@ -171,20 +170,17 @@ public class PlayerLocomove : MonoBehaviour
             isRun = false;
         }
         addedSpeed = Mathf.Clamp(addedSpeed, 0, runningSpeed);
-        print(addedSpeed);
     }
 
     void SetAnimation()
     {
         if (isMove == true)
         {
-            print(isMove + "임");
             Player.instance.animator.applyRootMotion = false;
             Player.instance.animator.SetFloat("MoveSpeed", (movementSpeed + addedSpeed) / (movementSpeed + runningSpeed));
         }
         else
         {
-            print(isMove + "임");
             Player.instance.animator.applyRootMotion = true;
             Player.instance.animator.SetFloat("MoveSpeed", 0f);
         }

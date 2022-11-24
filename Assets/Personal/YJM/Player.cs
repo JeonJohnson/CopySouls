@@ -120,6 +120,18 @@ public class Player : MonoBehaviour
             //    //Inventory.inventoryActivated = true;
             //}
         }
+
+        if (status.lastMainWeapon != status.mainWeapon)
+        {
+            status.lastMainWeapon = status.mainWeapon;
+            status.mainWeapon.gameObject.GetComponent<Item_Weapon>().SetAsMainWeapon();
+            print(status.mainWeapon.GetComponent<Player_Weapon>().status.name);
+        }
+        if (status.lastSubWeapon != status.subWeapon)
+        {
+            status.lastSubWeapon = status.subWeapon;
+            status.subWeapon.gameObject.GetComponent<Item_Weapon>().SetAsSubWeapon();
+        }
     }
 
     public void ActivatePlayerInput(bool b)
