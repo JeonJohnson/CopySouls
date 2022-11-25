@@ -440,6 +440,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (holdType == false)
         {
+            Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = true;
             Player_Weapon mainWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
             Player_Weapon subWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
             switch (mainWeapon.type)
@@ -466,6 +467,8 @@ public class PlayerActionTable : MonoBehaviour
         }
         else
         {
+            holdParam = 0;
+            Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = false;
             var mainWeapon = Player.instance.status.mainWeapon.gameObject.GetComponent<Player_Weapon>();
             var subWeapon = Player.instance.status.subWeapon.gameObject.GetComponent<Player_Weapon>();
             print("양손잡!" + mainWeapon.type);
@@ -500,11 +503,19 @@ public class PlayerActionTable : MonoBehaviour
     }
 
     float guardParam = 0;
+    float holdParam = 0;
     public void Guard()
     {
-        if(Input.GetKey(KeyCode.Mouse1))
+        if (holdType == true)
+        {
+            player.animator.SetLayerWeight(2, holdParam);
+            print("홀딩");
+        }
+
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             guardParam += Time.deltaTime * 10;
+            Player.instance.animator.SetTrigger("Guard");
         }    
         else
         {
@@ -520,11 +531,17 @@ public class PlayerActionTable : MonoBehaviour
             player.status.isGuard = false;
         }
         player.animator.SetLayerWeight(1, guardParam);
+        float targetHoldParam = 1 - guardParam;
+        holdParam += Time.deltaTime * 3f;
+        holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
     }
     public void ResetGuardValue()
     {
         guardParam = 0;
+        holdParam = 0;
         player.animator.SetLayerWeight(1, 0);
+        player.animator.SetLayerWeight(2, 0);
+        print("리셋");
     }
 
     public Collider[] nearColliders;
