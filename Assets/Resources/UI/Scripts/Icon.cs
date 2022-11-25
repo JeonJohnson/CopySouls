@@ -6,7 +6,7 @@ public class Icon : MonoBehaviour
 {
     public void Button_IconSetting()
     {
-
+        SettingWindow.Instance.TryOpenInventory();
     }
     public void Button_IconInventory()
     {
