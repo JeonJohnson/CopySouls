@@ -18,26 +18,20 @@ public class Player_Idle : Player_cState
 
         if (Player.instance.status.isInputtable == false) return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetButtonDown("Interaction"))
         {
             PlayerActionTable.instance.Interaction();
         }
         PlayerActionTable.instance.NearObjectSearch();
-        Player.instance.playerModel.transform.position = Player.instance.transform.position;
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            
-        }
 
         if (PlayerActionTable.instance.StaminaCheck() == true)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Dodge"))
             {
                 PlayerActionTable.instance.Backstep();
             }
 
-            if (Input.GetButtonDown("Fire1") && Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetButtonDown("Fire1") && Input.GetButton("Fire3"))
             {
                 PlayerActionTable.instance.ChargeAttack();
             }
@@ -49,7 +43,7 @@ public class Player_Idle : Player_cState
                 }
             }
 
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetButtonDown("Fire2"))
             {
                 PlayerActionTable.instance.Parrying();
             }
@@ -60,7 +54,7 @@ public class Player_Idle : Player_cState
             PlayerActionTable.instance.Guard();
         }
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetButtonDown("Hold"))
         {
             if(PlayerActionTable.instance.holdType == false)
             {
@@ -73,10 +67,6 @@ public class Player_Idle : Player_cState
                 PlayerActionTable.instance.holdType = false;
             }
         }    
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
-        }
         PlayerActionTable.instance.UpdateStamina();
     }
 

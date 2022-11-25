@@ -180,7 +180,14 @@ public class PlayerActionTable : MonoBehaviour
         }
         else
         {
-            Player.instance.status.curStamina += Time.deltaTime * 20;
+            if(Player.instance.status.isGuard == true)
+            {
+                Player.instance.status.curStamina += Time.deltaTime * 5;
+            }
+            else
+            {
+                Player.instance.status.curStamina += Time.deltaTime * 20;
+            }
             Player.instance.status.curStamina = Mathf.Clamp(Player.instance.status.curStamina, 0, Player.instance.status.maxStamina);
         }
     }
@@ -467,7 +474,6 @@ public class PlayerActionTable : MonoBehaviour
         }
         else
         {
-            holdParam = 0;
             Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = false;
             var mainWeapon = Player.instance.status.mainWeapon.gameObject.GetComponent<Player_Weapon>();
             var subWeapon = Player.instance.status.subWeapon.gameObject.GetComponent<Player_Weapon>();
@@ -483,6 +489,7 @@ public class PlayerActionTable : MonoBehaviour
                     StartCoroutine(waitCoro(3));
                     break;
                 case eWeaponType.Sheild:
+                    print("실드");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
                     StartCoroutine(waitCoro(4));
@@ -492,6 +499,20 @@ public class PlayerActionTable : MonoBehaviour
                     break;
                 case eWeaponType.Range:
                     break;
+            }
+
+            if(mainWeapon.type == eWeaponType.None)
+            {
+                Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                switch (subWeapon.type)
+                {
+                    case eWeaponType.Sheild:
+                        print("실드");
+                        Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
+                        Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
+                        StartCoroutine(waitCoro(4));
+                        break;
+                }
             }
         }
     }
@@ -506,10 +527,18 @@ public class PlayerActionTable : MonoBehaviour
     float holdParam = 0;
     public void Guard()
     {
+        float targetHoldParam = 1 - guardParam;
+        holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
         if (holdType == true)
         {
             player.animator.SetLayerWeight(2, holdParam);
+            holdParam += Time.deltaTime * 3f;
             print("홀딩");
+        }
+        else
+        {
+            player.animator.SetLayerWeight(2, holdParam);
+            holdParam -= Time.deltaTime * 3f;
         }
 
         if (Input.GetKey(KeyCode.Mouse1))
@@ -531,9 +560,6 @@ public class PlayerActionTable : MonoBehaviour
             player.status.isGuard = false;
         }
         player.animator.SetLayerWeight(1, guardParam);
-        float targetHoldParam = 1 - guardParam;
-        holdParam += Time.deltaTime * 3f;
-        holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
     }
     public void ResetGuardValue()
     {
@@ -541,7 +567,6 @@ public class PlayerActionTable : MonoBehaviour
         holdParam = 0;
         player.animator.SetLayerWeight(1, 0);
         player.animator.SetLayerWeight(2, 0);
-        print("리셋");
     }
 
     public Collider[] nearColliders;
@@ -642,7 +667,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StopComboCheck()
     {
-        //print(CurCoroCounter1 + " " + CurCoroCounter2);
+        print(CurCoroCounter1 + " " + CurCoroCounter2);
         if (CurCoroCounter1 != CurCoroCounter2)
         {
             isComboCheck = false;

@@ -17,6 +17,6 @@ public class Player_Interacting : Player_cState
 
     public override void ExitState()
     {
-
+        PlayerActionTable.instance.ResetGuardValue();
     }
 }
