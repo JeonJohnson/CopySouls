@@ -121,16 +121,15 @@ public class Player : MonoBehaviour
             //}
         }
 
-        if (status.lastMainWeapon != status.mainWeapon)
+        if (status.RightHand != status.mainWeapon)
         {
-            status.lastMainWeapon = status.mainWeapon;
-            status.mainWeapon.gameObject.GetComponent<Item_Weapon>().SetAsMainWeapon();
-            print(status.mainWeapon.GetComponent<Player_Weapon>().status.name);
+            status.mainWeapon.GetComponent<Player_Weapon>().item_Weapon.SetAsMainWeapon();
+            status.mainWeapon = status.RightHand.GetComponent<Player_Weapon>();
         }
-        if (status.lastSubWeapon != status.subWeapon)
+        if (status.LeftHand != status.subWeapon)
         {
-            status.lastSubWeapon = status.subWeapon;
-            status.subWeapon.gameObject.GetComponent<Item_Weapon>().SetAsSubWeapon();
+            status.subWeapon.GetComponent<Player_Weapon>().item_Weapon.SetAsSubWeapon();
+            status.subWeapon = status.LeftHand.GetComponent<Player_Weapon>();
         }
     }
 
@@ -150,18 +149,13 @@ public class Player : MonoBehaviour
 
     void SetPlayerWeapon()
     {
-        if (status.mainWeapon != null)
-        {
-            status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
-            //status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
-            //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);// 임시
-
-        }
-        if (status.subWeapon != null)
-        {
-            status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
-            //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-        }
+        status.mainWeapon = status.RightHand.gameObject.GetComponent<Weapon>();
+        status.mainWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        //status.mainWeapon.GetComponent<Item_Weapon>().PlayFuncs();
+        //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);// 임시
+        status.subWeapon = status.LeftHand.gameObject.GetComponent<Weapon>();
+        status.subWeapon.GetComponent<Player_Weapon>().owner = this.gameObject;
+        //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
     }
 
     void InitializeState()

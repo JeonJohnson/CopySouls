@@ -276,6 +276,10 @@ public class PlayerLocomove : MonoBehaviour
                 Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
                 Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
                 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+                if(moveDir ==Vector3.zero)
+                {
+                    moveDir = playerModel.transform.forward;
+                }
                 playerModel.transform.forward = Vector3.Slerp(playerModel.transform.forward, moveDir, Time.deltaTime * 20f);
                 yield return null;
             }

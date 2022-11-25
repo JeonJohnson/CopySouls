@@ -6,6 +6,7 @@ using Structs;
 public class Player_Weapon : Weapon
 {
     public WeaponStatus status;
+    public Item_Weapon item_Weapon;
     public List<Enemy> hittedEnemyList = new List<Enemy>();
 
     //int atk = 10;
@@ -13,6 +14,7 @@ public class Player_Weapon : Weapon
     protected override void weaponInitialize()
     {
         status.isUsing = true;
+        item_Weapon = GetComponent<Item_Weapon>();
     }
 
     protected override void Awake()

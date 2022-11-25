@@ -131,6 +131,7 @@ MonoBehaviour:
     price: 5
     isUsing: 0
     holdType: 0
+  item_Weapon: {fileID: 0}
   hittedEnemyList: []
 --- !u!1 &1189113979338820136
 GameObject:
@@ -245,6 +246,7 @@ MonoBehaviour:
     price: 10
     isUsing: 0
     holdType: 0
+  item_Weapon: {fileID: 0}
   hittedEnemyList: []
 --- !u!114 &1535635313334479960
 MonoBehaviour:
@@ -411,6 +413,7 @@ MonoBehaviour:
     price: 0
     isUsing: 0
     holdType: 0
+  item_Weapon: {fileID: 0}
   hittedEnemyList: []
 --- !u!114 &1433178003870625970
 MonoBehaviour:
@@ -2446,10 +2449,10 @@ MonoBehaviour:
     isGuard: 0
     isInputtable: 0
     interactionRange: 0
-    lastMainWeapon: {fileID: 0}
-    lastSubWeapon: {fileID: 0}
     mainWeapon: {fileID: 1189113979338820134}
     subWeapon: {fileID: 6274456743026991044}
+    RightHand: {fileID: 1189113979338820134}
+    LeftHand: {fileID: 6274456743026991044}
   preState_e: 7
   curState_e: 7
   idleAnimClips:
@@ -2531,6 +2534,7 @@ MonoBehaviour:
   player: {fileID: 7030777313930249930}
   isComboCheck: 0
   curActAtkValue: 1
+  holdType: 0
   nearColliders: []
   curInteractionItem: {fileID: 0}
 --- !u!143 &1559559539583753623

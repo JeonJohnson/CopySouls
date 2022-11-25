@@ -741,10 +741,11 @@ namespace Structs
 
         public float interactionRange;
 
-		public Weapon lastMainWeapon;
-		public Weapon lastSubWeapon;
 		public Weapon mainWeapon;
 		public Weapon subWeapon;
+
+		public Player_Weapon RightHand;
+		public Player_Weapon LeftHand;
 		//공격력 -> 무기쪽에서
 
 	}

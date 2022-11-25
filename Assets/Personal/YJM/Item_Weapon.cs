@@ -61,7 +61,7 @@ public class Item_Weapon : Item
 
     public void SetAsMainWeapon()
     {
-        Player_Weapon playerWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
+        Player_Weapon playerWeapon = Player.instance.status.RightHand;
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
@@ -74,7 +74,7 @@ public class Item_Weapon : Item
     public void SetAsSubWeapon()
     {
 
-        Player_Weapon playerWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
+        Player_Weapon playerWeapon = Player.instance.status.LeftHand;
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
