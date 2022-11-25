@@ -92,14 +92,17 @@ public abstract class Enemy : MonoBehaviour
         Debug.Log($"{gameObject.name}is reset");
 
         //status.isDead = false;
-        if (hpBar)
-        {
-            hpBar.gameObject.SetActive(true);
-        }
+
 
         status.curHp = status.maxHp;
         status.curMp = status.maxMp;
         status.curStamina = status.maxStamina;
+
+        if (hpBar)
+        {
+            hpBar.gameObject.SetActive(true);
+            hpBar.ResetHpBar();
+        }
 
         //이거 각자 파트에서 해줘야할듯 죽은 경우도 있어서
         //navAgent.isStopped = true;

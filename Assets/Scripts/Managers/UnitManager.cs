@@ -80,8 +80,6 @@ public class UnitManager : Manager<UnitManager>
     }
     //// <Player>
 
-
-
     //// <EnemyVar>
     [Header("Enemy Vars")]
     public int enemyAllCount;

@@ -116,7 +116,7 @@ public class HpBar : MonoBehaviour
     {
         StopAllCoroutines();
         canvasGroup.alpha = 0f;
-        damageText.color = new Color(1f, 1f, 1f, 1f);
+        damageText.color = new Color(1f, 1f, 1f, 0f);
         hpSlider.value = 1f;
         hpEffectImage.fillAmount = 1f;
     }
