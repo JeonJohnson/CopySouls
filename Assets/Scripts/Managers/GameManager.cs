@@ -7,12 +7,10 @@ using UnityEngine.SceneManagement;
 
 public enum eSceneChangeTestIndex
 {
+    Intro,
     Title,
     InGame,
-    Daewon,
-    Geunhee,
-    Jeongmin,
-    Youngseok,
+    Credit,
     End
 }
 public class GameManager : Manager<GameManager>
@@ -63,6 +61,11 @@ public class GameManager : Manager<GameManager>
         UiManager.InstantiateManager(false);
     }
 
+    public void IntroSceneManagersInit()
+    {
+        IntroSceneManager.InstantiateManager(false);
+    }
+
     public void TitleSceneManagersInit()
     {
 
@@ -77,6 +80,11 @@ public class GameManager : Manager<GameManager>
     {
         switch (sceneNum)
         {
+            case (int)eSceneChangeTestIndex.Intro:
+                {
+                    IntroSceneManagersInit();
+                }
+                break;                
             case (int)eSceneChangeTestIndex.Title:
                 {
                     TitleSceneManagersInit();
@@ -87,22 +95,7 @@ public class GameManager : Manager<GameManager>
                     InGameSceneManagersInit();
                 }
                 break;
-            case (int)eSceneChangeTestIndex.Daewon:
-                {
-
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Geunhee:
-                {
-                    GeunheeSceneManagersInit();
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Jeongmin:
-                {
-                    JeongminSceneManagersInit();
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Youngseok:
+            case (int)eSceneChangeTestIndex.Credit:
                 {
 
                 }
@@ -149,7 +142,12 @@ public class GameManager : Manager<GameManager>
     {
 		switch (scene.buildIndex)
 		{
-			case (int)eSceneChangeTestIndex.Title:
+            case (int)eSceneChangeTestIndex.Intro:
+                { 
+                
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Title:
                 {
 
                 }
@@ -159,26 +157,11 @@ public class GameManager : Manager<GameManager>
 
                 }
 				break;
-			case (int)eSceneChangeTestIndex.Daewon:
+            case (int)eSceneChangeTestIndex.Credit:
                 { 
                 
                 }
-				break;
-			case (int)eSceneChangeTestIndex.Geunhee:
-                {
-                    GeunheeSceneManagersInit();
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Jeongmin:
-                { 
-                
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Youngseok:
-                { 
-                
-                }
-				break;
+                break;
 			default:
 				break;
 		}

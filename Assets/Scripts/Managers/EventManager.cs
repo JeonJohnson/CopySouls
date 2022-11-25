@@ -16,7 +16,7 @@ public class EventManager : Manager<EventManager>
 
 	public void Start()
 	{
-		geunheeSceneBtn.onClick.AddListener(() => TestGotoScene((int)eSceneChangeTestIndex.Geunhee));
+		//geunheeSceneBtn.onClick.AddListener(() => TestGotoScene((int)eSceneChangeTestIndex.Geunhee));
 	}
 
 }
