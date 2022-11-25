@@ -48,10 +48,14 @@ public class PlayerActionTable : MonoBehaviour
             {
                 Player.instance.animator.SetTrigger("Hit");
             }
-            else
+            else if(dmgStruct.atkType == eAttackType.Strong)
             {
                 stunTime = 1.9f;
                 Player.instance.animator.SetTrigger("Hit_Hard");
+            }
+            else
+            {
+                Player.instance.animator.SetTrigger("Hit");
             }
             yield return null;
         }
@@ -63,10 +67,17 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Death()
     {
-        Player.instance.SetState(Enums.ePlayerState.Death);
+        //Player.instance.SetState(Enums.ePlayerState.Death);
         Player.instance.animator.SetTrigger("Death");
         EnableWeaponMeshCol(0);
-        print("사망");
+        player.SetModelCollider(false);
+        StartCoroutine(PlayDeathEffect());
+    }
+
+    IEnumerator PlayDeathEffect()
+    {
+        yield return new WaitForSeconds(2f);
+        YouDiedWindow.Instance.PlayDieEffect();
     }
 
     public void isParryingCheck(int i)
@@ -450,14 +461,12 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (holdType == false)
         {
-            print("falsing");
             Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = true;
             Player_Weapon mainWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
             Player_Weapon subWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
             switch (mainWeapon.type)
             {
                 case eWeaponType.None:
-                    print("falsing + dile");
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(0, true));
                     break;
@@ -467,7 +476,6 @@ public class PlayerActionTable : MonoBehaviour
                     StartCoroutine(waitCoro(1, true));
                     break;
                 case eWeaponType.Sheild:
-                    print("falsing + shield");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(2, true));
@@ -638,14 +646,18 @@ public class PlayerActionTable : MonoBehaviour
                 Item obj = curInteractionItem.GetComponent<Item>();
             if (obj != null)
             {
-
-
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    Item curItem = obj.GetComponent<Item>();
+                    if (Inventory.Instance.ItemIn(obj)) obj.gameObject.SetActive(false);
                     ItemInfoWindow.Instance.ShowItemInfo();
-                    ItemInfoWindow.Instance.InitContents(curItem.itemImage, curItem.gameObject.name, 1);
-                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
+                    if(obj.itemType == ItemType.weapon_Equiptment_Item | obj.itemType == ItemType.Defence_Equiptment_Item)
+                    {
+                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.gameObject.GetComponent<Player_Weapon>().status.name, 1);
+                    }
+                    else
+                    {
+                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.name, 1);
+                    }
                 }
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {

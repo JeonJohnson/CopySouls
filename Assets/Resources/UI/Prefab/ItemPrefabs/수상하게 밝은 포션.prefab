@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5704849694622550877}
   - component: {fileID: 3967856178046312961}
   m_Layer: 16
-  m_Name: Test_Portion_Item
+  m_Name: "\uC218\uC0C1\uD558\uAC8C \uBC1D\uC740 \uD3EC\uC158"
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

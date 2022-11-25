@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public Transform spine3Tr;
     public Transform headTr;
     public Transform handTr;
-    [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
+    public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
     //FSM
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         var colliders = GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.layer == LayerMask.GetMask("Player_Hitbox"))
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Player_Hitbox"))
             {
                 modelColliders.Add(collider);
             }
