@@ -95,6 +95,27 @@ public class Archer : Enemy
 	//public cState[] legFsm;
 
 
+	public override void ResetEnemy()
+	{
+		base.ResetEnemy();
+
+		if (!status.isDead)
+		{
+			//무기 다시 집어 넣기 
+			actTable.DeleteArrow();
+			actTable.BowUnEquipAnimEvent();
+
+			animCtrl.SetLayerWeight(1, 0f);
+
+			SetState((int)defaultPattern);
+		}
+		else
+		{ 
+			//래그돌 없애기
+		
+		
+		}
+	}
 
 	public override void InitializeState()
 	{

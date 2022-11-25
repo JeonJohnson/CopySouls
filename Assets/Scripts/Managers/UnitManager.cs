@@ -107,6 +107,15 @@ public class UnitManager : Manager<UnitManager>
 
         return null;
     }
+
+    public void ResetAllEnemies()
+    {
+        foreach (Enemy enemy in allEnemyList)
+        {
+            enemy.ResetEnemy();   
+        }
+    }
+
     private void SearchEnemy()
     {
 
@@ -174,10 +183,14 @@ public class UnitManager : Manager<UnitManager>
         }
     }
 
-    //// <EnemyFuncs>
-    
-    /// <TestEnemy>
-    public GameObject testEmptyEnemyPrefab;
+	//// <EnemyFuncs>
+
+
+
+
+
+	#region TestEnemy
+	public GameObject testEmptyEnemyPrefab;
     public GameObject SpawnTestEnemy(Vector3 pos)
     {
         GameObject testObj = Instantiate(testEmptyEnemyPrefab, pos, Quaternion.identity);
@@ -188,11 +201,11 @@ public class UnitManager : Manager<UnitManager>
 
         return testObj;
     }
-    /// </TestEnemy>
+	#endregion
 
 
 
-    private void Awake()
+	private void Awake()
     {
         aliveEnemyDic = new Dictionary<eEnemyName, List<Enemy>>();
 
@@ -215,6 +228,9 @@ public class UnitManager : Manager<UnitManager>
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ResetAllEnemies();
+        }
     }
 }

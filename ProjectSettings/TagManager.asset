@@ -13,6 +13,7 @@ TagManager:
   - ReturnBoundary
   - EnemyRagdoll
   - Item
+  - Bonfire
   layers:
   - Default
   - TransparentFX
