@@ -7,12 +7,9 @@ using UnityEngine.SceneManagement;
 
 public enum eSceneChangeTestIndex
 {
+    Intro,
     Title,
     InGame,
-    Daewon,
-    Geunhee,
-    Jeongmin,
-    Youngseok,
     End
 }
 public class GameManager : Manager<GameManager>
@@ -63,6 +60,11 @@ public class GameManager : Manager<GameManager>
         UiManager.InstantiateManager(false);
     }
 
+    public void IntroSceneManagersInit()
+    {
+        IntroSceneManager.InstantiateManager(false);
+    }
+
     public void TitleSceneManagersInit()
     {
 
@@ -77,6 +79,11 @@ public class GameManager : Manager<GameManager>
     {
         switch (sceneNum)
         {
+            case (int)eSceneChangeTestIndex.Intro:
+                {
+                    IntroSceneManagersInit();
+                }
+                break;                
             case (int)eSceneChangeTestIndex.Title:
                 {
                     TitleSceneManagersInit();
@@ -85,26 +92,6 @@ public class GameManager : Manager<GameManager>
             case (int)eSceneChangeTestIndex.InGame:
                 {
                     InGameSceneManagersInit();
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Daewon:
-                {
-
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Geunhee:
-                {
-                    GeunheeSceneManagersInit();
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Jeongmin:
-                {
-                    JeongminSceneManagersInit();
-                }
-                break;
-            case (int)eSceneChangeTestIndex.Youngseok:
-                {
-
                 }
                 break;
             default:
@@ -157,26 +144,6 @@ public class GameManager : Manager<GameManager>
 			case (int)eSceneChangeTestIndex.InGame:
                 { 
 
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Daewon:
-                { 
-                
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Geunhee:
-                {
-                    GeunheeSceneManagersInit();
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Jeongmin:
-                { 
-                
-                }
-				break;
-			case (int)eSceneChangeTestIndex.Youngseok:
-                { 
-                
                 }
 				break;
 			default:
