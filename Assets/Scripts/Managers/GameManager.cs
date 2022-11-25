@@ -10,6 +10,7 @@ public enum eSceneChangeTestIndex
     Intro,
     Title,
     InGame,
+    Credit,
     End
 }
 public class GameManager : Manager<GameManager>
@@ -94,6 +95,11 @@ public class GameManager : Manager<GameManager>
                     InGameSceneManagersInit();
                 }
                 break;
+            case (int)eSceneChangeTestIndex.Credit:
+                {
+
+                }
+                break;
             default:
                 break;
         }
@@ -136,7 +142,12 @@ public class GameManager : Manager<GameManager>
     {
 		switch (scene.buildIndex)
 		{
-			case (int)eSceneChangeTestIndex.Title:
+            case (int)eSceneChangeTestIndex.Intro:
+                { 
+                
+                }
+                break;
+            case (int)eSceneChangeTestIndex.Title:
                 {
 
                 }
@@ -146,6 +157,11 @@ public class GameManager : Manager<GameManager>
 
                 }
 				break;
+            case (int)eSceneChangeTestIndex.Credit:
+                { 
+                
+                }
+                break;
 			default:
 				break;
 		}
