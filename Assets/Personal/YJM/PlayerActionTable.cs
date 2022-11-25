@@ -447,12 +447,14 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (holdType == false)
         {
+            print("falsing");
             Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = true;
             Player_Weapon mainWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
             Player_Weapon subWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
             switch (mainWeapon.type)
             {
                 case eWeaponType.None:
+                    print("falsing + dile");
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(0, true));
                     break;
@@ -462,6 +464,7 @@ public class PlayerActionTable : MonoBehaviour
                     StartCoroutine(waitCoro(1, true));
                     break;
                 case eWeaponType.Sheild:
+                    print("falsing + shield");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(2, true));
@@ -533,7 +536,6 @@ public class PlayerActionTable : MonoBehaviour
         {
             player.animator.SetLayerWeight(2, holdParam);
             holdParam += Time.deltaTime * 3f;
-            print("홀딩");
         }
         else
         {
@@ -667,7 +669,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void StopComboCheck()
     {
-        print(CurCoroCounter1 + " " + CurCoroCounter2);
         if (CurCoroCounter1 != CurCoroCounter2)
         {
             isComboCheck = false;
@@ -680,6 +681,14 @@ public class PlayerActionTable : MonoBehaviour
         //player.status.mainWeapon.GetComponent<Player_Weapon>().EnableWeaponMeshCollider(i);
         Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().hittedEnemyList.Clear();
         player.status.mainWeapon.GetComponent<Player_Weapon>().WeaponColliderOnOff(i);
+        if(i == 0)
+        {
+            Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = false;
+        }
+        else
+        {
+            Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = true;
+        }
     }
     
     public bool StaminaCheck()

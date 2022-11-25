@@ -69,6 +69,7 @@ public class Item_Weapon : Item
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = weapon.gameObject.GetComponent<BoxCollider>().size;
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = weapon.gameObject.GetComponent<BoxCollider>().center;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
+        playerWeapon.trailRenderer.transform.localPosition = weapon.trailRenderer.transform.localPosition;
     }
 
     public void SetAsSubWeapon()
@@ -91,5 +92,6 @@ public class Item_Weapon : Item
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
+        playerWeapon.trailRenderer.transform.localPosition = new Vector3(0f, 0f, 0f);
     }
 }

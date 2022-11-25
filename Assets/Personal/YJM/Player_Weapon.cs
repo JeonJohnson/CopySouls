@@ -8,6 +8,7 @@ public class Player_Weapon : Weapon
     public WeaponStatus status;
     public Item_Weapon item_Weapon;
     public List<Enemy> hittedEnemyList = new List<Enemy>();
+    public TrailRenderer trailRenderer;
 
     //int atk = 10;
 

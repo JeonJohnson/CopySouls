@@ -125,11 +125,15 @@ public class Player : MonoBehaviour
         {
             status.mainWeapon.GetComponent<Player_Weapon>().item_Weapon.SetAsMainWeapon();
             status.mainWeapon = status.RightHand.GetComponent<Player_Weapon>();
+            PlayerActionTable.instance.ChangeWeaponHoldType(false);
+            PlayerActionTable.instance.holdType = false;
         }
         if (status.LeftHand != status.subWeapon)
         {
             status.subWeapon.GetComponent<Player_Weapon>().item_Weapon.SetAsSubWeapon();
             status.subWeapon = status.LeftHand.GetComponent<Player_Weapon>();
+            PlayerActionTable.instance.ChangeWeaponHoldType(false);
+            PlayerActionTable.instance.holdType = false;
         }
     }
 
@@ -159,6 +163,7 @@ public class Player : MonoBehaviour
         //ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
 
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
+        PlayerActionTable.instance.holdType = false;
     }
 
     void InitializeState()

@@ -928,6 +928,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1189113979338820134, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
+      propertyPath: trailRenderer
+      value: 
+      objectReference: {fileID: 2104285524}
     - target: {fileID: 6942927259787065918, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
@@ -1131,6 +1135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+--- !u!96 &2104285524 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 8242936882115986221, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
+  m_PrefabInstance: {fileID: 1821857197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3422312630006127848
 PrefabInstance:
   m_ObjectHideFlags: 0
