@@ -8,6 +8,7 @@ public class IntroSceneManager : Manager<IntroSceneManager>
 {
     public Image logoImg;
     public float fadeSpd;
+    bool isChanged = false;
 
 	public void Awake()
 	{
@@ -22,7 +23,10 @@ public class IntroSceneManager : Manager<IntroSceneManager>
 
         if (temp.a <= 0f)
         {
-            SceneManager.LoadScene((int)eSceneChangeTestIndex.Title);
+            if (isChanged == false) SceneManager.LoadScene((int)eSceneChangeTestIndex.Title);
+            //if (isChanged == false) LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
+            isChanged = true;
+            //SceneManager.LoadScene((int)eSceneChangeTestIndex.Title);
         }
     }
 }

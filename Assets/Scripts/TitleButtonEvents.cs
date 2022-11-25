@@ -19,7 +19,7 @@ public class TitleButtonEvents : MonoBehaviour
 
     public void GotoIngameScene()
     {
-        SceneManager.LoadScene((int)eSceneChangeTestIndex.InGame);
+        LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.InGame);
     }
 
     public void ExitGame()
