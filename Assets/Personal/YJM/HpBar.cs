@@ -15,7 +15,6 @@ public class HpBar : MonoBehaviour
     [SerializeField] Image hpEffectImage;
     [SerializeField] Text damageText;
 
-
     float curHp = 0f;
 
     private void Awake()
@@ -33,19 +32,19 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
-        if(curHp <= 0f)
-        {
-            isDestroyed = true;
-            if(isDestroyed == true)
-            {
-                StartCoroutine(DestroyEffect());
-            }
-        }
+		if (curHp <= 0f)
+		{
+			isDestroyed = true;
+			if (isDestroyed == true)
+			{
+				StartCoroutine(DestroyEffect());
+			}
+		}
 
-        if (target != null)
+		if (target != null)
         {
             AutoUpdateHpBar();
-
+            
             if (isDamaged == true)
             {
                 print("위치변경중");
@@ -54,11 +53,11 @@ public class HpBar : MonoBehaviour
                 transform.forward = -(Camera.main.transform.position - transform.position);
             }
         }
-        else
-        {
-            ResetHpBar();
-            Destroy(this.gameObject);
-        }
+        //else
+        //{
+        //    ResetHpBar();
+        //    Destroy(this.gameObject);
+        //}
     }
 
     public void AutoUpdateHpBar()
@@ -107,7 +106,8 @@ public class HpBar : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         ResetHpBar();
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 
     public void ResetHpBar()

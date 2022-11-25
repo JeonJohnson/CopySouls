@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class InGameManager : Manager<InGameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+
+	private void Awake()
+	{
+     
+    }
+	// Start is called before the first frame update
+	void Start()
     {
         SetPlayer();
     }

@@ -27,16 +27,17 @@ public class UiManager : Manager<UiManager>
     public EquiptSlot_Q EquiptSlotQ_Defence;
     public EquiptSlot_Q EquiptSlotQ_Weapon;
 
-    public void InstantiateHpBar(Enemy target)
+    public HpBar InstantiateHpBar(Enemy target)
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab,hpBarUi.transform);
         HpBar hpBar = hpBarGo.GetComponent<HpBar>();
         hpBar.target = target;
+        return hpBar;
     }
 
     private void Awake()
     {
-        TestMakeHpBar();
+        //TestMakeHpBar();
     }
 
     private void Start()
@@ -49,13 +50,13 @@ public class UiManager : Manager<UiManager>
         if(UIActivated) Player.instance.ActivatePlayerInput(false);
         else Player.instance.ActivatePlayerInput(true);
     }
-    void TestMakeHpBar()
-    {
-        for (int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
-        {
-            InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
-        }
-    }
+    //void TestMakeHpBar()
+    //{
+    //    for (int i = 0; i < UnitManager.Instance.aliveEnemyList.Count; i++)
+    //    {
+    //        InstantiateHpBar(UnitManager.Instance.aliveEnemyList[i]);
+    //    }
+    //}
 
     //UI단축키
     //인벤 장비창 켜지거나 alt눌르면 마우스 활성화

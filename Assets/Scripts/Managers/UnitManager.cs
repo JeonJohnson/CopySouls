@@ -114,6 +114,19 @@ public class UnitManager : Manager<UnitManager>
         {
             enemy.ResetEnemy();   
         }
+
+        ClearEnemyList();
+        SearchEnemy();
+    }
+
+    private void ClearEnemyList()
+    {
+        allEnemyList.Clear();
+        aliveEnemyList.Clear();
+        foreach (var pair in aliveEnemyDic)
+        {
+            pair.Value.Clear();
+        }
     }
 
     private void SearchEnemy()
@@ -214,8 +227,6 @@ public class UnitManager : Manager<UnitManager>
             aliveEnemyDic.Add((eEnemyName)i, new List<Enemy>());
         }
         ragdollBox = Funcs.CheckGameObjectExist("RagdollBox").transform;
-
-        
 
         CreatePlayer();
         SearchEnemy();

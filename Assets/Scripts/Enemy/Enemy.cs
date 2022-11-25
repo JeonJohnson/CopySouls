@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
     //public List<Vector3> patrolPosList; //에너미에서 Transform으로 합치기
 
     public Enemy_Ragdoll ragdoll;
-
+    public HpBar hpBar = null;
     ////FSM
     public cState[] fsm;
     public cState preState = null;
@@ -78,7 +78,13 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void DeathReset()
     {
+        //if (hpBar)
+        //{
+        //    hpBar.ResetHpBar();
+        //    hpBar.gameObject.SetActive(false);
+        //}
         UnitManager.Instance.EraseDeathEnemy(this);
+
     }
 
     public virtual void ResetEnemy()
@@ -86,16 +92,21 @@ public abstract class Enemy : MonoBehaviour
         Debug.Log($"{gameObject.name}is reset");
 
         //status.isDead = false;
+        if (hpBar)
+        {
+            hpBar.gameObject.SetActive(true);
+        }
 
         status.curHp = status.maxHp;
         status.curMp = status.maxMp;
         status.curStamina = status.maxStamina;
 
-        navAgent.isStopped = true;
-        transform.position = initPos;
-        transform.forward = initForward;
-        navAgent.isStopped = false;
-        navAgent.SetDestination(gameObject.transform.position);
+        //이거 각자 파트에서 해줘야할듯 죽은 경우도 있어서
+        //navAgent.isStopped = true;
+        //transform.position = initPos;
+        //transform.forward = initForward;
+        //navAgent.isStopped = false;
+        //navAgent.SetDestination(gameObject.transform.position);
         //각 애들 다 디폴트 쉐팅 해주면 될듯
     }
     
@@ -455,8 +466,13 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
- 
-    }
+		if (status.name_e != eEnemyName.Golem)
+		{
+			hpBar = UiManager.Instance.InstantiateHpBar(this);
+		}
+
+
+	}
 
     public void GetPlayerState()
     {
