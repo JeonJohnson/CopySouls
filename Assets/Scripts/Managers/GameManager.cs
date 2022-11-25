@@ -77,10 +77,11 @@ public class GameManager : Manager<GameManager>
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
         InGameManager.InstantiateManager(false);
+        InGameManager.InstantiateManager(false);
         UiManager.InstantiateManager(false);
     }
 
-    void SceneCheck(int sceneNum)
+    public void SceneCheck(int sceneNum)
     {
         switch (sceneNum)
         {

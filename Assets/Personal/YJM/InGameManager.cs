@@ -7,7 +7,7 @@ public class InGameManager : Manager<InGameManager>
 
 	private void Awake()
 	{
-     
+
     }
 	// Start is called before the first frame update
 	void Start()
@@ -25,8 +25,10 @@ public class InGameManager : Manager<InGameManager>
     {
         Vector3 startPos = new Vector3(4.55f, 5.1f, -130f);
         Vector3 startRot = Vector3.zero;
+        PlayerLocomove.instance.cc.enabled = false;
         Player.instance.transform.position = startPos;
         PlayerLocomove.instance.cameraManager.gameObject.transform.position = startPos;
+        PlayerLocomove.instance.cc.enabled = true;
 
         //StartCoroutine(PlayPlayerStartAnim());
     }

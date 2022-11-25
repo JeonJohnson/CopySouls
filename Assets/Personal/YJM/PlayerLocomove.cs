@@ -30,7 +30,7 @@ public class PlayerLocomove : MonoBehaviour
 
     [Range(1, 300)] public float mouseSensitivity = 70;
 
-    CharacterController cc;
+    public CharacterController cc;
 
     [SerializeField] GameObject playerModel;
     public Transform cameraArm;
