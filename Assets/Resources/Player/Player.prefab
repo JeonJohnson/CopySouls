@@ -236,7 +236,7 @@ MonoBehaviour:
   type: 0
   Dmg: 4
   atkType: 2
-  owner: {fileID: 0}
+  owner: {fileID: 7030777313930249932}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0

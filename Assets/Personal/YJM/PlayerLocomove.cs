@@ -86,7 +86,7 @@ public class PlayerLocomove : MonoBehaviour
 
     public void LinkCamera()
     {
-        cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
+        //cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
         if(cameraManager == null)
         {
             Debug.LogWarning("Can't Find CameraManager!!");

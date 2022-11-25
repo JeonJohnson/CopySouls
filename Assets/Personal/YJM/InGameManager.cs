@@ -18,7 +18,6 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        print("Set!!!");
         Vector3 startPos = new Vector3(4.55f, 5.1f, -130f);
         Vector3 startRot = Vector3.zero;
         Player.instance.transform.position = startPos;

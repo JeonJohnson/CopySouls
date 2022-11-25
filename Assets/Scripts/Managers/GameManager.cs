@@ -166,4 +166,9 @@ public class GameManager : Manager<GameManager>
 				break;
 		}
 	}
+
+    public void PlayerDie()
+    {
+
+    }
 }
