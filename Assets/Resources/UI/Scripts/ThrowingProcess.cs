@@ -101,11 +101,15 @@ public class ThrowingProcess : MonoBehaviour
         Inventory.Instance.curSlot = null;
     }
 
-    private void Throw(Slot _curSlot, int _itemCount)
+    public void Throw(Slot _curSlot, int _itemCount)
     {
         if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-_itemCount);
+        else if(_curSlot.isEquiptment)
+        {
+            Inventory.Instance.SelectionParent.UnEquipt(_curSlot);
+        }
 
-        Debug.Log(_curSlot.item.objName + " " + _itemCount + "개 버리기");
+        //Debug.Log(_curSlot.item.objName + " " + _itemCount + "개 버리기");
         _curSlot.SetSlotCount(-_itemCount);
     }
 }
