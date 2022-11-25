@@ -292,9 +292,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
 
         Item tempItem = item;
         int tempItemCount = itemCount;
-        if (DragSlot.instance.dragSlot.isQuick)
+
+        if (DragSlot.instance.dragSlot.isQuick && !DragSlot.instance.dragSlot.isEquiptment)
         {
-            if(!isQuick)
+            if (!isQuick && !isEquiptment)
             {
                 SetRegister(true);
                 DragSlot.instance.dragSlot.SetRegister(false);
@@ -302,7 +303,25 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 curRegisterQuickSlot.invenSlot = this;
                 DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
             }
-            else
+            else if(!isQuick && isEquiptment)
+            {
+                Debug.Log("R -> E");
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+
+                SetEquiptment(false);
+                SetRegister(true);
+
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+
+                DragSlot.instance.dragSlot.SetRegister(false);
+                DragSlot.instance.dragSlot.SetEquiptment(true);
+
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
+            }
+            else if (isQuick && !isEquiptment)
             {
                 QuickSlot temp = curRegisterQuickSlot;
                 Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
@@ -312,9 +331,55 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
             }
         }
-        else
+        else if (DragSlot.instance.dragSlot.isEquiptment && !DragSlot.instance.dragSlot.isQuick)
         {
-            if(isQuick)
+            if (!isEquiptment && !isQuick)
+            {
+                SetEquiptment(true);
+                DragSlot.instance.dragSlot.SetEquiptment(false);
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = this;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
+            }
+            else if(!isEquiptment && isQuick)
+            {
+                Debug.Log("E -> R");
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+                
+                SetRegister(false);
+                SetEquiptment(true);
+                
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+                
+                DragSlot.instance.dragSlot.SetEquiptment(false);
+                DragSlot.instance.dragSlot.SetRegister(true);
+                
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
+            }
+            else if(isEquiptment && !isQuick)
+            {
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
+            }
+        }
+        else if (!DragSlot.instance.dragSlot.isEquiptment && !DragSlot.instance.dragSlot.isQuick)
+        {
+            if (!isQuick && isEquiptment)
+            {
+                SetEquiptment(false);
+                DragSlot.instance.dragSlot.SetEquiptment(true);
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = curRegisterQuickSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
+                curRegisterQuickSlot = null;
+            }
+            else if (isQuick && !isEquiptment)
             {
                 SetRegister(false);
                 DragSlot.instance.dragSlot.SetRegister(true);
@@ -322,7 +387,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
                 curRegisterQuickSlot = null;
             }
-        } 
+        }
 
         AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
         if(tempItem != null)
@@ -383,21 +448,76 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         DragSlot.instance.dragSlot.ClearSlot();
     }
 
-}
+    private void ChangeRegister()
+    {
+        if (DragSlot.instance.dragSlot.isQuick)
+        {
+            if (!isQuick)
+            {
+                SetRegister(true);
+                DragSlot.instance.dragSlot.SetRegister(false);
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = this;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
+            }
+            else
+            {
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
+            }
+        }
+        else
+        {
+            if (isQuick)
+            {
+                SetRegister(false);
+                DragSlot.instance.dragSlot.SetRegister(true);
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = curRegisterQuickSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
+                curRegisterQuickSlot = null;
+            }
+        }
+    }
 
-    //    if (DragSlot.instance.dragSlot.item.objName == item.objName
-    //        && (DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.Production_Item
-    //        || DragSlot.instance.dragSlot.item.itemType == Enums.ItemType.supply_Item))
-    //    {
-    //        SumSlot();
-    //    }
-    //    //else if(DragSlot.instance.dragSlot != this)
-    //    else if (DragSlot.instance.dragSlot.item.objName != item.objName)
-    //    {
-    //        ChangeSlot();
-    //    }
-    //}
-    //else
-    //{
-    //    ChangeSlot();
-    //}
+    private void ChangeEquiptment()
+    {
+        if (DragSlot.instance.dragSlot.isEquiptment)
+        {
+            if (!isEquiptment)
+            {
+                SetEquiptment(true);
+                DragSlot.instance.dragSlot.SetEquiptment(false);
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = this;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
+            }
+            else
+            {
+                QuickSlot temp = curRegisterQuickSlot;
+                Slot tempIvenSlot = curRegisterQuickSlot.invenSlot;
+                curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
+                curRegisterQuickSlot.invenSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = temp;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = tempIvenSlot;
+            }
+        }
+        else
+        {
+            if (isEquiptment)
+            {
+                SetEquiptment(false);
+                DragSlot.instance.dragSlot.SetEquiptment(true);
+                DragSlot.instance.dragSlot.curRegisterQuickSlot = curRegisterQuickSlot;
+                DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
+                curRegisterQuickSlot = null;
+            }
+        }
+    }
+}
+    
+//장비는 슬롯장착 못하게 막아야함 -> 아니지 장비 된 칸을 슬롯등록시 장비 해제로 가야지
+

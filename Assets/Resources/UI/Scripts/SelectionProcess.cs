@@ -74,7 +74,8 @@ public class SelectionProcess : MonoBehaviour
 
     public void Button_Equipt()
     {
-        Equipt(Inventory.Instance.curSlot);
+        if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
+        //Equipt(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
@@ -94,13 +95,30 @@ public class SelectionProcess : MonoBehaviour
 
     public void Button_Register()
     {
+        if(Inventory.Instance.curSlot.isEquiptment) UnEquipt(Inventory.Instance.curSlot);
         ButtonRegister(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
     public void Button_Throw()
     {
-        Inventory.Instance.ThrowingParent.TryOpenThrow();
+        if(Inventory.Instance.curSlot.item.itemType == Enums.ItemType.weapon_Equiptment_Item 
+            || Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Defence_Equiptment_Item
+            || Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Helmet_Equiptment_Item
+            || Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Armor_Equiptment_Item)
+        {
+            Inventory.Instance.ThrowingParent.Throw(Inventory.Instance.curSlot, 1);
+            Inventory.Instance.curSlot = null;
+        }
+        else
+        {
+            if(Inventory.Instance.curSlot.itemCount <= 1)
+            {
+                Inventory.Instance.ThrowingParent.Throw(Inventory.Instance.curSlot, 1);
+                Inventory.Instance.curSlot = null;
+            }
+            else Inventory.Instance.ThrowingParent.TryOpenThrow();
+        }
         Selection_AllOff();
     }
 
@@ -165,7 +183,7 @@ public class SelectionProcess : MonoBehaviour
         }
     }
 
-    public void Equipt(Slot _curSlot)
+    public void Equipt(Slot _curSlot, bool value)
     {
         EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
         if (EquiptSlot)
@@ -174,9 +192,15 @@ public class SelectionProcess : MonoBehaviour
         }
         else Debug.Log("EquiptSlot == null");
 
-        _curSlot.item.PlayFuncs();
-        //_curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
-        //_curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+        //_curSlot.item.PlayFuncs();
+        if(value)
+        {
+            _curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+        }
+        else
+        {
+            _curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+        }
     }
 
     public void Use(Slot _curSlot)

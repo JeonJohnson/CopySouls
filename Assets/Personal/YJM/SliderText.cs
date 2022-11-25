@@ -13,4 +13,9 @@ public class SliderText : MonoBehaviour
     {
         text.text = ((int)(slider.value * 10)).ToString();
     }
+
+    public void UpdateMouseSensivi()
+    {
+        //GameManager.Instance.mouseSensivility = 1 + slider.value * 2;
+    }
 }

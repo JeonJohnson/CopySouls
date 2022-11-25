@@ -601,8 +601,33 @@ public class PlayerActionTable : MonoBehaviour
                     shortDis = Distance;
                 }
             }
-            if (Object != null) curInteractionItem = Object.gameObject;
-            else curInteractionItem = null;
+            if (Object != null)
+            {
+                curInteractionItem = Object.gameObject;
+                Item curItem = curInteractionItem.GetComponent<Item>();
+                if(curItem != null)
+                {
+                    if (curItem.ObjectType == Enums.ObjectType.Item)
+                    {
+                        InteractionWIndow.Instance.ShowItemInfo();
+                        InteractionWIndow.Instance.InitContents("E key 로 아이템 줍기");
+                    }
+                    else if (curItem.ObjectType == Enums.ObjectType.Environment)
+                    {
+                        InteractionWIndow.Instance.ShowItemInfo();
+                        InteractionWIndow.Instance.InitContents("E key 로 화톳불 사용");
+                    }
+                    else
+                    {
+                        InteractionWIndow.Instance.HideItemInfo();
+                    }
+                }
+            }
+            else
+            {
+                curInteractionItem = null;
+                InteractionWIndow.Instance.HideItemInfo();
+            }
         }
     }
 
@@ -611,22 +636,30 @@ public class PlayerActionTable : MonoBehaviour
             if (curInteractionItem != null)
             {
                 Item obj = curInteractionItem.GetComponent<Item>();
+            if (obj != null)
+            {
+
+
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    //if (!isGet)
-                    //{
-                        Item curItem = obj.GetComponent<Item>();
-                        
-                        if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
-                      //  isGet = true;
-                    //}
+                    Item curItem = obj.GetComponent<Item>();
+                    ItemInfoWindow.Instance.ShowItemInfo();
+                    ItemInfoWindow.Instance.InitContents(curItem.itemImage, curItem.gameObject.name, 1);
+                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
                 }
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {
                     //anim.SetTrigger("");
+                    UnitManager.Instance.ResetAllEnemies();
+                    Player.instance.status.curHp = Player.instance.status.maxHp;
+                    Player.instance.status.curMp = Player.instance.status.maxMp;
+                    Player.instance.status.curStamina = Player.instance.status.maxStamina;
                 }
             }
+            }
     }
+
+
 
     public void UseFood()
     {

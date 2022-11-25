@@ -132,11 +132,19 @@ public class QuickSlot : MonoBehaviour
             Inventory.Instance.SelectionParent.Use(invenSlot);
         }
     }
-    public void QuickSlotEquipt()
+    public void QuickSlotEquipt(QuickSlot _quickSlot)
     {
+        if (_quickSlot == null)
+        {
+            Debug.Log("등록된 장비 없음");
+            return;
+        }
+            
         if (item != null)
         {
-            //Inventory.Instance.SelectionParent.Equipt(item);
+            //장비하고 이미지 위아래로 바꿔야함
+            //Inventory.Instance.SelectionParent.Equipt(_quickSlot.item);
+
         }
     }
 }
