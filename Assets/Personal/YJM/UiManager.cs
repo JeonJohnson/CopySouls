@@ -127,7 +127,7 @@ public class UiManager : Manager<UiManager>
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-            quickSlot2.QuickSlotEquipt();
+            quickSlot2.QuickSlotEquipt(quickSlot2);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -137,7 +137,7 @@ public class UiManager : Manager<UiManager>
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-            quickSlot4.QuickSlotEquipt();
+            quickSlot4.QuickSlotEquipt(quickSlot4);
         }
     }
 }
