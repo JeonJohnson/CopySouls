@@ -14,7 +14,6 @@ public class Archer_Idle : cState
 		if (archer == null)
 		{ archer = me.GetComponent<Archer>(); }
 
-
 		archer.navAgent.isStopped = true;
 
 		archer.animCtrl.SetTrigger("tIdle");

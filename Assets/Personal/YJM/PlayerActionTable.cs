@@ -601,8 +601,25 @@ public class PlayerActionTable : MonoBehaviour
                     shortDis = Distance;
                 }
             }
-            if (Object != null) curInteractionItem = Object.gameObject;
-            else curInteractionItem = null;
+            if (Object != null)
+            {
+                curInteractionItem = Object.gameObject;
+                Item curItem = curInteractionItem.GetComponent<Item>();
+                if (curItem.ObjectType == Enums.ObjectType.Item)
+                {
+                    InteractionWIndow.Instance.ShowItemInfo();
+                    InteractionWIndow.Instance.InitContents("E key 로 아이템 줍기");
+                }
+                else
+                {
+                    InteractionWIndow.Instance.HideItemInfo();
+                }
+            }
+            else
+            {
+                curInteractionItem = null;
+                InteractionWIndow.Instance.HideItemInfo();
+            }
         }
     }
 
@@ -613,20 +630,19 @@ public class PlayerActionTable : MonoBehaviour
                 Item obj = curInteractionItem.GetComponent<Item>();
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    //if (!isGet)
-                    //{
-                        Item curItem = obj.GetComponent<Item>();
-                        
-                        if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
-                      //  isGet = true;
-                    //}
-                }
-                else if (obj.ObjectType == Enums.ObjectType.Environment)
+                    Item curItem = obj.GetComponent<Item>();
+                    ItemInfoWindow.Instance.ShowItemInfo();
+                    ItemInfoWindow.Instance.InitContents(curItem.itemImage, curItem.gameObject.name, 1);
+                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
+            }
+            else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {
                     //anim.SetTrigger("");
                 }
             }
     }
+
+
 
     public void UseFood()
     {
