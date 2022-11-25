@@ -525,6 +525,8 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 		
 02:11 2022-11-26	Golem 버그 수정 + 화톳불 앉기 완성
 	할거 : Golem 체력바 연동
-		GameManager 보스전 시작 된거 파악해서 벽깔기 + 보스 뒤지면 Credit 씬 넘어가기
+		씬 로딩 추가
+		GameManager 보스전 시작 된거 파악해서 벽깔기
+		보스 뒤지면 Credit 씬 넘어가기
 		카메라 쉐이크 넣기 + 사운드 찾기		
 	
