@@ -85,8 +85,18 @@ public abstract class Enemy : MonoBehaviour
     {//화톳불 앉거나 플레이어 다시 살아날 경우 할 것들
         Debug.Log($"{gameObject.name}is reset");
 
+        //status.isDead = false;
+
+        status.curHp = status.maxHp;
+        status.curMp = status.maxMp;
+        status.curStamina = status.maxStamina;
+
+        navAgent.isStopped = true;
         transform.position = initPos;
         transform.forward = initForward;
+        navAgent.isStopped = false;
+        navAgent.SetDestination(gameObject.transform.position);
+        //각 애들 다 디폴트 쉐팅 해주면 될듯
     }
     
 
