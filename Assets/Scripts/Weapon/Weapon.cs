@@ -38,6 +38,7 @@ public abstract class Weapon : MonoBehaviour
     public Collider col;
     public eWeaponType type;
     public int Dmg;
+    public Enums.eAttackType atkType = Enums.eAttackType.End;
     public GameObject owner;
 
     public LayerMask PlayerLayer;
@@ -118,6 +119,7 @@ public abstract class Weapon : MonoBehaviour
 
             dmgStruct.dmg = Dmg;
             dmgStruct.attackObj = owner;
+            dmgStruct.atkType = atkType;
 
             PlayerActionTable temp = HittedObj.transform.root.GetComponent<Player>().playerAt;
 
@@ -145,6 +147,7 @@ public abstract class Weapon : MonoBehaviour
 
                 dmgStruct.dmg = Dmg;
                 dmgStruct.attackObj = owner;
+                dmgStruct.atkType = atkType;
 
                 PlayerActionTable temp = HittedObj.transform.root.GetComponent<Player>().playerAt;
 

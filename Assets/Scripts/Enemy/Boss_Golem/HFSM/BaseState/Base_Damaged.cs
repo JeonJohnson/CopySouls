@@ -19,9 +19,9 @@ public class Base_Damaged : Golem_BaseState
 		subStates = new Golem_SubState[(int)eGolemDamagedState.End];
 
 		subStates[(int)eGolemDamagedState.Hit] = new Sub_Hit(this, "Hit");
-		subStates[(int)eGolemDamagedState.Death] = new Sub_Hit(this, "Death");
-		
-		
+		subStates[(int)eGolemDamagedState.Death] = new Sub_Death(this, "Death");
+
+		referSubState = subStates[(int)eGolemDamagedState.Hit];
 	}
 
 	public override void EnterBaseState()

@@ -17,6 +17,9 @@ public class Sub_Melee3Atk : Golem_SubState
 
 		golem.status.curStamina -= stateCost;
 		golem.animCtrl.SetTrigger("tAtk3");
+
+		table.SetAtkType((int)Enums.eAttackType.Week);
+		//3타는 애니메이션에서 AtkType 정해줌.
 	}
 	public override void UpdateState()
 	{

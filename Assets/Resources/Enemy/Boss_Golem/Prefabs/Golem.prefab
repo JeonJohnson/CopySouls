@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   golem: {fileID: 0}
   table: {fileID: 0}
-  thinkMinTime: 0.5
-  thinkMaxTime: 2.5
+  thinkMinTime: 1
+  thinkMaxTime: 4
   thinkTime: 0
 --- !u!114 &1705065869
 MonoBehaviour:
@@ -170,8 +170,8 @@ MonoBehaviour:
     name_e: 2
     type: 2
     isDead: 0
-    maxHp: 1000
-    curHp: 10
+    maxHp: 100
+    curHp: 100
     maxStamina: 10
     curStamina: 10
     maxMp: 0
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc162608272094e9c2bcf52b1c4e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thinkMinTime: 0.5
-  thinkMaxTime: 2.5
+  thinkMinTime: 10
+  thinkMaxTime: 10
   isWaitForCost: 0
   isWaitForDist: 0
   curMoveTime: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   fistScript:
   - {fileID: 4783900925492734397}
   - {fileID: 181847462544556577}
+  hpCriteria: 4b0000003200000019000000
 --- !u!195 &7366577288407627356
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -641,7 +642,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: -1, y: 0, z: 0}
 --- !u!114 &181847462544556577
 MonoBehaviour:
@@ -658,6 +659,7 @@ MonoBehaviour:
   col: {fileID: 0}
   type: 1
   Dmg: 0
+  atkType: 0
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2
@@ -1247,7 +1249,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: -1, y: 0, z: 0}
 --- !u!114 &4783900925492734397
 MonoBehaviour:
@@ -1264,6 +1266,7 @@ MonoBehaviour:
   col: {fileID: 0}
   type: 1
   Dmg: 0
+  atkType: 0
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2

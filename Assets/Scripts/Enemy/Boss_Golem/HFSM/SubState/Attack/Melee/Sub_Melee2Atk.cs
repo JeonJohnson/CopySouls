@@ -20,6 +20,8 @@ public class Sub_Melee2Atk : Golem_SubState
 		int iRand = Random.Range(1, 3);
 		animName = $"2Attack_{iRand}";
 		golem.animCtrl.SetInteger("iAtk2_Num", iRand);
+
+		table.SetAtkType(iRand);
 	}
 	public override void UpdateState()
 	{

@@ -85,6 +85,8 @@ public class Golem_ActionTable : MonoBehaviour
 	public GolemFist[] fistScript;
 
 
+	public int[] hpCriteria;
+
 	#region animationEvents
 
 	public void LookAtEvent(int val)
@@ -113,7 +115,8 @@ public class Golem_ActionTable : MonoBehaviour
 	}
 	public void ThrowRockEvent()
 	{
-		rockScript.dir = (golem.targetObj.transform.position - rockScript.transform.position).normalized;
+		//rockScript.dir = (golem.targetObj.transform.position - rockScript.transform.position).normalized;
+		rockScript.dir = (golem.targetHeadTr.position - rockScript.transform.position).normalized;
 		rockScript.Throw();
 		rockScript = null;
 	}
@@ -132,6 +135,11 @@ public class Golem_ActionTable : MonoBehaviour
 		RightHandCol(val);
 	}
 
+	public void SetAtkType(int type)
+	{
+		fistScript[Defines.left].atkType = (Enums.eAttackType)type;
+		fistScript[Defines.right].atkType = (Enums.eAttackType)type;
+	}
 	#endregion
 	//public void OrganizeStatePerCost()
 	//{
