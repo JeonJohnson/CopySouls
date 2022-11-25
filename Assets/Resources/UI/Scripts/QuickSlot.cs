@@ -12,7 +12,7 @@ public enum SlotType
 
 public class QuickSlot : MonoBehaviour
 {
-    public SlotType SlotType;
+    public SlotType slotType;
     public Enums.ItemType OnlyType;
     public Item item;
     public Image Item_Image;
@@ -59,6 +59,8 @@ public class QuickSlot : MonoBehaviour
     }
     public void DragEquiptment(Slot _invenSlot, Item _item, int _itemCount)
     {
+        if (_invenSlot.item == item) return;
+
         if (_item.itemType == OnlyType)
         {
             AddEquiptment(_invenSlot, _item, _itemCount, (EquiptSlot)this);
@@ -86,6 +88,7 @@ public class QuickSlot : MonoBehaviour
             ItemCount_Text.text = _itemCount.ToString();
         }
         SetColor_q(1);
+        _equiptSlot.matchEquiptmentSlot_Q();
     }
 
 

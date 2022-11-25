@@ -7,6 +7,7 @@ public class SelectionProcess : MonoBehaviour
     public static bool SelectionActivated = false;
 
     public GameObject Equipt_Button;
+    public GameObject UnEquipt_Button;
     public GameObject Use_Button;
     public GameObject Register_Button;
     public GameObject Deregistration_Button;
@@ -17,6 +18,7 @@ public class SelectionProcess : MonoBehaviour
         SelectionActivated = !SelectionActivated;
         gameObject.SetActive(false);
         Equipt_Button.SetActive(false);
+        UnEquipt_Button.SetActive(false);
         Use_Button.SetActive(false);
         Register_Button.SetActive(false);
         Deregistration_Button.SetActive(false);
@@ -31,6 +33,8 @@ public class SelectionProcess : MonoBehaviour
         }
     }
 
+    //이미 장비중이라면 아니라면 
+
     public void OpenSelection(Slot _curSlot,Enums.ItemType _itemType, Vector3 vec)
     {
         SelectionActivated = !SelectionActivated;
@@ -41,13 +45,23 @@ public class SelectionProcess : MonoBehaviour
         {
             Use_Button.SetActive(true);
         }
-        else if (_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item)
+        else if ((_itemType == Enums.ItemType.weapon_Equiptment_Item || _itemType == Enums.ItemType.Defence_Equiptment_Item) 
+            && !_curSlot.isEquiptment)
         {
             Equipt_Button.SetActive(true);
         }
 
         if (_curSlot.isQuick) Deregistration_Button.SetActive(true);
         else Register_Button.SetActive(true);
+
+        if (_curSlot.isEquiptment)
+        {
+            UnEquipt_Button.SetActive(true);
+        }
+        else
+        {
+            UnEquipt_Button.SetActive(false);
+        }
 
         Throw_Button.SetActive(true);
     }
@@ -64,6 +78,13 @@ public class SelectionProcess : MonoBehaviour
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
+    public void Button_UnEquipt()
+    {
+        UnEquipt(Inventory.Instance.curSlot);
+        Selection_AllOff();
+        Inventory.Instance.curSlot = null;
+    }
+
     public void Button_Use()
     {
         Use(Inventory.Instance.curSlot);
@@ -144,25 +165,18 @@ public class SelectionProcess : MonoBehaviour
         }
     }
 
-
     public void Equipt(Slot _curSlot)
     {
         EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
         if (EquiptSlot)
         {
             EquiptSlot.AddEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1, EquiptSlot);
-            if (_curSlot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
-            {
-                UiManager.Instance.EquiptSlot_Weapon.matchEquiptmentSlot_Q(_curSlot.item);
-            }
-            else if (_curSlot.item.itemType == Enums.ItemType.Defence_Equiptment_Item)
-            {
-                UiManager.Instance.EquiptSlot_Defence.matchEquiptmentSlot_Q(_curSlot.item);
-            }
         }
         else Debug.Log("EquiptSlot == null");
 
         _curSlot.item.PlayFuncs();
+        //_curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+        //_curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
     }
 
     public void Use(Slot _curSlot)
@@ -189,5 +203,15 @@ public class SelectionProcess : MonoBehaviour
         _curSlot.SetRegister(false);
         _curSlot.curRegisterQuickSlot.ClearSlot_q();
         _curSlot.curRegisterQuickSlot = null;
+    }
+
+    public void UnEquipt(Slot _curSlot)
+    {
+        EquiptSlot _equiptSlot = _curSlot.curRegisterQuickSlot.GetComponent<EquiptSlot>();
+        if (_equiptSlot == null) Debug.Log("UnEquipt Error");
+        _curSlot.SetEquiptment(false);
+        _equiptSlot.ClearSlot_q();
+        _equiptSlot.matchEquiptmentSlot_Q();
+        _curSlot.item.GetComponent<Item_Weapon>().DeselectWeapon();
     }
 }

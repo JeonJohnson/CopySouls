@@ -8,10 +8,4 @@ public class EquiptSlot_Q : EquiptSlot
     {
         
     }
-    public void matchEquiptmentSlot_Q(Item _item)
-    {
-        Item_Image.sprite = _item.itemImage;
-        //»ö, activated ¿¬°á
-    }
-
 }

@@ -134,7 +134,7 @@ MonoBehaviour:
   objName: 4
   ObjectType: 2
   rigid: {fileID: 0}
-  itemType: 2
+  itemType: 1
   itemImage: {fileID: 21300000, guid: 3caf6d932cf9d4d43ae3229969abea6c, type: 3}
   weapon: {fileID: 1351056330041920394}
 --- !u!65 &7322326572584479693

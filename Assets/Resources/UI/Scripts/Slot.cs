@@ -213,6 +213,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                     }
                     else if(obj.GetComponentInParent<EquiptSlot>() != null)
                     {
+                        //드래그 장비 아직 수정못함
+
                         EquiptSlot quickSlot = obj.GetComponentInParent<EquiptSlot>();
                         quickSlot.DragEquiptment(Inventory.Instance.curSlot, DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
                         DragSlot.instance.SetColor(0);
@@ -284,28 +286,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         }
     }
 
-    //지 자신으로 옮기는거 널값 참조
-
     private void ChangeSlot()
     {
         if (DivisionProcess.DivisionActivated) return;
 
         Item tempItem = item;
         int tempItemCount = itemCount;
-        if (DragSlot.instance.dragSlot.isQuick || DragSlot.instance.dragSlot.isEquiptment)
+        if (DragSlot.instance.dragSlot.isQuick)
         {
-            if(!isQuick || !isEquiptment)
+            if(!isQuick)
             {
-                if(!isQuick)
-                {
-                    SetRegister(true);
-                    DragSlot.instance.dragSlot.SetRegister(false);
-                }
-                else if(!isEquiptment)
-                {
-                    SetEquiptment(true);
-                    DragSlot.instance.dragSlot.SetEquiptment(false);
-                }
+                SetRegister(true);
+                DragSlot.instance.dragSlot.SetRegister(false);
                 curRegisterQuickSlot = DragSlot.instance.dragSlot.curRegisterQuickSlot;
                 curRegisterQuickSlot.invenSlot = this;
                 DragSlot.instance.dragSlot.curRegisterQuickSlot = null;
@@ -322,19 +314,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         }
         else
         {
-            if(isQuick || !isEquiptment)
+            if(isQuick)
             {
-
-                if (!isQuick)
-                {
-                    SetRegister(false);
-                    DragSlot.instance.dragSlot.SetRegister(true);
-                }
-                else if(!isEquiptment)
-                {
-                    SetEquiptment(false);
-                    DragSlot.instance.dragSlot.SetEquiptment(true);
-                }
+                SetRegister(false);
+                DragSlot.instance.dragSlot.SetRegister(true);
                 DragSlot.instance.dragSlot.curRegisterQuickSlot = curRegisterQuickSlot;
                 DragSlot.instance.dragSlot.curRegisterQuickSlot.invenSlot = this;
                 curRegisterQuickSlot = null;
