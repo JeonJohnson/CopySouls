@@ -14,6 +14,7 @@ public class HpBar : MonoBehaviour
     [SerializeField] Slider hpSlider;
     [SerializeField] Image hpEffectImage;
     [SerializeField] Text damageText;
+    [SerializeField] Text nameText;
 
 
     float curHp = 0f;
@@ -29,6 +30,7 @@ public class HpBar : MonoBehaviour
         curHp = target.status.maxHp;
         canvasGroup.alpha = 0f;
         damageText.color = new Color(1f, 1f, 1f, 0f);
+        InitName();
     }
 
     void Update()
@@ -117,5 +119,10 @@ public class HpBar : MonoBehaviour
         damageText.color = new Color(1f, 1f, 1f, 1f);
         hpSlider.value = 1f;
         hpEffectImage.fillAmount = 1f;
+    }
+
+    public void InitName()
+    {
+        if(nameText != null) nameText.text = target.status.name;
     }
 }

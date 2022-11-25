@@ -154,4 +154,18 @@ public class Inventory : MonoBehaviour
         if (DefaultDefence) ItemIn(DefaultDefence, 1);
     }
 
+    public void GetItem(Item _item)
+    {
+        ItemIn(_item);
+    }
+
+    public void GetItem(string _itemName)
+    {
+        for(int i =0; i < ObjectPoolingCenter.Instance.prefabs.Length; i++)
+        {
+            if(ObjectPoolingCenter.Instance.prefabs[i].name == _itemName) ItemIn(ObjectPoolingCenter.Instance.prefabs[i].GetComponent<Item>());
+            print(ObjectPoolingCenter.Instance.prefabs[i].name + _itemName);
+        }
+    }
+
 }

@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
             //dmgst.atkType = eAttackType.Strong;
             //dmgst.dmg = 1f;
             //PlayerActionTable.instance.Hit(dmgst);
+            Inventory.Instance.GetItem("Default_Weapon_Item");
         }
 
         if(Input.GetKeyDown(KeyCode.I))
