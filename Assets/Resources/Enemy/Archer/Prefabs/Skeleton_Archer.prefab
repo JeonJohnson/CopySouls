@@ -1628,7 +1628,7 @@ MonoBehaviour:
     type: 0
     isDead: 0
     maxHp: 100
-    curHp: 10
+    curHp: 100
     maxStamina: 0
     curStamina: 0
     maxMp: 0
@@ -1658,6 +1658,7 @@ MonoBehaviour:
   weaponEquipState: 0
   PatrolPos: []
   ragdoll: {fileID: 0}
+  hpBar: {fileID: 0}
   preState_i: -1
   curState_i: -1
   animCtrl: {fileID: 0}

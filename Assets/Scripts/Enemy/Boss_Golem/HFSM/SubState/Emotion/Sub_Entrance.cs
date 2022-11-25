@@ -6,6 +6,7 @@ public class Sub_Entrance : Golem_SubState
 {
 	public Sub_Entrance(Golem_BaseState _baseState, string name) : base(_baseState, name)
 	{
+		golem.combatState = eCombatState.Idle;
 	}
 
 	public override void EnterState()

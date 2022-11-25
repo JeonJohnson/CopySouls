@@ -75,7 +75,7 @@ public class SelectionProcess : MonoBehaviour
     public void Button_Equipt()
     {
         if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
-        Equipt(Inventory.Instance.curSlot);
+        //Equipt(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
@@ -183,7 +183,7 @@ public class SelectionProcess : MonoBehaviour
         }
     }
 
-    public void Equipt(Slot _curSlot)
+    public void Equipt(Slot _curSlot, bool value)
     {
         EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
         if (EquiptSlot)
@@ -192,9 +192,15 @@ public class SelectionProcess : MonoBehaviour
         }
         else Debug.Log("EquiptSlot == null");
 
-        _curSlot.item.PlayFuncs();
-        //_curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
-        //_curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+        //_curSlot.item.PlayFuncs();
+        if(value)
+        {
+            _curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+        }
+        else
+        {
+            _curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+        }
     }
 
     public void Use(Slot _curSlot)

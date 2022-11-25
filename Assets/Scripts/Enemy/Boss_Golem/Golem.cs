@@ -168,7 +168,8 @@ public class Golem : Enemy
 		SearchMyBone();
 		SearchTarget();
 
-		decisionTime = Random.Range(1f, 2f);
+		animCtrl.enabled = false;
+		//decisionTime = Random.Range(1f, 2f);
 	}
 
 	protected override void Update()
