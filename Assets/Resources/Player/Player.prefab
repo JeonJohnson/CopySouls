@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 0}
   type: 0
-  Dmg: 10
+  Dmg: 4
   atkType: 2
   owner: {fileID: 0}
   PlayerLayer:
@@ -244,7 +244,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   status:
-    name: Just Normal Sword
+    name: Hand
     type: 0
     range: 0
     price: 10
@@ -279,7 +279,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189113979338820136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}

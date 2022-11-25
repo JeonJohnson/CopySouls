@@ -60,6 +60,7 @@ public class Player_Weapon : Weapon
                     if (!hittedEnemy.status.isDead)
                     {
                         hittedEnemyList.Add(hittedEnemy);
+                        print("충돌중!!!");
                         hittedEnemy.Hit(dmgStruct);
                         GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);
                         effect.transform.position = other.ClosestPoint(transform.position);

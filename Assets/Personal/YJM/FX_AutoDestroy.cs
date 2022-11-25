@@ -33,7 +33,6 @@ public class FX_AutoDestroy : MonoBehaviour
                 else
                     ps.Stop();
                     ObjectPoolingCenter.Instance.ReturnObj(this.gameObject);
-                    GameObject.Destroy(this.gameObject);
                 break;
             }
         }
