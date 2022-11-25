@@ -122,7 +122,10 @@ public class PlayerLocomove : MonoBehaviour
         else
         {
             moveAmount = 0f;
-            Player.instance.SetState(Enums.ePlayerState.Idle);
+            if(Player.instance.curState_e != Enums.ePlayerState.Interacting)
+            {
+                Player.instance.SetState(Enums.ePlayerState.Idle);
+            }
         }
         SetPlayerTrInputHold();
         if(isCameraLock)

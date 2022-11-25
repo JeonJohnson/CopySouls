@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 828777424100436989}
   - component: {fileID: 1189113979338820134}
   - component: {fileID: 1535635313334479960}
-  - component: {fileID: 2661690400710338373}
+  - component: {fileID: 5222680443650805741}
   m_Layer: 8
   m_Name: MainWeapon
   m_TagString: Weapon
@@ -252,7 +252,7 @@ MonoBehaviour:
     holdType: 0
   item_Weapon: {fileID: 0}
   hittedEnemyList: []
-  trailRenderer: {fileID: 0}
+  trailRenderer: {fileID: 8242936882115986221}
 --- !u!114 &1535635313334479960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,20 +271,19 @@ MonoBehaviour:
   itemType: 2
   itemImage: {fileID: 21300000, guid: 7c11da5b01c892f4996d1689aa293e83, type: 3}
   weapon: {fileID: 1189113979338820134}
---- !u!136 &2661690400710338373
-CapsuleCollider:
+--- !u!65 &5222680443650805741
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189113979338820136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.004
-  m_Height: 0.021
-  m_Direction: 1
-  m_Center: {x: -0.000000008986802, y: 0.007779668, z: 0.0002808288}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6274456743026991043
 GameObject:
   m_ObjectHideFlags: 0

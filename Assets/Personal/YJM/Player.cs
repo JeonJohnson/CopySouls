@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
         }
         InitializeState();
         ColliderSetting();
-        SetPlayerWeapon();
         status.isInputtable = true;
     }
     #endregion
@@ -75,6 +74,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //RigidBodySetting();
+        SetPlayerWeapon();
     }
 
     public AnimationClip[] idleAnimClips;

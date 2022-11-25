@@ -123,6 +123,9 @@ public class PlayerActionTable : MonoBehaviour
     {
         if(player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
         {
+            GameObject effect = ObjectPoolingCenter.Instance.LentalObj("EtherealHit 1", 1);
+            effect.transform.position = Player.instance.spine3Tr.position;
+            effect.GetComponent<ParticleSystem>().Play();
             print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
         }
         else if(player.status.isGuard == true)

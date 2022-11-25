@@ -61,7 +61,9 @@ public class Player_Weapon : Weapon
                     {
                         hittedEnemyList.Add(hittedEnemy);
                         hittedEnemy.Hit(dmgStruct);
-                        print("deal Damage");
+                        GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);
+                        effect.transform.position = other.ClosestPoint(transform.position);
+                        effect.GetComponent<ParticleSystem>().Play();
                     }
                 }
             }
