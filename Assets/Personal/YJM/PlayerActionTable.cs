@@ -619,12 +619,12 @@ public class PlayerActionTable : MonoBehaviour
                     if (curItem.ObjectType == Enums.ObjectType.Item)
                     {
                         InteractionWIndow.Instance.ShowItemInfo();
-                        InteractionWIndow.Instance.InitContents("E key 로 아이템 줍기");
+                        InteractionWIndow.Instance.InitContents("E key : 아이템 줍기");
                     }
                     else if (curItem.ObjectType == Enums.ObjectType.Environment)
                     {
                         InteractionWIndow.Instance.ShowItemInfo();
-                        InteractionWIndow.Instance.InitContents("E key 로 화톳불 사용");
+                        InteractionWIndow.Instance.InitContents("E key : 화톳불 사용");
                     }
                     else
                     {
@@ -665,9 +665,9 @@ public class PlayerActionTable : MonoBehaviour
                     //anim.SetTrigger("");
                     Player.instance.animator.SetTrigger("isInteracting");
                     StartCoroutine(PlayerBoneFireFuncsCoro());
+                    UiManager.Instance.PlayFogEffect();
                 }
                 Player.instance.SetState(ePlayerState.Interacting);
-                print("그러하다ㅏㅏㅏㅏ");
             }
             }
     }
@@ -682,8 +682,9 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.status.curMp = Player.instance.status.maxMp;
         Player.instance.status.curStamina = Player.instance.status.maxStamina;
         SystemInfoWindow.Instance.PlayEffect();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
         Player.instance.animator.SetTrigger("isInteractingEnd");
+        yield return new WaitForSeconds(1.2f);
         Player.instance.SetState(ePlayerState.Idle);
         yield return null;
     }

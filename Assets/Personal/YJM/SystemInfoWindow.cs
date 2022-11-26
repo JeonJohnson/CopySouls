@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SystemInfoWindow : MonoBehaviour
 {
@@ -17,51 +18,41 @@ public class SystemInfoWindow : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        RenderSettings.fog = true;
     }
 
     [SerializeField] Text diedText;
     [SerializeField] Image bgImage;
     [SerializeField] CanvasGroup canvasGroup;
- 
+
     public void PlayEffect()
     {
         print("1");
         diedText.gameObject.SetActive(true);
         bgImage.gameObject.SetActive(true);
+        bgImage.color = new Color(bgImage.color.r, bgImage.color.g, bgImage.color.b, 0f);
+        diedText.color = new Color(diedText.color.r, diedText.color.g, diedText.color.b, 0f);
+        canvasGroup.alpha = 1f;
         print("2");
         StartCoroutine(BgEffectCoro());
         StartCoroutine(TextEffectCoro());
         print("3");
     }
 
-    float bgAlpha = 0f;
-    float diedAlpha = 0f;
-
     float canvasAlpha = 1f;
     IEnumerator BgEffectCoro()
     {
-        while (bgAlpha <= 1f)
-        {
-            bgAlpha += Time.deltaTime * 3f;
-            bgImage.color = new Vector4(1f, 1f, 1f, bgAlpha);
-            yield return null;
-        }
+        bgImage.DOColor(new Color(bgImage.color.r, bgImage.color.g, bgImage.color.b, 1f), 1f);
+        yield return null;
     }
 
     IEnumerator TextEffectCoro()
     {
-        Color col = diedText.color;
-        while (diedAlpha <= 1f)
-        {
-            diedAlpha += Time.deltaTime * 1f;
-            diedText.color = new Vector4(col.r, col.g, col.b, diedAlpha);
-            yield return null;
-        }
-        yield return new WaitForSeconds(0.5f);
+        diedText.DOColor(new Color(diedText.color.r, diedText.color.g, diedText.color.b, 1f), 1f);
+        yield return new WaitForSeconds(2f);
         while (canvasGroup.alpha > 0f)
         {
-            canvasAlpha -= Time.deltaTime;
-            canvasGroup.alpha = canvasAlpha;
+            canvasGroup.alpha -= Time.deltaTime;
             yield return null; 
         }
     }
