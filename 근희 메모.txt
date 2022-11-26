@@ -545,3 +545,4 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 	할거 : 보스 뒤지면 MainTitle씬 넘어가기
 
 20:41 2022-11-26	골렘 죽으면 MainTitle로 넘어감
+	할거 : MainTitle 넘어가기전 Credit효과
