@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,9 +73,9 @@ public class UiManager : Manager<UiManager>
     //    }
     //}
 
-    //UI´ÜÃàÅ°
-    //ÀÎº¥ ÀåºñÃ¢ ÄÑÁö°Å³ª alt´­¸£¸é ¸¶¿ì½º È°¼ºÈ­
-    //ÀÎº¥ÀÌ³ª ÀåºñÃ¢ÀÌ ²¨Áö°Å³ª altÇÑ¹ø ´õ ´©¸£¸é ¸¶¿ì½º ºñÈ°¼ºÈ­
+    //UIë‹¨ì¶•í‚¤
+    //ì¸ë²¤ ì¥ë¹„ì°½ ì¼œì§€ê±°ë‚˜ altëˆŒë¥´ë©´ ë§ˆìš°ìŠ¤ í™œì„±í™”
+    //ì¸ë²¤ì´ë‚˜ ì¥ë¹„ì°½ì´ êº¼ì§€ê±°ë‚˜ altí•œë²ˆ ë” ëˆ„ë¥´ë©´ ë§ˆìš°ìŠ¤ ë¹„í™œì„±í™”
 
     public void UI_KeyboardShortcut()
     {
@@ -96,8 +96,8 @@ public class UiManager : Manager<UiManager>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //Á¦ÀÏ À§¿¡ ÀÖ´Â °Å ²¨¾ßÇÔ
-            //ÀÎº¥
+            //ì œì¼ ìœ„ì— ìˆëŠ” ê±° êº¼ì•¼í•¨
+            //ì¸ë²¤
             if (Inventory.inventoryActivated)
             {
                 WindowProcedureIndex = 0;
@@ -117,17 +117,17 @@ public class UiManager : Manager<UiManager>
 
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
-                //ºĞÇÒÃ¢ ²ô±â
+                //ë¶„í• ì°½ ë„ê¸°
                 Inventory.Instance.DivisionParent.Button_DivisionCancel();
             }
             else if (Inventory.inventoryActivated && ThrowingProcess.ThrowingActivated)
             {
-                //¹ö¸®±â Ã¢ ²ô±â
+                //ë²„ë¦¬ê¸° ì°½ ë„ê¸°
                 Inventory.Instance.ThrowingParent.Button_ThrowCancel();
             }
             //else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
             //{
-            //    //ÀÎº¥Åä¸® Ã¢ ²ô±â
+            //    //ì¸ë²¤í† ë¦¬ ì°½ ë„ê¸°
             //    Inventory.Instance.Button_InventoryExit();
             //    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             //}
@@ -144,17 +144,17 @@ public class UiManager : Manager<UiManager>
         {
             if (DivisionProcess.DivisionActivated)
             {
-                //ºĞÇÒ ENTERÀû¿ë
+                //ë¶„í•  ENTERì ìš©
                 Inventory.Instance.DivisionParent.Button_Division();
             }
             else if (ThrowingProcess.ThrowingActivated)
             {
-                //¹ö¸®±â ENTERÀû¿ë
+                //ë²„ë¦¬ê¸° ENTERì ìš©
                 Inventory.Instance.ThrowingParent.Button_Throw();
             }
         }
 
-        //Äü½½·Ô´ÜÃàÅ°
+        //í€µìŠ¬ë¡¯ë‹¨ì¶•í‚¤
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
@@ -179,7 +179,7 @@ public class UiManager : Manager<UiManager>
 
     private void EquiptmentInitialize()
     {
-        Debug.Log("¾ß¸Ş ¹ßµ¿!");
+        Debug.Log("ì•¼ë©” ë°œë™!");
     }
 
     public void WindowProcedure()
@@ -192,7 +192,7 @@ public class UiManager : Manager<UiManager>
     public void fogChanged(float inten)
     {
         float diff = MAX_FOG_DENSITY - MIN_FOG_DENSITY;
-        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1ÀÇ °ª
+        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1ì˜ ê°’
 
         RenderSettings.fogDensity = value;
     }
