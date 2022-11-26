@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.16037738, g: 0.15657979, b: 0.13843897, a: 1}
+  m_FogColor: {r: 0.5019608, g: 0.4745098, b: 0.35686275, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.002
   m_LinearFogStart: 0
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -943,18 +943,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1705065869, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
-      propertyPath: status.curHp
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1705065869, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
-      propertyPath: status.maxHp
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1705065869, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
-      propertyPath: status.ricognitionRange
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1814817405526944564, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -1002,10 +990,6 @@ PrefabInstance:
     - target: {fileID: 1814817405527308052, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
       propertyPath: m_Name
       value: Golem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814817405527308052, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
@@ -1253,10 +1237,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3422312628231841206, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3422312629044115861, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_Name
       value: Environmnet
@@ -1304,22 +1284,6 @@ PrefabInstance:
     - target: {fileID: 3422312629044115862, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4382485127557741827, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948735084734832330, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5936400593505424609, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6240476844777002045, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}

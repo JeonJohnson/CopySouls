@@ -135,7 +135,7 @@ MonoBehaviour:
   ObjectType: 2
   rigid: {fileID: 0}
   itemType: 2
-  itemImage: {fileID: 21300000, guid: 9a277565cc88f0f48904204b3b6ea7ed, type: 3}
+  itemImage: {fileID: 21300000, guid: f0f5e37c3e29623419a7c341a218b110, type: 3}
   weapon: {fileID: 3711218530577091815}
 --- !u!65 &9147522530969059904
 BoxCollider:

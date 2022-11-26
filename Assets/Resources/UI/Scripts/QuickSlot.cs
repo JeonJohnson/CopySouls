@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum SlotType
 {
@@ -19,6 +20,8 @@ public class QuickSlot : MonoBehaviour
     public int itemCount;
     public Text ItemCount_Text;
     public Slot invenSlot;
+
+    public bool isUsable = true;
 
     public void DragRegister(Slot _invenSlot,Item _item,int _itemCount)
     {
@@ -135,8 +138,11 @@ public class QuickSlot : MonoBehaviour
     }
     public void QuickSlotEquipt(QuickSlot _quickSlot,EquiptSlot _equiptSlot)
     {
+        if (isUsable == false) return;
+        isUsable = false;
+
         //| 하나만 쓰면 뒤에꺼까지 확인
-        if(Player.instance.curState_e == Enums.ePlayerState.Idle | Player.instance.curState_e == Enums.ePlayerState.Move)
+        if (Player.instance.curState_e == Enums.ePlayerState.Idle | Player.instance.curState_e == Enums.ePlayerState.Move)
         {
             if (_equiptSlot.invenSlot != null && invenSlot != null)
             {
@@ -174,6 +180,23 @@ public class QuickSlot : MonoBehaviour
                     //등록된 인벤 슬롯 교체해줘야함
                     invenSlot = _equiptSlot.invenSlot;
                     _equiptSlot.invenSlot = temp;
+
+                    Color originCol0 = _equiptSlot.equalSlot.Item_Image.color;
+                    Color originCol1 = _quickSlot.Item_Image.color;
+
+                    _equiptSlot.equalSlot.Item_Image.color = Color.black;
+                    _equiptSlot.equalSlot.Item_Image.DOColor(originCol0, 0.5f).SetEase(Ease.OutCirc);
+                    _quickSlot.Item_Image.color = Color.black;
+                    _quickSlot.Item_Image.DOColor(originCol1, 0.5f).SetEase(Ease.OutCirc) ;
+
+                    _equiptSlot.equalSlot.Item_Image.type = Image.Type.Filled;
+                    _equiptSlot.equalSlot.Item_Image.fillAmount = 0f;
+                    _equiptSlot.equalSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc);
+
+                    _quickSlot.Item_Image.type = Image.Type.Filled;
+                    _quickSlot.Item_Image.fillAmount = 0f;
+                    _quickSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc)
+                    .OnComplete(() => { EnableThis(); });
 
                 }
 
@@ -256,5 +279,10 @@ public class QuickSlot : MonoBehaviour
             }
             else return;
         }
+    }
+
+    void EnableThis()
+    {
+        isUsable = true;
     }
 }

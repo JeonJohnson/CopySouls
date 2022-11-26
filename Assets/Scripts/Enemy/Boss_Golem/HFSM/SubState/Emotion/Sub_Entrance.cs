@@ -28,7 +28,9 @@ public class Sub_Entrance : Golem_SubState
 						golem.combatState = eCombatState.Alert;
 						golem.FragScript.Assemble();
 
-						golem.hpBar_Boss = UiManager.Instance.InstantiateBossHpBar(golem);
+						//golem.hpBar_Boss = UiManager.Instance.InstantiateBossHpBar(golem);
+						golem.hpBar_Boss.gameObject.SetActive(true);
+						InGameManager.Instance.BossCombatStart();
 					}
 				}
 				break;

@@ -48,8 +48,6 @@ public class Golem : Enemy
 	public float decisionTime;
 
 	public HpBar_Boss hpBar_Boss = null;
-	
-
 
 	public void SearchTarget()
 	{
@@ -168,6 +166,9 @@ public class Golem : Enemy
 
 		SearchMyBone();
 		SearchTarget();
+
+		hpBar_Boss = UiManager.Instance.InstantiateBossHpBar(this);
+		hpBar_Boss.gameObject.SetActive(false);
 
 		animCtrl.enabled = false;
 		//decisionTime = Random.Range(1f, 2f);
