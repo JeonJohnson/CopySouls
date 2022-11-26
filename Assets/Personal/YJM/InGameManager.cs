@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class InGameManager : Manager<InGameManager>
 {
+    public bool isBossCombat = false;
+    public delegate void TempFunc();
+    public void BossCombatStart(TempFunc func)
+    {
+        isBossCombat = true;
+        func();
+    }
 
 	private void Awake()
 	{

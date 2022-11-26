@@ -10,6 +10,8 @@ public class UiManager : Manager<UiManager>
     [SerializeField] GameObject hpBarUi;
 
     [SerializeField] GameObject hpBarPrefab;
+    [SerializeField] GameObject bossHpBarPrefab;
+
 
     [Header("QuickSlot")]
     [SerializeField] public QuickSlot quickSlot1;
@@ -31,6 +33,14 @@ public class UiManager : Manager<UiManager>
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab,hpBarUi.transform);
         HpBar hpBar = hpBarGo.GetComponent<HpBar>();
+        hpBar.target = target;
+        return hpBar;
+    }
+
+    public HpBar_Boss InstantiateBossHpBar(Golem target)
+    {
+        GameObject hpBarObj = Instantiate(bossHpBarPrefab, playerStatusUi.transform);
+        HpBar_Boss hpBar = hpBarObj.GetComponent<HpBar_Boss>();
         hpBar.target = target;
         return hpBar;
     }

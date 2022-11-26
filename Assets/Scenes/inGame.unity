@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -994,7 +994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1814817405527308052, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
@@ -3023,6 +3023,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7728901173108859690, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: bossHpBarPrefab
+      value: 
+      objectReference: {fileID: 7310213511787965617, guid: 2b395ec3cc9e4b348817147a891490c4, type: 3}
     - target: {fileID: 7728901173108859691, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
       propertyPath: m_Name
       value: UiManager
