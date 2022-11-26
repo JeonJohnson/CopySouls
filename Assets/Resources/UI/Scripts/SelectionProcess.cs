@@ -74,7 +74,7 @@ public class SelectionProcess : MonoBehaviour
 
     public void Button_Equipt()
     {
-        //if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
+        if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
         Equipt(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
