@@ -22,6 +22,8 @@ public class Sub_Death : Golem_SubState
 		golem.animCtrl.enabled = false;
 
 		golem.FragScript.animCtrl.SetTrigger("tExplode");
+
+		InGameManager.Instance.BossDeath();
 	}
 	public override void UpdateState()
 	{
