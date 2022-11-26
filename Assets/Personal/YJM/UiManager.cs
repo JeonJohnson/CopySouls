@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,9 +86,9 @@ public class UiManager : Manager<UiManager>
     //    }
     //}
 
-    //UI����Ű
-    //�κ� ���â �����ų� alt������ ���콺 Ȱ��ȭ
-    //�κ��̳� ���â�� �����ų� alt�ѹ� �� ������ ���콺 ��Ȱ��ȭ
+    //UI占쏙옙占쏙옙키
+    //占싸븝옙 占쏙옙占시?占쏙옙占쏙옙占신놂옙 alt占쏙옙占쏙옙占쏙옙 占쏙옙占쎌스 활占쏙옙화
+    //占싸븝옙占싱놂옙 占쏙옙占시?옙占?占쏙옙占쏙옙占신놂옙 alt占싼뱄옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쎌스 占쏙옙활占쏙옙화
 
     public void UI_KeyboardShortcut()
     {
@@ -109,8 +109,8 @@ public class UiManager : Manager<UiManager>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //���� ���� �ִ� �� ������
-            //�κ�
+            //占쏙옙占쏙옙 占쏙옙占쏙옙 占쌍댐옙 占쏙옙 占쏙옙占쏙옙占쏙옙
+            //占싸븝옙
             if (Inventory.inventoryActivated)
             {
                 WindowProcedureIndex = 0;
@@ -130,17 +130,17 @@ public class UiManager : Manager<UiManager>
 
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
-                //����â ����
+                //占쏙옙占쏙옙창 占쏙옙占쏙옙
                 Inventory.Instance.DivisionParent.Button_DivisionCancel();
             }
             else if (Inventory.inventoryActivated && ThrowingProcess.ThrowingActivated)
             {
-                //������ â ����
+                //占쏙옙占쏙옙占쏙옙 창 占쏙옙占쏙옙
                 Inventory.Instance.ThrowingParent.Button_ThrowCancel();
             }
             //else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
             //{
-            //    //�κ��丮 â ����
+            //    //占싸븝옙占썰리 창 占쏙옙占쏙옙
             //    Inventory.Instance.Button_InventoryExit();
             //    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             //}
@@ -157,17 +157,17 @@ public class UiManager : Manager<UiManager>
         {
             if (DivisionProcess.DivisionActivated)
             {
-                //���� ENTER����
+                //占쏙옙占쏙옙 ENTER占쏙옙占쏙옙
                 Inventory.Instance.DivisionParent.Button_Division();
             }
             else if (ThrowingProcess.ThrowingActivated)
             {
-                //������ ENTER����
+                //占쏙옙占쏙옙占쏙옙 ENTER占쏙옙占쏙옙
                 Inventory.Instance.ThrowingParent.Button_Throw();
             }
         }
 
-        //�����Դ���Ű
+        //占쏙옙占쏙옙占쌉댐옙占쏙옙키
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
@@ -192,7 +192,7 @@ public class UiManager : Manager<UiManager>
 
     private void EquiptmentInitialize()
     {
-        Debug.Log("�߸� �ߵ�!");
+        Debug.Log("占쌩몌옙 占쌩듸옙!");
     }
 
     public void WindowProcedure()
@@ -205,7 +205,7 @@ public class UiManager : Manager<UiManager>
     public void fogChanged(float inten)
     {
         float diff = MAX_FOG_DENSITY - MIN_FOG_DENSITY;
-        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1�� ��
+        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1占쏙옙 占쏙옙
 
         RenderSettings.fogDensity = value;
     }
