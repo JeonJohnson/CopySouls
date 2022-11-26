@@ -83,6 +83,7 @@ public class Item_Weapon : Item
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
+    [ContextMenu("DeselctWP!!")]
     public void DeselectWeapon()
     {
         Player_Weapon playerWeapon = this.gameObject.GetComponent<Player_Weapon>();

@@ -68,6 +68,7 @@ public class PlayerActionTable : MonoBehaviour
     public void Death()
     {
         //Player.instance.SetState(Enums.ePlayerState.Death);
+        Player.instance.status.isDead = true;
         Player.instance.animator.SetTrigger("Death");
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
@@ -134,9 +135,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         if(player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
         {
-            GameObject effect = ObjectPoolingCenter.Instance.LentalObj("EtherealHit 1", 1);
-            effect.transform.position = Player.instance.spine3Tr.position;
-            effect.GetComponent<ParticleSystem>().Play();
             print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
         }
         else if(player.status.isGuard == true)
@@ -538,23 +536,26 @@ public class PlayerActionTable : MonoBehaviour
     }
 
     float guardParam = 0;
-    float holdParam = 0;
+    [SerializeField]float holdParam = 0;
     public void Guard()
     {
-        float targetHoldParam = 1 - guardParam;
-        holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
-        if (holdType == true)
+        if(Player.instance.status.mainWeapon.type != eWeaponType.None)
         {
-            player.animator.SetLayerWeight(2, holdParam);
-            holdParam += Time.deltaTime * 3f;
-        }
-        else
-        {
-            player.animator.SetLayerWeight(2, holdParam);
-            holdParam -= Time.deltaTime * 3f;
+            float targetHoldParam = 1 - guardParam;
+            holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
+            if (holdType == true)
+            {
+                player.animator.SetLayerWeight(2, holdParam);
+                holdParam += Time.deltaTime * 3f;
+            }
+            else
+            {
+                player.animator.SetLayerWeight(2, holdParam);
+                holdParam -= Time.deltaTime * 3f;
+            }
         }
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) && (Player.instance.status.mainWeapon.type == eWeaponType.Sheild | Player.instance.status.subWeapon.type == eWeaponType.Sheild))
         {
             guardParam += Time.deltaTime * 10;
             Player.instance.animator.SetTrigger("Guard");
@@ -598,7 +599,7 @@ public class PlayerActionTable : MonoBehaviour
 
         if (nearColliders != null)
         {
-            float shortDis = 99999999;
+            float shortDis = float.MaxValue;
             Collider Object = null;
             foreach (Collider found in nearColliders)
             {
@@ -662,20 +663,23 @@ public class PlayerActionTable : MonoBehaviour
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {
                     //anim.SetTrigger("");
-                    UnitManager.Instance.ResetAllEnemies();
-                    Player.instance.status.curHp = Player.instance.status.maxHp;
-                    Player.instance.status.curMp = Player.instance.status.maxMp;
-                    Player.instance.status.curStamina = Player.instance.status.maxStamina;
+                    Player.instance.animator.SetBool("isInteracting", true);
                 }
             }
             }
     }
 
-
+    public void PlayBoneFireFuncs()
+    {
+        UnitManager.Instance.ResetAllEnemies();
+        Player.instance.status.curHp = Player.instance.status.maxHp;
+        Player.instance.status.curMp = Player.instance.status.maxMp;
+        Player.instance.status.curStamina = Player.instance.status.maxStamina;
+    }
 
     public void UseFood()
     {
-        Player.instance.SetState(ePlayerState.Interacting);
+        Player.instance.SetState(ePlayerState.Using);
         Player.instance.animator.SetTrigger("UseDrink");
         player.animator.SetLayerWeight(1, 1f);
     }
@@ -719,8 +723,15 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (CurCoroCounter1 != CurCoroCounter2)
         {
-            isComboCheck = false;
-            SetPlayerStatus(0);
+            if(Player.instance.status.isDead == false)
+            {
+                isComboCheck = false;
+                SetPlayerStatus(0);
+            }
+            else
+            {
+                print("플레이어 듀거서 셋플레이어 스테이터스 씹음");
+            }
         }
     }
     #endregion

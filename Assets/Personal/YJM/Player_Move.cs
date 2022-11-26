@@ -58,10 +58,7 @@ public class Player_Move : Player_cState
                     }
                 }
             }
-            if (Player.instance.status.mainWeapon.type == eWeaponType.Sheild | Player.instance.status.subWeapon.type == eWeaponType.Sheild)
-            {
                 PlayerActionTable.instance.Guard();
-            }
 
             if (Input.GetKeyDown(KeyCode.F))
             {

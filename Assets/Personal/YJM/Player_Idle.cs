@@ -49,10 +49,8 @@ public class Player_Idle : Player_cState
             }
         }
 
-        if(Player.instance.status.mainWeapon.type == eWeaponType.Sheild | Player.instance.status.subWeapon.type == eWeaponType.Sheild)
-        {
-            PlayerActionTable.instance.Guard();
-        }
+        PlayerActionTable.instance.Guard();
+
 
         if(Input.GetButtonDown("Hold"))
         {

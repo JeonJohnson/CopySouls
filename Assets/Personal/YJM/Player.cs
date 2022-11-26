@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using Structs;
 using Enums;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
+
 
 public class Player : MonoBehaviour
 {
@@ -176,9 +179,8 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
         fsm[(int)ePlayerState.Atk] = new Player_Atk();
         fsm[(int)ePlayerState.Interacting] = new Player_Interacting();
+        fsm[(int)ePlayerState.Using] = new Player_Using();
         SetState(Enums.ePlayerState.Idle);
-
-        status.interactionRange = 2f;
     }
 
     void ColliderSetting()
