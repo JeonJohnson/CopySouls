@@ -11,9 +11,13 @@ public class InGameManager : Manager<InGameManager>
     public Vector3 playerInitPos;
     
     private GameObject fogWallObj = null;
+
     private ScreenEffect screenEffect;
     public float gameEndingEffectTime;
+    public float creditScrollTime;
+    public float creditScrollSpd;
 
+    public bool isCreditEnd = false;
 
     public void BossCombatStart()
     {
@@ -24,18 +28,19 @@ public class InGameManager : Manager<InGameManager>
     public void BossDeath()
     {
         isBossCombat = false;
+        UiManager.Instance.endingCredit.gameObject.SetActive(true);
         StartCoroutine(GotoTitleSceneCoroutine());
     }
 
     IEnumerator GotoTitleSceneCoroutine()
     {
-        //yield return new WaitForSeconds(4f);
+        //스크린 이펙트 키면서 엔딩 크레딧 알파값 넣기
+        //끝나면 크레딧 스크롤 ㄱㄱ
         yield return StartCoroutine(GameEndScreenEffectCoroutine());
-        LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
-
-        screenEffect.SetGrayScaleAmount(0f);
-        UiManager.Instance.SetBlurAmount(0f);
-        Time.timeScale = 1f;
+        yield return StartCoroutine(EndingCreditFadeCoroutine());
+     
+        isCreditEnd = true;
+        UiManager.Instance.endingCredit.pressAnyKeyTxt.gameObject.SetActive(true);
     }
 
 	IEnumerator GameEndScreenEffectCoroutine()
@@ -46,7 +51,10 @@ public class InGameManager : Manager<InGameManager>
             float ratio = time / gameEndingEffectTime;
             screenEffect.SetGrayScaleAmount(ratio);
             UiManager.Instance.SetBlurAmount(ratio);
+            UiManager.Instance.endingCreditCanvasGroup.alpha = ratio;
+            //UiManager.Instance.endingCreditCanvas.SetScrollVal(ratio);
             Time.timeScale = Mathf.Lerp(1f, 0.0f, ratio);
+            
             time += Time.unscaledDeltaTime;
             
             yield return null;
@@ -57,13 +65,26 @@ public class InGameManager : Manager<InGameManager>
         Time.timeScale = 0f;
     }
 
-    IEnumerator GameEndCoroutine()
+    IEnumerator EndingCreditFadeCoroutine()
     {
-        yield return StartCoroutine(GameEndCoroutine());
+        float time = 0;
+        while (time < creditScrollTime)
+        {//ratio : 0 to 1
+            float ratio = time / creditScrollTime;
+            UiManager.Instance.endingCredit.SetScrollVal(ratio);
+            time += Time.unscaledDeltaTime;
 
-
-
+           yield return null;
+        }
     }
+
+    //IEnumerator GameEndCoroutine()
+    //{
+    //    yield return StartCoroutine(GameEndCoroutine());
+
+
+
+    //}
 
 	private void Awake()
     {
@@ -73,7 +94,7 @@ public class InGameManager : Manager<InGameManager>
         }
         fogWallObj.SetActive(false);
 
-        
+        isCreditEnd = false;
     }
 
 	void Start()
@@ -84,13 +105,23 @@ public class InGameManager : Manager<InGameManager>
 
     void Update()
     {
- 
+        if (isCreditEnd)
+        {
+            if (Input.anyKeyDown)
+            {
+                UiManager.Instance.endingCreditCanvasGroup.gameObject.SetActive(false);
+                UiManager.Instance.screenEffectCanvas.gameObject.SetActive(false);
+                screenEffect.SetGrayScaleAmount(0f);
+                LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
+                
+            }
+        }
     }
 
     void SetPlayer()
     {
-        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
-        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
+        //Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;
         Player.instance.transform.position = startPos;

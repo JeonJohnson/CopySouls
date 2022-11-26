@@ -47,3 +47,5 @@ MonoBehaviour:
   isBossCombat: 0
   playerInitPos: {x: 4.55, y: 5.1, z: -130}
   gameEndingEffectTime: 10
+  creditScrollTime: 10
+  creditScrollSpd: 1

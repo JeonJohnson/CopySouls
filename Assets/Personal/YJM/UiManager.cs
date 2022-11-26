@@ -36,10 +36,21 @@ public class UiManager : Manager<UiManager>
     //public Image screenBlurImg;
     public Material screenBlurMat;
 
+    [Header("EndingCredit")]
+    public EndingCredit endingCredit;
+    public CanvasGroup endingCreditCanvasGroup;
+
     public void SetBlurAmount(float amount)
     {
         screenEffectCanvas.gameObject.SetActive(true);
         screenBlurMat.SetFloat("_BlurAmount", amount * 0.0025f);
+    }
+
+    private void InitEndingCredit()
+    {
+        endingCreditCanvasGroup = endingCredit.GetComponent<CanvasGroup>();
+        endingCreditCanvasGroup.alpha = 0f;
+        endingCredit.gameObject.SetActive(false);
     }
 
     public HpBar InstantiateHpBar(Enemy target)
@@ -62,7 +73,11 @@ public class UiManager : Manager<UiManager>
     {
         //TestMakeHpBar();
         screenBlurMat.SetFloat("_BlurAmount",0f);
-        if(!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
+
+        InitEndingCredit();
+
+        if (!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
+
     }
 
     private void Start()
@@ -210,7 +225,7 @@ public class UiManager : Manager<UiManager>
         Debug.Log("야메 발동!");
     }
 
-    int maxIndex = 0;
+    //int maxIndex = 0;
     public List<Canvas> indexList = new List<Canvas>();
     public void WindowProcedure(bool value, Canvas go)
     {

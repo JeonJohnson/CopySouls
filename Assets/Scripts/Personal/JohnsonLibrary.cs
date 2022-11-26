@@ -417,11 +417,24 @@ public static class Funcs
 		return text;
 	}
 
-   
-    //public static float meToTargetEuler(float )
-    //{
 
-    //}
+	public static GameObject FindManagerBoxes(bool isDontDestroy)
+	{
+		GameObject boxObj = null;
+
+		if (isDontDestroy)
+		{
+			boxObj = CheckGameObjectExist("ManagerBox");
+			GameObject.DontDestroyOnLoad(boxObj);
+		}
+		else
+		{
+			boxObj = CheckGameObjectExist("ManagerBox_Destory");
+		}
+
+		return boxObj;
+	}
+
 }
 
 

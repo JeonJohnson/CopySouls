@@ -32,11 +32,12 @@ public class GameManager : Manager<GameManager>
     [RuntimeInitializeOnLoadMethod]
     private static void GameInitialize()
     {    //게임시작시 호출되는 어트리뷰트
-         //static 함수만 호출 가능함.
+         //static 함수만 호출 가능함. 
+         //221127 => 이거 알고보니 Awake 이후에 호출됨....
          
         //여기서는 GameManager만 만들도록 합시다
 
-        GameManager.InstantiateManager();
+        GameManager.InstantiateManager(true);
         //InstantiateManagerByPrefabPath(Defines.managerPrfabFolderPath);
         
     }
