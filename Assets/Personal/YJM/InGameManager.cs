@@ -5,17 +5,23 @@ using UnityEngine;
 public class InGameManager : Manager<InGameManager>
 {
     public bool isBossCombat = false;
-    public delegate void TempFunc();
-    public void BossCombatStart(TempFunc func)
+    [SerializeField] GameObject fogWallObj = null;
+    //public delegate void TempFunc();
+    public void BossCombatStart()
     {
         isBossCombat = true;
-        func();
+        fogWallObj.SetActive(true);
     }
 
-	private void Awake()
-	{
-
+    private void Awake()
+    {
+        if (fogWallObj == null)
+        {
+            fogWallObj = GameObject.FindGameObjectWithTag("FogWall");
+        }
+        fogWallObj.SetActive(false);
     }
+
 	// Start is called before the first frame update
 	void Start()
     {
