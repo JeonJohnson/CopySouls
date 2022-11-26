@@ -43,5 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e66b6527cd46c4ba627a70d6545778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerPrefabs: []
+  isDontDestory: 0
+  managerBox: {fileID: 0}
+  managerBox_Destory: {fileID: 0}
   objectPoolingManagerPrefab: {fileID: 7558949453995367493, guid: 9e743902e7e0a1844a0ce61b882e3ec6, type: 3}
+  soundManagerPrefab: {fileID: 0}
+  mouseSensivility: 2
+  BgmOffset: 5
+  SeOffset: 5
