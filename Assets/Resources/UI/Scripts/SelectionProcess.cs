@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SelectionProcess : MonoBehaviour
 {
-    public WindowIndex index = WindowIndex.SelectonWindow;
     public static bool SelectionActivated = false;
 
     public GameObject Equipt_Button;
@@ -38,7 +37,6 @@ public class SelectionProcess : MonoBehaviour
 
     public void OpenSelection(Slot _curSlot,Enums.ItemType _itemType, Vector3 vec)
     {
-        //UiManager.Instance.WindowProcedure(true);
 
         SelectionActivated = !SelectionActivated;
         gameObject.SetActive(true);
@@ -71,7 +69,6 @@ public class SelectionProcess : MonoBehaviour
 
     public void CloseSelection()
     {
-        //UiManager.Instance.WindowProcedure(false);
         gameObject.SetActive(false);
         Selection_AllOff();
     }

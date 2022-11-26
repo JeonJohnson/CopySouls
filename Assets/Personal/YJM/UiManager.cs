@@ -1,18 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public enum WindowIndex
-{
-    None,
-    InventoryWindow,
-    SelectonWindow,
-    EquiptmentWindow,
-    DivisionWindow,
-    ThrowingWindow,
-    SettingWindow,
-    End,
-}
 
 
 public class UiManager : Manager<UiManager>
@@ -20,8 +8,6 @@ public class UiManager : Manager<UiManager>
     public static bool UIActivated = false;
 
     public static int WindowProcedureIndex;
-
-    public Stack<int> WindowStack = new Stack<int>();
 
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
@@ -78,11 +64,14 @@ public class UiManager : Manager<UiManager>
     {
         //TestMakeHpBar();
         screenBlurMat.SetFloat("_BlurAmount",0f);
+        if(!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
     }
 
     private void Start()
     {
+        if (EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
     }
+
     private void Update()
     {
         UI_KeyboardShortcut();
@@ -97,9 +86,9 @@ public class UiManager : Manager<UiManager>
     //    }
     //}
 
-    //UI´ÜÃàÅ°
-    //ÀÎº¥ ÀåºñÃ¢ ÄÑÁö°Å³ª alt´­¸£¸é ¸¶¿ì½º È°¼ºÈ­
-    //ÀÎº¥ÀÌ³ª ÀåºñÃ¢ÀÌ ²¨Áö°Å³ª altÇÑ¹ø ´õ ´©¸£¸é ¸¶¿ì½º ºñÈ°¼ºÈ­
+    //UIï¿½ï¿½ï¿½ï¿½Å°
+    //ï¿½Îºï¿½ ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ altï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º È°ï¿½ï¿½È­
+    //ï¿½Îºï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ altï¿½Ñ¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½È°ï¿½ï¿½È­
 
     public void UI_KeyboardShortcut()
     {
@@ -120,48 +109,38 @@ public class UiManager : Manager<UiManager>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //Á¦ÀÏ À§¿¡ ÀÖ´Â °Å ²¨¾ßÇÔ
-            //ÀÎº¥
-            FindMaxWindowIndex();
-
-            if(Inventory.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½Îºï¿½
+            if (Inventory.inventoryActivated)
             {
-                if (Inventory.inventoryActivated)
-                {
-                    Inventory.Instance.TryOpenInventory();
-                    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-                }
+                WindowProcedureIndex = 0;
+                Inventory.Instance.TryOpenInventory();
+                if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             }
-            //Àåºñ
-            if (EquipmentWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            if (EquipmentWindow.EquipmentActivated)
             {
-                if (EquipmentWindow.EquipmentActivated)
-                {
-                    EquipmentWindow.Instance.TryOpenEquiptment();
-                }
+                WindowProcedureIndex = 0;
+                EquipmentWindow.Instance.TryOpenEquiptment();
             }
-            //¼¼ÆÃ
-            if (SettingWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            if (SettingWindow.SettingActivated)
             {
-                if (SettingWindow.SettingActivated)
-                {
-                    SettingWindow.Instance.TryOpenSetting();
-                }
+                WindowProcedureIndex = 0;
+                SettingWindow.Instance.TryOpenSetting();
             }
 
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
-                //ºÐÇÒÃ¢ ²ô±â
+                //ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
                 Inventory.Instance.DivisionParent.Button_DivisionCancel();
             }
             else if (Inventory.inventoryActivated && ThrowingProcess.ThrowingActivated)
             {
-                //¹ö¸®±â Ã¢ ²ô±â
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½
                 Inventory.Instance.ThrowingParent.Button_ThrowCancel();
             }
             //else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
             //{
-            //    //ÀÎº¥Åä¸® Ã¢ ²ô±â
+            //    //ï¿½Îºï¿½ï¿½ä¸® Ã¢ ï¿½ï¿½ï¿½ï¿½
             //    Inventory.Instance.Button_InventoryExit();
             //    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             //}
@@ -178,17 +157,17 @@ public class UiManager : Manager<UiManager>
         {
             if (DivisionProcess.DivisionActivated)
             {
-                //ºÐÇÒ ENTERÀû¿ë
+                //ï¿½ï¿½ï¿½ï¿½ ENTERï¿½ï¿½ï¿½ï¿½
                 Inventory.Instance.DivisionParent.Button_Division();
             }
             else if (ThrowingProcess.ThrowingActivated)
             {
-                //¹ö¸®±â ENTERÀû¿ë
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ENTERï¿½ï¿½ï¿½ï¿½
                 Inventory.Instance.ThrowingParent.Button_Throw();
             }
         }
 
-        //Äü½½·Ô´ÜÃàÅ°
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Å°
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
@@ -211,32 +190,14 @@ public class UiManager : Manager<UiManager>
         }
     }
 
-    public GameObject FindMaxWindowIndex()
+    private void EquiptmentInitialize()
     {
-
-        return null;
+        Debug.Log("ï¿½ß¸ï¿½ ï¿½ßµï¿½!");
     }
 
-    public void WindowProcedure(bool value)
+    public void WindowProcedure()
     {
-        if (WindowProcedureIndex < 0)
-        {
-            WindowProcedureIndex = 0;
-            return;
-        }
-
-        if (value)
-        {
-            WindowProcedureIndex++;
-            WindowStack.Push(WindowProcedureIndex);
-        }
-        else
-        {
-            WindowProcedureIndex--;
-            WindowStack.Pop();
-        }
-
-        Debug.Log(WindowStack.Peek());
+        WindowProcedureIndex++;
     }
 
     const float MIN_FOG_DENSITY = 0.002f;
@@ -244,7 +205,7 @@ public class UiManager : Manager<UiManager>
     public void fogChanged(float inten)
     {
         float diff = MAX_FOG_DENSITY - MIN_FOG_DENSITY;
-        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1ÀÇ °ª
+        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1ï¿½ï¿½ ï¿½ï¿½
 
         RenderSettings.fogDensity = value;
     }
