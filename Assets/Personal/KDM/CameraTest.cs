@@ -35,11 +35,6 @@ public class CameraTest : Manager<CameraTest>
     private float defaultPosition;
 
 
-    void Start()
-    {
-
-    }
-
     void Awake()
     {
 
@@ -48,6 +43,10 @@ public class CameraTest : Manager<CameraTest>
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
 
+    }
+
+    void Start()
+    {
         cameraLookSpeed = GameManager.Instance.mouseSensivility;
     }
 
