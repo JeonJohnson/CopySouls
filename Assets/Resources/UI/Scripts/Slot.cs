@@ -35,13 +35,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
     public bool isQuick;
     public QuickSlot curRegisterQuickSlot;
 
-
     void Start()
     {
     }
 
     //아이템 스프라이트 알파값 조절
-    private void SetColor(float _alpha)
+    public void SetColor(float _alpha)
     {
         Color color = item_Image.color;
         color.a = _alpha;
@@ -93,6 +92,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
         if (!value) Register_Text.text = "";
         else Register_Text.text = "E";
         Register_Text.gameObject.SetActive(value);
+    }
+
+    public void ChangeRegisterToEquiptment()
+    {
+        isQuick = false;
+        isEquiptment = true;
+        Register_Text.text = "E";
     }
 
     //슬롯 초기화

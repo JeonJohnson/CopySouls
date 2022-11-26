@@ -13785,25 +13785,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 6104612901099893678, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420518473150, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420518473150, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623204420655870599, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}

@@ -74,8 +74,8 @@ public class SelectionProcess : MonoBehaviour
 
     public void Button_Equipt()
     {
-        if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
-        //Equipt(Inventory.Instance.curSlot);
+        //if (Inventory.Instance.curSlot.isQuick) Deregisteration(Inventory.Instance.curSlot);
+        Equipt(Inventory.Instance.curSlot);
         Selection_AllOff();
         Inventory.Instance.curSlot = null;
     }
@@ -131,7 +131,7 @@ public class SelectionProcess : MonoBehaviour
 
     public void ButtonRegister(Slot _slot)
     {
-        if (_slot.isEquiptment) return;
+        //if (_slot.isEquiptment) return;
 
         if (_slot != null)
         {
@@ -183,21 +183,20 @@ public class SelectionProcess : MonoBehaviour
         }
     }
 
-    public void Equipt(Slot _curSlot, bool value)
+    public void Equipt(Slot _curSlot)
     {
         EquiptSlot EquiptSlot =  EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
         if (EquiptSlot)
         {
-            EquiptSlot.AddEquiptment(Inventory.Instance.curSlot, _curSlot.item, 1, EquiptSlot);
+            EquiptSlot.AddEquiptment(_curSlot, _curSlot.item, 1, EquiptSlot);
         }
         else Debug.Log("EquiptSlot == null");
 
-        //_curSlot.item.PlayFuncs();
-        if(value)
+        if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
         {
             _curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
         }
-        else
+        else if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
         {
             _curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
         }
@@ -232,10 +231,18 @@ public class SelectionProcess : MonoBehaviour
     public void UnEquipt(Slot _curSlot)
     {
         EquiptSlot _equiptSlot = _curSlot.curRegisterQuickSlot.GetComponent<EquiptSlot>();
-        if (_equiptSlot == null) Debug.Log("UnEquipt Error");
-        _curSlot.SetEquiptment(false);
-        _equiptSlot.ClearSlot_q();
-        _equiptSlot.matchEquiptmentSlot_Q();
-        _curSlot.item.GetComponent<Item_Weapon>().DeselectWeapon();
+        if (_equiptSlot == null)
+        {
+            Debug.Log("UnEquipt Error");
+            //QuickSlot _quickSlot = _curSlot.curRegisterQuickSlot.GetComponent<QuickSlot>();
+            //_curSlot.SetEquiptment(false);
+        }
+        else
+        {
+            _curSlot.SetEquiptment(false);
+            _equiptSlot.ClearSlot_q();
+            _equiptSlot.matchEquiptmentSlot_Q();
+            _curSlot.item.GetComponent<Item_Weapon>().DeselectWeapon();
+        }
     }
 }
