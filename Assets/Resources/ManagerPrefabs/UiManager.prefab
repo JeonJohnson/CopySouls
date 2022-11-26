@@ -8103,7 +8103,7 @@ MonoBehaviour:
   playerStatusUi: {fileID: 7728901172413624094}
   hpBarUi: {fileID: 5723034361162817853}
   hpBarPrefab: {fileID: 1133976317189146407, guid: ba099c85e85054640b1a02bab648d4ec, type: 3}
-  bossHpBarPrefab: {fileID: 0}
+  bossHpBarPrefab: {fileID: 7310213511787965617, guid: 2b395ec3cc9e4b348817147a891490c4, type: 3}
   quickSlot1: {fileID: 9131903973617228303}
   quickSlot2: {fileID: 4463114903539130000}
   quickSlot3: {fileID: 6593324128240132733}
