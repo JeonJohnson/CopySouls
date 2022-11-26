@@ -5,7 +5,6 @@ using UnityEngine;
 public class SettingWindow : MonoBehaviour
 {
     static public SettingWindow Instance;
-    public WindowIndex index = WindowIndex.SettingWindow;
     public static bool SettingActivated = false;
     public float mouseSensivility;
     [SerializeField] GameObject SettingBase;
@@ -31,14 +30,12 @@ public class SettingWindow : MonoBehaviour
     }
     private void OpenSetting()
     {
-        UiManager.Instance.WindowProcedure(true);
+        UiManager.Instance.WindowProcedure();
         GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
         SettingBase.SetActive(true);
     }
     private void CloseSetting()
     {
-        UiManager.Instance.WindowProcedure(false);
-
         SettingBase.SetActive(false);
         SettingActivated = false;
         advancedSettingWindow.SetActive(false);

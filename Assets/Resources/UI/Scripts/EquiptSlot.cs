@@ -7,7 +7,7 @@ public class EquiptSlot : QuickSlot
 {
     public EquiptSlot_Q equalSlot;
 
-    void Start()
+    private void Awake()
     {
         slotType = SlotType.EquiptSlot;
         if (OnlyType == Enums.ItemType.weapon_Equiptment_Item)
@@ -25,12 +25,19 @@ public class EquiptSlot : QuickSlot
             }
         }
     }
+    void Start()
+    {
+       
+    }
 
     //처음에 장비 올리면 널값 오류
-
     public void matchEquiptmentSlot_Q()
     {
         equalSlot.Item_Image.sprite = Item_Image.sprite;
         equalSlot.Item_Image.color = Item_Image.color;
+    }
+    public void EquiptmentInitialize()
+    {
+
     }
 }

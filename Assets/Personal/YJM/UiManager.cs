@@ -2,26 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WindowIndex
-{
-    None,
-    InventoryWindow,
-    SelectonWindow,
-    EquiptmentWindow,
-    DivisionWindow,
-    ThrowingWindow,
-    SettingWindow,
-    End,
-}
-
 
 public class UiManager : Manager<UiManager>
 {
     public static bool UIActivated = false;
 
     public static int WindowProcedureIndex;
-
-    public Stack<int> WindowStack = new Stack<int>();
 
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
@@ -65,11 +51,14 @@ public class UiManager : Manager<UiManager>
     private void Awake()
     {
         //TestMakeHpBar();
+        if(!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
     }
 
     private void Start()
     {
+        if (EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
     }
+
     private void Update()
     {
         UI_KeyboardShortcut();
@@ -109,31 +98,21 @@ public class UiManager : Manager<UiManager>
         {
             //제일 위에 있는 거 꺼야함
             //인벤
-            FindMaxWindowIndex();
-
-            if(Inventory.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            if (Inventory.inventoryActivated)
             {
-                if (Inventory.inventoryActivated)
-                {
-                    Inventory.Instance.TryOpenInventory();
-                    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-                }
+                WindowProcedureIndex = 0;
+                Inventory.Instance.TryOpenInventory();
+                if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             }
-            //장비
-            if (EquipmentWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            if (EquipmentWindow.EquipmentActivated)
             {
-                if (EquipmentWindow.EquipmentActivated)
-                {
-                    EquipmentWindow.Instance.TryOpenEquiptment();
-                }
+                WindowProcedureIndex = 0;
+                EquipmentWindow.Instance.TryOpenEquiptment();
             }
-            //세팅
-            if (SettingWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            if (SettingWindow.SettingActivated)
             {
-                if (SettingWindow.SettingActivated)
-                {
-                    SettingWindow.Instance.TryOpenSetting();
-                }
+                WindowProcedureIndex = 0;
+                SettingWindow.Instance.TryOpenSetting();
             }
 
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
@@ -198,32 +177,14 @@ public class UiManager : Manager<UiManager>
         }
     }
 
-    public GameObject FindMaxWindowIndex()
+    private void EquiptmentInitialize()
     {
-
-        return null;
+        Debug.Log("야메 발동!");
     }
 
-    public void WindowProcedure(bool value)
+    public void WindowProcedure()
     {
-        if (WindowProcedureIndex < 0)
-        {
-            WindowProcedureIndex = 0;
-            return;
-        }
-
-        if (value)
-        {
-            WindowProcedureIndex++;
-            WindowStack.Push(WindowProcedureIndex);
-        }
-        else
-        {
-            WindowProcedureIndex--;
-            WindowStack.Pop();
-        }
-
-        Debug.Log(WindowStack.Peek());
+        WindowProcedureIndex++;
     }
 
     const float MIN_FOG_DENSITY = 0.002f;

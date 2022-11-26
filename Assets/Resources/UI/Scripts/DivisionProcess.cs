@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DivisionProcess : MonoBehaviour
 {
-    public WindowIndex index = WindowIndex.DivisionWindow;
     public static bool DivisionActivated = false;
 
     public InputField DivisionInputField;
