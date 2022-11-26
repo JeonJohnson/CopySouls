@@ -174,6 +174,7 @@ public class QuickSlot : MonoBehaviour
                     //등록된 인벤 슬롯 교체해줘야함
                     invenSlot = _equiptSlot.invenSlot;
                     _equiptSlot.invenSlot = temp;
+
                 }
 
                 //여기엔 무기 스왑

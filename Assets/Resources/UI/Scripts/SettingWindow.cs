@@ -5,39 +5,42 @@ using UnityEngine;
 public class SettingWindow : MonoBehaviour
 {
     static public SettingWindow Instance;
-    public static bool SelectionActivated = false;
+    public WindowIndex index = WindowIndex.SettingWindow;
+    public static bool SettingActivated = false;
     public float mouseSensivility;
     [SerializeField] GameObject SettingBase;
-
     [SerializeField] GameObject advancedSettingWindow;
 
     private void Awake()
     {
-
         if (Instance == null) Instance = this;
         else Destroy(this.gameObject);
     }
 
-    public void TryOpenInventory()
+    public void TryOpenSetting()
     {
-        SelectionActivated = !SelectionActivated;
-        if (SelectionActivated)
+        SettingActivated = !SettingActivated;
+        if (SettingActivated)
         {
-            OpenInventory();
+            OpenSetting();
         }
         else
         {
-            CloseInventory();
+            CloseSetting();
         }
     }
-    private void OpenInventory()
+    private void OpenSetting()
     {
-            SettingBase.SetActive(true);
+        UiManager.Instance.WindowProcedure(true);
+        GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
+        SettingBase.SetActive(true);
     }
-    private void CloseInventory()
+    private void CloseSetting()
     {
-            SettingBase.SetActive(false);
-            SelectionActivated = false;
+        UiManager.Instance.WindowProcedure(false);
+
+        SettingBase.SetActive(false);
+        SettingActivated = false;
         advancedSettingWindow.SetActive(false);
     }
 

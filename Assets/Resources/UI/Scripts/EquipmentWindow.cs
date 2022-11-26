@@ -5,6 +5,8 @@ using UnityEngine;
 public class EquipmentWindow : MonoBehaviour
 {
     static public EquipmentWindow Instance;
+
+    public WindowIndex index = WindowIndex.EquiptmentWindow;
     public static bool EquipmentActivated = false;
 
     [SerializeField]
@@ -40,10 +42,13 @@ public class EquipmentWindow : MonoBehaviour
     
     private void OpenEquiptment()
     {
+        UiManager.Instance.WindowProcedure(true);
+        GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
         EquiptmentWindowPanel.SetActive(true);
     }
     private void CloseEquiptment()
     {
+        UiManager.Instance.WindowProcedure(false);
         EquiptmentWindowPanel.SetActive(false);
         EquipmentActivated = false;
     }

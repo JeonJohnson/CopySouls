@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ThrowingProcess : MonoBehaviour
 {
+    public WindowIndex index = WindowIndex.ThrowingWindow;
     public static bool ThrowingActivated = false;
 
     public InputField ThrowInputField;

@@ -133,6 +133,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
             {
                 Inventory.Instance.curSlot = this;
 
+                //uianimation
+                //Inventory_UiAnimation.instance.InteractionSlotAnimation_Tween(true);
+                
+
+
                 if (item.itemType == Enums.ItemType.weapon_Equiptment_Item
                 || item.itemType == Enums.ItemType.Defence_Equiptment_Item)
                 {

@@ -657,6 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774a22cef56dddd40b00a1b04af45d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 4
   DivisionInputField: {fileID: 3623855328351722647}
   Division_Button: {fileID: 7571526811572888424}
   DivisionCancel_Button: {fileID: 3354322977696617749}
@@ -3382,6 +3383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9393089d7eafd24ba3e64c90a181836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 5
   ThrowInputField: {fileID: 9206401535135203701}
   Throw_Button: {fileID: 4739335511963234614}
   ThrowAll_Button: {fileID: 4207401738012702406}
@@ -7122,6 +7124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932ae0953ba1e8a4ab2a1ac86c4b6e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 2
   Equipt_Button: {fileID: 2596828930432389061}
   UnEquipt_Button: {fileID: 5381565858981885242}
   Use_Button: {fileID: 4693249569983180357}
@@ -10527,6 +10530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d46109db7613649886415a6200a1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 1
   curSlot: {fileID: 0}
   InventoryBase: {fileID: 9162926845515907576}
   SlotParent: {fileID: 4757696620505565367}
@@ -14224,33 +14228,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4564508256551916264, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418369617430355881, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6104612901099893678, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_Name
       value: SettingCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 6104612901099893678, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623204418890510128, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.13183594
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420518473150, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420518473150, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623204420655870599, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_IsActive
@@ -16064,6 +16080,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3134533843351908947, guid: 48353f005adcb5e4290131cd61286f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3134533843351908948, guid: 48353f005adcb5e4290131cd61286f13, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3642975977319789267, guid: 48353f005adcb5e4290131cd61286f13, type: 3}

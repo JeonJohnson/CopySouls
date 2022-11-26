@@ -16,6 +16,7 @@ enum itemNameIndex
 public class Inventory : MonoBehaviour
 {
     static public Inventory Instance;
+    public WindowIndex index = WindowIndex.InventoryWindow;
     public static bool inventoryActivated = false;
 
     public Slot curSlot;
@@ -62,7 +63,8 @@ public class Inventory : MonoBehaviour
         if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
-            //Player.instance.ActivatePlayerInput(false);
+            UiManager.Instance.WindowProcedure(true);
+            GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
         }
     }
     private void CloseInventory()
@@ -73,6 +75,8 @@ public class Inventory : MonoBehaviour
             InventoryBase.SetActive(false);
             //Player.instance.ActivatePlayerInput(true);
             inventoryActivated = false;
+            UiManager.Instance.WindowProcedure(false);
+
         }
         else
         {

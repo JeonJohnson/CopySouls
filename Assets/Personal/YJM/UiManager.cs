@@ -2,9 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WindowIndex
+{
+    None,
+    InventoryWindow,
+    SelectonWindow,
+    EquiptmentWindow,
+    DivisionWindow,
+    ThrowingWindow,
+    SettingWindow,
+    End,
+}
+
+
 public class UiManager : Manager<UiManager>
 {
     public static bool UIActivated = false;
+
+    public static int WindowProcedureIndex;
+
+    public Stack<int> WindowStack = new Stack<int>();
 
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
@@ -31,7 +48,7 @@ public class UiManager : Manager<UiManager>
 
     public HpBar InstantiateHpBar(Enemy target)
     {
-        GameObject hpBarGo = Instantiate(hpBarPrefab,hpBarUi.transform);
+        GameObject hpBarGo = Instantiate(hpBarPrefab, hpBarUi.transform);
         HpBar hpBar = hpBarGo.GetComponent<HpBar>();
         hpBar.target = target;
         return hpBar;
@@ -52,12 +69,11 @@ public class UiManager : Manager<UiManager>
 
     private void Start()
     {
-
     }
     private void Update()
     {
         UI_KeyboardShortcut();
-        if(UIActivated) Player.instance.ActivatePlayerInput(false);
+        if (UIActivated) Player.instance.ActivatePlayerInput(false);
         else Player.instance.ActivatePlayerInput(true);
     }
     //void TestMakeHpBar()
@@ -80,12 +96,6 @@ public class UiManager : Manager<UiManager>
             else UIActivated = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Inventory.Instance.InventoryComand();
-        }
-
-
         if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory.Instance.TryOpenInventory();
@@ -94,8 +104,38 @@ public class UiManager : Manager<UiManager>
         {
             EquipmentWindow.Instance.TryOpenEquiptment();
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //제일 위에 있는 거 꺼야함
+            //인벤
+            FindMaxWindowIndex();
+
+            if(Inventory.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            {
+                if (Inventory.inventoryActivated)
+                {
+                    Inventory.Instance.TryOpenInventory();
+                    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+                }
+            }
+            //장비
+            if (EquipmentWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            {
+                if (EquipmentWindow.EquipmentActivated)
+                {
+                    EquipmentWindow.Instance.TryOpenEquiptment();
+                }
+            }
+            //세팅
+            if (SettingWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
+            {
+                if (SettingWindow.SettingActivated)
+                {
+                    SettingWindow.Instance.TryOpenSetting();
+                }
+            }
+
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
                 //분할창 끄기
@@ -106,20 +146,24 @@ public class UiManager : Manager<UiManager>
                 //버리기 창 끄기
                 Inventory.Instance.ThrowingParent.Button_ThrowCancel();
             }
-            else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
-            {
-                //인벤토리 창 끄기
-                Inventory.Instance.Button_InventoryExit();
-                if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-            }
-            else if(EquipmentWindow.EquipmentActivated)
-            {
-                EquipmentWindow.Instance.TryOpenEquiptment();
-            }
+            //else if (Inventory.inventoryActivated && !DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
+            //{
+            //    //인벤토리 창 끄기
+            //    Inventory.Instance.Button_InventoryExit();
+            //    if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+            //}
+            //else if (EquipmentWindow.EquipmentActivated)
+            //{
+            //    EquipmentWindow.Instance.TryOpenEquiptment();
+            //}
+            //else if(SettingWindow.SettingActivated)
+            //{
+            //    SettingWindow.Instance.TryOpenSetting();
+            //}
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            if(DivisionProcess.DivisionActivated)
+            if (DivisionProcess.DivisionActivated)
             {
                 //분할 ENTER적용
                 Inventory.Instance.DivisionParent.Button_Division();
@@ -130,6 +174,8 @@ public class UiManager : Manager<UiManager>
                 Inventory.Instance.ThrowingParent.Button_Throw();
             }
         }
+
+        //퀵슬롯단축키
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
@@ -138,7 +184,7 @@ public class UiManager : Manager<UiManager>
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-            quickSlot2.QuickSlotEquipt(quickSlot2,EquiptSlot_Weapon);
+            quickSlot2.QuickSlotEquipt(quickSlot2, EquiptSlot_Weapon);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -148,7 +194,35 @@ public class UiManager : Manager<UiManager>
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
-            quickSlot4.QuickSlotEquipt(quickSlot4,EquiptSlotQ_Defence);
+            quickSlot4.QuickSlotEquipt(quickSlot4, EquiptSlotQ_Defence);
         }
+    }
+
+    public GameObject FindMaxWindowIndex()
+    {
+
+        return null;
+    }
+
+    public void WindowProcedure(bool value)
+    {
+        if (WindowProcedureIndex < 0)
+        {
+            WindowProcedureIndex = 0;
+            return;
+        }
+
+        if (value)
+        {
+            WindowProcedureIndex++;
+            WindowStack.Push(WindowProcedureIndex);
+        }
+        else
+        {
+            WindowProcedureIndex--;
+            WindowStack.Pop();
+        }
+
+        Debug.Log(WindowStack.Peek());
     }
 }
