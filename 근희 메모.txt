@@ -540,3 +540,5 @@ https://dallcom-forever2620.tistory.com/6 -> 애니메이션 적용중일때 본
 	할거 : 씬 로딩
 		보스 뒤지면 Credit씬 넘어가기
 		카메라 쉐이크 넣기 + 사운드 찾기
+
+19:39 2022-11-26	씬 로딩 되있음.ㅋㅋ Thanks to UI 파트 멤버스
