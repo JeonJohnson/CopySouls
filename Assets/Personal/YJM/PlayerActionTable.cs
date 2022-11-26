@@ -683,6 +683,7 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.status.curStamina = Player.instance.status.maxStamina;
         SystemInfoWindow.Instance.PlayEffect();
         yield return new WaitForSeconds(0.2f);
+        Player.instance.animator.SetTrigger("isInteractingEnd");
         Player.instance.SetState(ePlayerState.Idle);
         yield return null;
     }
