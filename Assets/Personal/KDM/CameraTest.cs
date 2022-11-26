@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraTest : Manager<CameraTest>
 {
 
-    public Transform targetTransform;  // 타겟 위치 (Transform)
+    public Transform targetTransform;  // TargetTransform(Transform)
     public Transform cameraPivot;      // CameraPivot
     public Transform cameraTransform;  // CameraManager
 
@@ -19,22 +19,21 @@ public class CameraTest : Manager<CameraTest>
     public Vector3 cameraInput;
 
     public float cameraFollowSpeed = 0.2f;
-    public float cameraLookSpeed = 2;
-    public float cameraPivotSpeed = 2;
+    public float cameraLookSpeed;
+    //public float cameraPivotSpeed = 2;
     public float ZoomSensitivity = 5;
     public float minimumPivotAngle = -35;
     public float maximumPivotAngle = 35;
     public float cameraCollisionRadius = 0.2f;
     public float cameraCollisionOffset = 0.2f;
     public float minimumCollisionOffset = 0.2f;
-    public float lookAngle; // 좌우
-    public float pivotAngle; // 상하
+    public float lookAngle; // left,right
+    public float pivotAngle; // up,down
     public float cameraInputX;
     public float cameraInputY;
 
     private float defaultPosition;
 
-    //public bool isOnShake { set; get; } // 흔들림 효과 재생 체크
 
     void Start()
     {
@@ -49,7 +48,7 @@ public class CameraTest : Manager<CameraTest>
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
 
-        //cameraLookSpeed = GameManager.Instance.mouseSensivility;
+        cameraLookSpeed = GameManager.Instance.mouseSensivility;
     }
 
     void Update()
@@ -86,7 +85,7 @@ public class CameraTest : Manager<CameraTest>
         cameraInputY = Input.GetAxisRaw("Mouse Y");
 
         lookAngle = lookAngle + (cameraInputX * cameraLookSpeed);
-        pivotAngle = pivotAngle - (cameraInputY * cameraPivotSpeed);
+        pivotAngle = pivotAngle - (cameraInputY * cameraLookSpeed);
         pivotAngle = Mathf.Clamp(pivotAngle, minimumPivotAngle, maximumPivotAngle);
 
         rotation = Vector3.zero;
