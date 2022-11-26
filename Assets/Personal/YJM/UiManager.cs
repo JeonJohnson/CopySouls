@@ -131,18 +131,15 @@ public class UiManager : Manager<UiManager>
             //인벤
             if (Inventory.inventoryActivated)
             {
-                WindowProcedureIndex = 0;
                 Inventory.Instance.TryOpenInventory();
                 if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
             }
             if (EquipmentWindow.EquipmentActivated)
             {
-                WindowProcedureIndex = 0;
                 EquipmentWindow.Instance.TryOpenEquiptment();
             }
             if (SettingWindow.SettingActivated)
             {
-                WindowProcedureIndex = 0;
                 SettingWindow.Instance.TryOpenSetting();
             }
 

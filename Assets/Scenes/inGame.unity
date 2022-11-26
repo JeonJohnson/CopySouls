@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -1043,6 +1043,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+--- !u!114 &1526043465 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6498181731673005316, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+  m_PrefabInstance: {fileID: 5723034360896150145}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ce3cc6de526274b9f4e62a645782cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659070536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1333,102 @@ PrefabInstance:
     - target: {fileID: 6448857005872675208, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731020162421, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731315461511, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731315461511, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731315461511, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731951282643, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181731951282643, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732013301423, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732013301423, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732087796276, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732087796276, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732087796276, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732291784508, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732291784508, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732431212549, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732446648070, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732446648070, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181732446648070, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1526043465}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetMouseSensivility
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SettingWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498181733074671806, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7728901173108859688, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
       propertyPath: m_RootOrder
