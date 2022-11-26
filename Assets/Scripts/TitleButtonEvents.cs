@@ -12,7 +12,7 @@ public class TitleButtonEvents : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        logoImage.DOColor(new Color(1f, 1f, 1f, 0.7f), 2f).Loops();
+        logoImage.DOColor(new Color(1f, 1f, 1f, 0.8f), 2f).SetLoops(-1, LoopType.Yoyo);
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class TitleButtonEvents : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit(); // 어플리케이션 종료
+        Application.Quit();
 #endif
     }
 
