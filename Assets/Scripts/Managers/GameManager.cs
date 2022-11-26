@@ -15,6 +15,7 @@ public enum eSceneChangeTestIndex
 }
 public class GameManager : Manager<GameManager>
 {
+
     [Header("Manager Boxes")]
     public GameObject managerBox;
     public GameObject managerBox_Destory;
@@ -22,6 +23,11 @@ public class GameManager : Manager<GameManager>
 
     public GameObject objectPoolingManagerPrefab;
     public GameObject soundManagerPrefab;
+
+    [Header("Ingame Settings")]
+    public float mouseSensivility = 5f;
+    public float BgmOffset;
+    public float SeOffset;
 
     [RuntimeInitializeOnLoadMethod]
     private static void GameInitialize()

@@ -174,11 +174,12 @@ public class PlayerActionTable : MonoBehaviour
 
     void TakeDamage(DamagedStruct dmgStruct)
     {
+        StopAllCoroutines();
+        CurCoroCounter1 = CurCoroCounter2;
         player.status.isParrying = false;
         isComboCheck = false;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Hit);
-        StopAllCoroutines();
         player.SetModelCollider(true);
         StartCoroutine(TakeDamageCoro(dmgStruct));
     }

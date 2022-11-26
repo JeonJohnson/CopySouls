@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTest : MonoBehaviour
+public class CameraTest : Manager<CameraTest>
 {
+
     public Transform targetTransform;  // Å¸°Ù À§Ä¡ (Transform)
     public Transform cameraPivot;      // CameraPivot
     public Transform cameraTransform;  // CameraManager
@@ -42,10 +43,13 @@ public class CameraTest : MonoBehaviour
 
     void Awake()
     {
+
         cameraInputX = cameraInput.x;
         cameraInputY = cameraInput.y;
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
+
+        //cameraLookSpeed = GameManager.Instance.mouseSensivility;
     }
 
     void Update()

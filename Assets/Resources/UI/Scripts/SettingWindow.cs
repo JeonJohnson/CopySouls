@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingWindow : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class SettingWindow : MonoBehaviour
     public float mouseSensivility;
     [SerializeField] GameObject SettingBase;
     [SerializeField] GameObject advancedSettingWindow;
+
+    [SerializeField] Slider[] Sliders;
 
     private void Awake()
     {
@@ -46,12 +49,12 @@ public class SettingWindow : MonoBehaviour
 
     public void SetMouseSensivility(float i)
     {
-        //감도조절
+        GameManager.Instance.mouseSensivility = i * 4;
     }
 
     public void GotoMainMenu()
     {
-
+        LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
     }
 
     public void ExitGame()
