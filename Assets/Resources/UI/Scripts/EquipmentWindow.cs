@@ -6,7 +6,6 @@ public class EquipmentWindow : MonoBehaviour
 {
     static public EquipmentWindow Instance;
 
-    public WindowIndex index = WindowIndex.EquiptmentWindow;
     public static bool EquipmentActivated = false;
 
     [SerializeField]

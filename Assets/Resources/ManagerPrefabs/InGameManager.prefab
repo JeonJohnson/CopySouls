@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDontDestory: 0
   isBossCombat: 0
-  fadeImg: {fileID: 0}
-  fadeSpd: 2
+  playerInitPos: {x: 4.55, y: 5.1, z: -130}
+  gameEndingEffectTime: 10

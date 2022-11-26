@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class SettingWindow : MonoBehaviour
 {
     static public SettingWindow Instance;
-    public WindowIndex index = WindowIndex.SettingWindow;
     public static bool SettingActivated = false;
     public float mouseSensivility;
     [SerializeField] GameObject SettingBase;
@@ -40,7 +39,6 @@ public class SettingWindow : MonoBehaviour
     private void CloseSetting()
     {
         UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
-
         SettingBase.SetActive(false);
         SettingActivated = false;
         advancedSettingWindow.SetActive(false);

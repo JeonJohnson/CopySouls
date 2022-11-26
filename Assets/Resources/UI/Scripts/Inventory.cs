@@ -16,7 +16,6 @@ enum itemNameIndex
 public class Inventory : MonoBehaviour
 {
     static public Inventory Instance;
-    public WindowIndex index = WindowIndex.InventoryWindow;
     public static bool inventoryActivated = false;
 
     public Slot curSlot;
@@ -48,7 +47,7 @@ public class Inventory : MonoBehaviour
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
-        //UiManager.UIActivated = inventoryActivated;
+
         if (inventoryActivated)
         {
             OpenInventory();
@@ -75,7 +74,6 @@ public class Inventory : MonoBehaviour
             //Player.instance.ActivatePlayerInput(true);
             inventoryActivated = false;
             UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
-
         }
         else
         {

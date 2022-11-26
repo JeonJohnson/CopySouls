@@ -136,7 +136,7 @@ public class QuickSlot : MonoBehaviour
             Inventory.Instance.SelectionParent.Use(invenSlot);
         }
     }
-    public void QuickSlotEquipt(QuickSlot _quickSlot,EquiptSlot _equiptSlot)
+    public void QuickSlotEquipt(QuickSlot _quickSlot, EquiptSlot _equiptSlot)
     {
         if (isUsable == false) return;
         isUsable = false;
@@ -181,23 +181,7 @@ public class QuickSlot : MonoBehaviour
                     invenSlot = _equiptSlot.invenSlot;
                     _equiptSlot.invenSlot = temp;
 
-                    Color originCol0 = _equiptSlot.equalSlot.Item_Image.color;
-                    Color originCol1 = _quickSlot.Item_Image.color;
-
-                    _equiptSlot.equalSlot.Item_Image.color = Color.black;
-                    _equiptSlot.equalSlot.Item_Image.DOColor(originCol0, 0.5f).SetEase(Ease.OutCirc);
-                    _quickSlot.Item_Image.color = Color.black;
-                    _quickSlot.Item_Image.DOColor(originCol1, 0.5f).SetEase(Ease.OutCirc) ;
-
-                    _equiptSlot.equalSlot.Item_Image.type = Image.Type.Filled;
-                    _equiptSlot.equalSlot.Item_Image.fillAmount = 0f;
-                    _equiptSlot.equalSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc);
-
-                    _quickSlot.Item_Image.type = Image.Type.Filled;
-                    _quickSlot.Item_Image.fillAmount = 0f;
-                    _quickSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc)
-                    .OnComplete(() => { EnableThis(); });
-
+                    CoolTimeChangeWeapon(_equiptSlot, _quickSlot);
                 }
 
                 //여기엔 무기 스왑
@@ -230,9 +214,12 @@ public class QuickSlot : MonoBehaviour
                     //등록된 인벤 슬롯 교체해줘야함
                     //invenSlot = null;
                     // = _quickSlot.invenSlot.curRegisterQuickSlot;
+                    _quickSlot.item = null;
                     _quickSlot.Item_Image.sprite = null;
                     _quickSlot.invenSlot = null;
                     _quickSlot.SetColor_q(0);
+
+                    CoolTimeChangeWeapon(_equiptSlot, _quickSlot);
 
                     //주먹에서 무기로
                     if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
@@ -265,11 +252,13 @@ public class QuickSlot : MonoBehaviour
                         Item_Image.sprite = _equiptSlot.Item_Image.sprite;
                         SetColor_q(1);
 
+                        _equiptSlot.item = null;
                         _equiptSlot.Item_Image.sprite = null;
                         _equiptSlot.SetColor_q(0);
                         _equiptSlot.invenSlot = null;
                         _equiptSlot.matchEquiptmentSlot_Q();
 
+                        CoolTimeChangeWeapon(_equiptSlot, _quickSlot);
 
                     }
 
@@ -284,5 +273,34 @@ public class QuickSlot : MonoBehaviour
     void EnableThis()
     {
         isUsable = true;
+    }
+
+    private void CoolTimeChangeWeapon(EquiptSlot _equiptSlot,QuickSlot _quickSlot)
+    {
+        Color originCol0 = _equiptSlot.equalSlot.Item_Image.color;
+        Color originCol1 = _quickSlot.Item_Image.color;
+
+        if (_equiptSlot == null | _quickSlot == null)
+        {
+            EnableThis();
+            return;
+        }
+
+            //여기가 색깔
+        _equiptSlot.equalSlot.Item_Image.color = Color.black;
+        _equiptSlot.equalSlot.Item_Image.DOColor(originCol0, 0.5f).SetEase(Ease.OutCirc);
+        _quickSlot.Item_Image.color = Color.black;
+        _quickSlot.Item_Image.DOColor(originCol1, 0.5f).SetEase(Ease.OutCirc);
+
+        //여기가 애니메이션
+
+        _equiptSlot.equalSlot.Item_Image.type = Image.Type.Filled;
+        _equiptSlot.equalSlot.Item_Image.fillAmount = 0f;
+        _equiptSlot.equalSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc);
+
+        _quickSlot.Item_Image.type = Image.Type.Filled;
+        _quickSlot.Item_Image.fillAmount = 0f;
+        _quickSlot.Item_Image.DOFillAmount(1f, 0.7f).SetEase(Ease.OutCirc)
+        .OnComplete(() => { EnableThis(); });
     }
 }
