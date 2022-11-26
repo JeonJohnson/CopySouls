@@ -663,12 +663,29 @@ public class PlayerActionTable : MonoBehaviour
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {
                     //anim.SetTrigger("");
-                    Player.instance.animator.SetBool("isInteracting", true);
+                    Player.instance.animator.SetTrigger("isInteracting");
+                    StartCoroutine(PlayerBoneFireFuncsCoro());
                 }
+                Player.instance.SetState(ePlayerState.Interacting);
+                print("그러하다ㅏㅏㅏㅏ");
             }
             }
     }
 
+    IEnumerator PlayerBoneFireFuncsCoro()
+    {
+        yield return new WaitForSeconds(1.5f);
+        // 대충 안개 퍼지는 효과라는 내용
+        yield return new WaitForSeconds(1f);
+        UnitManager.Instance.ResetAllEnemies();
+        Player.instance.status.curHp = Player.instance.status.maxHp;
+        Player.instance.status.curMp = Player.instance.status.maxMp;
+        Player.instance.status.curStamina = Player.instance.status.maxStamina;
+        SystemInfoWindow.Instance.PlayEffect();
+        yield return new WaitForSeconds(0.2f);
+        Player.instance.SetState(ePlayerState.Idle);
+        yield return null;
+    }
     public void PlayBoneFireFuncs()
     {
         UnitManager.Instance.ResetAllEnemies();
