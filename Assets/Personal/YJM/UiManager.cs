@@ -32,6 +32,18 @@ public class UiManager : Manager<UiManager>
     public EquiptSlot_Q EquiptSlotQ_Defence;
     public EquiptSlot_Q EquiptSlotQ_Weapon;
 
+
+    [Header("BlurEffect")]
+    public Canvas screenEffectCanvas;
+    //public Image screenBlurImg;
+    public Material screenBlurMat;
+
+    public void SetBlurAmount(float amount)
+    {
+        screenEffectCanvas.gameObject.SetActive(true);
+        screenBlurMat.SetFloat("_BlurAmount", amount * 0.0025f);
+    }
+
     public HpBar InstantiateHpBar(Enemy target)
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab, hpBarUi.transform);
@@ -51,6 +63,7 @@ public class UiManager : Manager<UiManager>
     private void Awake()
     {
         //TestMakeHpBar();
+        screenBlurMat.SetFloat("_BlurAmount",0f);
         if(!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
     }
 
@@ -193,7 +206,6 @@ public class UiManager : Manager<UiManager>
     {
         float diff = MAX_FOG_DENSITY - MIN_FOG_DENSITY;
         float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1의 값
-
         RenderSettings.fogDensity = value;
     }
 

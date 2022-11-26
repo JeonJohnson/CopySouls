@@ -1,4 +1,4 @@
-Shader "Custom/FogWallShader"
+Shader "JGH/FogWallShader"
 {
     Properties
     {
