@@ -5,6 +5,7 @@ using Structs;
 using Enums;
 using System;
 using System.Runtime.CompilerServices;
+using DG.Tweening;
 
 public class PlayerActionTable : MonoBehaviour
 {
@@ -666,6 +667,9 @@ public class PlayerActionTable : MonoBehaviour
                     Player.instance.animator.SetTrigger("isInteracting");
                     StartCoroutine(PlayerBoneFireFuncsCoro());
                     UiManager.Instance.PlayFogEffect();
+                    Vector3 targetDir = curInteractionItem.transform.position - this.gameObject.transform.position;
+                    Vector3 clampedTargetDir = new Vector3(targetDir.x,0f, targetDir.z);
+                    Player.instance.gameObject.transform.forward = clampedTargetDir;
                 }
                 Player.instance.SetState(ePlayerState.Interacting);
             }
