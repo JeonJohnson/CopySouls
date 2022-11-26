@@ -151,4 +151,53 @@ public class UiManager : Manager<UiManager>
             quickSlot4.QuickSlotEquipt(quickSlot4,EquiptSlotQ_Defence);
         }
     }
+
+    const float MIN_FOG_DENSITY = 0.002f;
+    const float MAX_FOG_DENSITY = 0.2f;
+    public void fogChanged(float inten)
+    {
+        float diff = MAX_FOG_DENSITY - MIN_FOG_DENSITY;
+        float value = MIN_FOG_DENSITY + diff * inten; // 0 ~ 1ÀÇ °ª
+
+        RenderSettings.fogDensity = value;
+    }
+
+    public void ShowFog()
+    {
+        StartCoroutine(ShowFogCoro(true));
+    }
+
+    public void HideFog()
+    {
+        StartCoroutine(ShowFogCoro(false));
+    }
+
+    IEnumerator ShowFogCoro(bool i, float value = 1f)
+    {
+        float timer = 1f;
+        while (timer > 0f)
+        {
+            timer -= Time.deltaTime * 0.7f;
+            if (i == true)
+            {
+                fogChanged(1-timer);
+            }
+            else
+            {
+                fogChanged(timer);
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+    public void PlayFogEffect()
+    {
+        StartCoroutine(PlayerFogEffectCoro());
+    }
+    IEnumerator PlayerFogEffectCoro()
+    {
+        StartCoroutine(ShowFogCoro(true));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(ShowFogCoro(false));
+    }
 }

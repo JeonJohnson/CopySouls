@@ -41,7 +41,6 @@ public class InteractionWIndow : MonoBehaviour
     public void HideItemInfo()
     {
         isEnabled = false;
-        print("falsing");
     }
 
     private void Update()
