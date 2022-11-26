@@ -48,10 +48,14 @@ public class PlayerActionTable : MonoBehaviour
             {
                 Player.instance.animator.SetTrigger("Hit");
             }
-            else
+            else if(dmgStruct.atkType == eAttackType.Strong)
             {
                 stunTime = 1.9f;
                 Player.instance.animator.SetTrigger("Hit_Hard");
+            }
+            else
+            {
+                Player.instance.animator.SetTrigger("Hit");
             }
             yield return null;
         }
@@ -63,10 +67,18 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Death()
     {
-        Player.instance.SetState(Enums.ePlayerState.Death);
+        //Player.instance.SetState(Enums.ePlayerState.Death);
+        Player.instance.status.isDead = true;
         Player.instance.animator.SetTrigger("Death");
         EnableWeaponMeshCol(0);
-        print("사망");
+        player.SetModelCollider(false);
+        StartCoroutine(PlayDeathEffect());
+    }
+
+    IEnumerator PlayDeathEffect()
+    {
+        yield return new WaitForSeconds(2f);
+        YouDiedWindow.Instance.PlayDieEffect();
     }
 
     public void isParryingCheck(int i)
@@ -123,9 +135,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         if(player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
         {
-            GameObject effect = ObjectPoolingCenter.Instance.LentalObj("EtherealHit 1", 1);
-            effect.transform.position = Player.instance.spine3Tr.position;
-            effect.GetComponent<ParticleSystem>().Play();
             print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
         }
         else if(player.status.isGuard == true)
@@ -450,14 +459,12 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (holdType == false)
         {
-            print("falsing");
             Player.instance.status.LeftHand.gameObject.GetComponent<MeshRenderer>().enabled = true;
             Player_Weapon mainWeapon = Player.instance.status.mainWeapon.GetComponent<Player_Weapon>();
             Player_Weapon subWeapon = Player.instance.status.subWeapon.GetComponent<Player_Weapon>();
             switch (mainWeapon.type)
             {
                 case eWeaponType.None:
-                    print("falsing + dile");
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(0, true));
                     break;
@@ -467,7 +474,6 @@ public class PlayerActionTable : MonoBehaviour
                     StartCoroutine(waitCoro(1, true));
                     break;
                 case eWeaponType.Sheild:
-                    print("falsing + shield");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
                     StartCoroutine(waitCoro(2, true));
@@ -530,23 +536,26 @@ public class PlayerActionTable : MonoBehaviour
     }
 
     float guardParam = 0;
-    float holdParam = 0;
+    [SerializeField]float holdParam = 0;
     public void Guard()
     {
-        float targetHoldParam = 1 - guardParam;
-        holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
-        if (holdType == true)
+        if(Player.instance.status.mainWeapon.type != eWeaponType.None)
         {
-            player.animator.SetLayerWeight(2, holdParam);
-            holdParam += Time.deltaTime * 3f;
-        }
-        else
-        {
-            player.animator.SetLayerWeight(2, holdParam);
-            holdParam -= Time.deltaTime * 3f;
+            float targetHoldParam = 1 - guardParam;
+            holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
+            if (holdType == true)
+            {
+                player.animator.SetLayerWeight(2, holdParam);
+                holdParam += Time.deltaTime * 3f;
+            }
+            else
+            {
+                player.animator.SetLayerWeight(2, holdParam);
+                holdParam -= Time.deltaTime * 3f;
+            }
         }
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) && (Player.instance.status.mainWeapon.type == eWeaponType.Sheild | Player.instance.status.subWeapon.type == eWeaponType.Sheild))
         {
             guardParam += Time.deltaTime * 10;
             Player.instance.animator.SetTrigger("Guard");
@@ -590,7 +599,7 @@ public class PlayerActionTable : MonoBehaviour
 
         if (nearColliders != null)
         {
-            float shortDis = 99999999;
+            float shortDis = float.MaxValue;
             Collider Object = null;
             foreach (Collider found in nearColliders)
             {
@@ -638,32 +647,39 @@ public class PlayerActionTable : MonoBehaviour
                 Item obj = curInteractionItem.GetComponent<Item>();
             if (obj != null)
             {
-
-
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    Item curItem = obj.GetComponent<Item>();
+                    if (Inventory.Instance.ItemIn(obj)) obj.gameObject.SetActive(false);
                     ItemInfoWindow.Instance.ShowItemInfo();
-                    ItemInfoWindow.Instance.InitContents(curItem.itemImage, curItem.gameObject.name, 1);
-                    if (Inventory.Instance.ItemIn(curItem)) curItem.gameObject.SetActive(false);
+                    if(obj.itemType == ItemType.weapon_Equiptment_Item | obj.itemType == ItemType.Defence_Equiptment_Item)
+                    {
+                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.gameObject.GetComponent<Player_Weapon>().status.name, 1);
+                    }
+                    else
+                    {
+                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.name, 1);
+                    }
                 }
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
                 {
                     //anim.SetTrigger("");
-                    UnitManager.Instance.ResetAllEnemies();
-                    Player.instance.status.curHp = Player.instance.status.maxHp;
-                    Player.instance.status.curMp = Player.instance.status.maxMp;
-                    Player.instance.status.curStamina = Player.instance.status.maxStamina;
+                    Player.instance.animator.SetBool("isInteracting", true);
                 }
             }
             }
     }
 
-
+    public void PlayBoneFireFuncs()
+    {
+        UnitManager.Instance.ResetAllEnemies();
+        Player.instance.status.curHp = Player.instance.status.maxHp;
+        Player.instance.status.curMp = Player.instance.status.maxMp;
+        Player.instance.status.curStamina = Player.instance.status.maxStamina;
+    }
 
     public void UseFood()
     {
-        Player.instance.SetState(ePlayerState.Interacting);
+        Player.instance.SetState(ePlayerState.Using);
         Player.instance.animator.SetTrigger("UseDrink");
         player.animator.SetLayerWeight(1, 1f);
     }
@@ -707,8 +723,15 @@ public class PlayerActionTable : MonoBehaviour
     {
         if (CurCoroCounter1 != CurCoroCounter2)
         {
-            isComboCheck = false;
-            SetPlayerStatus(0);
+            if(Player.instance.status.isDead == false)
+            {
+                isComboCheck = false;
+                SetPlayerStatus(0);
+            }
+            else
+            {
+                print("플레이어 듀거서 셋플레이어 스테이터스 씹음");
+            }
         }
     }
     #endregion

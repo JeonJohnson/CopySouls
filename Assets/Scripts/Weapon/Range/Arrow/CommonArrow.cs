@@ -12,8 +12,6 @@ public enum eArrowState
 
 public class CommonArrow : Weapon, IPoolingObject
 {
-    
-
     public Rigidbody rd;
 
     public eArrowState state = eArrowState.Draw;

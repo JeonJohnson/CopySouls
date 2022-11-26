@@ -99,22 +99,31 @@ public class Archer : Enemy
 	{
 		base.ResetEnemy();
 
-		if (!status.isDead)
+		if (status.isDead)
 		{
-			//무기 다시 집어 넣기 
-			actTable.DeleteArrow();
-			actTable.BowUnEquipAnimEvent();
-
-			animCtrl.SetLayerWeight(1, 0f);
-
-			SetState((int)defaultPattern);
-		}
-		else
-		{ 
 			//래그돌 없애기
-		
-		
+			ragdoll.gameObject.SetActive(false);
+			gameObject.SetActive(true);
+			status.isDead = false;
+			status.isFrontHold = false;
+			status.isBackHold = false;
 		}
+
+		actTable.DeleteArrow();
+		actTable.BowUnEquipAnimEvent();
+
+		animCtrl.SetLayerWeight(1, 0f);
+
+		SetState((int)defaultPattern);
+
+		navAgent.enabled = true;
+		navAgent.isStopped = true;
+		navAgent.speed = 0f;
+		//navAgent.SetDestination(gameObject.transform.position);
+		transform.position = initPos;
+		transform.forward = initForward;
+		navAgent.isStopped = false;
+		
 	}
 
 	public override void InitializeState()
@@ -527,6 +536,8 @@ public class Archer : Enemy
 		actTable = gameObject.AddComponent<Archer_ActionTable>();
 		actTable.SetArcher = this;
 		//weapon.SetActive(false);
+
+		
 	}
 
 	protected override void Update()

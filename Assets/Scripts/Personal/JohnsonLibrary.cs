@@ -638,6 +638,7 @@ namespace Enums
 		Dodge,
 		Death,
 		Interacting,
+		Using,
 
 		End
 	}
@@ -738,6 +739,7 @@ namespace Structs
 		public bool isParrying;
 		public bool isGuard;
 		public bool isInputtable;
+		public bool isDead;
 
         public float interactionRange;
 

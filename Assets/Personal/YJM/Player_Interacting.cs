@@ -11,12 +11,12 @@ public class Player_Interacting : Player_cState
     }
     public override void UpdateState()
     {
-        Player.instance.animator.SetLayerWeight(1, 1f);
-        PlayerLocomove.instance.Move();
+
     }
 
     public override void ExitState()
     {
+        Player.instance.animator.SetBool("isInteracting", false);
         PlayerActionTable.instance.ResetGuardValue();
     }
 }

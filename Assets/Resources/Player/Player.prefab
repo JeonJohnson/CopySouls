@@ -236,7 +236,7 @@ MonoBehaviour:
   type: 0
   Dmg: 4
   atkType: 2
-  owner: {fileID: 0}
+  owner: {fileID: 7030777313930249932}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -280,7 +280,7 @@ BoxCollider:
   m_GameObject: {fileID: 1189113979338820136}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1728,7 +1728,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a74b4b0e1ee6ee54d9a80a1a7355896e, type: 2}
+  - {fileID: 2100000, guid: f3187e0c083e59541b1bcefcd8d13145, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2454,13 +2454,14 @@ MonoBehaviour:
     isParrying: 0
     isGuard: 0
     isInputtable: 0
-    interactionRange: 0
+    isDead: 0
+    interactionRange: 1
     mainWeapon: {fileID: 1189113979338820134}
     subWeapon: {fileID: 6274456743026991044}
     RightHand: {fileID: 1189113979338820134}
     LeftHand: {fileID: 6274456743026991044}
-  preState_e: 7
-  curState_e: 7
+  preState_e: 8
+  curState_e: 8
   idleAnimClips:
   - {fileID: 7400000, guid: 147f04b16a738e14786ce73659c0e749, type: 2}
   - {fileID: 7400000, guid: 73e6427b708464b4a8ea1f03f3d5e801, type: 2}
@@ -2488,6 +2489,7 @@ MonoBehaviour:
   accelSpeed: 80
   isRun: 0
   mouseSensitivity: 52
+  cc: {fileID: 0}
   playerModel: {fileID: 7030777313930249932}
   cameraArm: {fileID: 0}
   cameraManager: {fileID: 0}
@@ -2541,6 +2543,7 @@ MonoBehaviour:
   isComboCheck: 0
   curActAtkValue: 1
   holdType: 0
+  holdParam: 0
   nearColliders: []
   curInteractionItem: {fileID: 0}
 --- !u!143 &1559559539583753623
@@ -2557,8 +2560,8 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.3
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7030777314351998324

@@ -180,8 +180,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7310213511787965618}
   - component: {fileID: 7310213511787965619}
-  - component: {fileID: 7310213511787965629}
   - component: {fileID: 7310213511787965616}
+  - component: {fileID: 6100389897028719119}
   m_Layer: 5
   m_Name: HpBar_Boss
   m_TagString: Untagged
@@ -208,11 +208,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 40}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &7310213511787965619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,24 +264,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7310213511787965629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7310213511787965617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18e7502fece1c04db36163b3f4c31a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  canvasGroup: {fileID: 7310213511787965616}
-  hpSlider: {fileID: 7310213511787965619}
-  hpEffectImage: {fileID: 8393299507545513832}
-  damageText: {fileID: 8393299508285998664}
-  nameText: {fileID: 8931066974741976822}
 --- !u!225 &7310213511787965616
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -294,6 +276,24 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6100389897028719119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310213511787965617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3460b0dcd891f4186c4b11dc942f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  canvasGroup: {fileID: 7310213511787965616}
+  hpSlider: {fileID: 7310213511787965619}
+  hpEffectImage: {fileID: 8393299507545513832}
+  damageText: {fileID: 8393299508285998664}
+  nameText: {fileID: 8931066974741976822}
 --- !u!1 &7310213512625285730
 GameObject:
   m_ObjectHideFlags: 0

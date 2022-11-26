@@ -6,6 +6,7 @@ public class Sub_Entrance : Golem_SubState
 {
 	public Sub_Entrance(Golem_BaseState _baseState, string name) : base(_baseState, name)
 	{
+		golem.combatState = eCombatState.Idle;
 	}
 
 	public override void EnterState()
@@ -26,6 +27,8 @@ public class Sub_Entrance : Golem_SubState
 						golem.animCtrl.enabled = false;
 						golem.combatState = eCombatState.Alert;
 						golem.FragScript.Assemble();
+
+						golem.hpBar_Boss = UiManager.Instance.InstantiateBossHpBar(golem);
 					}
 				}
 				break;

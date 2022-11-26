@@ -50,6 +50,7 @@ MonoBehaviour:
   col: {fileID: 0}
   type: 3
   Dmg: 10
+  atkType: 0
   owner: {fileID: 0}
   PlayerLayer:
     serializedVersion: 2

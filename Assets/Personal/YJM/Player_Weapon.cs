@@ -47,9 +47,9 @@ public class Player_Weapon : Weapon
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
         if (PlayerActionTable.instance.holdType) dmgStruct.dmg *= 1.2f;
-        dmgStruct.attackObj = owner;
+        dmgStruct.attackObj = Player.instance.gameObject;
 
-        if (owner.gameObject.GetComponent<Player>() != null)
+        if (owner != null)
         {
             var hittedEnemy = other.transform.root.GetComponent<Enemy>();
             Debug.Log(hittedEnemy);

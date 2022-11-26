@@ -45,7 +45,6 @@ public class GameManager : Manager<GameManager>
 
     public void GeunheeSceneManagersInit()
     {
-
         Cursor.lockState = CursorLockMode.Locked;
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
@@ -73,10 +72,15 @@ public class GameManager : Manager<GameManager>
 
     public void InGameSceneManagersInit()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
+        ObjectPoolingCenter.InstantiateManager(false);
+        UnitManager.InstantiateManager(false);
+        InGameManager.InstantiateManager(false);
+        InGameManager.InstantiateManager(false);
+        UiManager.InstantiateManager(false);
     }
 
-    void SceneCheck(int sceneNum)
+    public void SceneCheck(int sceneNum)
     {
         switch (sceneNum)
         {
@@ -166,4 +170,9 @@ public class GameManager : Manager<GameManager>
 				break;
 		}
 	}
+
+    public void PlayerDie()
+    {
+
+    }
 }

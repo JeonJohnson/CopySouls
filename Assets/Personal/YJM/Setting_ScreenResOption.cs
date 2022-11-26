@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
 using static UnityEditor.Progress;
+#endif
 
 public class Setting_ScreenResOption : MonoBehaviour
 {

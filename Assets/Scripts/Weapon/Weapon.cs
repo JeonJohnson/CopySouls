@@ -100,7 +100,7 @@ public abstract class Weapon : MonoBehaviour
     //===============================================================================================================================
 
     // 딜은 두상태모두 씨게박히게
-    
+
     // 패링시 -> 스턴 + 데미지
     // 압잡뒤잡조건 -> 스턴이 걸린상태에서 딜을 넣는 기술
     // 적이 플레이어 타격시 연속딜 들어가는거 수정
@@ -110,7 +110,7 @@ public abstract class Weapon : MonoBehaviour
 
     //===============================================================================================================================
     // 데미지 주고받기
-    public void Att(GameObject HittedObj)
+    public void Att(GameObject HittedObj, Collider other)
     {
         //맞은 놈 : player
         if (HittedObj.transform.root.GetComponent<Player>() != null)
@@ -128,6 +128,9 @@ public abstract class Weapon : MonoBehaviour
                 if(Player.instance.status.isParrying == true)
                 {
                     ParryingToEnemy(owner.GetComponent<Enemy>());
+                    GameObject effect = ObjectPoolingCenter.Instance.LentalObj("EtherealHit", 1);
+                    effect.transform.position = other.ClosestPoint(HittedObj.transform.position);
+                    effect.GetComponent<ParticleSystem>().Play();
                     Debug.Log("Parrying");
                 }
                 else
@@ -197,7 +200,7 @@ public abstract class Weapon : MonoBehaviour
             {
                 if(other.transform.root.GetComponent<Player>() != null)
                 {
-					Att(other.gameObject);
+					Att(other.gameObject, other);
 					hitObjs.Add(other.transform.root.gameObject);
 				}
             }

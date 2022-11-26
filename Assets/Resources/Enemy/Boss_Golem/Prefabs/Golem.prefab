@@ -201,6 +201,7 @@ MonoBehaviour:
   weaponEquipState: 2
   PatrolPos: []
   ragdoll: {fileID: 2359562337917510920}
+  hpBar: {fileID: 0}
   preState_i: -1
   curState_i: -1
   animCtrl: {fileID: 0}

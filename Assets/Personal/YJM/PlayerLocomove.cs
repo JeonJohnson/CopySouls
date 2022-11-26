@@ -14,7 +14,7 @@ public class PlayerLocomove : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField]
-    float movementSpeed = 1f;
+    public float movementSpeed = 1f;
     [SerializeField]
     float runningSpeed = 2f;
     [SerializeField]
@@ -30,7 +30,7 @@ public class PlayerLocomove : MonoBehaviour
 
     [Range(1, 300)] public float mouseSensitivity = 70;
 
-    CharacterController cc;
+    public CharacterController cc;
 
     [SerializeField] GameObject playerModel;
     public Transform cameraArm;
@@ -86,7 +86,7 @@ public class PlayerLocomove : MonoBehaviour
 
     public void LinkCamera()
     {
-        cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
+        //cameraManager = GameObject.Find("CamerManager").GetComponent<CameraTest>();
         if(cameraManager == null)
         {
             Debug.LogWarning("Can't Find CameraManager!!");
@@ -122,7 +122,7 @@ public class PlayerLocomove : MonoBehaviour
         else
         {
             moveAmount = 0f;
-            if(Player.instance.curState_e != Enums.ePlayerState.Interacting)
+            if(Player.instance.curState_e != Enums.ePlayerState.Using)
             {
                 Player.instance.SetState(Enums.ePlayerState.Idle);
             }

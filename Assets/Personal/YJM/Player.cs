@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using Structs;
 using Enums;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
+
 
 public class Player : MonoBehaviour
 {
@@ -16,7 +19,7 @@ public class Player : MonoBehaviour
     public Transform spine3Tr;
     public Transform headTr;
     public Transform handTr;
-    [HideInInspector] public List<Collider> modelColliders = new List<Collider>();
+    public List<Collider> modelColliders = new List<Collider>();
     public PlayerStatus status;
 
     //FSM
@@ -176,9 +179,8 @@ public class Player : MonoBehaviour
         fsm[(int)ePlayerState.Dodge] = new Player_Dodge();
         fsm[(int)ePlayerState.Atk] = new Player_Atk();
         fsm[(int)ePlayerState.Interacting] = new Player_Interacting();
+        fsm[(int)ePlayerState.Using] = new Player_Using();
         SetState(Enums.ePlayerState.Idle);
-
-        status.interactionRange = 2f;
     }
 
     void ColliderSetting()
@@ -186,7 +188,7 @@ public class Player : MonoBehaviour
         var colliders = GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.layer == LayerMask.GetMask("Player_Hitbox"))
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Player_Hitbox"))
             {
                 modelColliders.Add(collider);
             }

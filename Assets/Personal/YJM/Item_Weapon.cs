@@ -83,11 +83,12 @@ public class Item_Weapon : Item
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
+    [ContextMenu("DeselctWP!!")]
     public void DeselectWeapon()
     {
         Player_Weapon playerWeapon = this.gameObject.GetComponent<Player_Weapon>();
         playerWeapon.type = eWeaponType.None;
-        playerWeapon.Dmg = 1;
+        playerWeapon.Dmg = 4;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);

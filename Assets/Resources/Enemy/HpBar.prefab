@@ -296,6 +296,7 @@ MonoBehaviour:
   hpSlider: {fileID: 1133976317189146405}
   hpEffectImage: {fileID: 2212767599103849726}
   damageText: {fileID: 2212767597701311966}
+  nameText: {fileID: 0}
 --- !u!225 &1133976317189146406
 CanvasGroup:
   m_ObjectHideFlags: 0

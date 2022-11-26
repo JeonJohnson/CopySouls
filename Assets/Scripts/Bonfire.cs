@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bonfire : Item
 {
+	bool isInteracting = false;
 	public override void Initialize()
 	{
 	}
@@ -11,6 +12,7 @@ public class Bonfire : Item
 	public override void PlayFuncs()
 	{
 		base.PlayFuncs();
+
 	}
 
 	protected override void Awake()
