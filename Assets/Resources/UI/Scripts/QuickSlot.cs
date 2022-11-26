@@ -138,6 +138,7 @@ public class QuickSlot : MonoBehaviour
         if (_equiptSlot.invenSlot != null && invenSlot != null)
         {
             Slot temp = invenSlot;
+            Item tempItem = _equiptSlot.item;
 
             if (_equiptSlot.invenSlot.isEquiptment)
             {
@@ -146,6 +147,9 @@ public class QuickSlot : MonoBehaviour
                     //장비 해제 시키고
                     _equiptSlot.invenSlot.SetEquiptment(false);
                     _equiptSlot.invenSlot.SetRegister(true);
+
+                    _equiptSlot.item = _quickSlot.item;
+
                     //퀵등록창에 띄우기
                     Item_Image.sprite = _equiptSlot.invenSlot.item_Image.sprite;
                     _equiptSlot.Item_Image.sprite = null;
@@ -158,6 +162,9 @@ public class QuickSlot : MonoBehaviour
             {
                 invenSlot.SetRegister(false);
                 invenSlot.SetEquiptment(true);
+
+                _quickSlot.item = tempItem;
+
                 _equiptSlot.Item_Image.sprite = invenSlot.item_Image.sprite;
                 _equiptSlot.SetColor_q(1);
                 _equiptSlot.matchEquiptmentSlot_Q();
@@ -167,7 +174,7 @@ public class QuickSlot : MonoBehaviour
             }
 
             //여기엔 무기 스왑
-            if(_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+            if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
             {
                 _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
             }
@@ -186,6 +193,7 @@ public class QuickSlot : MonoBehaviour
             {
                 invenSlot.SetRegister(false);
                 invenSlot.SetEquiptment(true);
+                _equiptSlot.item = _quickSlot.item;
                 //장비슬롯으로 바꿔줘야함
                 invenSlot.curRegisterQuickSlot = _equiptSlot;
                 _equiptSlot.Item_Image.sprite = invenSlot.item_Image.sprite;
@@ -200,13 +208,13 @@ public class QuickSlot : MonoBehaviour
                 _quickSlot.SetColor_q(0);
 
                 //주먹에서 무기로
-                if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+                if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
                 {
-                    invenSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+                    _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
                 }
                 else if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
                 {
-                    invenSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+                    _equiptSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
                 }
             }
         }
@@ -222,6 +230,7 @@ public class QuickSlot : MonoBehaviour
                     //장비 해제 시키고
                     _equiptSlot.invenSlot.SetEquiptment(false);
                     _equiptSlot.invenSlot.SetRegister(true);
+                    _quickSlot.item = _equiptSlot.item;
                     //퀵슬롯으로 바꿔줘야함
                     _equiptSlot.invenSlot.curRegisterQuickSlot = _quickSlot;
                     _quickSlot.invenSlot = _equiptSlot.invenSlot;
