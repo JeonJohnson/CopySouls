@@ -63,8 +63,7 @@ public class Inventory : MonoBehaviour
         if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
-            UiManager.Instance.WindowProcedure(true);
-            GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
+            UiManager.Instance.WindowProcedure(true, GetComponent<Canvas>());
         }
     }
     private void CloseInventory()
@@ -75,7 +74,7 @@ public class Inventory : MonoBehaviour
             InventoryBase.SetActive(false);
             //Player.instance.ActivatePlayerInput(true);
             inventoryActivated = false;
-            UiManager.Instance.WindowProcedure(false);
+            UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
 
         }
         else

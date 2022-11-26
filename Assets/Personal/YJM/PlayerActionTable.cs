@@ -68,7 +68,6 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Death()
     {
-        //Player.instance.SetState(Enums.ePlayerState.Death);
         Player.instance.status.isDead = true;
         Player.instance.animator.SetTrigger("Death");
         EnableWeaponMeshCol(0);
@@ -134,13 +133,15 @@ public class PlayerActionTable : MonoBehaviour
 
     public void Hit(DamagedStruct dmgStruct)
     {
-        if(player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
+        if (!Player.instance.status.isDead)
         {
-            print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
-        }
-        else if(player.status.isGuard == true)
-        {
-            player.status.curStamina -= 10f;
+            if (player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
+            {
+                print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
+            }
+            else if (player.status.isGuard == true)
+            {
+                player.status.curStamina -= 10f;
                 float dot = Vector3.Dot(dmgStruct.attackObj.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
                 if (theta <= 35f)
@@ -154,21 +155,22 @@ public class PlayerActionTable : MonoBehaviour
                     {
                         player.animator.SetTrigger("GuardFail");
                         SetPlayerStatus((int)ePlayerState.Hit);
-                    print("방어실패");
+                        print("방어실패");
                     }
                 }
                 else
                 {
                     TakeDamage(dmgStruct);
                 }
-        }
-        else if(player.status.isInvincible == true)
-        {
-            print("회피함");
-        }
-        else
-        {
-            TakeDamage(dmgStruct);
+            }
+            else if (player.status.isInvincible == true)
+            {
+                print("회피함");
+            }
+            else
+            {
+                TakeDamage(dmgStruct);
+            }
         }
     }
 

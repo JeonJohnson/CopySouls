@@ -74,6 +74,11 @@ public class Player_Move : Player_cState
                 }
             }
         }
+
+        if (Player.instance.status.isDead == true)
+        {
+            Player.instance.SetState(Enums.ePlayerState.Hit);
+        }
     }
 
     public override void ExitState()

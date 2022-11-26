@@ -46,6 +46,11 @@ public class Player_Atk : Player_cState
                 }
             }
         }
+
+        if (Player.instance.status.isDead == true)
+        {
+            Player.instance.SetState(Enums.ePlayerState.Hit);
+        }
     }
     public override void ExitState()
     {

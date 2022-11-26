@@ -173,6 +173,7 @@ public abstract class Weapon : MonoBehaviour
     public void ParryingToEnemy(Enemy enemy)
     {
         if (enemy == null) return;
+        if (enemy.GetComponent<Spirit>() == null) return;
         if (enemy.GetCurState<Enums.eSpiritState>() == Enums.eSpiritState.Atk)
         {
             if (enemy.GetComponent<Spirit>().atting && !enemy.GetComponent<Spirit>().status.isGroggy)

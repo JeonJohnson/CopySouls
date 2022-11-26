@@ -66,6 +66,11 @@ public class Player_Idle : Player_cState
             }
         }    
         PlayerActionTable.instance.UpdateStamina();
+
+        if(Player.instance.status.isDead == true)
+        {
+            Player.instance.SetState(Enums.ePlayerState.Hit);
+        }
     }
 
     public override void ExitState()

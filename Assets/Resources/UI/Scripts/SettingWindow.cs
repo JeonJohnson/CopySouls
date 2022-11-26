@@ -34,13 +34,12 @@ public class SettingWindow : MonoBehaviour
     }
     private void OpenSetting()
     {
-        UiManager.Instance.WindowProcedure(true);
-        GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
+        UiManager.Instance.WindowProcedure(true, GetComponent<Canvas>());
         SettingBase.SetActive(true);
     }
     private void CloseSetting()
     {
-        UiManager.Instance.WindowProcedure(false);
+        UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
 
         SettingBase.SetActive(false);
         SettingActivated = false;

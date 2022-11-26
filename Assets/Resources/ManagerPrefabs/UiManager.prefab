@@ -14262,6 +14262,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6442025504254472933, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GotoMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093647493457687602, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitGame
+      objectReference: {fileID: 0}
     - target: {fileID: 7623204418890510128, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.13183594
@@ -14293,6 +14301,10 @@ PrefabInstance:
     - target: {fileID: 7623204420655870599, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453506867218434917, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}

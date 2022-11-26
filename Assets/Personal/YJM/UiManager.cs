@@ -19,10 +19,6 @@ public class UiManager : Manager<UiManager>
 {
     public static bool UIActivated = false;
 
-    public static int WindowProcedureIndex;
-
-    public Stack<int> WindowStack = new Stack<int>();
-
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
 
@@ -69,7 +65,9 @@ public class UiManager : Manager<UiManager>
 
     private void Start()
     {
+        EquipmentWindow.Instance.gameObject.SetActive(true);
     }
+
     private void Update()
     {
         UI_KeyboardShortcut();
@@ -111,30 +109,26 @@ public class UiManager : Manager<UiManager>
             //인벤
             FindMaxWindowIndex();
 
-            if(Inventory.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
-            {
+
                 if (Inventory.inventoryActivated)
                 {
                     Inventory.Instance.TryOpenInventory();
                     if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
                 }
-            }
+
             //장비
-            if (EquipmentWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
-            {
+
                 if (EquipmentWindow.EquipmentActivated)
                 {
                     EquipmentWindow.Instance.TryOpenEquiptment();
                 }
-            }
-            //세팅
-            if (SettingWindow.Instance.GetComponent<Canvas>().sortingOrder == WindowProcedureIndex)
-            {
+
+
                 if (SettingWindow.SettingActivated)
                 {
                     SettingWindow.Instance.TryOpenSetting();
                 }
-            }
+
 
             if (Inventory.inventoryActivated && DivisionProcess.DivisionActivated)
             {
@@ -204,26 +198,57 @@ public class UiManager : Manager<UiManager>
         return null;
     }
 
-    public void WindowProcedure(bool value)
-    {
-        if (WindowProcedureIndex < 0)
-        {
-            WindowProcedureIndex = 0;
-            return;
-        }
+    //public void WindowProcedure(bool value)
+    //{
+    //    if (WindowProcedureIndex < 0)
+    //    {
+    //        WindowProcedureIndex = 0;
+    //        return;
+    //    }
 
+    //    if (value)
+    //    {
+    //        WindowProcedureIndex++;
+    //        WindowStack.Push(WindowProcedureIndex);
+    //    }
+    //    else
+    //    {
+    //        WindowProcedureIndex--;
+    //        WindowStack.Pop();
+    //    }
+
+    //    for(int i = 0; i < WindowProcedureIndex; i++)
+    //    {
+    //        if (WindowStack.Contains(i) == false)
+    //        {
+
+    //        }
+    //    }
+
+    //    Debug.Log(WindowStack.Peek());
+    //}
+
+    int maxIndex = 0;
+    public List<Canvas> indexList = new List<Canvas>();
+    public void WindowProcedure(bool value, Canvas go)
+    {
         if (value)
         {
-            WindowProcedureIndex++;
-            WindowStack.Push(WindowProcedureIndex);
+            indexList.Add(go);
+            for(int i = 0; i < indexList.Count; i++)
+            {
+                indexList[i].sortingOrder = i;
+            }
         }
         else
         {
-            WindowProcedureIndex--;
-            WindowStack.Pop();
+            int j = indexList.IndexOf(go);
+            indexList.RemoveAt(j);
+            for (int i = 0; i < indexList.Count; i++)
+            {
+                indexList[i].sortingOrder = i;
+            }
         }
-
-        Debug.Log(WindowStack.Peek());
     }
 
     const float MIN_FOG_DENSITY = 0.002f;

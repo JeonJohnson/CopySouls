@@ -42,13 +42,12 @@ public class EquipmentWindow : MonoBehaviour
     
     private void OpenEquiptment()
     {
-        UiManager.Instance.WindowProcedure(true);
-        GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
+        UiManager.Instance.WindowProcedure(true, GetComponent<Canvas>());
         EquiptmentWindowPanel.SetActive(true);
     }
     private void CloseEquiptment()
     {
-        UiManager.Instance.WindowProcedure(false);
+        UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
         EquiptmentWindowPanel.SetActive(false);
         EquipmentActivated = false;
     }
