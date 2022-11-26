@@ -154,22 +154,25 @@ public class GameManager : Manager<GameManager>
 		{
             case (int)eSceneChangeTestIndex.Intro:
                 {
+                    Time.timeScale = 1f;
                     IntroSceneManagersInit();
                 }
                 break;
             case (int)eSceneChangeTestIndex.Title:
                 {
+                    Time.timeScale = 1f;
                     TitleSceneManagersInit();
                 }
 				break;
 			case (int)eSceneChangeTestIndex.InGame:
                 {
+                    Time.timeScale = 1f;
                     InGameSceneManagersInit();
                 }
 				break;
             case (int)eSceneChangeTestIndex.Credit:
-                { 
-                
+                {
+                    Time.timeScale = 1f;
                 }
                 break;
 			default:

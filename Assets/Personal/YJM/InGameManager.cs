@@ -7,7 +7,12 @@ using UnityEngine.SceneManagement;
 public class InGameManager : Manager<InGameManager>
 {
     public bool isBossCombat = false;
+
+    public Vector3 playerInitPos;
+    
     private GameObject fogWallObj = null;
+    private ScreenEffect screenEffect;
+    public float gameEndingEffectTime;
 
 
     public void BossCombatStart()
@@ -24,50 +29,68 @@ public class InGameManager : Manager<InGameManager>
 
     IEnumerator GotoTitleSceneCoroutine()
     {
-        yield return new WaitForSeconds(4f);
+        //yield return new WaitForSeconds(4f);
+        yield return StartCoroutine(GameEndScreenEffectCoroutine());
         LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
+
+        screenEffect.SetGrayScaleAmount(0f);
+        UiManager.Instance.SetBlurAmount(0f);
+        Time.timeScale = 1f;
     }
 
-    //IEnumerator TestFadeOutCoroutine()
-    //{
-    //    float curTimer = 0;
-    //    while (curTimer <= 1f)
-    //    {
-    //        yield return null;
-    //        curTimer += Time.unscaledDeltaTime * fadeSpd;
+	IEnumerator GameEndScreenEffectCoroutine()
+	{
+        float time = 0f;
+        while (time < gameEndingEffectTime)
+        {//ratio : 0 to 1
+            float ratio = time / gameEndingEffectTime;
+            screenEffect.SetGrayScaleAmount(ratio);
+            UiManager.Instance.SetBlurAmount(ratio);
+            Time.timeScale = Mathf.Lerp(1f, 0.0f, ratio);
+            time += Time.unscaledDeltaTime;
+            
+            yield return null;
+        }
 
-    //        float alphaVal = Mathf.Lerp(0f, 1f, curTimer);
-    //    }
-    //}
-    //IEnumerator GotoCreditSceneCoroutine()
-    //{
-    //    yield return StartCoroutine(TestFadeOutCoroutine());
+        screenEffect.SetGrayScaleAmount(1f);
+        UiManager.Instance.SetBlurAmount(1f);
+        Time.timeScale = 0f;
+    }
 
-    //    SceneManager.LoadScene((int)eSceneChangeTestIndex.Credit);
-    //}
+    IEnumerator GameEndCoroutine()
+    {
+        yield return StartCoroutine(GameEndCoroutine());
 
-    private void Awake()
+
+
+    }
+
+	private void Awake()
     {
         if (fogWallObj == null)
         {
             fogWallObj = GameObject.FindGameObjectWithTag("FogWall");
         }
         fogWallObj.SetActive(false);
+
+        
     }
 
 	void Start()
     {
         SetPlayer();
+        screenEffect = Camera.main.GetComponent<ScreenEffect>();
     }
 
     void Update()
     {
-        
+ 
     }
 
     void SetPlayer()
     {
-        Vector3 startPos = new Vector3(4.55f, 5.1f, -130f);
+        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;
         Player.instance.transform.position = startPos;
@@ -86,4 +109,6 @@ public class InGameManager : Manager<InGameManager>
         Player.instance.animator.speed = 1f;
         yield return null;
     }
+
+
 }

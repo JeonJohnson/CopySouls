@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public enum WindowIndex
 {
     None,
@@ -46,6 +46,18 @@ public class UiManager : Manager<UiManager>
     public EquiptSlot_Q EquiptSlotQ_Defence;
     public EquiptSlot_Q EquiptSlotQ_Weapon;
 
+
+    [Header("BlurEffect")]
+    public Canvas screenEffectCanvas;
+    //public Image screenBlurImg;
+    public Material screenBlurMat;
+
+    public void SetBlurAmount(float amount)
+    {
+        screenEffectCanvas.gameObject.SetActive(true);
+        screenBlurMat.SetFloat("_BlurAmount", amount * 0.0025f);
+    }
+
     public HpBar InstantiateHpBar(Enemy target)
     {
         GameObject hpBarGo = Instantiate(hpBarPrefab, hpBarUi.transform);
@@ -65,6 +77,7 @@ public class UiManager : Manager<UiManager>
     private void Awake()
     {
         //TestMakeHpBar();
+        screenBlurMat.SetFloat("_BlurAmount",0f);
     }
 
     private void Start()
