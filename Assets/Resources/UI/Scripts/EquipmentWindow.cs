@@ -41,14 +41,12 @@ public class EquipmentWindow : MonoBehaviour
     
     private void OpenEquiptment()
     {
-        Debug.Log("Ä×´Ù!");
         UiManager.Instance.WindowProcedure();
         GetComponent<Canvas>().sortingOrder = UiManager.WindowProcedureIndex;
         EquiptmentWindowPanel.SetActive(true);
     }
     private void CloseEquiptment()
     {
-        Debug.Log("²¯´Ù!");
         EquiptmentWindowPanel.SetActive(false);
         EquipmentActivated = false;
     }

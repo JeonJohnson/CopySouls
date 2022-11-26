@@ -35,6 +35,8 @@ public class EquiptSlot : QuickSlot
     {
         equalSlot.Item_Image.sprite = Item_Image.sprite;
         equalSlot.Item_Image.color = Item_Image.color;
+        equalSlot.item = item;
+        equalSlot.invenSlot = invenSlot;
     }
     public void EquiptmentInitialize()
     {
