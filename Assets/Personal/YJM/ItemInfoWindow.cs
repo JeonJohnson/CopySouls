@@ -1,3 +1,4 @@
+using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,9 +62,10 @@ public class ItemInfoWindow : MonoBehaviour
             canvasAlpha = Mathf.Clamp(canvasAlpha, 0f, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)&& isEnabled == true)
         {
             isEnabled = false;
+            Player.instance.SetState(ePlayerState.Idle);
         }
     }
 }

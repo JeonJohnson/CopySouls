@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.UI;
 
-public class YouDiedWindow : MonoBehaviour
+public class SystemInfoWindow : MonoBehaviour
 {
-    public static YouDiedWindow Instance;
+    public static SystemInfoWindow Instance;
     private void Awake()
     {
         if(Instance == null)
@@ -23,12 +23,15 @@ public class YouDiedWindow : MonoBehaviour
     [SerializeField] Image bgImage;
     [SerializeField] CanvasGroup canvasGroup;
  
-    public void PlayDieEffect()
+    public void PlayEffect()
     {
+        print("1");
         diedText.gameObject.SetActive(true);
         bgImage.gameObject.SetActive(true);
+        print("2");
         StartCoroutine(BgEffectCoro());
-        StartCoroutine(DiedEffectCoro());
+        StartCoroutine(TextEffectCoro());
+        print("3");
     }
 
     float bgAlpha = 0f;
@@ -45,11 +48,11 @@ public class YouDiedWindow : MonoBehaviour
         }
     }
 
-    IEnumerator DiedEffectCoro()
+    IEnumerator TextEffectCoro()
     {
+        Color col = diedText.color;
         while (diedAlpha <= 1f)
         {
-            Color col = diedText.color;
             diedAlpha += Time.deltaTime * 1f;
             diedText.color = new Vector4(col.r, col.g, col.b, diedAlpha);
             yield return null;
@@ -59,7 +62,6 @@ public class YouDiedWindow : MonoBehaviour
         {
             canvasAlpha -= Time.deltaTime;
             canvasGroup.alpha = canvasAlpha;
-            GameManager.Instance.PlayerDie();
             yield return null; 
         }
     }

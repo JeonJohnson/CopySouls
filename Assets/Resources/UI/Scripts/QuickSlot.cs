@@ -167,13 +167,13 @@ public class QuickSlot : MonoBehaviour
             }
 
             //여기엔 무기 스왑
-            if(_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+            if(invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
             {
-                _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+                invenSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
             }
             else if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
             {
-                _equiptSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+                invenSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
             }
         }
         else if (_equiptSlot.invenSlot == null && invenSlot != null)
@@ -200,13 +200,13 @@ public class QuickSlot : MonoBehaviour
                 _quickSlot.SetColor_q(0);
 
                 //주먹에서 무기로
-                if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+                if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
                 {
-                    invenSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+                    _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
                 }
-                else if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+                else if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
                 {
-                    invenSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+                    _equiptSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
                 }
             }
         }
