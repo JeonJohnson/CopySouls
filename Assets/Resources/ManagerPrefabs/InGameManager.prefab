@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDontDestory: 0
+  isBossCombat: 0
+  fadeImg: {fileID: 0}
+  fadeSpd: 2

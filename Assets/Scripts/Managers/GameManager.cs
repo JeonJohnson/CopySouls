@@ -147,18 +147,18 @@ public class GameManager : Manager<GameManager>
 		switch (scene.buildIndex)
 		{
             case (int)eSceneChangeTestIndex.Intro:
-                { 
-                
+                {
+                    IntroSceneManagersInit();
                 }
                 break;
             case (int)eSceneChangeTestIndex.Title:
                 {
-
+                    TitleSceneManagersInit();
                 }
 				break;
 			case (int)eSceneChangeTestIndex.InGame:
-                { 
-
+                {
+                    InGameSceneManagersInit();
                 }
 				break;
             case (int)eSceneChangeTestIndex.Credit:

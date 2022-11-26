@@ -1,17 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InGameManager : Manager<InGameManager>
 {
     public bool isBossCombat = false;
-    [SerializeField] GameObject fogWallObj = null;
-    //public delegate void TempFunc();
+    private GameObject fogWallObj = null;
+
+
     public void BossCombatStart()
     {
         isBossCombat = true;
         fogWallObj.SetActive(true);
     }
+
+    public void BossDeath()
+    {
+        isBossCombat = false;
+        StartCoroutine(GotoTitleSceneCoroutine());
+    }
+
+    IEnumerator GotoTitleSceneCoroutine()
+    {
+        yield return new WaitForSeconds(4f);
+        LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
+    }
+
+    //IEnumerator TestFadeOutCoroutine()
+    //{
+    //    float curTimer = 0;
+    //    while (curTimer <= 1f)
+    //    {
+    //        yield return null;
+    //        curTimer += Time.unscaledDeltaTime * fadeSpd;
+
+    //        float alphaVal = Mathf.Lerp(0f, 1f, curTimer);
+    //    }
+    //}
+    //IEnumerator GotoCreditSceneCoroutine()
+    //{
+    //    yield return StartCoroutine(TestFadeOutCoroutine());
+
+    //    SceneManager.LoadScene((int)eSceneChangeTestIndex.Credit);
+    //}
 
     private void Awake()
     {
@@ -22,13 +55,11 @@ public class InGameManager : Manager<InGameManager>
         fogWallObj.SetActive(false);
     }
 
-	// Start is called before the first frame update
 	void Start()
     {
         SetPlayer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         

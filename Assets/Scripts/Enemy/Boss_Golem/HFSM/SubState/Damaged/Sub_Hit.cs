@@ -21,53 +21,72 @@ public class Sub_Hit : Golem_SubState
 	{
 		stateCost = 0;
 
+		float fullHp = golem.status.maxHp;
+		hpRatio = golem.status.curHp / fullHp;
+		hpRatio *= 100f;
+
+		for (int i = table.hpCriteria.Length - 1; i >= 0; --i)
+		{
+			if (hpRatio <= table.hpCriteria[i]) //75 ¹Ì¸¸
+			{
+				curState = (eGolemHitState)i;
+			}
+		}
+
 	}
 
 	public void HitStateCheck()
 	{
 		float curHp = golem.status.curHp;
 		float fullHp = golem.status.maxHp;
-		hpRatio = golem.status.curHp / fullHp;
-		hpRatio *= 100f;
 
-
-		switch (curState)
+		if (curHp <= 0f)
 		{
-			case eGolemHitState.Light:
-			case eGolemHitState.Medium:
-			case eGolemHitState.Heavy:
-				{
-					if (hpRatio <= table.hpCriteria[(int)curState]) //75 ¹Ì¸¸
-					{
-						golem.animCtrl.SetTrigger("tHit");
-						golem.animCtrl.SetInteger("iHit_Num", (int)curState);
-						
-
-						curState += 1;
-						animName = $"Hit_{(int)curState}";
-
-						golem.animCtrl.applyRootMotion = true;
-					}
-					else
-					{ hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move)); }
-				}
-				break;
-			case eGolemHitState.Death:
-				{
-					if (golem.status.curHp <= 0)//Á×À½
-					{
-						baseState.SetSubState(baseState.GetSubState((int)eGolemDamagedState.Death));
-						curState += 1;
-
-					}
-					else
-					{ hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move)); }
-				}
-				break;
-			default:
-				break;
+			baseState.SetSubState(baseState.GetSubState((int)eGolemDamagedState.Death));
 		}
+		else
+		{
 
+			hpRatio = golem.status.curHp / fullHp;
+			hpRatio *= 100f;
+
+			switch (curState)
+			{
+				case eGolemHitState.Light:
+				case eGolemHitState.Medium:
+				case eGolemHitState.Heavy:
+					{
+						if (hpRatio <= table.hpCriteria[(int)curState]) //75 ¹Ì¸¸
+						{
+							golem.animCtrl.SetTrigger("tHit");
+							golem.animCtrl.SetInteger("iHit_Num", (int)curState);
+
+
+							curState += 1;
+							animName = $"Hit_{(int)curState}";
+
+							golem.animCtrl.applyRootMotion = true;
+						}
+						else
+						{ hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move)); }
+					}
+					break;
+				case eGolemHitState.Death:
+					{
+						if (golem.status.curHp <= 0)//Á×À½
+						{
+							baseState.SetSubState(baseState.GetSubState((int)eGolemDamagedState.Death));
+							curState += 1;
+
+						}
+						else
+						{ hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move)); }
+					}
+					break;
+				default:
+					break;
+			}
+		}
 		
 	}
 
