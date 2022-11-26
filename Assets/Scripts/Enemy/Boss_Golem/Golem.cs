@@ -6,7 +6,7 @@ using UnityEngine;
 public class Golem : Enemy
 {
 
-	public AnimationClip testClip;
+	//public AnimationClip testClip;
 	[Header("Target")]
 	public Transform targetHeadTr;
 	public float angleToTarget;
@@ -47,6 +47,7 @@ public class Golem : Enemy
 	public float rangeAtkRange;
 	public float decisionTime;
 
+	public HpBar_Boss hpBar_Boss = null;
 	
 
 

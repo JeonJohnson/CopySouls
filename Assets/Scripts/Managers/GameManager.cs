@@ -45,7 +45,6 @@ public class GameManager : Manager<GameManager>
 
     public void GeunheeSceneManagersInit()
     {
-
         Cursor.lockState = CursorLockMode.Locked;
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
