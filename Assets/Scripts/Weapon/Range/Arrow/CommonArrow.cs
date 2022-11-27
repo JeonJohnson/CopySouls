@@ -12,6 +12,9 @@ public enum eArrowState
 
 public class CommonArrow : Weapon, IPoolingObject
 {
+    //trail
+    public GameObject trail;
+
     public Rigidbody rd;
 
     public eArrowState state = eArrowState.Draw;
@@ -90,8 +93,7 @@ public class CommonArrow : Weapon, IPoolingObject
     protected override void Awake()
     {
         base.Awake();
-
-        
+        Arrow_TrailOnOff();
     }
     protected override void Start()
     {
@@ -142,6 +144,7 @@ public class CommonArrow : Weapon, IPoolingObject
 
         if (state == eArrowState.Shoot)
         {
+            Arrow_TrailOnOff();
             rd.MovePosition(transform.position + (transform.forward * Time.deltaTime * spd));
         }
     }
@@ -149,6 +152,8 @@ public class CommonArrow : Weapon, IPoolingObject
 	public override void OnTriggerEnter(Collider other)
 	{
 		base.OnTriggerEnter(other);
+
+        Arrow_TrailOnOff();
 
             //int tempLayerIndex = LayerMask.NameToLayer("Player");
             //int tempLayerBit = 1 << LayerMask.GetMask("Player");
@@ -180,4 +185,11 @@ public class CommonArrow : Weapon, IPoolingObject
             StuckArrow(other.gameObject.transform);
         }
     }
+
+    private void Arrow_TrailOnOff()
+    {
+        if (trail.activeSelf) trail.SetActive(false);
+        else trail.SetActive(true);
+    }
+
 }

@@ -71,6 +71,7 @@ public class Spirit_Atk : cState
         else if(((Spirit)me).complete_Atk)
         {
             stop(CurPattern);
+            ((Spirit)me).trail.SetActive(false);
             ((Spirit)me).complete_Atk = false;
             ((Spirit)me).weapon.att_close = false;
             if (me.combatState == eCombatState.Alert)
@@ -139,7 +140,6 @@ public class Spirit_Atk : cState
     public void stop(eSpirit_AtkPattern curPattern)
     {
         if (startPattern) startPattern = false;
-
 
 
         switch (CurPattern)

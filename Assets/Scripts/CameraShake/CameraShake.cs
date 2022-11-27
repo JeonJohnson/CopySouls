@@ -100,7 +100,8 @@ public class CameraShake : MonoBehaviour
 
         for (int i = shakeEvents.Count - 1; i != -1; i--)
         {
-            ShakeEvent se = shakeEvents[i]; se.Update();
+            ShakeEvent se = shakeEvents[i];
+            se.Update();
 
             if (se.target == CameraShakeEvent.Target.Position)
             {
@@ -109,6 +110,7 @@ public class CameraShake : MonoBehaviour
             else
             {
                 rotationOffset += se.noise;
+                transform.localEulerAngles = rotationOffset;
             }
 
             if (!se.IsAlive())
@@ -118,6 +120,5 @@ public class CameraShake : MonoBehaviour
         }
 
         transform.localPosition = positionOffset;
-        transform.localEulerAngles = rotationOffset;
     }
 }
