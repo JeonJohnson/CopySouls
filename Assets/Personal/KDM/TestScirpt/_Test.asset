@@ -15,7 +15,7 @@ MonoBehaviour:
   target: 0
   amplitude: 1
   frequency: 1
-  duration: 1
+  duration: 15
   blendOverLifetime:
     serializedVersion: 2
     m_Curve:
@@ -29,8 +29,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5206451
-      value: 0.42249727
+      time: 0.15763849
+      value: 0.053043842
       inSlope: 0
       outSlope: 0
       tangentMode: 0

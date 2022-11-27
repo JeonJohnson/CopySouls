@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0951f5decfa3c40a8cac33d253f252, type: 3}
   m_Name: TestKim
   m_EditorClassIdentifier: 
-  target: 0
-  amplitude: 3
-  frequency: 2
-  duration: 1
+  target: 1
+  amplitude: 10
+  frequency: 10
+  duration: 15
   blendOverLifetime:
     serializedVersion: 2
     m_Curve:
@@ -29,8 +29,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.3599748
-      value: 0.04940386
+      time: 0.4392175
+      value: 0.06425066
       inSlope: 0
       outSlope: 0
       tangentMode: 0
