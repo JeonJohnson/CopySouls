@@ -536,10 +536,22 @@ public class PlayerActionTable : MonoBehaviour
     {
         pastHoldIndex = curHoldIndex;
         curHoldIndex = i;
-        player.animator.SetLayerWeight(pastHoldIndex, 0f);
-        player.animator.SetLayerWeight(curHoldIndex, 1f);
+        StartCoroutine(smoothParamCoro(pastHoldIndex, curHoldIndex));
     }
 
+    IEnumerator smoothParamCoro(int pastIndex, int curIndex)
+    {
+        float timer = 1f;
+        while (timer > 0f)
+        {
+            timer -= Time.deltaTime * 5f;
+            player.animator.SetLayerWeight(pastIndex, timer);
+            player.animator.SetLayerWeight(curIndex, 1 -timer);
+            yield return null;
+        }
+        player.animator.SetLayerWeight(pastIndex, 0);
+        player.animator.SetLayerWeight(curIndex, 1);
+    }
 
     float guardParam = 0;
     [SerializeField]float holdParam = 0;
@@ -745,6 +757,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         isComboCheck = true;
         CurCoroCounter1++;
+        print("체킹");
     }
 
     public void StopComboCheck()
