@@ -112,42 +112,42 @@ public class UnitManager : Manager<UnitManager>
 		{
 			enemy.ResetEnemy();
 
-   //         GameObject newObj = null;
-   //         Enemy newEnemy = null;
-			//switch (enemy.status.name_e)
-			//{
-			//	case eEnemyName.Spirit:
-   //                 {
-   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Spirit");
-   //                 }
-			//		break;
-			//	case eEnemyName.Archer:
-   //                 {
-   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
-   //                 }
-			//		break;
-			//	case eEnemyName.Golem:
-   //                 {
-   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
-   //                 }
-			//		break;
-			//	default:
-			//		break;
-			//}
+            if (enemy.status.name_e != eEnemyName.Golem)
+            {
+                GameObject newObj = null;
+                Enemy newEnemy = null;
+                switch (enemy.status.name_e)
+                {
+                    case eEnemyName.Spirit:
+                        {
+                            newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Spirit");
+                        }
+                        break;
+                    case eEnemyName.Archer:
+                        {
+                            newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-   //         if (newObj != null)
-   //         {
-   //             newEnemy = newObj.GetComponent<Enemy>();
-   //         }
+                if (newObj != null)
+                {
+                    newEnemy = newObj.GetComponent<Enemy>();
+                }
 
-   //         newEnemy.gameObject.transform.position = enemy.initPos;
-   //         newEnemy.gameObject.transform.forward = enemy.initForward;
-   //         newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
-   //         newObj.SetActive(true);
+                newEnemy.navAgent.enabled = false;
+                newEnemy.gameObject.transform.position = enemy.initPos;
+                newEnemy.gameObject.transform.forward = enemy.initForward;
+                newEnemy.navAgent.enabled = true;
 
+                newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
+                newObj.SetActive(true);
 
-   //         ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
-        }
+                ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
+            }
+		}
 
 		ClearEnemyList();
         SearchEnemy();

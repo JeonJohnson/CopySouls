@@ -20,14 +20,16 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
     //여기에 담아두고 하나씩 빼쓸꺼임
 
     public Dictionary<string, Queue<GameObject>> poolingObjDic;
+	
 
 	[HideInInspector]
 	public List<GameObject> trashBin = new List<GameObject>();
+	public Transform trashBinCan;
 
 	public void	AddTrashBin(GameObject obj)
 	{
 		obj.SetActive(false);
-
+		obj.transform.SetParent(trashBinCan);
 		trashBin.Add(obj);
 	}	
 
