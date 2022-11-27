@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Structs;
 using Enums;
-#if UNITY_EDITOR
-using UnityEditor.Animations;
-#endif
 
 
 public class Player : MonoBehaviour
@@ -80,18 +77,6 @@ public class Player : MonoBehaviour
         SetPlayerWeapon();
     }
 
-    public AnimationClip[] idleAnimClips;
-
-    public void ChangeAnimClipInBlendTree(AnimationClip animClip)
-    {
-        RuntimeAnimatorController temp = animator.runtimeAnimatorController;
-        AnimatorController c = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimatorController>(UnityEditor.AssetDatabase.GetAssetPath(temp)); 
-        ChildMotion[] tempMotions = ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children;
-        print(c.layers[0].stateMachine.states[0].state.name);
-        print(tempMotions[0]);
-        tempMotions[0].motion = animClip;
-        ((BlendTree)c.layers[0].stateMachine.states[0].state.motion).children = tempMotions;
-    }
 
     // Update is called once per frame
     private void Update()

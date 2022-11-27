@@ -33,6 +33,9 @@ public class PlayerActionTable : MonoBehaviour
     bool antiRagTrigger = false;
     public float curActAtkValue = 1.0f;
 
+    public int pastHoldIndex = 0;
+    public int curHoldIndex = 0;
+
     IEnumerator SetPlayerStatusCoroutine(Enums.ePlayerState state, float time)
     {
         yield return new WaitForSeconds(time);
@@ -469,18 +472,16 @@ public class PlayerActionTable : MonoBehaviour
             switch (mainWeapon.type)
             {
                 case eWeaponType.None:
-                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-                    StartCoroutine(waitCoro(0, true));
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
+                    SetMainAnimIndex(1);
                     break;
                 case eWeaponType.Melee:
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
-                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-                    StartCoroutine(waitCoro(1, true));
+                    SetMainAnimIndex(2);
                     break;
                 case eWeaponType.Sheild:
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
-                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[2]);
-                    StartCoroutine(waitCoro(2, true));
+                    SetMainAnimIndex(4);
                     break;
                 case eWeaponType.Arrow:
                     break;
@@ -497,18 +498,18 @@ public class PlayerActionTable : MonoBehaviour
             switch(mainWeapon.type)
             {
                 case eWeaponType.None:
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
+                    SetMainAnimIndex(1);
                     break;
                 case eWeaponType.Melee:
                     print("메인");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
-                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[0]);
-                    StartCoroutine(waitCoro(3));
+                    SetMainAnimIndex(3);
                     break;
                 case eWeaponType.Sheild:
                     print("실드");
                     Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
-                    Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
-                    StartCoroutine(waitCoro(4));
+                    SetMainAnimIndex(5);
                     //Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
                     break;
                 case eWeaponType.Arrow:
@@ -525,18 +526,31 @@ public class PlayerActionTable : MonoBehaviour
                     case eWeaponType.Sheild:
                         print("실드");
                         Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
-                        Player.instance.ChangeAnimClipInBlendTree(Player.instance.idleAnimClips[1]);
-                        StartCoroutine(waitCoro(4));
                         break;
                 }
             }
         }
     }
 
-    IEnumerator waitCoro(int i, bool isInput = false)
+    public void SetMainAnimIndex(int i)
     {
-        yield return null;
-        Player.instance.animator.SetInteger("WeaponHoldTypeIndex", i);
+        pastHoldIndex = curHoldIndex;
+        curHoldIndex = i;
+        StartCoroutine(smoothParamCoro(pastHoldIndex, curHoldIndex));
+    }
+
+    IEnumerator smoothParamCoro(int pastIndex, int curIndex)
+    {
+        float timer = 1f;
+        while (timer > 0f)
+        {
+            timer -= Time.deltaTime * 5f;
+            player.animator.SetLayerWeight(pastIndex, timer);
+            player.animator.SetLayerWeight(curIndex, 1 -timer);
+            yield return null;
+        }
+        player.animator.SetLayerWeight(pastIndex, 0);
+        player.animator.SetLayerWeight(curIndex, 1);
     }
 
     float guardParam = 0;
@@ -549,12 +563,12 @@ public class PlayerActionTable : MonoBehaviour
             holdParam = Mathf.Clamp(holdParam, 0f, targetHoldParam);
             if (holdType == true)
             {
-                player.animator.SetLayerWeight(2, holdParam);
+                player.animator.SetLayerWeight(7, holdParam);
                 holdParam += Time.deltaTime * 3f;
             }
             else
             {
-                player.animator.SetLayerWeight(2, holdParam);
+                player.animator.SetLayerWeight(7, holdParam);
                 holdParam -= Time.deltaTime * 3f;
             }
         }
@@ -577,14 +591,14 @@ public class PlayerActionTable : MonoBehaviour
         {
             player.status.isGuard = false;
         }
-        player.animator.SetLayerWeight(1, guardParam);
+        player.animator.SetLayerWeight(6, guardParam);
     }
     public void ResetGuardValue()
     {
         guardParam = 0;
         holdParam = 0;
-        player.animator.SetLayerWeight(1, 0);
-        player.animator.SetLayerWeight(2, 0);
+        player.animator.SetLayerWeight(6, 0);
+        player.animator.SetLayerWeight(7, 0);
     }
 
     public Collider[] nearColliders;
@@ -707,7 +721,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.SetState(ePlayerState.Using);
         Player.instance.animator.SetTrigger("UseDrink");
-        player.animator.SetLayerWeight(1, 1f);
+        player.animator.SetLayerWeight(6, 1f);
     }
 
     public void PlayCurItemFuncs()
@@ -743,6 +757,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         isComboCheck = true;
         CurCoroCounter1++;
+        print("체킹");
     }
 
     public void StopComboCheck()

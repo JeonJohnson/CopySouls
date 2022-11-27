@@ -39,7 +39,7 @@ public class SystemInfoWindow : MonoBehaviour
         print("3");
     }
 
-    float canvasAlpha = 1f;
+    //float canvasAlpha = 1f;
     IEnumerator BgEffectCoro()
     {
         bgImage.DOColor(new Color(bgImage.color.r, bgImage.color.g, bgImage.color.b, 1f), 1f);

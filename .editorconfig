@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0414: 'Player_Move.isRolling' 필드가 할당되었지만 사용되지 않았습니다.
+dotnet_diagnostic.CS0414.severity = none

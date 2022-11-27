@@ -9,7 +9,7 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 	//제네뤽 클래스
 	//C++의 템플릿 클래스 비슷한거임
 	private static T instance = null;
-	public bool isDontDestory;
+	//public bool isDontDestory;
 
 	public static T Instance
 	{
@@ -17,13 +17,13 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 		{
 			if (instance == null)
 			{
-				instance = InstantiateManager();
+				instance = InstantiateManager(false);
 			}
 			return instance;
 		}
 	}
 
-	public static T InstantiateManager(bool isDontDestroy = true)
+	public static T InstantiateManager(bool isDontDestroy)
 	{
 		//1. 하이어라키 창에 있는지 확인.
 		//2. 없으면 ManagerPrefabs 폴더안에 같은이름 프리팹 있는지 확인.

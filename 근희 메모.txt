@@ -562,3 +562,13 @@ Move 상태인데 가끔 idle 모션으로 따라오기만 함 (무서움)
 
 00:35 2022-11-27	카메라 쉐이크 용석이랑 정민이쪽으로 넘어감.
 	
+03:00 2022-11-27  	디코 끝, EndingCredit 효과 넣기
+
+07:53 2022-11-27	EndingCredit 효과 완료 + 지금 Manager들 생성주기 정리하는 중,,,,
+	=> RuntimeInitializeOnLoadMethod 는 정확히 Awake가 모두 호출된 이후에 호출됨.
+지금 우리가 이렇게 사용하려는 이유가 어느 씬에서 테스트 하더라도 GameManager가 먼저 생성되고 그 씬에 맞춰서 다른 애들이 생성되게 하려고 하는건데 안됨.
+	=> uisng UniyEditor; 의 InitializeOnLoadAttribute 어트리뷰트는 ㄹㅇ 에디터가 실행되고 프로젝트가 로드되고나서 실행됨.
+	=> 어차피 릴리즈한 파일은 무적권 첫씬부터 시작할꺼니까 첫씬에서 GameManager을 만들어주고 DontDestory하는 방식으로 가고
+	=> 내가 원하는 모든 씬에서도 문제 없이 실행되기 위할때는
+		아무 스크립트에서 InitializeOnLoadAttribute 달고 거기서 GameManager을 생성해주는 방식으로 가면 될듯,,,?
+	
