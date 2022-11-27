@@ -18,7 +18,8 @@ public class Spirit_Death : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
-        if(!me.ragdoll.gameObject.activeSelf)
+
+        if (!me.ragdoll.gameObject.activeSelf)
         {
             me.status.isDead = true;
             DeathIndex = Random.Range((int)DeathPattern.Front, (int)DeathPattern.End);
@@ -27,6 +28,7 @@ public class Spirit_Death : cState
         }
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
+
     }
 
     public override void UpdateState()

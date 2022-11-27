@@ -18,6 +18,10 @@ public class Inventory : MonoBehaviour
     static public Inventory Instance;
     public static bool inventoryActivated = false;
 
+    private Dictionary<string, Item> Dic_items = new Dictionary<string, Item>();
+    //private List<GameObject> All_items = new List<GameObject>();
+
+
     public Slot curSlot;
 
     [SerializeField]
@@ -34,15 +38,14 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        
         if (Instance == null) Instance = this;
         else Destroy(this.gameObject);
     }
     void Start()
     {
         slots = SlotParent.GetComponentsInChildren<Slot>();
-        
-        //GetStartEquiptment();
+        SetAll_Items();
+        GetItems();
     }
     public void TryOpenInventory()
     {
@@ -71,7 +74,6 @@ public class Inventory : MonoBehaviour
         {
             if (SelectionProcess.SelectionActivated) SelectionParent.CloseSelection();
             InventoryBase.SetActive(false);
-            //Player.instance.ActivatePlayerInput(true);
             inventoryActivated = false;
             UiManager.Instance.WindowProcedure(false, GetComponent<Canvas>());
         }
@@ -138,35 +140,100 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void InventoryComand()
-    {
-        for(int i = 0; i < ObjectPoolingCenter.Instance.prefabs.Length; i++)
-        {
-            Item item = ObjectPoolingCenter.Instance.prefabs[i].GetComponent<Item>();
-            if(item) ItemIn(item, 10);
-        }
-    }
-
-    private void GetStartEquiptment()
-    {
-        Item DefaultWeapon = ObjectPoolingCenter.Instance.prefabs[(int)itemNameIndex.DefaultWeapon].GetComponent<Item>();
-        if (DefaultWeapon) ItemIn(DefaultWeapon, 1);
-        Item DefaultDefence = ObjectPoolingCenter.Instance.prefabs[(int)itemNameIndex.DefaultDefence].GetComponent<Item>();
-        if (DefaultDefence) ItemIn(DefaultDefence, 1);
-    }
-
     public void GetItem(Item _item)
     {
         ItemIn(_item);
     }
-
-    public void GetItem(string _itemName)
+    public void GetItem(string _itemName,Vector3 pos, int count = 1)
     {
-        for(int i =0; i < ObjectPoolingCenter.Instance.prefabs.Length; i++)
+        GameObject item = ObjectPoolingCenter.Instance.LentalObj(_itemName, count);
+        item.transform.position = pos;
+    }
+
+    public void GetItem(string _itemName,int count = 1)
+    {
+        ItemIn(Dic_items[_itemName], count);
+    }
+
+    public void GetItems()
+    {
+        GetItem("Shield0_Item"); // 60
+        GetItem("Shield1_Item"); // 40
+        GetItem("Shield2_Item"); // 20
+        GetItem("Shield3_Item"); // 10
+
+        GetItem("Sword0_Item");  // 60
+        GetItem("Sword1_Item");  // 40
+        GetItem("Sword2_Item");  // 20
+        GetItem("Sword3_Item");  // 10
+
+        GetItem("Potion_Item",10);  //70
+    }
+    public void Routing(Vector3 pos)
+    {
+        Vector3 Pos1 = new Vector3(pos.x,pos.y + 2.5f,pos.z);
+        int index = Random.Range(0, 11);
+        switch (index)
         {
-            if(ObjectPoolingCenter.Instance.prefabs[i].name == _itemName) ItemIn(ObjectPoolingCenter.Instance.prefabs[i].GetComponent<Item>());
-            print(ObjectPoolingCenter.Instance.prefabs[i].name + _itemName);
+            case 0: Draw("Shield0_Item", 100, Pos1);  //Lv 0
+                break;
+            case 1: Draw("Sword0_Item", 100, Pos1);   //Lv 0
+                break;
+            case 2: Draw("Shield1_Item", 100, Pos1);  //Lv 1
+                break;
+            case 3: Draw("Sword1_Item", 100, Pos1);   //Lv 1
+                break;
+            case 4: Draw("Shield2_Item", 100, Pos1);  //Lv 2
+                break;
+            case 5: Draw("Sword2_Item", 100, Pos1);   //Lv 2
+                break;
+            case 6: Draw("Shield3_Item", 100, Pos1);  //Lv 3
+                break;
+            case 7: Draw("Sword3_Item", 100, Pos1);   //Lv 3
+                break;
+            case 8:
+            case 9:
+            case 10:
+                Draw("Potion_Item", 70, pos);       //potion
+                break;
+            default:
+                break;
         }
     }
 
+    private bool Draw<T>(T itemname,float probability,Vector3 pos)
+    {
+        if(RandDraw(probability))
+        {
+            GameObject item = ObjectPoolingCenter.Instance.LentalObj(itemname.ToString());
+            item.transform.position = pos;
+            Debug.Log(item.name);
+            Debug.Log("»Ì±â ¼º°ø!");
+            return true;
+        }
+        Debug.Log("»Ì±â ½ÇÆÐ");
+        return false;
+    }
+    private bool RandDraw(float probability)
+    {
+        bool Success = false;
+        float Value;
+        float total = Dic_items.Count;
+        if (probability == 0) Value = -1;
+        else Value = (probability * total) / 100f;
+        int Rand = Random.Range(0, (int)total);
+        if(Rand <= Value) Success = true;
+        return Success;
+    }
+
+    private void SetAll_Items()
+    {
+        foreach (GameObject item in ObjectPoolingCenter.Instance.prefabs)
+        {
+            if (item.GetComponent<Item>() != null)
+            {
+                Dic_items.Add(item.name, item.GetComponent<Item>());
+            }
+        }
+    }
 }

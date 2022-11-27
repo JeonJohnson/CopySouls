@@ -19,7 +19,7 @@ public class Item_Portion : Item
     }
     protected override void Update()
     {
-        base.Start();
+        base.Update();
     }
 
     public override void PlayFuncs()

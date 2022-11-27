@@ -104,28 +104,6 @@ public class Spirit : Enemy
         if (distToRespawnPos > status.moveMileage) isReturn = true;
         curState_e = GetCurState<Enums.eSpiritState>();
 
-        //=======================================
-        //TestCtrl
-
-        //-->Hit
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    preHp = status.curHp;
-        //    status.curHp--;
-        //    HitCount++;
-        //}
-        //
-        ////->Groggy
-        //if (Input.GetKeyDown(KeyCode.V))
-        //{
-        //    if (curState_e == eSpiritState.Atk)
-        //    {
-        //        status.isGroggy = true;
-        //    }
-        //}
-        //=======================================
-
-
         if (status.curHp <= 0 && curState_e != eSpiritState.Hold)
         {
             status.isDead = true;
@@ -141,27 +119,6 @@ public class Spirit : Enemy
                     Debug.Log("뒤잡앞잡 동시 발동 : 판정 error");
                 }
             }
-            //else if (!status.isBackHold && !status.isFrontHold)
-            //{
-            //    if (HitCount > 0)
-            //    {
-            //        if (curState_e != eSpiritState.Damaged)
-            //        {
-            //            SetState((int)Enums.eSpiritState.Damaged);
-            //        }
-            //    }
-            //}
-
-            //if (HitCount > 0)
-            //{
-            //    if (!status.isBackHold && !status.isFrontHold)
-            //    {
-            //        if (curState_e != eSpiritState.Damaged)
-            //        {
-            //            SetState((int)Enums.eSpiritState.Damaged);
-            //        }
-            //    }
-            //}
         }
 
         //모종의 이유로 무기해제시
@@ -193,10 +150,6 @@ public class Spirit : Enemy
         {
             if(HitCount > 0) HitCount = 0;
         }
-        //if (!dmgStruct.isBackstab && !dmgStruct.isRiposte)
-        //{
-        //   HitCount++;
-        //}
     }
 
 
@@ -215,14 +168,6 @@ public class Spirit : Enemy
             ragdollObj.transform.rotation = transform.rotation;
             Funcs.RagdollObjTransformSetting(transform, ragdollObj.transform);
         }
-       
-
-        //if (model.activeSelf)
-        //{
-        //    CopyCharacterTransfoemRoRagdoll(model.transform, ragdoll.transform);
-        //    model.SetActive(false);
-        //    ragdoll.gameObject.SetActive(true);
-        //}
     }
 
     private void CopyCharacterTransfoemRoRagdoll(Transform origin, Transform ragdoll)
