@@ -61,8 +61,6 @@ public class Sub_Think : Golem_SubState
 			else
 			{
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.RangeAtk);
-
-
 			}
 		}
 		else if (golem.distToTarget <= golem.rangeAtkRange)
@@ -71,12 +69,10 @@ public class Sub_Think : Golem_SubState
 			{
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.CloseAtk);
 				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.RangeAtk);
-
-
 			}
 			else
 			{
-				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.CloseAtk);
+				table.EraseCondition(ref canStateList, x => x.atkRangeType == eGolemAtkRangeType.RangeAtk);
 			}
 		}
 		else
