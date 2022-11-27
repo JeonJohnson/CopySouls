@@ -108,6 +108,8 @@ public class Golem_ActionTable : MonoBehaviour
 		rock.transform.rotation = Random.rotation;
 		rockScript.golemRightHandTr = golem.rightHandBoneTr;
 		rockScript.golemLeftHandTr = golem.leftHandBoneTr;
+
+		isLookAt = true;
 	}
 	public void AimRockEvent()
 	{
@@ -140,6 +142,15 @@ public class Golem_ActionTable : MonoBehaviour
 		fistScript[Defines.left].atkType = (Enums.eAttackType)type;
 		fistScript[Defines.right].atkType = (Enums.eAttackType)type;
 	}
+
+	public void LongTimeIdleCheck()
+	{
+		if (golem.hfsmCtrl.GetCurBaseState != golem.hfsmCtrl.GetBaseState((int)eGolemBaseState.Move))
+		{
+			golem.hfsmCtrl.SetNextBaseState(golem.hfsmCtrl.GetBaseState((int)eGolemBaseState.Move));
+		}
+	}
+
 	#endregion
 	//public void OrganizeStatePerCost()
 	//{
