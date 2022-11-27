@@ -49,7 +49,9 @@ public class Spirit : Enemy
     public bool isReturn;
     public bool stepWait;
     public bool isBoneChanged;
-   
+
+    //public bool isReset;
+
     public override void InitializeState()
 	{
         fsm = new cState[(int)Enums.eSpiritState.End];
@@ -131,6 +133,34 @@ public class Spirit : Enemy
     {
         base.LateUpdate();
     }
+    //public override void ResetEnemy()
+    //{
+    //    base.ResetEnemy();
+    //
+    //    isReset = true;
+    //
+    //    if (status.isDead)
+    //    {
+    //        //래그돌 없애기
+    //        ragdoll.gameObject.SetActive(false);
+    //        model.SetActive(true);
+    //        status.isDead = false;
+    //        status.isFrontHold = false;
+    //        status.isBackHold = false;
+    //        animCtrl.SetTrigger("isReset");
+    //    }
+    //    Debug.Log("spirit리셋");
+    //
+    //    SetState((int)Enums.eSpiritState.Idle);
+    //
+    //    navAgent.enabled = true;
+    //    navAgent.isStopped = true;
+    //    //navAgent.speed = 0f;
+    //    //navAgent.SetDestination(gameObject.transform.position);
+    //    transform.position = initPos;
+    //    transform.forward = initForward;
+    //    navAgent.isStopped = false;
+    //}
 
     protected override void OnTriggerEnter(Collider other)
     {

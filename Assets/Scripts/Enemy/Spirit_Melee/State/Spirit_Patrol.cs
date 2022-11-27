@@ -22,6 +22,8 @@ public class Spirit_Patrol : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
 
         if (!me.status.isBackHold && !me.status.isFrontHold)

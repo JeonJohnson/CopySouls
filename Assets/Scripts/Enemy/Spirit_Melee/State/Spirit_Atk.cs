@@ -33,6 +33,8 @@ public class Spirit_Atk : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (((Spirit)me).weapon == null) return;
 
         if (me.status.isGroggy)

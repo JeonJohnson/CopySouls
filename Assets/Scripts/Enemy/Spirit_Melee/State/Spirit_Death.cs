@@ -12,12 +12,16 @@ public enum DeathPattern
 public class Spirit_Death : cState
 {
     public int DeathIndex;
-    public float timer;
-    public float existTime = 3f;
 
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+
+        if (!me.isRouting)
+        {
+            me.isRouting = true;
+            Inventory.Instance.Routing(me.transform.position);
+        }
 
         if (!me.ragdoll.gameObject.activeSelf)
         {
@@ -28,11 +32,12 @@ public class Spirit_Death : cState
         }
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
-
     }
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (!me.ragdoll.gameObject.activeSelf)
         {
             if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Death"))
@@ -51,8 +56,4 @@ public class Spirit_Death : cState
     {
         
     }
-
-
-    //렉돌 위치 미쳣음
-    //애니메이션 공들이기
 }

@@ -171,7 +171,7 @@ public class Inventory : MonoBehaviour
     }
     public void Routing(Vector3 pos)
     {
-        Vector3 Pos1 = new Vector3(pos.x,pos.y + 2.5f,pos.z);
+        Vector3 Pos1 = new Vector3(pos.x,pos.y + 1f,pos.z);
         int index = Random.Range(0, 11);
         switch (index)
         {
