@@ -31,6 +31,7 @@ public class Archer_Death : cState
 		//if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Death_0{rand}",0.25f))
 		if (Funcs.IsAnimationAlmostFinish(me.animCtrl, $"Archer_Death_01", ragdollTime))
 		{
+			archer.status.isDead = true;
 			archer.ActiveRagdoll();
 
 			//나중에 얘도 다시 돌려놓기

@@ -49,12 +49,12 @@ public class Archer_Hit_Hold : cState
 	public override void UpdateState()
 	{
 		//base.UpdateState();
-		if (archer.status.isDead)
+		if (archer.status.curHp <= 0f)
 		{
 			if (Funcs.IsAnimationCompletelyFinish(archer.animCtrl, animName,0.95f))
 			{
+				archer.status.isDead = true;
 				archer.ActiveRagdoll();
-
 				archer.DeathReset();
 				archer.gameObject.SetActive(false);
 			}

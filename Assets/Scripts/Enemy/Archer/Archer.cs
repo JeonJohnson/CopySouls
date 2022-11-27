@@ -485,7 +485,7 @@ public class Archer : Enemy
     {
         base.Hit(dmgStruct);
 
-		DeathCheck();
+		//DeathCheck();
 
 		if (dmgStruct.isRiposte | dmgStruct.isBackstab)
 		{
