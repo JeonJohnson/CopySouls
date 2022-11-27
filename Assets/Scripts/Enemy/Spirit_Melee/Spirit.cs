@@ -7,6 +7,8 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public CameraShakeEvent data;
+
     public Vector3 respawnPos;
 
     public Transform targetHeadPos;
@@ -101,6 +103,11 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            CameraShake.Instance.AddShakeEvent(data);
+        }
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;

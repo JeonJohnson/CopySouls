@@ -18,6 +18,7 @@ public class CameraShakeEvent : ScriptableObject
 
     public float duration = 1.0f;
 
+   
     public AnimationCurve blendOverLifetime = new AnimationCurve(
 
         new Keyframe(0.0f, 0.0f, Mathf.Deg2Rad * 0.0f, Mathf.Deg2Rad * 720.0f),
@@ -36,3 +37,25 @@ public class CameraShakeEvent : ScriptableObject
         this.blendOverLifetime = blendOverLifetime;
     }
 }
+
+
+// Rad -> Deg
+// PI Rad = 180 Deg
+// 1 Rad = 180 / PI (Deg)
+
+// Deg -> Rad
+// PI Rad = 180 Deg
+// PI / 180 (Rad)= 1 Deg
+
+// Rad을 Deg로 바꿀려면 : x Rad * (180 / PI) = Deg
+// Deg를 Rad을 바꿀려면 : x Deg * (PI / 180) = Rad
+
+// Deg : 말 그대로 각도
+// Rad : 호의 길이와 반지름의 길이가 같게 되는 각도
+
+// Rad을 쓰는 이유 : Deg와는 다르게 반지름과 rad을 안다면 호의 길이를
+//                 : 호와 반지름을 안다면 rad을
+//                 : 호와 rad을 안다면 반지름을 쉽게 구할 수 있음
+
+
+// _> Mathf.Deg2Rad * 720.0f 는 720.0도를 라디안으로 바꾸는 과정

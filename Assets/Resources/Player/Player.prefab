@@ -270,6 +270,8 @@ MonoBehaviour:
   rigid: {fileID: 0}
   itemType: 2
   itemImage: {fileID: 21300000, guid: 7c11da5b01c892f4996d1689aa293e83, type: 3}
+  collider: {fileID: 0}
+  speed: 10
   weapon: {fileID: 1189113979338820134}
 --- !u!65 &5222680443650805741
 BoxCollider:
@@ -438,6 +440,8 @@ MonoBehaviour:
   rigid: {fileID: 0}
   itemType: 2
   itemImage: {fileID: 21300000, guid: 9a277565cc88f0f48904204b3b6ea7ed, type: 3}
+  collider: {fileID: 0}
+  speed: 10
   weapon: {fileID: 6274456743026991044}
 --- !u!65 &7864703434582034383
 BoxCollider:
@@ -2462,10 +2466,6 @@ MonoBehaviour:
     LeftHand: {fileID: 6274456743026991044}
   preState_e: 8
   curState_e: 8
-  idleAnimClips:
-  - {fileID: 7400000, guid: 147f04b16a738e14786ce73659c0e749, type: 2}
-  - {fileID: 7400000, guid: 73e6427b708464b4a8ea1f03f3d5e801, type: 2}
-  - {fileID: 7400000, guid: d7823825151dc994ba05dc63597b504b, type: 2}
 --- !u!114 &7030777313930249931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2542,6 +2542,8 @@ MonoBehaviour:
   player: {fileID: 7030777313930249930}
   isComboCheck: 0
   curActAtkValue: 1
+  pastHoldIndex: 0
+  curHoldIndex: 0
   holdType: 0
   holdParam: 0
   nearColliders: []

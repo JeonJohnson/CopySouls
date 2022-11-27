@@ -10,6 +10,9 @@ public class Spirit_Groggy : cState
         me.HitCount = 0;
         me.animCtrl.SetBool("isGroggy",true);
         ((Spirit)me).weapon.WeaponColliderOnOff(false);
+
+        CameraShake.Instance.AddShakeEvent(((Spirit)me).data);
+
     }
     public override void UpdateState()
     {
