@@ -37,7 +37,6 @@ public class CameraShakeEvent : ScriptableObject
 
         this.blendOverLifetime = blendOverLifetime;
     }
-<<<<<<< Updated upstream:Assets/Scripts/CameraShake/CameraShakeEvent.cs
 }
 
 
@@ -61,6 +60,4 @@ public class CameraShakeEvent : ScriptableObject
 
 
 // _> Mathf.Deg2Rad * 720.0f 는 720.0도를 라디안으로 바꾸는 과정
-=======
-}
->>>>>>> Stashed changes:Assets/Personal/KDM/TestScirpt/CameraShakeEvent.cs
+
