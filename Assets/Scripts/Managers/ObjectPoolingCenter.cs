@@ -21,6 +21,15 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
     public Dictionary<string, Queue<GameObject>> poolingObjDic;
 
+	[HideInInspector]
+	public List<GameObject> trashBin = new List<GameObject>();
+
+	public void	AddTrashBin(GameObject obj)
+	{
+		obj.SetActive(false);
+
+		trashBin.Add(obj);
+	}	
 
 	public void CreateBoxes()
 	{
@@ -96,7 +105,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
 		if (tempPair.Value.Count < count)
 		{
-			FillObject(objName, count);
+			FillObject(objName, count * 2);
 			return LentalObj(objName, count);
 		}
 		else 
@@ -214,11 +223,8 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 
 	void Awake()
 	{
-   
         CreateBoxes();
 		FillAllObjects();
-
-        
 
     }
 

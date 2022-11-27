@@ -76,8 +76,13 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
-    public bool isRouting; 
+    public bool isRouting;
 
+    public void SetInitTr(Vector3 pos, Vector3 forward)
+    {
+        initPos = pos;
+        initForward = forward;
+    }
     public virtual void DeathReset()
     {
         //if (hpBar)
@@ -448,8 +453,9 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
-        initPos = transform.position;
-        initForward = transform.forward;
+        SetInitTr(transform.position, transform.forward);
+        //initPos = transform.position;
+        //initForward = transform.forward;
 
         col = GetComponent<Collider>();
         animCtrl = GetComponent<Animator>();

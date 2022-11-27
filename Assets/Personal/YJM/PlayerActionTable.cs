@@ -75,6 +75,7 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.animator.SetTrigger("Death");
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
+        InGameManager.Instance.PlayerDeathEvent();
         StartCoroutine(PlayDeathEffect());
     }
 
@@ -802,4 +803,6 @@ public class PlayerActionTable : MonoBehaviour
             return true;
         }
     }
+
+    
 }
