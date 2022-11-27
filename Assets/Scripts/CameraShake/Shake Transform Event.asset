@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c0951f5decfa3c40a8cac33d253f252, type: 3}
-  m_Name: _Test
+  m_Name: Shake Transform Event
   m_EditorClassIdentifier: 
   target: 0
   amplitude: 1
   frequency: 1
-  duration: 15
+  duration: 1
   blendOverLifetime:
     serializedVersion: 2
     m_Curve:
@@ -29,19 +29,10 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.15763849
-      value: 0.053043842
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 1
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

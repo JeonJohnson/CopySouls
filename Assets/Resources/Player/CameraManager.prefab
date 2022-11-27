@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6348691163088468842}
   - component: {fileID: 6348691163088468841}
+  - component: {fileID: 1452596162316471087}
   m_Layer: 10
   m_Name: CameraManager
   m_TagString: Untagged
@@ -173,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7360b05f79fd2479da1620b326ecc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDontDestory: 0
   targetTransform: {fileID: 0}
   cameraPivot: {fileID: 6348691162375049621}
   cameraTransform: {fileID: 6348691163088468842}
@@ -184,7 +184,6 @@ MonoBehaviour:
   cameraInput: {x: 0, y: 0, z: 0}
   cameraFollowSpeed: 0.2
   cameraLookSpeed: 2
-  cameraPivotSpeed: 2
   ZoomSensitivity: 5
   minimumPivotAngle: -35
   maximumPivotAngle: 35
@@ -195,3 +194,15 @@ MonoBehaviour:
   pivotAngle: -2.40001
   cameraInputX: 0
   cameraInputY: 0
+--- !u!114 &1452596162316471087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348691163088468843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3cb9a21ea60184da9a088b75223483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

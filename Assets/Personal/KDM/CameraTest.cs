@@ -53,14 +53,14 @@ public class CameraTest : Manager<CameraTest>
     void Update()
     {
         ZoomCamera();
-
+        cameraLookSpeed = GameManager.Instance.mouseSensivility;
     }
 
      void LateUpdate()
      {
         HandleAllCameraMovement();
 
-    }
+     }
 
     public void HandleAllCameraMovement()
     {

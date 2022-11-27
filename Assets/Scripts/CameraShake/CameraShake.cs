@@ -82,34 +82,9 @@ public class CameraShake : MonoBehaviour
 
     public void AddShakeEvent(CameraShakeEvent data)
     {
-        //Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
         shakeEvents.Add(new ShakeEvent(data));
     }
 
-    //public void AddShakeEvent(GameObject obj)
-    //{
-
-    //    CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
-    //    Camera.main.GetComponentInParent<CameraShake>().AddShakeEvent(data);
-    //    if (data != null)
-    //    {
-    //        shakeEvents.Add(new ShakeEvent(data));
-    //    }
-
-    //    //CameraShakeEvent temp = obj.GetComponent<CameraShakeEvent>();
-
-    //    //if (temp != null)
-    //    //{
-    //    //    shakeEvents.Add(new ShakeEvent(temp.data));
-    //    //}
-
-    //    //ShakeOnKey temp = obj.GetComponent<ShakeOnKey>();
-
-    //    //if (temp != null)
-    //    //{ shakeEvents.Add(new ShakeEvent(temp.data)); }
-
-    //    //shakeEvents.Add(new ShakeEvent(go.GetComponent<ShakeEvent>()));
-    //}
     public void AddShakeEvent(float amplitude, float frequency, float duration, AnimationCurve blendOverLifetime, CameraShakeEvent.Target target)
     {
         CameraShakeEvent data = CameraShakeEvent.CreateInstance<CameraShakeEvent>();
@@ -125,7 +100,8 @@ public class CameraShake : MonoBehaviour
 
         for (int i = shakeEvents.Count - 1; i != -1; i--)
         {
-            ShakeEvent se = shakeEvents[i]; se.Update();
+            ShakeEvent se = shakeEvents[i];
+            se.Update();
 
             if (se.target == CameraShakeEvent.Target.Position)
             {
@@ -134,6 +110,7 @@ public class CameraShake : MonoBehaviour
             else
             {
                 rotationOffset += se.noise;
+                transform.localEulerAngles = rotationOffset;
             }
 
             if (!se.IsAlive())
@@ -143,6 +120,5 @@ public class CameraShake : MonoBehaviour
         }
 
         transform.localPosition = positionOffset;
-        transform.localEulerAngles = rotationOffset;
     }
 }

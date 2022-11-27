@@ -10,6 +10,7 @@ public class Spirit_Groggy : cState
         me.HitCount = 0;
         me.animCtrl.SetBool("isGroggy",true);
         ((Spirit)me).weapon.WeaponColliderOnOff(false);
+
     }
     public override void UpdateState()
     {

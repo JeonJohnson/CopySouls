@@ -44,7 +44,7 @@ public class HFSMCtrl : MonoBehaviour
 
 		return baseStates[index];
 	}
-
+	
 	public void InitBaseState()
 	{
 		baseStates = new Golem_BaseState[(int)eGolemBaseState.End];

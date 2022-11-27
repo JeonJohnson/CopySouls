@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Golem : Enemy
 {
-
 	//public AnimationClip testClip;
 	[Header("Target")]
 	public Transform targetHeadTr;
@@ -214,18 +213,18 @@ public class Golem : Enemy
 
 
 
-		//////공격 사정거리
-		//Gizmos.color = Color.green;
-		//Gizmos.DrawWireSphere(transform.position, throwAtkRange);
-		//////공격 사정거리
+        //////공격 사정거리
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawWireSphere(transform.position, throwAtkRange);
+        //////공격 사정거리
 
-		//////공격 사정거리
-		//Gizmos.color = Color.blue;
-		//Gizmos.DrawWireSphere(transform.position, jumpAtkRange);
-		//////공격 사정거리
+        //////공격 사정거리
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(transform.position, jumpAtkRange);
+        //////공격 사정거리
 
 
-	}
+    }
 
 
 }

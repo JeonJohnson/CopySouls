@@ -7,6 +7,11 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public GameObject trail;
+
+    public CameraShakeEvent data1;
+    public CameraShakeEvent data2;
+
     public Vector3 respawnPos;
 
     public Transform targetHeadPos;
@@ -73,6 +78,9 @@ public class Spirit : Enemy
 	protected override void Awake()
     {
         base.Awake();
+
+        Spirit_TrailOnOff();
+
         respawnPos = transform.localPosition;
         initFOVAngle = GetComponent<FieldOfView>().viewAngle;
 
@@ -101,6 +109,12 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            CameraShake.Instance.AddShakeEvent(data1);
+            CameraShake.Instance.AddShakeEvent(data2);
+        }
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;
@@ -276,6 +290,12 @@ public class Spirit : Enemy
     }
 
     //=============================================================================
+
+    public void Spirit_TrailOnOff()
+    {
+        if(!trail.activeSelf) trail.SetActive(true);
+        else trail.SetActive(false);
+    }
 }
 
 

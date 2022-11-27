@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShakeT : MonoBehaviour
 {
-    public CameraShakeEvent data;
-    CameraShake st;
+    public CameraShakeEvent dataP;
+    public CameraShakeEvent dataR;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +15,10 @@ public class ShakeT : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            CameraShake.Instance.AddShakeEvent(data);
+            CameraShake.Instance.AddShakeEvent(dataP);
+            CameraShake.Instance.AddShakeEvent(dataR);
         }
     }
 }

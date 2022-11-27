@@ -30,6 +30,7 @@ public class CamShake : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Ä·½¦ÀÌÅ© »ý¼º");
         cameraShakeController = GetComponent<CameraTest>();
     }
     void Start()

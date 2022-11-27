@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class tESTEE : MonoBehaviour
 {
-    public CameraShakeEvent data;
     CameraShake st;
 
     // Start is called before the first frame update
@@ -17,6 +16,5 @@ public class tESTEE : MonoBehaviour
     void Update()
     {
         //if Á¶°Ç
-        CameraShake.Instance.AddShakeEvent(data);
     }
 }
