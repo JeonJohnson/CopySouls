@@ -107,13 +107,49 @@ public class UnitManager : Manager<UnitManager>
     }
 
     public void ResetAllEnemies()
-    {
-        foreach (Enemy enemy in allEnemyList)
-        {
-            enemy.ResetEnemy();   
+	{
+		foreach (Enemy enemy in allEnemyList)
+		{
+			enemy.ResetEnemy();
+
+   //         GameObject newObj = null;
+   //         Enemy newEnemy = null;
+			//switch (enemy.status.name_e)
+			//{
+			//	case eEnemyName.Spirit:
+   //                 {
+   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Spirit");
+   //                 }
+			//		break;
+			//	case eEnemyName.Archer:
+   //                 {
+   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
+   //                 }
+			//		break;
+			//	case eEnemyName.Golem:
+   //                 {
+   //                     newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
+   //                 }
+			//		break;
+			//	default:
+			//		break;
+			//}
+
+   //         if (newObj != null)
+   //         {
+   //             newEnemy = newObj.GetComponent<Enemy>();
+   //         }
+
+   //         newEnemy.gameObject.transform.position = enemy.initPos;
+   //         newEnemy.gameObject.transform.forward = enemy.initForward;
+   //         newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
+   //         newObj.SetActive(true);
+
+
+   //         ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
         }
 
-        ClearEnemyList();
+		ClearEnemyList();
         SearchEnemy();
     }
 

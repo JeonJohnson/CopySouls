@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,10 +32,15 @@ public class InGameManager : Manager<InGameManager>
         StartCoroutine(GotoTitleSceneCoroutine());
     }
 
+    public void PlayerDeathEvent()
+    { 
+    
+    }
+
     IEnumerator GotoTitleSceneCoroutine()
     {
-        //½ºÅ©¸° ÀÌÆåÆ® Å°¸é¼­ ¿£µù Å©·¹µ÷ ¾ËÆÄ°ª ³Ö±â
-        //³¡³ª¸é Å©·¹µ÷ ½ºÅ©·Ñ ¤¡¤¡
+        //ìŠ¤í¬ë¦° ì´í™íŠ¸ í‚¤ë©´ì„œ ì—”ë”© í¬ë ˆë”§ ì•ŒíŒŒê°’ ë„£ê¸°
+        //ëë‚˜ë©´ í¬ë ˆë”§ ìŠ¤í¬ë¡¤ ã„±ã„±
         yield return StartCoroutine(GameEndScreenEffectCoroutine());
         yield return StartCoroutine(EndingCreditFadeCoroutine());
      
@@ -120,8 +125,8 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        //Vector3 startPos = playerInitPos; //¤©¤·½ÃÀÛ À§Ä¡
-        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //º¸½º À§Ä¡ 
+        Vector3 startPos = playerInitPos; //ã„¹ã…‡ì‹œì‘ ìœ„ì¹˜
+        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //ë³´ìŠ¤ ìœ„ì¹˜ 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;        Player.instance.transform.position = startPos;
         PlayerLocomove.instance.cameraManager.gameObject.transform.position = startPos;

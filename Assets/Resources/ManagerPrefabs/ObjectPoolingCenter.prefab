@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1c2bdec38f23d4fa2df09c9b908687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDontDestory: 0
   prefabs:
   - {fileID: 1717406733745140, guid: cba67198d9707be44958c34eaf20d605, type: 3}
   - {fileID: 1880692188100032373, guid: c63cb40f964ac4141ab948061b41ec17, type: 3}
@@ -61,3 +60,6 @@ MonoBehaviour:
   - {fileID: 309165401939152439, guid: 0554e610dc734b5429a45157fcef7d0d, type: 3}
   - {fileID: 9115627030769532322, guid: 16dfec7b1d66c6e48a98a7b63815627c, type: 3}
   - {fileID: 3818739090858228874, guid: b5a10c8ddcfaf29499d28c386c44b210, type: 3}
+  - {fileID: 4771818966817922546, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
+  - {fileID: 3602043000222146065, guid: 5b833a01d08e3aa4d8040dffab9523d8, type: 3}
+  - {fileID: 1814817405527308052, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
