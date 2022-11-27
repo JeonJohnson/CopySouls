@@ -13,7 +13,7 @@ public class Sub_Melee3Atk : Golem_SubState
 	public override void EnterState()
 	{
 		base.EnterState();
-
+		golem.Golem_TrailOnOff(true);
 
 		golem.status.curStamina -= stateCost;
 		golem.animCtrl.SetTrigger("tAtk3");
@@ -44,6 +44,7 @@ public class Sub_Melee3Atk : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
+		golem.Golem_TrailOnOff(false);
 	}
 }
 

@@ -14,6 +14,8 @@ public class Sub_RockThrowAtk : Golem_SubState
 	{
 		base.EnterState();
 
+		golem.Golem_TrailOnOff(true);
+
 		golem.status.curStamina -= stateCost;
 
 		golem.animCtrl.SetTrigger("tThrow");
@@ -41,6 +43,7 @@ public class Sub_RockThrowAtk : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
+		golem.Golem_TrailOnOff(false);
 	}
 }
 

@@ -643,7 +643,7 @@ MonoBehaviour:
   rd: {fileID: 0}
   navAgent: {fileID: 0}
   isRouting: 0
-  trail: {fileID: 0}
+  trail: {fileID: 1678000307623734329}
   data1: {fileID: 0}
   data2: {fileID: 0}
   respawnPos: {x: 0, y: 0, z: 0}

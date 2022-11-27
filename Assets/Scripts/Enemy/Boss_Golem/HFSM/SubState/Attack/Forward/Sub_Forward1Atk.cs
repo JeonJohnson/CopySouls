@@ -13,6 +13,8 @@ public class Sub_Forward1Atk : Golem_SubState
 	public override void EnterState()
 	{
 		base.EnterState();
+		golem.Golem_TrailOnOff(true);
+
 		golem.animCtrl.applyRootMotion = true;
 
 		golem.status.curStamina -= stateCost;
@@ -51,5 +53,6 @@ public class Sub_Forward1Atk : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
+		golem.Golem_TrailOnOff(true);
 	}
 }

@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Golem : Enemy
 {
+	//Trail
+	[Header("Trail")]
+	public GameObject L_Trail;
+	public GameObject R_Trail;
+
 	//public AnimationClip testClip;
 	[Header("Target")]
 	public Transform targetHeadTr;
@@ -84,8 +89,8 @@ public class Golem : Enemy
 		{
 			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Damaged));
 		}
-		
-		
+
+
 
 		//if (status.curHp > 0)
 		//{
@@ -112,14 +117,14 @@ public class Golem : Enemy
 		//fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
 
 		//fsm[(int)eGolemState.Entrance] = new Golem_Entrance(0);
-		
+
 		//fsm[(int)eGolemState.MeleeAtk_1Hit] = new Golem_MeleeAtk_1Hit(1);
 		//fsm[(int)eGolemState.MeleeAtk_2Hit] = new Golem_MeleeAtk_2Hit(2);
 		//fsm[(int)eGolemState.MeleeAtk_3Hit] = new Golem_MeleeAtk_3Hit(3);
 
 		////fsm[(int)eGolemState.Turn] = new Golem_Turn(0);
 		////fsm[(int)eGolemState.TurnAtk] = new Golem_TurnAtk(1);
-		
+
 		//fsm[(int)eGolemState.ForwardAtk_1Hit] = new Golem_ForwardAtk_1Hit(3);
 		//fsm[(int)eGolemState.ForwardAtk_2Hit] = new Golem_ForwardAtk_2Hit(4);
 		//fsm[(int)eGolemState.ForwardAtk_3Hit] = new Golem_ForwardAtk_3Hit(5);
@@ -144,7 +149,7 @@ public class Golem : Enemy
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
 		actTable = GetComponent<Golem_ActionTable>();
 		hfsmCtrl = GetComponent<HFSMCtrl>();
 		//SetHFSMCtrl();
@@ -157,6 +162,7 @@ public class Golem : Enemy
 		initForward = transform.forward;
 
 		navAgent.stoppingDistance = status.atkRange;
+		Golem_TrailOnOff(false);
 	}
 
 	protected override void Start()
@@ -177,7 +183,7 @@ public class Golem : Enemy
 	{
 		base.Update();
 
-	
+
 	}
 
 	protected override void LateUpdate()
@@ -213,18 +219,46 @@ public class Golem : Enemy
 
 
 
-        //////공격 사정거리
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawWireSphere(transform.position, throwAtkRange);
-        //////공격 사정거리
+		//////공격 사정거리
+		//Gizmos.color = Color.green;
+		//Gizmos.DrawWireSphere(transform.position, throwAtkRange);
+		//////공격 사정거리
 
-        //////공격 사정거리
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawWireSphere(transform.position, jumpAtkRange);
-        //////공격 사정거리
-
-
-    }
+		//////공격 사정거리
+		//Gizmos.color = Color.blue;
+		//Gizmos.DrawWireSphere(transform.position, jumpAtkRange);
+		//////공격 사정거리
 
 
+	}
+
+	public void Golem_TrailOnOff(GameObject Trail, bool value)
+	{
+		if (value)
+		{
+			if (Trail.activeSelf) return;
+			else Trail.SetActive(true);
+		}
+		else Trail.SetActive(false);
+	}
+
+	public void Golem_TrailOnOff(bool value)
+	{
+		if (value)
+		{
+			if (L_Trail.activeSelf && R_Trail.activeSelf) return;
+			else if (L_Trail.activeSelf && !R_Trail.activeSelf) R_Trail.SetActive(true);
+			else if (!L_Trail.activeSelf && R_Trail.activeSelf) L_Trail.SetActive(true);
+			else
+			{
+				L_Trail.SetActive(true);
+				R_Trail.SetActive(true);
+			}
+		}
+		else
+		{
+			L_Trail.SetActive(false);
+			R_Trail.SetActive(false);
+		}
+	}
 }

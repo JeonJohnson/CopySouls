@@ -14,6 +14,7 @@ public class Sub_Forward3Atk : Golem_SubState
 	{
 		base.EnterState();
 
+		golem.Golem_TrailOnOff(true);
 
 		golem.animCtrl.applyRootMotion = true;
 
@@ -46,5 +47,6 @@ public class Sub_Forward3Atk : Golem_SubState
 	public override void ExitState()
 	{
 		base.ExitState();
+		golem.Golem_TrailOnOff(false);
 	}
 }
