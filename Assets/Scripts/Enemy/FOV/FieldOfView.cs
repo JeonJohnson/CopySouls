@@ -34,7 +34,6 @@ public class FieldOfView : MonoBehaviour
     public float meshResolution;
     Mesh viewMesh;
     public MeshFilter viewMeshFilter;
-
     void Start()
     {
 
@@ -72,17 +71,17 @@ public class FieldOfView : MonoBehaviour
 
     void LateUpdate()
     {
-        DrawFieldOfView();
+        //DrawFieldOfView();
     }
 
-    IEnumerator FindTargetsWithDelay(float delay)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            FindTargets();
-        }
-    }
+    //IEnumerator FindTargetsWithDelay(float delay)
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(delay);
+    //        FindTargets();
+    //    }
+    //}
 
 
 

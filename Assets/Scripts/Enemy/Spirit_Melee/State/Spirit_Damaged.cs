@@ -13,32 +13,12 @@ public class Spirit_Damaged : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);
         }
-
-
-        //if (me.status.isBackHold)
-        //{
-        //    //me.SetState((int)Enums.eSpiritState.Hold);
-        //    Debug.Log("쳐맞는 도중에 잡기가 어캐 드옴?");
-        //    me.status.isBackHold = false;
-        //}
-        //else if(me.status.isFrontHold)
-        //{
-        //    Debug.Log("쳐맞는 도중에 잡기가 어캐 드옴?");
-        //    me.status.isFrontHold = false;
-        //}
-
-        //if (me.status.isBackHold)
-        //{
-        //    me.animCtrl.SetBool("ChangeDamaged", false);
-        //    me.animCtrl.SetBool("isDamaged", false);
-        //    ((Spirit)me).complete_Damaged = false;
-        //    ((Spirit)me).HitCount = 0;
-        //    me.SetState((int)Enums.eSpiritState.Hold);
-        //}
 
         if (((Spirit)me).HitCount > 1)
         {

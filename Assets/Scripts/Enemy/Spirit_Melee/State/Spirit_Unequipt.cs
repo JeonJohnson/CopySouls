@@ -15,6 +15,8 @@ public class Spirit_Unequipt : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);

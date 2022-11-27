@@ -17,9 +17,7 @@ public class Spirit_Return : cState
 
     public override void UpdateState()
     {
-        //if (me.combatState == eCombatState.Alert) me.SetState((int)Enums.eSpiritState.Equipt);
-
-        //함 쨰리보고 본래 자리로 돌아가서 idle
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
 
         if (me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("ReturnStart"))
         {

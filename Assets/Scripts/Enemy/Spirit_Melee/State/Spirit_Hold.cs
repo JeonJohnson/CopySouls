@@ -20,6 +20,8 @@ public class Spirit_Hold : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         if (!me.status.isFrontHold && !me.status.isBackHold)
         {
             Debug.Log("잡기 판정이 아닌데? 어케 잡기상태로옴??");

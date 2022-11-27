@@ -21,6 +21,8 @@ public class Spirit_Equipt : cState
 
     public override void UpdateState()
     {
+        //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
+
         me.MoveStop();
 
         if (me.status.isBackHold)
