@@ -12,6 +12,10 @@ public enum eSpirit_AtkPattern
 }
 public class Spirit_Atk : cState
 {
+    
+
+
+
     public eSpirit_AtkPattern CurPattern;
     public bool startPattern;
     public int AttIndex;
@@ -21,6 +25,10 @@ public class Spirit_Atk : cState
         base.EnterState(script);
         ((Spirit)me).complete_Atk = true;
         me.animCtrl.SetBool("isAtk", true);
+
+
+       
+
     }
 
     public override void UpdateState()

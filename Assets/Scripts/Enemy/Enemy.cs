@@ -76,6 +76,8 @@ public abstract class Enemy : MonoBehaviour
     public NavMeshAgent navAgent;
     ////default Components
 
+    bool isRouting; 
+
     public virtual void DeathReset()
     {
         //if (hpBar)
@@ -495,9 +497,14 @@ public abstract class Enemy : MonoBehaviour
         //GetPlayerState();
         CalcAboutTarget();
 
-        
+
         //isAlert = CheckTargetInFov();
 
+        if (status.isDead && !isRouting)
+        {
+            isRouting = true;
+            Inventory.Instance.Routing(transform.position);
+        }
 
     }
 

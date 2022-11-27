@@ -103,6 +103,11 @@ public class ThrowingProcess : MonoBehaviour
 
     public void Throw(Slot _curSlot, int _itemCount)
     {
+        Vector3 pos = new Vector3(Player.instance.transform.position.x + 0.5f
+            , Player.instance.transform.position.y + 0.5f
+            , Player.instance.transform.position.z);
+        Inventory.Instance.GetItem(_curSlot.item.name,pos, _itemCount);
+
         if (_curSlot.isQuick) _curSlot.curRegisterQuickSlot.SetSlotCount_q(-_itemCount);
         else if(_curSlot.isEquiptment)
         {

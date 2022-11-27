@@ -9,6 +9,9 @@ public abstract class Item : MonoBehaviour
     public Rigidbody rigid;
     public Enums.ItemType itemType;
     public Sprite itemImage;
+    public Collider collider;
+
+    public float speed = 10f;
 
     public abstract void Initialize();
 
@@ -18,13 +21,38 @@ public abstract class Item : MonoBehaviour
     }
     protected virtual void Start()
     {
+        collider = GetComponent<Collider>();
+        rigid = GetComponent<Rigidbody>();
     }
     protected virtual void Update()
     {
+        if (ObjectType == Enums.ObjectType.Item) Orbit_Rotation();
+    }
+    protected virtual void FixedUpdate()
+    {
+        if (ObjectType == Enums.ObjectType.Item) Bounce();
+    }
+    private void Orbit_Rotation()
+    {
+        //Vector3.down : 반시계 방향
+        //Vector3.up : 시계 방향
+        transform.Rotate(Vector3.down * speed * Time.deltaTime);
+    }
+    private void Bounce()
+    {
+        rigid.AddForce(Vector3.up * 0.1f, ForceMode.Impulse);
     }
 
     public virtual void PlayFuncs()
     {
 
+    }
+    protected void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 9)
+        {
+            collider.enabled = false;
+            rigid.isKinematic = true;
+        }
     }
 }

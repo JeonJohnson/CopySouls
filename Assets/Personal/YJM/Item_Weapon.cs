@@ -20,7 +20,7 @@ public class Item_Weapon : Item
     }
     protected override void Update()
     {
-        base.Start();
+        base.Update();
     }
 
     public override void PlayFuncs()
