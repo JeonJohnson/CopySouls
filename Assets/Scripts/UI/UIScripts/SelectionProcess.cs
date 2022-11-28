@@ -193,14 +193,10 @@ public class SelectionProcess : MonoBehaviour
         }
         else Debug.Log("EquiptSlot == null");
 
-
-
-
         if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
         {
-            Item_Weapon obj = _curSlot.item.GetComponent<Item_Weapon>();
-            obj.SetAsMainWeapon();
-            //_curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+            print(_curSlot.item.name + " " + _curSlot.item.gameObject);
+            _curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
         }
         else if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
         {

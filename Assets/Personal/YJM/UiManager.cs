@@ -267,7 +267,7 @@ public class UiManager : Manager<UiManager>
         StartCoroutine(ShowFogCoro(false));
     }
 
-    IEnumerator ShowFogCoro(bool i, float value = 1f)
+    public IEnumerator ShowFogCoro(bool i, float value = 1f)
     {
         float timer = 1f;
         while (timer > 0f)

@@ -30,8 +30,4 @@ public class Bonfire : Item
 		base.Update();
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		
-	}
 }

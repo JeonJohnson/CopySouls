@@ -108,7 +108,7 @@ MonoBehaviour:
     price: 300
     isUsing: 0
     holdType: 0
-  item_Weapon: {fileID: 0}
+  item_Weapon: {fileID: 8103712724529741344}
   hittedEnemyList: []
   trailRenderer: {fileID: 3969467120979196380}
 --- !u!114 &8103712724529741344
@@ -130,7 +130,7 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 68cdada479330ea4a889557762cc28db, type: 3}
   collider: {fileID: 0}
   speed: 25
-  weapon: {fileID: 4421553474354860092}
+  weapon: {fileID: 1618914138309315625}
 --- !u!1001 &1070843933677182171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201,17 +201,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3711218530577091835, guid: 26ebc142c2f40644baf7df43fb887cc5, type: 3}
   m_PrefabInstance: {fileID: 1070843933677182171}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4421553474354860092 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3711218530577091815, guid: 26ebc142c2f40644baf7df43fb887cc5, type: 3}
-  m_PrefabInstance: {fileID: 1070843933677182171}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9eea57f9d3f86b48a1a0d3e433d8d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &8083646479660408475 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 9147522530969059904, guid: 26ebc142c2f40644baf7df43fb887cc5, type: 3}

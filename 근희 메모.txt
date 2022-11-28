@@ -603,3 +603,23 @@ Move 상태인데 가끔 idle 모션으로 따라오기만 함 (무서움)
 08:24 2022-11-28	SceneReset 시 Unit초기화 =>  PoolingCenter에 만들어 두고 걍 새로운거 들고옴 ㅋ
 	할거 : 플레이어 죽었을대 씬 초기화
 		+ 플레이어 낙사 (Player->Death호출)
+
+18:50 2022-11-28	디버그 프레임 드랍 버그 수정 => null 에러때매 그랬음
+	할거 : 플레이어 죽었을대 씬 초기화
+		+ 플레이어 낙사 (Player->Death호출)
+
+21:44 2022-11-28 	플레이어 죽었을때 씬 초기화 완료.
+			(스크린 흑백 + 블러 이펙트 추가)
+	=> PlayerActionTable.Death() => IngameManager.PlayerDeathEvent() 에서 처리.
+	=> 플레이어 재생성 위치는 마지막 화톳불 위치
+		(=> PlayerActionTable.Interaction에서 IngameManager의 LastBonFirePos 프로퍼티로 처리)
+	=> 화톳불 안 앉았을시 처음 위치로
+
+22:10 2022-11-28	골렘 많이 맞다보면 Idle애니메이션에서 멈춤
+	할거 : 플레이어 낙사 (콜라이더 부닻히면 카메라 정지)
+		사운드 매니저
+		골렘 버그 
+
+23:09 2022-11-28	낙사 정민이가 처리
+	할거 : 사운드 매니저
+		

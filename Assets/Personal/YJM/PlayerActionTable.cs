@@ -76,14 +76,15 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
         InGameManager.Instance.PlayerDeathEvent();
-        StartCoroutine(PlayDeathEffect());
+        //StartCoroutine(PlayDeathEffect());
     }
 
-    IEnumerator PlayDeathEffect()
-    {
-        yield return new WaitForSeconds(2f);
-        YouDiedWindow.Instance.PlayDieEffect();
-    }
+
+	//IEnumerator PlayDeathEffect()
+ //   {
+ //       yield return new WaitForSeconds(2f);
+ //       YouDiedWindow.Instance.PlayDieEffect();
+ //   }
 
     public void isParryingCheck(int i)
     { 
@@ -362,7 +363,7 @@ public class PlayerActionTable : MonoBehaviour
 
         if (target != null)
         {
-            if (!target.status.isDead && distance <= 2.5f )
+            if (!target.status.isDead && distance <= 1.5f )
             {
                 float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
@@ -550,8 +551,12 @@ public class PlayerActionTable : MonoBehaviour
             player.animator.SetLayerWeight(curIndex, 1 -timer);
             yield return null;
         }
-        player.animator.SetLayerWeight(pastIndex, 0);
-        player.animator.SetLayerWeight(curIndex, 1);
+
+        for(int i = 0; i < player.animator.layerCount - 2; i++)
+        {
+            if (i == curIndex) player.animator.SetLayerWeight(curIndex, (int)1);
+            else player.animator.SetLayerWeight(i, (int)0);
+        }
     }
 
     float guardParam = 0;
@@ -688,6 +693,10 @@ public class PlayerActionTable : MonoBehaviour
                     Vector3 targetDir = curInteractionItem.transform.position - this.gameObject.transform.position;
                     Vector3 clampedTargetDir = new Vector3(targetDir.x,0f, targetDir.z);
                     Player.instance.gameObject.transform.forward = clampedTargetDir;
+
+                    InGameManager.Instance.LastBonFirePos = this.gameObject.transform.position;
+
+
                 }
                 Player.instance.SetState(ePlayerState.Interacting);
             }
@@ -758,7 +767,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         isComboCheck = true;
         CurCoroCounter1++;
-        print("체킹");
     }
 
     public void StopComboCheck()
@@ -804,5 +812,10 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
-    
+    public void PlayEffect(string name)
+    {
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
+        effect.transform.position = transform.position + transform.forward + new Vector3(0f,0.8f,0f);
+        effect.GetComponent<ParticleSystem>().Play();
+    }
 }

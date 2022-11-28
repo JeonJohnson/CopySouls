@@ -62,7 +62,7 @@ public class Item_Weapon : Item
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
-        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = weapon.gameObject.GetComponent<BoxCollider>().size;
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = weapon.gameObject.GetComponent<BoxCollider>().center;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
@@ -76,7 +76,7 @@ public class Item_Weapon : Item
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
-        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 

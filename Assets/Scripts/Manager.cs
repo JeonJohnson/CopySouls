@@ -17,6 +17,7 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
 		{
 			if (instance == null)
 			{
+				print("널");
 				instance = InstantiateManager(false);
 			}
 			return instance;

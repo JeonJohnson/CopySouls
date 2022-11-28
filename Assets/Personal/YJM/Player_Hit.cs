@@ -16,6 +16,9 @@ public class Player_Hit : Player_cState
 
     public override void ExitState()
     {
-
+        Player.instance.status.isParrying = false;
+        PlayerActionTable.instance.isComboCheck = false;
+        PlayerActionTable.instance.EnableWeaponMeshCol(0);
+        Player.instance.SetModelCollider(true);
     }
 }
