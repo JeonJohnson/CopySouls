@@ -55,6 +55,9 @@ public class Archer_Hit_Hold : cState
 			{
 				archer.status.isDead = true;
 				archer.ActiveRagdoll();
+
+				Inventory.Instance.Routing(archer.transform.position);
+
 				archer.DeathReset();
 				archer.gameObject.SetActive(false);
 			}

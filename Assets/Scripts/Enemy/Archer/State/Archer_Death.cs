@@ -34,6 +34,8 @@ public class Archer_Death : cState
 			archer.status.isDead = true;
 			archer.ActiveRagdoll();
 
+			Inventory.Instance.Routing(archer.transform.position);
+
 			//나중에 얘도 다시 돌려놓기
 			archer.DeathReset();
 			me.gameObject.SetActive(false);
