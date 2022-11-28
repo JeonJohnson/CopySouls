@@ -550,8 +550,12 @@ public class PlayerActionTable : MonoBehaviour
             player.animator.SetLayerWeight(curIndex, 1 -timer);
             yield return null;
         }
-        player.animator.SetLayerWeight(pastIndex, (int)0);
-        player.animator.SetLayerWeight(curIndex, (int)1);
+
+        for(int i = 0; i < player.animator.layerCount - 2; i++)
+        {
+            if (i == curIndex) player.animator.SetLayerWeight(curIndex, (int)1);
+            else player.animator.SetLayerWeight(i, (int)0);
+        }
     }
 
     float guardParam = 0;
@@ -806,7 +810,7 @@ public class PlayerActionTable : MonoBehaviour
     public void PlayEffect(string name)
     {
         GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
-        effect.transform.position = transform.position + transform.forward;
+        effect.transform.position = transform.position + transform.forward + new Vector3(0f,0.8f,0f);
         effect.GetComponent<ParticleSystem>().Play();
     }
 }

@@ -226,7 +226,7 @@ public class QuickSlot : MonoBehaviour
                     {
                         _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
                     }
-                    else if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+                    else if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
                     {
                         _equiptSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
                     }

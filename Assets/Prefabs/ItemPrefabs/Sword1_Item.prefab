@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 0}
   type: 1
-  Dmg: 15
+  Dmg: 4
   atkType: 2
   owner: {fileID: 0}
   PlayerLayer:
@@ -129,6 +129,7 @@ MonoBehaviour:
   itemType: 1
   itemImage: {fileID: 21300000, guid: a63fb6bf6a785504d9911337bd50fa7d, type: 3}
   collider: {fileID: 0}
+  isHand: 0
   speed: 25
   weapon: {fileID: 4042519636445146652}
 --- !u!1001 &5077112187903189148
