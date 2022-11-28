@@ -15,6 +15,7 @@ TagManager:
   - Item
   - Bonfire
   - FogWall
+  - FallGround
   layers:
   - Default
   - TransparentFX

@@ -897,7 +897,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533cd9b1317c5fa49832b21034360a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDontDestory: 0
+  isBossCombat: 0
+  playerInitPos: {x: 0, y: 0, z: 0}
+  gameEndingEffectTime: 0
+  creditScrollTime: 0
+  creditScrollSpd: 0
+  isCreditEnd: 0
 --- !u!4 &1522382845
 Transform:
   m_ObjectHideFlags: 0
@@ -994,6 +999,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7030777313930249931, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
+      propertyPath: cameraArm
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7030777313930249931, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
       propertyPath: accelSpeed
       value: 25
       objectReference: {fileID: 0}
@@ -1006,6 +1015,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7030777313930249931, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
+      propertyPath: cameraManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7030777313930249931, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
       propertyPath: movementSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -1015,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7030777313930249932, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7030777313930249933, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
       propertyPath: m_RootOrder

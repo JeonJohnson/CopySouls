@@ -23,6 +23,9 @@ public class GameManager : Manager<GameManager>
 
     public GameObject objectPoolingManagerPrefab;
     public GameObject soundManagerPrefab;
+    public GameObject effectManagerPrefab;
+
+
 
     [Header("Ingame Settings")]
     public float mouseSensivility = 5f;
@@ -85,6 +88,7 @@ public class GameManager : Manager<GameManager>
         InGameManager.InstantiateManager(false);
         InGameManager.InstantiateManager(false);
         UiManager.InstantiateManager(false);
+        EffectManager.InstantiateManager(false);
     }
 
     public void SceneCheck(int sceneNum)

@@ -2491,8 +2491,8 @@ MonoBehaviour:
   mouseSensitivity: 52
   cc: {fileID: 0}
   playerModel: {fileID: 7030777313930249932}
-  cameraArm: {fileID: 0}
-  cameraManager: {fileID: 0}
+  cameraArm: {fileID: 774360108790470553, guid: 4f8cc636c010c74408e2193d48362301, type: 3}
+  cameraManager: {fileID: 6348691163088468841, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
   isMove: 0
   moveDir: {x: 0, y: 0, z: 0}
 --- !u!114 &7030777313930249926
