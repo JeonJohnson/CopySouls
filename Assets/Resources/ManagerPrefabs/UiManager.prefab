@@ -13608,6 +13608,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7623204420226308668, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7623204420315599030, guid: 10f4cd6a1c16a5849be3929e3b29d4b3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5

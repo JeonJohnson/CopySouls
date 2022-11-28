@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Shake Data Golem_Scream
   m_EditorClassIdentifier: 
-  isFinish: 0
-  duration: 3
-  amplitude: 3
-  frequency: 3
-  Transform_X: 0.5
-  Transform_Y: 0.5
-  Transform_Z: 2
-  Transform_Amplitude: 0.3
-  Rotation_X: 0
-  Rotation_Y: 0
-  Rotation_Z: 0
-  Rotation_Amplitude: 0
+  duration: 2
+  amplitude: 10
+  Quick: 0
+  frequency: 0
+  Transform_X: 0
+  Transform_Y: 0
+  Transform_Z: 0
+  Transform_Amplitude: 0
+  Rotation_X: 10
+  Rotation_Y: 10
+  Rotation_Z: 10
+  Rotation_Amplitude: 10
