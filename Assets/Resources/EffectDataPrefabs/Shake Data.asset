@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Shake Data
   m_EditorClassIdentifier: 
-  isFinish: 0
-  duration: 1
-  amplitude: 1
-  frequency: 1
-  Transform_X: 10
-  Transform_Y: 10
-  Transform_Z: 10
-  Transform_Amplitude: 0.5
-  Rotation_X: 0
-  Rotation_Y: 0
-  Rotation_Z: 0
-  Rotation_Amplitude: 0
+  duration: 2
+  amplitude: 2
+  frequency: 2
+  Transform_X: 1
+  Transform_Y: 1
+  Transform_Z: 1
+  Transform_Amplitude: 1
+  Rotation_X: 1
+  Rotation_Y: 1
+  Rotation_Z: 1
+  Rotation_Amplitude: 1

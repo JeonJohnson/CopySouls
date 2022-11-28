@@ -2131,6 +2131,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton_Spirit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9183441630339643008, guid: 5b833a01d08e3aa4d8040dffab9523d8, type: 3}
+      propertyPath: status.curHp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183441630339643008, guid: 5b833a01d08e3aa4d8040dffab9523d8, type: 3}
+      propertyPath: status.maxHp
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b833a01d08e3aa4d8040dffab9523d8, type: 3}
 --- !u!1001 &3422312630006127848
@@ -2140,10 +2148,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3422312628231841206, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3422312629044115861, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_Name
       value: Environmnet

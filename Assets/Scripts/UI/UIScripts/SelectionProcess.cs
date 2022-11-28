@@ -192,6 +192,7 @@ public class SelectionProcess : MonoBehaviour
             EquiptSlot.AddEquiptment(_curSlot, _curSlot.item, 1, EquiptSlot);
         }
         else Debug.Log("EquiptSlot == null");
+
         if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
         {
             print(_curSlot.item.name + " " + _curSlot.item.gameObject);
