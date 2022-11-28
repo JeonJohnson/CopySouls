@@ -250,7 +250,7 @@ MonoBehaviour:
     price: 10
     isUsing: 0
     holdType: 0
-  item_Weapon: {fileID: 0}
+  item_Weapon: {fileID: 1535635313334479960}
   hittedEnemyList: []
   trailRenderer: {fileID: 8242936882115986221}
 --- !u!114 &1535635313334479960
