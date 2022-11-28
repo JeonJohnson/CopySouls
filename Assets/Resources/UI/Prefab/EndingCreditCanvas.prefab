@@ -125,7 +125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 8451}
+  m_AnchoredPosition: {x: 0, y: 0.0000934133}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5609716414123446400
@@ -256,7 +256,7 @@ MonoBehaviour:
     \uC801 / \uC778\uBCA4\uD1A0\uB9AC, \uD035\uC2AC\uB86F / UI  : \uC6A9\uC11D\n\n\uC5D0\uC14B
     \uCD9C\uCC98\nAsset 1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset
     1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset
-    1 (Unity asset Store)\n\n\n\uC544\uB9AC\uAC00\uB610 \uACE0\uC790\uC774\uB9C8\uC2A4"
+    1 (Unity asset Store)\n\n\uC544\uB9AC\uAC00\uB610 \uACE0\uC790\uC774\uB9C8\uC2A4"
 --- !u!1 &5225158437315335189
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2642108786307234022
 RectTransform:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 12
   m_TargetDisplay: 0
 --- !u!114 &1195247443360104908
 MonoBehaviour:
@@ -571,5 +571,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentRectTr: {fileID: 8200117441699812810}
-  scrollVal: 0
   pressAnyKeyTxt: {fileID: 8200652586542362258}

@@ -17,16 +17,20 @@ public class YouDiedWindow : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        diedText.gameObject.SetActive(false);
+         bgImage.gameObject.SetActive(false);
     }
 
-    [SerializeField] Text diedText;
-    [SerializeField] Image bgImage;
+    [SerializeField] public Text diedText;
+    [SerializeField] public Image bgImage;
     [SerializeField] CanvasGroup canvasGroup;
  
     public void PlayDieEffect()
     {
         diedText.gameObject.SetActive(true);
         bgImage.gameObject.SetActive(true);
+        
         StartCoroutine(BgEffectCoro());
         StartCoroutine(DiedEffectCoro());
     }
@@ -35,7 +39,10 @@ public class YouDiedWindow : MonoBehaviour
     float diedAlpha = 0f;
 
     float canvasAlpha = 1f;
-    IEnumerator BgEffectCoro()
+
+
+
+    public IEnumerator BgEffectCoro()
     {
         while (bgAlpha <= 1f)
         {
@@ -45,7 +52,7 @@ public class YouDiedWindow : MonoBehaviour
         }
     }
 
-    IEnumerator DiedEffectCoro()
+    public IEnumerator DiedEffectCoro()
     {
         while (diedAlpha <= 1f)
         {
