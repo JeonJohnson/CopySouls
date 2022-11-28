@@ -41,6 +41,6 @@ public class Player_Dodge : Player_cState
 
     public override void ExitState()
     {
-    
+        Player.instance.status.isParrying = false;
     }
 }
