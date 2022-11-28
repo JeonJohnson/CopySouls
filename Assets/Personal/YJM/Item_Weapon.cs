@@ -76,7 +76,7 @@ public class Item_Weapon : Item
         playerWeapon.type = weapon.type;
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
-        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponent<MeshFilter>().mesh;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
