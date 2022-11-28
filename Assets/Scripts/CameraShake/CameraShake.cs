@@ -102,7 +102,7 @@ public class CameraShake : MonoBehaviour
         {
             ShakeEvent se = shakeEvents[i];
             se.Update();
-
+            
             if (se.target == CameraShakeEvent.Target.Position)
             {
                 positionOffset += se.noise;

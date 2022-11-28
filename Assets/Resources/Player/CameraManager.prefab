@@ -174,8 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e28a0410816eb4385b3aec5bc3afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShack: 0
-  effectTime: 2
+  List_EffectDatas:
+  - {fileID: 11400000, guid: 3f17492f2dc42e84f98ab83fb98718e8, type: 2}
+  - {fileID: 11400000, guid: f69fc118a2ac96443b8d63eaba18a7c9, type: 2}
+  - {fileID: 11400000, guid: 4da31a9aa579f6d46a280f820af558a4, type: 2}
 --- !u!114 &6348691163088468841
 MonoBehaviour:
   m_ObjectHideFlags: 0

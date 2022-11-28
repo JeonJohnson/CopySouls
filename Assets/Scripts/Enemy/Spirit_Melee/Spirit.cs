@@ -112,8 +112,15 @@ public class Spirit : Enemy
 
         if(Input.GetKeyDown(KeyCode.B))
         {
-            CameraShake.Instance.AddShakeEvent(data1);
-            CameraShake.Instance.AddShakeEvent(data2);
+            CameraEffect.instance.PlayShake("Shake Data");
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            CameraEffect.instance.PlayShake("Shake Data 1");
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            CameraEffect.instance.PlayShake("Shake Data 2");
         }
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
