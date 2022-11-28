@@ -78,6 +78,19 @@ public class CameraEffect : MonoBehaviour
             if (!data.GetStart) data.GetStart = true;
             return data;
         }
+        else if(curData.duration == data.duration)
+        {
+            if (curData.GetScore >= data.GetScore)
+            {
+                if (!curData.GetStart) curData.GetStart = true;
+                return curData;
+            }
+            else 
+            {
+                if (!data.GetStart) data.GetStart = true;
+                return data;
+            }
+        }
         else
         {
             if (curData.duration > data.duration)
