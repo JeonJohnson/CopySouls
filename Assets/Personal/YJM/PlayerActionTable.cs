@@ -77,8 +77,22 @@ public class PlayerActionTable : MonoBehaviour
         player.SetModelCollider(false);
         InGameManager.Instance.PlayerDeathEvent();
         //StartCoroutine(PlayDeathEffect());
+        StartCoroutine(DeathEffect());
+        print("재생");
+        
     }
 
+    IEnumerator DeathEffect()
+    {
+        Renderer renderer = player.playerModel.GetComponent<Renderer>();
+        float timer = 1f;
+        while(timer > 0f)
+        {
+            renderer.material.SetFloat("_Cutoff", 1 - timer);
+            timer -= Time.deltaTime * 0.3f;
+            yield return null;
+        }
+    }
 
 	//IEnumerator PlayDeathEffect()
  //   {

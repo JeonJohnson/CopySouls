@@ -166,6 +166,8 @@ public class InGameManager : Manager<InGameManager>
         Player.instance.status.curHp = Player.instance.status.maxHp;
         Player.instance.status.curStamina = Player.instance.status.maxStamina;
 
+        Player.instance.playerModel.GetComponent<Renderer>().material.SetFloat("_Cutoff",0f);
+
         StartCoroutine(PlayPlayerStartAnim());
     }
 

@@ -46,39 +46,105 @@ public class CameraEffect : MonoBehaviour
         }
     }
 
-    //중첩으로 들어오는 쉐이크 판단 어떻게??
-    // 1 순위 쉐이크 duration
-                        // 작은 진동 중 큰 진동이 들어옴
-                                                        //작은 진동의 길이가 큰 진동 길이보다 길면 큰 진동 씹힘
-                                                        //큰 진동의 길이가 
-
-    // 2 순위 쉐이크 값 
-                        // 작은 진동 중 큰진동 -> 큰 진동으로 교체
-                        // 큰 진동 중 작은 진동 -> 작은 진동 씹힘
-
     public void PlayShake(string dataName)
     {
         if (Dic_EffectDatas.ContainsKey(dataName))
         {
             EffectData data = Dic_EffectDatas[dataName];
-            if (curData == null)
-            {
-                List_EffectDatas.Add(data);
-            }
+            //List_EffectDatas.Add(data);
 
-            curData = data;
+            curData = SelectCurData(data);
+            Debug.Log(curData.name + "을 쉐이크 할꺼임");
         }
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
+    }
 
+    //기본적으로 이미 실행한 것들은 모두 수행하네
+    //그럼 끝날때 인자 하나 받아서 끝났다는 체크 해야겠네
 
-
-
+    private EffectData SelectCurData(EffectData data)
+    {
+        //if (List_EffectDatas.Capacity == 0) return null;
         if (curData == null)
         {
-            Debug.Log("현재 진행중인 쉐이크 있습니당~ " + dataName + "는 씹힐께요 이건 ㅎㅎ");
-            return;
+            if (!data.GetStart) data.GetStart = true;
+            return data;
+        }
+        if (curData == data)
+        {
+            //실행중 똑같은거 드오면 드온놈 실행
+            Debug.Log("똑같은 쉐이크 시간연장!!!!!!");
+            curData.GetStart = false;
+            if (!data.GetStart) data.GetStart = true;
+            return data;
         }
 
-       
+        if (curData.duration == data.duration)
+        {
+            if (curData.GetScore >= data.GetScore)
+            {
+                if (!curData.GetStart) curData.GetStart = true;
+                return curData;
+            }
+            else
+            {
+                if (!data.GetStart) data.GetStart = true;
+                return data;
+            }
+        }
+        else if (curData.duration > data.duration)
+        {
+            if (curData.GetScore > data.GetScore)
+            {
+                //data 씹힘
+                Debug.Log("금방 누른 쉐이크 씹힘!!!!!!");
+                if (!curData.GetStart) curData.GetStart = true;
+                return curData;
+            }
+            else
+            {
+                //<중첩되는 시간동안 강도 높여줌>
+                Debug.Log("지금 잠깐 강도 올라감!!!!!!");
+
+                curData.Conflict = true;        //이 시점부터
+                curData.AddValue = 2f;  //이만큼의 벡터를 더해줄꺼임
+                curData.ConflictTime = curData.CurrentTime + data.duration;
+                return curData;
+            }
+        }
+        else if (curData.duration < data.duration)
+        {
+            if (curData.GetScore > data.GetScore)
+            {
+                //중첩시간동안 씹히다가
+                //중첩시간 끝나면 다시 본래의 강도로 돌아옴
+
+                if (!curData.GetStart)
+                {
+                    Debug.Log("씹히다가 원래 지금 드온 강도로 변환!!!!!!");
+
+                    data.CurrentTime = data.duration - (curData.duration - curData.CurrentTime);
+                    if (!data.GetStart) data.GetStart = true;
+                    return data;
+                }
+            }
+            else
+            {
+                //중첩되는 시간동안 강도 높여줌
+                //중첩시간 끝나면 다시 본래의 강도로 돌아옴
+
+                curData.Conflict = true;        //이 시점부터
+                curData.AddValue = 2f;  //이만큼의 벡터를 더해줄꺼임
+                if (!curData.GetStart)
+                {
+                    Debug.Log("강도 높아졌다가 지금 드온 강도로 변환!!!!!!");
+
+                    data.CurrentTime = data.duration - (curData.duration - curData.CurrentTime);
+                    return data;
+                }
+            }
+        }
+        
+        return null;
     }
 }

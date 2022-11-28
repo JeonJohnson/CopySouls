@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
-  m_Name: Shake Data
+  m_Name: Shake Data Player_Attack
   m_EditorClassIdentifier: 
-  duration: 0
-  amplitude: 0
-  Quick: 0
-  frequency: 0
-  Transform_X: 0
-  Transform_Y: 0
-  Transform_Z: 0
-  Transform_Amplitude: 0
+  isFinish: 0
+  duration: 0.5
+  amplitude: 1
+  frequency: 1
+  Transform_X: 0.3
+  Transform_Y: 0.1
+  Transform_Z: 0.5
+  Transform_Amplitude: 0.1
   Rotation_X: 0
   Rotation_Y: 0
   Rotation_Z: 0
-  Rotation_Amplitude: 0
+  Rotation_Amplitude: 1
