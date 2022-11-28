@@ -86,7 +86,7 @@ public class Item_Weapon : Item
         Player_Weapon playerWeapon = this.gameObject.GetComponent<Player_Weapon>();
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 4;
-        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
