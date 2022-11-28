@@ -87,6 +87,7 @@ public class Spirit : Enemy
         weapon = GetComponentInChildren<Spirit_Weapon>();
         if (weapon != null)
         { weapon.owner = gameObject; }
+
     }
 
     protected override void Start()
