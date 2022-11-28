@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Structs;
 using Enums;
+using Cinemachine;
 
 
 public class Player : MonoBehaviour
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
         curState.UpdateState();
         if(Input.GetKeyDown(KeyCode.Y))
         {
+            print(CameraTest.Instance.cameraFollowSpeed);
             //UnitManager.Instance.SpawnTestEnemy(this.transform.position);
             //DamagedStruct dmgst = new DamagedStruct();
             //dmgst.atkType = eAttackType.Strong;

@@ -10,6 +10,7 @@ public abstract class Item : MonoBehaviour
     public Enums.ItemType itemType;
     public Sprite itemImage;
     public Collider collider;
+    public bool isHand = false;
 
     public float speed = 10f;
 
@@ -26,11 +27,11 @@ public abstract class Item : MonoBehaviour
     }
     protected virtual void Update()
     {
-        if (ObjectType == Enums.ObjectType.Item) Orbit_Rotation();
+        if (!isHand && ObjectType == Enums.ObjectType.Item) Orbit_Rotation();
     }
     protected virtual void FixedUpdate()
     {
-        if (ObjectType == Enums.ObjectType.Item) Bounce();
+        if (!isHand && ObjectType == Enums.ObjectType.Item) Bounce();
     }
     private void Orbit_Rotation()
     {

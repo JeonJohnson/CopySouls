@@ -108,7 +108,7 @@ MonoBehaviour:
     price: 10
     isUsing: 0
     holdType: 0
-  item_Weapon: {fileID: 0}
+  item_Weapon: {fileID: 5323563983404444751}
   hittedEnemyList: []
   trailRenderer: {fileID: 2403659756842667426}
 --- !u!114 &5323563983404444751
@@ -130,7 +130,7 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: e5bf55489855e4e448776208148d25d2, type: 3}
   collider: {fileID: 0}
   speed: 25
-  weapon: {fileID: 0}
+  weapon: {fileID: 5181190830630081411}
 --- !u!1001 &6320825510459532889
 PrefabInstance:
   m_ObjectHideFlags: 0

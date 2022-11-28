@@ -94,6 +94,6 @@ public class EffectData : ScriptableObject
         randVec.z *= Tr_z;
 
         Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + randVec;
-        //Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + randVec;
+        Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + randVec;
     }
 }

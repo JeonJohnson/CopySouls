@@ -363,7 +363,7 @@ public class PlayerActionTable : MonoBehaviour
 
         if (target != null)
         {
-            if (!target.status.isDead && distance <= 2.5f )
+            if (!target.status.isDead && distance <= 1.5f )
             {
                 float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
@@ -551,8 +551,8 @@ public class PlayerActionTable : MonoBehaviour
             player.animator.SetLayerWeight(curIndex, 1 -timer);
             yield return null;
         }
-        player.animator.SetLayerWeight(pastIndex, 0);
-        player.animator.SetLayerWeight(curIndex, 1);
+        player.animator.SetLayerWeight(pastIndex, (int)0);
+        player.animator.SetLayerWeight(curIndex, (int)1);
     }
 
     float guardParam = 0;
@@ -763,7 +763,6 @@ public class PlayerActionTable : MonoBehaviour
     {
         isComboCheck = true;
         CurCoroCounter1++;
-        print("체킹");
     }
 
     public void StopComboCheck()
@@ -809,5 +808,10 @@ public class PlayerActionTable : MonoBehaviour
         }
     }
 
-    
+    public void PlayEffect(string name)
+    {
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
+        effect.transform.position = transform.position + transform.forward;
+        effect.GetComponent<ParticleSystem>().Play();
+    }
 }
