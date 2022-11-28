@@ -117,11 +117,11 @@ public class Spirit : Enemy
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            CameraEffect.instance.PlayShake("Shake Data 1");
+            CameraEffect.instance.PlayShake("Shake Data Golem_Scream");
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            CameraEffect.instance.PlayShake("Shake Data 2");
+            CameraEffect.instance.PlayShake("Shake Data Strong_Hit");
         }
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
