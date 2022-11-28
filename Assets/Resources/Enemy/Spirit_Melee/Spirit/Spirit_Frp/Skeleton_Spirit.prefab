@@ -600,8 +600,8 @@ MonoBehaviour:
     name_e: 0
     type: 0
     isDead: 0
-    maxHp: 100
-    curHp: 100
+    maxHp: 150
+    curHp: 150
     maxStamina: 0
     curStamina: 0
     maxMp: 0
