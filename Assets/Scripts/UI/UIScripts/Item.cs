@@ -40,6 +40,7 @@ public abstract class Item : MonoBehaviour
     }
     private void Bounce()
     {
+        if(rigid)
         rigid.AddForce(Vector3.up * 0.1f, ForceMode.Impulse);
     }
 

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -14,7 +14,7 @@ public class EndingCredit : MonoBehaviour
     public Text pressAnyKeyTxt;
 
     public void SetScrollVal(float val)
-    { //normalize µÈ °ªÀÌ¶ó°í »ı°¢ÇÏ»ï
+    { //normalize ëœ ê°’ì´ë¼ê³  ìƒê°í•˜ì‚¼
         float scrollVal = val * contentRectTr.rect.height;
         Vector2 tempPos =   contentRectTr.rect.position;
         tempPos.y = scrollVal;
