@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EffectData : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float duration = 1.0f;
+    public float amplitude = 1.0f;
+    public float frequency = 1.0f;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
