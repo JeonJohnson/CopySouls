@@ -112,8 +112,8 @@ public class UnitManager : Manager<UnitManager>
 		{
 			enemy.ResetEnemy();
 
-            if (enemy.status.name_e != eEnemyName.Golem)
-            {
+            //if (enemy.status.name_e != eEnemyName.Golem)
+            //{
                 GameObject newObj = null;
                 Enemy newEnemy = null;
                 switch (enemy.status.name_e)
@@ -128,7 +128,19 @@ public class UnitManager : Manager<UnitManager>
                             newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
                         }
                         break;
-                    default:
+				case eEnemyName.Golem:
+					{
+                        if (enemy.combatState != eCombatState.Idle)
+                        {
+                            newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
+                        }
+                        else
+                        {
+                            continue;
+                        }
+					}
+					break;
+				default:
                         break;
                 }
 
@@ -146,7 +158,7 @@ public class UnitManager : Manager<UnitManager>
                 newObj.SetActive(true);
 
                 ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
-            }
+            //}
 		}
 
 		ClearEnemyList();

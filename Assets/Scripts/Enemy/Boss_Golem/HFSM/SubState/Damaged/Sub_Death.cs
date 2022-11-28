@@ -23,7 +23,7 @@ public class Sub_Death : Golem_SubState
 
 		golem.FragScript.animCtrl.SetTrigger("tExplode");
 
-		InGameManager.Instance.BossDeath();
+		InGameManager.Instance.BossDeathEvent();
 	}
 	public override void UpdateState()
 	{

@@ -76,14 +76,15 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
         InGameManager.Instance.PlayerDeathEvent();
-        StartCoroutine(PlayDeathEffect());
+        //StartCoroutine(PlayDeathEffect());
     }
 
-    IEnumerator PlayDeathEffect()
-    {
-        yield return new WaitForSeconds(2f);
-        YouDiedWindow.Instance.PlayDieEffect();
-    }
+
+	//IEnumerator PlayDeathEffect()
+ //   {
+ //       yield return new WaitForSeconds(2f);
+ //       YouDiedWindow.Instance.PlayDieEffect();
+ //   }
 
     public void isParryingCheck(int i)
     { 
@@ -688,6 +689,10 @@ public class PlayerActionTable : MonoBehaviour
                     Vector3 targetDir = curInteractionItem.transform.position - this.gameObject.transform.position;
                     Vector3 clampedTargetDir = new Vector3(targetDir.x,0f, targetDir.z);
                     Player.instance.gameObject.transform.forward = clampedTargetDir;
+
+                    InGameManager.Instance.LastBonFirePos = this.gameObject.transform.position;
+
+
                 }
                 Player.instance.SetState(ePlayerState.Interacting);
             }
