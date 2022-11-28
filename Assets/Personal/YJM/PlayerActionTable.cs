@@ -89,7 +89,7 @@ public class PlayerActionTable : MonoBehaviour
         while(timer > 0f)
         {
             renderer.material.SetFloat("_Cutoff", 1 - timer);
-            timer -= Time.deltaTime * 0.2f;
+            timer -= Time.deltaTime * 0.3f;
             yield return null;
         }
     }
