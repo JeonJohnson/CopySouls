@@ -82,7 +82,6 @@ public class PlayerLocomove : MonoBehaviour
                 Vector3 gravityVec = new Vector3(0f, -yVelocity, 0f);
                 cc.Move(gravityVec * Time.deltaTime);
                 falledDistance += beforeDistance - transform.position.y;
-                print(falledDistance);
             }
             else
             {

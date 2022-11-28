@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Structs;
 using Enums;
 using Cinemachine;
+using UnityEngine.Playables;
 
 
 public class Player : MonoBehaviour
@@ -87,13 +88,12 @@ public class Player : MonoBehaviour
         curState.UpdateState();
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            print(CameraTest.Instance.cameraFollowSpeed);
+            CameraEffect.instance.PlayShake("Player_Parry");
             //UnitManager.Instance.SpawnTestEnemy(this.transform.position);
             //DamagedStruct dmgst = new DamagedStruct();
             //dmgst.atkType = eAttackType.Strong;
             //dmgst.dmg = 1f;
             //PlayerActionTable.instance.Hit(dmgst);
-            Inventory.Instance.GetItem("Default_Weapon_Item");
         }
 
         if(Input.GetKeyDown(KeyCode.I))
