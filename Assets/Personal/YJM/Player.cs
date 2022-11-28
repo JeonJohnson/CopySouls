@@ -10,6 +10,7 @@ using Cinemachine;
 public class Player : MonoBehaviour
 {
     public GameObject playerModel;
+    public GameObject playerMat;
     public PlayerActionTable playerAt;
     public PlayerLocomove playerLocomove;
     public Animator animator;

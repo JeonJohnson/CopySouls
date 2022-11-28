@@ -20,7 +20,7 @@ public class PlayerLocomove : MonoBehaviour
     [SerializeField]
     float rotationSpeed = 10f;
     [SerializeField]
-    float fallingSpeed = 45f;
+    float fallingSpeed = 35f;
     public float moveAmount = 0f;
     float addedSpeed = 0f;
     [SerializeField]
@@ -68,19 +68,33 @@ public class PlayerLocomove : MonoBehaviour
     {
     }
 
-
+    float falledDistance = 0f;
     float yVelocity = 0f;
     void GiveGravity()
     {
-        if (cc.isGrounded == false)
+        if (Player.instance.status.isDead == false)
         {
-            yVelocity += fallingSpeed * Time.deltaTime;
-            Vector3 gravityVec = new Vector3(0f, -yVelocity, 0f);
-            cc.Move(gravityVec * Time.deltaTime);
-        }
-        else
-        {
-            yVelocity = 0f;
+            if (cc.isGrounded == false)
+            {
+                yVelocity += fallingSpeed * Time.deltaTime;
+                yVelocity = Mathf.Clamp(yVelocity, 0, 15f);
+                float beforeDistance = transform.position.y;
+                Vector3 gravityVec = new Vector3(0f, -yVelocity, 0f);
+                cc.Move(gravityVec * Time.deltaTime);
+                falledDistance += beforeDistance - transform.position.y;
+                print(falledDistance);
+            }
+            else
+            {
+                yVelocity = 0f;
+                falledDistance = 0f;
+            }
+
+            if (falledDistance >= 23f)
+            {
+                print("디졌대요!!!!!!!!!!!!!!!");
+                PlayerActionTable.instance.Death();
+            }
         }
     }
 

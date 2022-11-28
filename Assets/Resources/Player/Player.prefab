@@ -2438,7 +2438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f79977996457f4fb2dbb894cdb5cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 7030777313930249932}
+  playerModel: {fileID: 7030777313883558127}
+  playerMat: {fileID: 7030777313883558127}
   playerAt: {fileID: 8912638675591138825}
   playerLocomove: {fileID: 7030777313930249931}
   animator: {fileID: 6942927259787065918}
@@ -2486,7 +2487,7 @@ MonoBehaviour:
   movementSpeed: 4.5
   runningSpeed: 8
   rotationSpeed: 10
-  fallingSpeed: 45
+  fallingSpeed: 25
   moveAmount: 0
   accelSpeed: 80
   isRun: 0

@@ -196,11 +196,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9eea57f9d3f86b48a1a0d3e433d8d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 0}
+  type: 0
+  Dmg: 0
+  atkType: 2
+  owner: {fileID: 0}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   status:
     name: Sword
     type: 0
     range: 0
     price: 10
+    isUsing: 0
+    holdType: 0
+  item_Weapon: {fileID: 0}
+  hittedEnemyList: []
+  trailRenderer: {fileID: 0}
 --- !u!64 &2200565185672565162
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -329,11 +345,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9eea57f9d3f86b48a1a0d3e433d8d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 0}
+  type: 0
+  Dmg: 0
+  atkType: 2
+  owner: {fileID: 0}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   status:
     name: Shield
     type: 0
     range: 0
     price: 5
+    isUsing: 0
+    holdType: 0
+  item_Weapon: {fileID: 0}
+  hittedEnemyList: []
+  trailRenderer: {fileID: 0}
 --- !u!1 &8042083178136168238
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,9 +558,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f79977996457f4fb2dbb894cdb5cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   playerModel: {fileID: 8042083178859454954}
+  playerMat: {fileID: 0}
+  playerAt: {fileID: 0}
+  playerLocomove: {fileID: 0}
   animator: {fileID: 8042083178868663570}
+  spine3Tr: {fileID: 0}
+  headTr: {fileID: 0}
+  handTr: {fileID: 0}
   modelColliders: []
   status:
     name: player
@@ -543,12 +580,15 @@ MonoBehaviour:
     isInvincible: 0
     isParrying: 0
     isGuard: 0
+    isInputtable: 0
+    isDead: 0
+    interactionRange: 0
     mainWeapon: {fileID: 2200565185672565163}
     subWeapon: {fileID: 6420505343474156608}
+    RightHand: {fileID: 0}
+    LeftHand: {fileID: 0}
   preState_e: 6
   curState_e: 6
-  testMat_0: {fileID: 2100000, guid: a74b4b0e1ee6ee54d9a80a1a7355896e, type: 2}
-  testMat_1: {fileID: 2100000, guid: 3f47b402cd70f124bb78a19b3a7d4e61, type: 2}
 --- !u!114 &8042083178847657288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,17 +604,20 @@ MonoBehaviour:
   isMoveable: 1
   isCameraLock: 0
   targetEnemy: {fileID: 0}
-  walkSpeed: 5
-  runSpeed: 7
+  movementSpeed: 1
+  runningSpeed: 2
+  rotationSpeed: 10
+  fallingSpeed: 25
+  moveAmount: 0
   accelSpeed: 80
-  gravity: -5
   isRun: 0
   mouseSensitivity: 52
-  curSpeed: 0
+  cc: {fileID: 0}
   playerModel: {fileID: 8042083178859454954}
   cameraArm: {fileID: 0}
   cameraManager: {fileID: 0}
   isMove: 0
+  moveDir: {x: 0, y: 0, z: 0}
 --- !u!54 &8042083178847657291
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2970,6 +3013,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 8042083178847657289}
   isComboCheck: 0
+  curActAtkValue: 1
+  pastHoldIndex: 0
+  curHoldIndex: 0
+  holdType: 0
+  holdParam: 0
+  nearColliders: []
+  curInteractionItem: {fileID: 0}
 --- !u!136 &8042083178859454948
 CapsuleCollider:
   m_ObjectHideFlags: 0
