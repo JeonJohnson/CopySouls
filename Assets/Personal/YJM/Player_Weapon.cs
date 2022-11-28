@@ -44,6 +44,7 @@ public class Player_Weapon : Weapon
 
     new private void OnTriggerEnter(Collider other)
     {
+        print("충돌");
         DamagedStruct dmgStruct = new DamagedStruct();
         dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
         if (PlayerActionTable.instance.holdType) dmgStruct.dmg *= 1.2f;
@@ -67,6 +68,14 @@ public class Player_Weapon : Weapon
                         effect.GetComponent<ParticleSystem>().Play();
                     }
                 }
+            }
+            print(other.name);
+            if(other.gameObject.layer == 8)
+            {
+                print("앍");
+                GameObject effect = ObjectPoolingCenter.Instance.LentalObj("BasicSpark 4 (Shower)", 1);
+                effect.transform.position = other.ClosestPoint(transform.position);
+                effect.GetComponent<ParticleSystem>().Play();
             }
         }
     }
