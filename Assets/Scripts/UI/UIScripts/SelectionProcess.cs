@@ -244,7 +244,15 @@ public class SelectionProcess : MonoBehaviour
             _curSlot.SetEquiptment(false);
             _equiptSlot.ClearSlot_q();
             _equiptSlot.matchEquiptmentSlot_Q();
-            _curSlot.item.GetComponent<Item_Weapon>().DeselectWeapon();
+            if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+            {
+                print(_curSlot.item.name + " " + _curSlot.item.gameObject);
+                _curSlot.item.GetComponent<Item_Weapon>().DeselectMainWeapon();
+            }
+            else if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+            {
+                _curSlot.item.GetComponent<Item_Weapon>().DeselectSubWeapon();
+            }
         }
     }
 }

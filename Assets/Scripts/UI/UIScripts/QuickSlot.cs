@@ -187,6 +187,7 @@ public class QuickSlot : MonoBehaviour
                 //여기엔 무기 스왑
                 if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
                 {
+                    print(_equiptSlot.item.name);
                     _equiptSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
                 }
                 else if (invenSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
@@ -241,6 +242,17 @@ public class QuickSlot : MonoBehaviour
                     //주먹으로 교체
                     if (_equiptSlot.invenSlot.isEquiptment)
                     {
+
+                        // 플레이어 손의 무기 해제
+                        if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+                        {
+                            Player.instance.status.mainWeapon.GetComponent<Item_Weapon>().DeselectMainWeapon();
+                        }
+                        else if (_equiptSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+                        {
+                            Player.instance.status.subWeapon.GetComponent<Item_Weapon>().DeselectSubWeapon();
+                        }
+
                         //장비 해제 시키고
                         _equiptSlot.invenSlot.SetEquiptment(false);
                         _equiptSlot.invenSlot.SetRegister(true);
@@ -261,9 +273,6 @@ public class QuickSlot : MonoBehaviour
                         CoolTimeChangeWeapon(_equiptSlot, _quickSlot);
 
                     }
-
-                    //무기에서 주먹으로 
-                    Player.instance.status.mainWeapon.GetComponent<Item_Weapon>().DeselectWeapon();
                 }
             }
             else return;

@@ -84,6 +84,19 @@ public class Item_Weapon : Item
     public void DeselectWeapon()
     {
         Player_Weapon playerWeapon = this.gameObject.GetComponent<Player_Weapon>();
+        print(playerWeapon.gameObject.name);
+        playerWeapon.type = eWeaponType.None;
+        playerWeapon.Dmg = 4;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
+        playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
+        playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
+        playerWeapon.trailRenderer.transform.localPosition = new Vector3(0f, 0f, 0f);
+    }
+
+    public void DeselectMainWeapon()
+    {
+        Player_Weapon playerWeapon = Player.instance.status.RightHand;
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 4;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
@@ -91,5 +104,16 @@ public class Item_Weapon : Item
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
         playerWeapon.trailRenderer.transform.localPosition = new Vector3(0f, 0f, 0f);
+    }
+
+    public void DeselectSubWeapon()
+    {
+        Player_Weapon playerWeapon = Player.instance.status.LeftHand;
+        playerWeapon.type = eWeaponType.None;
+        playerWeapon.Dmg = 4;
+        playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
+        playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
+        playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
     }
 }
