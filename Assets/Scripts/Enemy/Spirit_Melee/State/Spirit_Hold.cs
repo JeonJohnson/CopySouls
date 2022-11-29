@@ -17,6 +17,7 @@ public class Spirit_Hold : cState
         else if (me.status.isFrontHold) me.animCtrl.SetFloat("AttIndex", 1);
 
         me.col.enabled = false;
+
     }
 
     public override void UpdateState()

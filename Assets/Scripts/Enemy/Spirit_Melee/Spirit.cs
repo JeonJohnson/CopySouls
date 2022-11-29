@@ -292,6 +292,12 @@ public class Spirit : Enemy
             }
         }
     }
+    public void DoShake()
+    {
+        CameraEffect.instance.PlayShake("Shake Data");
+    }
+
+
     public bool isCurrentAnimationOver(Animator animator,float time)
     {
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > time;
