@@ -69,6 +69,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 			for (int k = 0; k < iCount; ++k)
 			{
 				GameObject tempObj = Instantiate(prefab, objBoxes[i].transform);
+				tempObj.name = tempObj.name.Replace("(Clone)", string.Empty);
 				tempObj.SetActive(false);
 				tempQueue.Enqueue(tempObj);
 			}
@@ -94,6 +95,7 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 			if (objBoxes[i].name.Equals(boxName))
 			{
 				GameObject newObj = Instantiate(prefabs[i], objBoxes[i].transform);
+				newObj.name = newObj.name.Replace("(Clone)", string.Empty);
 				newObj.SetActive(false);
 				tempPair.Value.Enqueue(newObj);
 			}
@@ -104,7 +106,6 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 	{
 		//디스이즈 람다식
 		var tempPair = poolingObjDic.FirstOrDefault(t => t.Key == objName);
-
 		if (tempPair.Value.Count < count)
 		{
 			FillObject(objName, count * 2);
