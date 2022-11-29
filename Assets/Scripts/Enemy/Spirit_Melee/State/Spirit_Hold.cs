@@ -11,6 +11,7 @@ public class Spirit_Hold : cState
     {
         base.EnterState(script);
         me.animCtrl.SetBool("isHold", true);
+        me.animCtrl.applyRootMotion = true;
         me.HitCount = 0;
         if (me.status.isBackHold) me.animCtrl.SetFloat("AttIndex", 0);
         else if (me.status.isFrontHold) me.animCtrl.SetFloat("AttIndex", 1);
@@ -28,7 +29,7 @@ public class Spirit_Hold : cState
             //return;
         }
 
-        me.MoveStop();
+        //me.MoveStop();
         if (!complete_GetUp && !complete_Hold && me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Hold"))
         {
             if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 1f))
@@ -36,6 +37,7 @@ public class Spirit_Hold : cState
                 if(me.animCtrl.GetBool("isHold"))
                 {
                     me.animCtrl.SetBool("isHold", false);
+                    me.animCtrl.applyRootMotion = false;
                     complete_Hold = true;
                 }
             }
