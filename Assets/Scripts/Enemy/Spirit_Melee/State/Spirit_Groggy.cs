@@ -14,6 +14,7 @@ public class Spirit_Groggy : cState
     }
     public override void UpdateState()
     {
+
         //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
 
         if (me.status.isFrontHold)

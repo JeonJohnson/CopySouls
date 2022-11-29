@@ -102,8 +102,8 @@ public class Spirit_Atk : cState
         if (!startPattern)
         {
             int AttPatternIndex;
-            AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.NormalAtk), ((int)eSpirit_AtkPattern.End));
-            //AttPatternIndex = (int)eSpirit_AtkPattern.DoubleAtk;
+            //AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.NormalAtk), ((int)eSpirit_AtkPattern.End));
+            AttPatternIndex = (int)eSpirit_AtkPattern.NormalAtk;
             AttIndex = AttPatternIndex;
 
 
@@ -119,7 +119,8 @@ public class Spirit_Atk : cState
    
     public void Play(eSpirit_AtkPattern CurPattern)
     {
-       switch (CurPattern)
+
+        switch (CurPattern)
        {
            case eSpirit_AtkPattern.NormalAtk:
                PlayNormalAtk();
