@@ -46,6 +46,8 @@ public abstract class Enemy : MonoBehaviour
     public float distToTarget;
     public Vector3 dirToTarget; //정규화된 값임 (normalize된거)
 
+
+    public Transform headTr;
     //++
     public int HitCount;
 
@@ -96,6 +98,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void ResetEnemy()
     {//화톳불 앉거나 플레이어 다시 살아날 경우 할 것들
+        //안씀
         Debug.Log($"{gameObject.name}is reset");
 
         //status.isDead = false;
@@ -104,11 +107,11 @@ public abstract class Enemy : MonoBehaviour
         status.curMp = status.maxMp;
         status.curStamina = status.maxStamina;
 
-        if (hpBar)
-        {
-            hpBar.gameObject.SetActive(true);
-            hpBar.ResetHpBar();
-        }
+        //if (hpBar)
+        //{
+        //    hpBar.gameObject.SetActive(true);
+        //    hpBar.ResetHpBar();
+        //}
 
         //이거 각자 파트에서 해줘야할듯 죽은 경우도 있어서
         //navAgent.isStopped = true;
