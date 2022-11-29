@@ -45,6 +45,8 @@ public class Sub_Entrance : Golem_SubState
 						golem.ragdoll.gameObject.SetActive(false);
 						golem.animCtrl.enabled = true;
 						golem.animCtrl.SetTrigger("tRoar");
+
+						SoundManager.Instance.PlaySound("Golem_RoarTest", golem.gameObject);
 					}
 				}
 				break;

@@ -135,6 +135,12 @@ public class Archer_ActionTable : MonoBehaviour
 	}
 	#endregion
 
+
+	public void DeathSoundTest()
+	{
+		SoundManager.Instance.PlayTempSound("Death_Test", transform.position, 1f);
+	}
+
 	public void DeleteArrow()
 	{
 		CommonArrow arrow = null;

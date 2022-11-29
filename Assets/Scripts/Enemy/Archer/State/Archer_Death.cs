@@ -25,6 +25,8 @@ public class Archer_Death : cState
 		me.animCtrl.SetTrigger("tDeath");
 		me.animCtrl.SetLayerWeight((int)Enums.eHumanoidAvatarMask.Leg, 0);
 		archer.actTable.DeleteArrow();
+
+		archer.actTable.DeathSoundTest();
 	}
 	public override void UpdateState()
 	{

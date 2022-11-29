@@ -6,11 +6,13 @@ using UnityEngine.Audio;
 
 public class SoundManager : Manager<SoundManager>
 {
-    public Dictionary<string, AudioClip> audClips;
+    public Dictionary<string, AudioClip> audioClips;
     string audioFolderPath = "AudioClips";
 
-    public AudioSource bgmAS;
-    public List<AudioSource> tempAS;
+    [SerializeField] Transform tempAusBox;
+    
+    [SerializeField] AudioSource bgmAus;
+    public Queue<AudioSource> tempAusQueue;
 
 
     //브금 -> 여기서
@@ -18,49 +20,189 @@ public class SoundManager : Manager<SoundManager>
     //일시적 물체음 -> Pooling해두고 세팅
     //해당 오브젝트에서 날 소리 -> transform으로 ㄴㄴ 오디오 소스 찾아서 넣고 없으면 일시적 물체음으로 ㄱㄱ
 
+    public void PlayBgm(string clipName)
+    { //이건 한무반복
+        if (!bgmAus)
+        {
+            CreateBgmAudioSource();
+        }
+        bgmAus.clip = GetAuidoClip(clipName);
+        bgmAus.Play();
+    }
+
+    public void StopBgm()
+    {
+        if (bgmAus)
+        {
+            bgmAus.Stop();
+        }
+
+    }
+
+    public void PlayTempSound(string clipName, Vector3 pos, float volume = 1f)
+    {
+        //특정 위치에 잠시 틀어지거나 안움직일때 씀.
+        AudioClip clip = GetAuidoClip(clipName);
+
+		if (clip != null)
+		{
+			AudioSource temp = tempAusQueue.Dequeue();
+
+			if (!temp.isPlaying)
+			{
+                temp.gameObject.SetActive(true);
+                temp.volume = volume;
+				temp.transform.position = pos;
+				temp.PlayOneShot(clip);
+				tempAusQueue.Enqueue(temp);
+			}
+			else
+			{
+                tempAusQueue.Enqueue(temp);
+
+                GameObject newObj = new GameObject();
+                newObj.name = "tempAus_" + tempAusQueue.Count.ToString();
+                newObj.transform.parent = tempAusBox.transform;
+                AudioSource newAus = newObj.AddComponent<AudioSource>();
+                newAus.spatialBlend = 1f;
+                
+                newObj.AddComponent<TempAudioSource>();
+
+                newAus.volume = volume;
+                newAus.transform.position = pos;
+                newAus.PlayOneShot(clip);
+                tempAusQueue.Enqueue(newAus);
+            }
+		}
+    }
+
+    public void PlaySound(string clipName, GameObject obj, float volume= 1f)
+    {
+        //움직이는 오브젝트들에 사용. (소리가 따라 움직여야 할때)
+        //그 오브젝트 안에 AuidoSource 컴포넌트 찾아보고 없으면 PlayTempSound로 돌릴꺼임 
+        AudioClip clip = GetAuidoClip(clipName);
+
+        if (clip)
+        {
+            AudioSource aus = obj.transform.root.GetComponent<AudioSource>();
+
+            if (aus)
+            {
+                aus.volume = volume;
+                aus.PlayOneShot(clip);
+            }
+            else
+            { PlayTempSound(clipName, obj.transform.position, volume); }
+        }
+
+    }
+
+
     void SearchAllAudClips()
     {
         AudioClip[] clips = Resources.LoadAll<AudioClip>(audioFolderPath);
 
+        audioClips = new Dictionary<string, AudioClip>();
         foreach (AudioClip clip in clips)
         {
             string clipName = clip.name;
-            audClips.Add(clipName, clip);
+            audioClips.Add(clipName, clip);
         }
-    
     }
 
-
-    public void PlayBgm(string clipName)
-    { //이건 한무반복
-        
-    }
-
-    public void PlayTempSound(string clipName, Vector3 pos)
+    void CreateTempAudioSource(int count)
     {
-    
+        if (tempAusBox != null)
+        {
+            string boxName = "TempAusBox";
+            Transform tr = transform.Find(boxName);
+            if (tr == null)
+            {
+                GameObject newObj = new GameObject(boxName);
+                newObj.transform.SetParent(gameObject.transform);
+                tr = newObj.transform;
+            }
+            tempAusBox = tr;
+        }
+
+        if (tempAusQueue == null)
+        {
+            tempAusQueue = new Queue<AudioSource>();
+        }
+
+        for (int i = 0; i < count; ++i)
+        {
+            GameObject newObj = new GameObject();
+            newObj.name = $"tempAus_{i}";
+            newObj.transform.parent = tempAusBox.transform;
+
+            AudioSource aus = newObj.AddComponent<AudioSource>();
+            aus.spatialBlend = 1f;
+
+            newObj.AddComponent<TempAudioSource>();
+
+            newObj.SetActive(false);
+            tempAusQueue.Enqueue(aus);
+        }
     }
 
-    public void PlaySound(string clipName, GameObject obj)
-    {//그 오브젝트 안에 AuidoSource 컴포넌트 찾아보고 없으면 PlayTempSound로 돌릴꺼임 
-    
+    void CreateBgmAudioSource()
+    {
+        if (bgmAus == null)
+        {
+            string bgmAusName = "BgmAus";
+            Transform tr = gameObject.transform.Find(bgmAusName);
 
+            if (tr == null)
+            {
+                GameObject newObj = new GameObject(bgmAusName);
+                newObj.transform.SetParent(transform);
+                tr = newObj.transform;
+            }
+
+            AudioSource aus = tr.GetComponent<AudioSource>();
+
+            if (aus == null)
+            {
+                aus = tr.gameObject.AddComponent<AudioSource>();
+
+            }
+
+            aus.spatialBlend = 0f;
+            //3d sound 안하기 위해서
+            aus.loop = true;
+            bgmAus = aus;
+        }
     }
 
-	void Awake()
+    AudioClip GetAuidoClip(string clipName)
+    {
+        AudioClip audioClip = null;
+        if (!audioClips.TryGetValue(clipName, out audioClip))
+        {
+            Debug.LogError($"{clipName} is empty");
+        }
+        return audioClip;
+    }
+
+    void Awake()
 	{
-	
-	}
+        SearchAllAudClips();
+        CreateTempAudioSource(50);
+        CreateBgmAudioSource();
+    }
 
-	// Start is called before the first frame update
 	void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    PlayTempSound("SoundTest", Vector3.zero);
+        //}
         
     }
 }

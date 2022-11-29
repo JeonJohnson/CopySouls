@@ -33,8 +33,6 @@ public class InGameManager : Manager<InGameManager>
     public float playerDeathEffectTime;
     public Camera diedUICam;
 
-
-
     public void BossCombatStart()
     {
         isBossCombat = true;

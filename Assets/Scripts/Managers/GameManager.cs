@@ -32,19 +32,19 @@ public class GameManager : Manager<GameManager>
     public float BgmOffset;
     public float SeOffset;
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void GameInitialize()
-    {    //게임시작시 호출되는 어트리뷰트
-         //static 함수만 호출 가능함. 
-         //221127 => 이거 알고보니 Awake 이후에 호출됨....
-         
-        //여기서는 GameManager만 만들도록 합시다
+	[RuntimeInitializeOnLoadMethod]
+	private static void GameInitialize()
+	{    //게임시작시 호출되는 어트리뷰트
+		 //static 함수만 호출 가능함. 
+		 //221127 => 이거 알고보니 Awake 이후에 호출됨....
 
-        GameManager.InstantiateManager(true);
-        //InstantiateManagerByPrefabPath(Defines.managerPrfabFolderPath);
-        
-    }
-    public void InstantiateManagerBoxes(out GameObject box, out GameObject destroyBox)
+		//여기서는 GameManager만 만들도록 합시다
+
+		GameManager.InstantiateManager(true);
+		//InstantiateManagerByPrefabPath(Defines.managerPrfabFolderPath);
+
+	}
+	public void InstantiateManagerBoxes(out GameObject box, out GameObject destroyBox)
     {
         box = Funcs.CheckGameObjectExist("ManagerBox");
         DontDestroyOnLoad(box);
@@ -73,15 +73,18 @@ public class GameManager : Manager<GameManager>
     public void IntroSceneManagersInit()
     {
         IntroSceneManager.InstantiateManager(false);
+        SoundManager.InstantiateManager(true);
     }
 
     public void TitleSceneManagersInit()
     {
-
+        SoundManager.InstantiateManager(true);
+        SoundManager.Instance.PlayBgm("TitleBgm_Test");
     }
 
     public void InGameSceneManagersInit()
     {
+        SoundManager.InstantiateManager(true);
         Cursor.lockState = CursorLockMode.Locked;
         ObjectPoolingCenter.InstantiateManager(false);
         UnitManager.InstantiateManager(false);
@@ -89,6 +92,7 @@ public class GameManager : Manager<GameManager>
         InGameManager.InstantiateManager(false);
         UiManager.InstantiateManager(false);
         EffectManager.InstantiateManager(false);
+
     }
 
     public void SceneCheck(int sceneNum)
@@ -127,7 +131,6 @@ public class GameManager : Manager<GameManager>
         InstantiateManagerBoxes(out managerBox, out managerBox_Destory);
 
         SceneCheck(SceneManager.GetActiveScene().buildIndex);
-
     }
 	// Start is called before the first frame update
 	void Start()
@@ -167,6 +170,7 @@ public class GameManager : Manager<GameManager>
                 {
                     Time.timeScale = 1f;
                     TitleSceneManagersInit();
+                    //SoundManager.Instance.PlayBgm("SoundTest");
                 }
 				break;
 			case (int)eSceneChangeTestIndex.InGame:

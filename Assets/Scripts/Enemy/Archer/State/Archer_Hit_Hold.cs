@@ -41,8 +41,10 @@ public class Archer_Hit_Hold : cState
 		archer.navAgent.enabled = false;
 		archer.animCtrl.SetLayerWeight((int)eHumanoidAvatarMask.Leg, 0f);
 
-		
-
+		if (archer.status.curHp <= 0f)
+		{
+			archer.actTable.DeathSoundTest();
+		}
 		//archer.actTable.ArrowReturn();
 	}
 
