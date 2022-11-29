@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : Manager<SoundManager>
 {
@@ -39,7 +40,51 @@ public class SoundManager : Manager<SoundManager>
 
     }
 
-    public void PlayTempSound(string clipName, Vector3 pos, float volume = 1f)
+    public void StopAllSE()
+    {
+        AudioSource[] allAS = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audio in allAS)
+        {
+            if (audio == bgmAus)
+            {
+                continue;
+            }
+            audio.Stop();
+        }
+    }
+    public void StopAllSound()
+    {
+        AudioSource[] allAS = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audio in allAS)
+        {
+            audio.Stop();
+        }
+    }
+
+    public void PauseAllSound()
+    {
+        AudioSource[] allAS = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audio in allAS)
+        {
+            audio.Pause();
+        }
+    }
+
+    public void ResumeAllSound()
+    {
+        AudioSource[] allAS = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audio in allAS)
+        {
+            audio.Play();
+        }
+    }
+
+
+	public void PlayTempSound(string clipName, Vector3 pos, float volume = 1f)
     {
         //특정 위치에 잠시 틀어지거나 안움직일때 씀.
         AudioClip clip = GetAuidoClip(clipName);
@@ -203,6 +248,13 @@ public class SoundManager : Manager<SoundManager>
         //{
         //    PlayTempSound("SoundTest", Vector3.zero);
         //}
-        
+        bgmAus.volume = GameManager.Instance.BgmOffset;
+    }
+
+	public override void OnSceneChanged(Scene scene, LoadSceneMode mode)
+	{
+		base.OnSceneChanged(scene, mode);
+
+        StopAllSound();
     }
 }
