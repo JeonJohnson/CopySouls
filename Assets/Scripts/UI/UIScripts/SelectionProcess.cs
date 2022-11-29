@@ -233,11 +233,28 @@ public class SelectionProcess : MonoBehaviour
     public void UnEquipt(Slot _curSlot)
     {
         EquiptSlot _equiptSlot = _curSlot.curRegisterQuickSlot.GetComponent<EquiptSlot>();
+
         if (_equiptSlot == null)
         {
-            Debug.Log("UnEquipt Error");
-            //QuickSlot _quickSlot = _curSlot.curRegisterQuickSlot.GetComponent<QuickSlot>();
-            //_curSlot.SetEquiptment(false);
+            _curSlot.SetEquiptment(false);
+
+            if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+            {
+                print(_curSlot.item.name + " " + _curSlot.item.gameObject);
+                _equiptSlot = UiManager.Instance.EquiptSlotQ_Weapon;
+
+                _equiptSlot.ClearSlot_q();
+                _equiptSlot.matchEquiptmentSlot_Q();
+                _curSlot.item.GetComponent<Item_Weapon>().DeselectMainWeapon();
+            }
+            else if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+            {
+                _equiptSlot = UiManager.Instance.EquiptSlotQ_Defence;
+
+                _equiptSlot.ClearSlot_q();
+                _equiptSlot.matchEquiptmentSlot_Q();
+                _curSlot.item.GetComponent<Item_Weapon>().DeselectSubWeapon();
+            }
         }
         else
         {
