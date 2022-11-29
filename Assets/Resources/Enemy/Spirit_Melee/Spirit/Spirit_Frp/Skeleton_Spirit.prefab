@@ -626,6 +626,7 @@ MonoBehaviour:
   targetScript: {fileID: 0}
   distToTarget: 0
   dirToTarget: {x: 0, y: 0, z: 0}
+  headTr: {fileID: 3602043000222106131}
   HitCount: 0
   combatState: 0
   weaponEquipState: 0

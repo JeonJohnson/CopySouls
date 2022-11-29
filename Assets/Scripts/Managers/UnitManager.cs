@@ -111,11 +111,13 @@ public class UnitManager : Manager<UnitManager>
 		foreach (Enemy enemy in allEnemyList)
 		{
 			enemy.ResetEnemy();
+            
+            GameObject newObj = null;
+            Enemy newEnemy = null;
 
-            //if (enemy.status.name_e != eEnemyName.Golem)
-            //{
-                GameObject newObj = null;
-                Enemy newEnemy = null;
+            if (enemy.status.name_e != eEnemyName.Golem)
+            {
+     
                 switch (enemy.status.name_e)
                 {
                     case eEnemyName.Spirit:
@@ -128,25 +130,30 @@ public class UnitManager : Manager<UnitManager>
                             newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
                         }
                         break;
-				case eEnemyName.Golem:
-					{
-                        if (enemy.combatState != eCombatState.Idle)
-                        {
-                            newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
-                        }
-                        else
-                        {
-                            continue;
-                        }
-					}
-					break;
-				default:
+                    //case eEnemyName.Golem:
+                    //    {
+                    //        if (enemy.combatState != eCombatState.Idle)
+                    //        {
+                    //            newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
+                    //        }
+                    //        else
+                    //        {
+                    //            continue;
+                    //        }
+                    //    }
+                    //    break;
+                    default:
                         break;
                 }
 
                 if (newObj != null)
                 {
                     newEnemy = newObj.GetComponent<Enemy>();
+                }
+                else
+                {
+                    Debug.LogError("EnemyObj is null at ResetAllenemy in UnitManager.");
+                    return;
                 }
 
                 newEnemy.navAgent.enabled = false;
@@ -157,9 +164,38 @@ public class UnitManager : Manager<UnitManager>
                 newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
                 newObj.SetActive(true);
 
+                if (enemy.hpBar)
+                {
+                    enemy.hpBar.DestorySceneReset();
+                }
                 ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
-            //}
-		}
+            }
+            else
+            {
+                //골렘용 초기화
+                //boss hpbar
+
+                //if (enemy.combatState != eCombatState.Idle)
+                //{
+                //    newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
+                //}
+                //else
+                //{
+                //    continue;
+                //}
+
+                //if (newObj != null)
+                //{
+                //    newEnemy = newObj.GetComponent<Enemy>();
+                //}
+                //else
+                //{
+                //    Debug.LogError("EnemyObj is null at ResetAllenemy in UnitManager.");
+                //    return;
+                //}
+
+            }
+        }
 
 		ClearEnemyList();
         SearchEnemy();
@@ -241,6 +277,13 @@ public class UnitManager : Manager<UnitManager>
             ragdollObj.SetActive(false);
         }
     }
+
+    private void SetHpBarEnemy(Enemy enemyScript)
+    { 
+    
+    
+    }
+        
 
 	//// <EnemyFuncs>
 
