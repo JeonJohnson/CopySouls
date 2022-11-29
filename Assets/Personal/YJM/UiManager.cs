@@ -6,6 +6,7 @@ using UnityEngine;
 public class UiManager : Manager<UiManager>
 {
     public static bool UIActivated = false;
+    bool isForceUiActivaed = false;
 
     [SerializeField] GameObject playerStatusUi;
     [SerializeField] GameObject hpBarUi;
@@ -108,17 +109,22 @@ public class UiManager : Manager<UiManager>
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            if (!UIActivated) UIActivated = true;
-            else UIActivated = false;
+            if (isForceUiActivaed) isForceUiActivaed = false;
+            else isForceUiActivaed = true;
+
+            if (isForceUiActivaed) UIActivated = true;
+            else CheckIsUiActivated();
         }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory.Instance.TryOpenInventory();
+            CheckIsUiActivated();
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
             EquipmentWindow.Instance.TryOpenEquiptment();
+            CheckIsUiActivated();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -244,6 +250,21 @@ public class UiManager : Manager<UiManager>
             for (int i = 0; i < indexList.Count; i++)
             {
                 indexList[i].sortingOrder = i;
+            }
+        }
+    }
+
+    void CheckIsUiActivated()
+    {
+        if(!isForceUiActivaed)
+        {
+            if (indexList.Count > 0)
+            {
+                UIActivated = true;
+            }
+            else
+            {
+                UIActivated = false;
             }
         }
     }

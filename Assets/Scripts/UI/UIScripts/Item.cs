@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public abstract class Item : MonoBehaviour
@@ -11,6 +12,7 @@ public abstract class Item : MonoBehaviour
     public Sprite itemImage;
     public Collider collider;
     public bool isHand = false;
+    private int count;
 
     public float speed = 10f;
 
@@ -49,6 +51,13 @@ public abstract class Item : MonoBehaviour
     {
 
     }
+
+    public int Count
+    {
+        get{ return count; }
+        set{ count = value; }
+    }
+
     protected void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 9)

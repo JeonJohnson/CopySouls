@@ -54,6 +54,7 @@ public class Inventory : MonoBehaviour
         if (inventoryActivated)
         {
             OpenInventory();
+            UiManager.UIActivated = true;
         }
         else
         {
@@ -147,8 +148,14 @@ public class Inventory : MonoBehaviour
     public void GetItem(string _itemName,Vector3 pos, int count = 1)
     {
         Debug.Log(_itemName);
-        GameObject item = ObjectPoolingCenter.Instance.LentalObj(_itemName, count);
-        item.transform.position = pos;
+        GameObject itemObj = ObjectPoolingCenter.Instance.LentalObj(_itemName, count);
+
+        if (itemObj.tag == "Item")
+        {
+            Item item = itemObj.GetComponent<Item>();
+            if(item.itemType == Enums.ItemType.supply_Item) item.Count = count;
+        }
+        itemObj.transform.position = pos;
     }
     public void GetItem(string _itemName,int count = 1)
     {

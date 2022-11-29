@@ -687,12 +687,6 @@ public class PlayerActionTable : MonoBehaviour
             {
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    if (Inventory.Instance.ItemIn(obj))
-                    {
-                        obj.gameObject.GetComponent<Collider>().enabled = false;
-                        obj.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                        ObjectPoolingCenter.Instance.ReturnObj(obj.gameObject);
-                    }
                     ItemInfoWindow.Instance.ShowItemInfo();
                     if(obj.itemType == ItemType.weapon_Equiptment_Item | obj.itemType == ItemType.Defence_Equiptment_Item)
                     {
@@ -700,7 +694,15 @@ public class PlayerActionTable : MonoBehaviour
                     }
                     else
                     {
-                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.name, 1);
+                        ItemInfoWindow.Instance.InitContents(obj.itemImage, obj.name, obj.Count);
+                    }
+
+                    if (Inventory.Instance.ItemIn(obj, obj.Count))
+                    {
+                        obj.gameObject.GetComponent<Collider>().enabled = false;
+                        obj.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        obj.Count = 0;
+                        ObjectPoolingCenter.Instance.ReturnObj(obj.gameObject);
                     }
                 }
                 else if (obj.ObjectType == Enums.ObjectType.Environment)
