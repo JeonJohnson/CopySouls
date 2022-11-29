@@ -43,12 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0138433c0ebcaae40bfea62956158ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDontDestory: 0
   playerPrefab: {fileID: 7030777313930249932, guid: 0bbdb62ce8cff6c48b02084ce0862fcb, type: 3}
   cameraPrefab: {fileID: 6348691163088468843, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
   enemyAllCount: 0
   enemyRagdollPrefabList:
-  - {fileID: 7585860364890064838, guid: bb3f1dc8e8c85ba48a9c132b153f5e80, type: 3}
+  - {fileID: 7166058712187679923, guid: 2182fe60276ffbc4aa1b99b4d0d1844f, type: 3}
   - {fileID: 3210124164430206608, guid: c2d2f71b30606774686e047e04e5e675, type: 3}
   - {fileID: 5662787450081604392, guid: 11df3da38b3cece438500e4dc974f6cc, type: 3}
   ragdollBox: {fileID: 0}
