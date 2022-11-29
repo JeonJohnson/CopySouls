@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Shake Data Golem_Scream
   m_EditorClassIdentifier: 
   duration: 2
-  amplitude: 10
+  amplitude: 1
   Quick: 0
   frequency: 0
   Transform_X: 0
   Transform_Y: 0
   Transform_Z: 0
   Transform_Amplitude: 0
-  Rotation_X: 10
-  Rotation_Y: 10
-  Rotation_Z: 10
-  Rotation_Amplitude: 10
+  Rotation_X: 0.5
+  Rotation_Y: 0.5
+  Rotation_Z: 0.2
+  Rotation_Amplitude: 3

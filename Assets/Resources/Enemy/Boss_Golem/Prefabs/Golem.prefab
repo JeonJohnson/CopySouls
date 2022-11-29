@@ -427,7 +427,7 @@ MonoBehaviour:
   golem: {fileID: 0}
   table: {fileID: 0}
   thinkMinTime: 1
-  thinkMaxTime: 4
+  thinkMaxTime: 3
   thinkTime: 0
 --- !u!114 &1705065869
 MonoBehaviour:
