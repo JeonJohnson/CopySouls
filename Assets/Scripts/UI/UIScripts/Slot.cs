@@ -240,8 +240,21 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 }
                 else
                 {
-                    Inventory.Instance.ThrowingParent.TryOpenThrow(eventData.position);
-                    DragSlot.instance.SetColor(0);
+                    if (Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Armor_Equiptment_Item ||
+                        Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Defence_Equiptment_Item ||
+                        Inventory.Instance.curSlot.item.itemType == Enums.ItemType.Helmet_Equiptment_Item ||
+                        Inventory.Instance.curSlot.item.itemType == Enums.ItemType.weapon_Equiptment_Item)
+                    {
+                        Inventory.Instance.ThrowingParent.Throw(Inventory.Instance.curSlot,1);
+                        Inventory.Instance.curSlot = null;
+                        DragSlot.instance.SetColor(0);
+                        DragSlot.instance.dragSlot = null;
+                    }
+                    else
+                    {
+                        Inventory.Instance.ThrowingParent.TryOpenThrow(eventData.position);
+                        DragSlot.instance.SetColor(0);
+                    }
                     //DragSlot.instance.dragSlot = null;
                     //ClearSlot();
                 }

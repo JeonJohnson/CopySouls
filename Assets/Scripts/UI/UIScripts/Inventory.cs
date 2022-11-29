@@ -146,10 +146,10 @@ public class Inventory : MonoBehaviour
     }
     public void GetItem(string _itemName,Vector3 pos, int count = 1)
     {
+        Debug.Log(_itemName);
         GameObject item = ObjectPoolingCenter.Instance.LentalObj(_itemName, count);
         item.transform.position = pos;
     }
-
     public void GetItem(string _itemName,int count = 1)
     {
         ItemIn(Dic_items[_itemName], count);
@@ -158,6 +158,7 @@ public class Inventory : MonoBehaviour
     public void GetItems()
     {
         GetItem("Shield0_Item"); // 60
+
         GetItem("Shield1_Item"); // 40
         GetItem("Shield2_Item"); // 20
         GetItem("Shield3_Item"); // 10
@@ -167,7 +168,9 @@ public class Inventory : MonoBehaviour
         GetItem("Sword2_Item");  // 20
         GetItem("Sword3_Item");  // 10
 
-        GetItem("Potion_Item",10);  //70
+        GetItem("Potion_Item", 10);  //70
+
+
     }
     public void Routing(Vector3 pos)
     {
@@ -236,4 +239,9 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    //풀링센터에 있는 원본 프리펩
+
+    // 인베토리 생성시 풀링센터에 등록된 원본 프리펩을 인벤토리 딕셔너리로 받아옴
+
 }

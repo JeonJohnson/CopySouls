@@ -687,7 +687,12 @@ public class PlayerActionTable : MonoBehaviour
             {
                 if (obj.ObjectType == Enums.ObjectType.Item)
                 {
-                    if (Inventory.Instance.ItemIn(obj)) obj.gameObject.SetActive(false);
+                    if (Inventory.Instance.ItemIn(obj))
+                    {
+                        obj.gameObject.GetComponent<Collider>().enabled = false;
+                        obj.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        ObjectPoolingCenter.Instance.ReturnObj(obj.gameObject);
+                    }
                     ItemInfoWindow.Instance.ShowItemInfo();
                     if(obj.itemType == ItemType.weapon_Equiptment_Item | obj.itemType == ItemType.Defence_Equiptment_Item)
                     {

@@ -285,6 +285,7 @@ public static class Funcs
 
 			ragdollObj.GetChild(i).localPosition = originObj.GetChild(i).localPosition;
 			ragdollObj.GetChild(i).localRotation = originObj.GetChild(i).localRotation;
+
 		}
 	}
 

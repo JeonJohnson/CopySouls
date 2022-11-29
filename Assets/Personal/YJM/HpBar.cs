@@ -20,27 +20,29 @@ public class HpBar : MonoBehaviour
 
     private void Awake()
     {
-
+        //생성은 각자 에너미 Start에서 해줌.
     }
 
     private void Start()
     {
-        print(target);
-        curHp = target.status.maxHp;
-        canvasGroup.alpha = 0f;
-        damageText.color = new Color(1f, 1f, 1f, 0f);
-        InitName();
+
+        ResetHpBar();
+        //print(target);
+        //curHp = target.status.maxHp;
+        //canvasGroup.alpha = 0f;
+        //damageText.color = new Color(1f, 1f, 1f, 0f);
+        //InitName();
     }
 
     void Update()
     {
 		if (curHp <= 0f)
 		{
-			isDestroyed = true;
-			if (isDestroyed == true)
-			{
-				StartCoroutine(DestroyEffect());
-			}
+            if (!isDestroyed)
+            {
+                isDestroyed = true;
+                StartCoroutine(DisappearEffect());
+            }
 		}
 
 		if (target != null)
@@ -49,9 +51,23 @@ public class HpBar : MonoBehaviour
             
             if (isDamaged == true)
             {
-                print("위치변경중");
+                //print("위치변경중");
                 canvasGroup.alpha = 1f;
-                transform.position = target.transform.position + new Vector3(0, 1.9f, 0f);
+                if (target.headTr)
+                {
+                    if (target.status.name_e == Enums.eEnemyName.Spirit)
+                    {
+                        transform.position = target.headTr.position + new Vector3(0, 0.75f, 0f);
+                    }
+                    else 
+                    {
+                        transform.position = target.headTr.position + new Vector3(0, 0.35f, 0f);
+                    }
+                }
+                else
+                {
+                    transform.position = target.transform.position + new Vector3(0, 2f, 0f);
+                }
                 transform.forward = -(Camera.main.transform.position - transform.position);
             }
         }
@@ -104,25 +120,41 @@ public class HpBar : MonoBehaviour
         yield break;
     }
 
-    IEnumerator DestroyEffect()
+    IEnumerator DisappearEffect()
     {
         yield return new WaitForSeconds(2f);
-        ResetHpBar();
-        //Destroy(this.gameObject);
+        //ResetHpBar();
         gameObject.SetActive(false);
+    }
+
+    public void DestorySceneReset()
+    {//어차피 씬 초기화 될때 잠시 로딩 시간 있으니 Destroy해도 될듯
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
     public void ResetHpBar()
     {
         StopAllCoroutines();
+
+        isDestroyed = false;
+        curHp = target.status.maxHp;
         canvasGroup.alpha = 0f;
         damageText.color = new Color(1f, 1f, 1f, 0f);
         hpSlider.value = 1f;
         hpEffectImage.fillAmount = 1f;
+
+        InitName();
     }
+
+
 
     public void InitName()
     {
-        if(nameText != null) nameText.text = target.status.name;
+        if (nameText != null && target != null)
+        {
+            nameText.text = target.status.name;
+        }
+
     }
 }
