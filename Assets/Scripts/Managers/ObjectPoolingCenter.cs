@@ -104,7 +104,6 @@ public class ObjectPoolingCenter : Manager<ObjectPoolingCenter>
 	{
 		//디스이즈 람다식
 		var tempPair = poolingObjDic.FirstOrDefault(t => t.Key == objName);
-
 		if (tempPair.Value.Count < count)
 		{
 			FillObject(objName, count * 2);
