@@ -66,6 +66,10 @@ public class Player_Weapon : Weapon
                         GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);
                         effect.transform.position = other.ClosestPoint(transform.position);
                         effect.GetComponent<ParticleSystem>().Play();
+                        if(PlayerActionTable.instance.curActAtkValue > 1.3f)
+                        {
+                            //InGameManager.Instance.TimeStopEffect0();
+                        }
                     }
                 }
             }
