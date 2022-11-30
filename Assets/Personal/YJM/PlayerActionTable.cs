@@ -492,11 +492,11 @@ public class PlayerActionTable : MonoBehaviour
                     SetMainAnimIndex(1);
                     break;
                 case eWeaponType.Melee:
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
                     SetMainAnimIndex(2);
                     break;
                 case eWeaponType.Sheild:
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
                     SetMainAnimIndex(4);
                     break;
                 case eWeaponType.Arrow:
@@ -519,12 +519,12 @@ public class PlayerActionTable : MonoBehaviour
                     break;
                 case eWeaponType.Melee:
                     print("메인");
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
                     SetMainAnimIndex(3);
                     break;
                 case eWeaponType.Sheild:
                     print("실드");
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     SetMainAnimIndex(5);
                     //Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
                     break;

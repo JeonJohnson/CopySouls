@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3882913, g: 0.40220222, b: 0.39101598, a: 1}
+  m_IndirectSpecularColor: {r: 0.3882915, g: 0.4022025, b: 0.39101633, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -180,7 +180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020515061129344574, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020515061129344574, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
@@ -638,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1904748677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,6 +1014,26 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3422312629512846141, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_Bias
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422312629512846141, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422312629512846141, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422312629512846141, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_NormalBias
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422312629512846141, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_Resolution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3422312629521482746, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_Lightmapping
       value: 2
@@ -1060,6 +1084,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3422312629698874933, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422312629698874933, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
+      propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3422312629758726197, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
