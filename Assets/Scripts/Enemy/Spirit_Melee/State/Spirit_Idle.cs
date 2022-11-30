@@ -52,7 +52,7 @@ public class Spirit_Idle : cState
             Debug.Log("ReTry SetRespawnPos");
         }
     }
-
+     
     public override void LateUpdateState()
     {
         //((Spirit)me).boneRotation(((Spirit)me).RightShoulder, new Vector3(0, -20f, 0));

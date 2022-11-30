@@ -43,7 +43,15 @@ public class UiManager : Manager<UiManager>
 
     public void SetBlurAmount(float amount)
     {
-        screenEffectCanvas.gameObject.SetActive(true);
+        if (amount > 0f)
+        {
+            screenEffectCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            screenEffectCanvas.gameObject.SetActive(false);
+        }
+
         screenBlurMat.SetFloat("_BlurAmount", amount * 0.0025f);
     }
 

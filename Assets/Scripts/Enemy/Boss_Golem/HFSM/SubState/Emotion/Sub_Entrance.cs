@@ -18,6 +18,11 @@ public class Sub_Entrance : Golem_SubState
 	{
 		base.UpdateState();
 
+		if (!golem.targetObj)
+		{
+			return;
+		}
+
 		switch (golem.combatState)
 		{
 			case eCombatState.Idle:

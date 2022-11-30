@@ -37,6 +37,7 @@ public class HpBar_Boss : MonoBehaviour
         if (curHp <= 0f)
         {
             isDestroyed = true;
+            StartCoroutine(DestroyEffect());
         }
 
         if (target != null)
@@ -97,6 +98,12 @@ public class HpBar_Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ResetHpBar();
         Destroy(this.gameObject);
+    }
+
+    public void DestorySceneReset()
+    {//어차피 씬 초기화 될때 잠시 로딩 시간 있으니 Destroy해도 될듯
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
     public void ResetHpBar()

@@ -650,3 +650,10 @@ Move 상태인데 가끔 idle 모션으로 따라오기만 함 (무서움)
 3. 사운드가 재생되면서 움직이는 객체들은 꼭 먼저 AudioSource 넣어두고 PlaySound(클립이름,그오브젝트) 넣어주면 됨. 아니면 2번 방식으로 재생됨
 
 08:59 2022-11-30 	사운드매니저 씬바뀌면 사운드 정지
+
+05:13 2022-12-01	골렘 리셋 완료.
+	할거 : 다시 살아나면 you Died Window Bg, Text 꺼주기
+		blur Effect Canvas 꺼주기
+
+06:34 2022-12-01	다시 살아나면 you Died Window Bg, Text 꺼줌 / blur Effect Canvas 꺼줌
+	할거 : 두번죽으면 DiedWindow 안뜨는거 

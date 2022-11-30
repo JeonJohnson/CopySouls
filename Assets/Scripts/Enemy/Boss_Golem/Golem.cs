@@ -171,6 +171,8 @@ public class Golem : Enemy
 
 		SearchMyBone();
 		SearchTarget();
+		CalcAboutTarget();
+
 
 		hpBar_Boss = UiManager.Instance.InstantiateBossHpBar(this);
 		hpBar_Boss.gameObject.SetActive(false);

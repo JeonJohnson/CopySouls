@@ -138,11 +138,15 @@ public class InGameManager : Manager<InGameManager>
         
         screenEffect.SetGrayScaleAmount(0f);
         UiManager.Instance.SetBlurAmount(0f);
+        
+        YouDiedWindow.Instance.diedText.gameObject.SetActive(false);
+        YouDiedWindow.Instance.bgImage.gameObject.SetActive(false);
+
         StartCoroutine(UiManager.Instance.ShowFogCoro(false));
         diedUICam.gameObject.SetActive(false);
 
-        UnitManager.Instance.ResetAllEnemies();
         PlayerReborn();
+        UnitManager.Instance.ResetAllEnemies();
     }
 
     public void PlayerReborn()

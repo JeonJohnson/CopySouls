@@ -130,18 +130,6 @@ public class UnitManager : Manager<UnitManager>
                             newObj = ObjectPoolingCenter.Instance.LentalObj("Skeleton_Archer");
                         }
                         break;
-                    //case eEnemyName.Golem:
-                    //    {
-                    //        if (enemy.combatState != eCombatState.Idle)
-                    //        {
-                    //            newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
-                    //        }
-                    //        else
-                    //        {
-                    //            continue;
-                    //        }
-                    //    }
-                    //    break;
                     default:
                         break;
                 }
@@ -156,45 +144,54 @@ public class UnitManager : Manager<UnitManager>
                     return;
                 }
 
-                newEnemy.navAgent.enabled = false;
-                newEnemy.gameObject.transform.position = enemy.initPos;
-                newEnemy.gameObject.transform.forward = enemy.initForward;
-                newEnemy.navAgent.enabled = true;
+                //newEnemy.navAgent.enabled = false;
+                //newEnemy.gameObject.transform.position = enemy.initPos;
+                //newEnemy.gameObject.transform.forward = enemy.initForward;
+                //newEnemy.navAgent.enabled = true;
 
-                newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
-                newObj.SetActive(true);
+                //newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
+                //newObj.SetActive(true);
 
                 if (enemy.hpBar)
                 {
                     enemy.hpBar.DestorySceneReset();
                 }
-                ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
+
             }
             else
             {
-                //골렘용 초기화
-                //boss hpbar
+				//골렘용 초기화
+				//boss hpbar
 
-                //if (enemy.combatState != eCombatState.Idle)
-                //{
-                //    newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
-                //}
-                //else
-                //{
-                //    continue;
-                //}
+				if (enemy.combatState != eCombatState.Idle)
+				{
+					newObj = ObjectPoolingCenter.Instance.LentalObj("Golem");
 
-                //if (newObj != null)
-                //{
-                //    newEnemy = newObj.GetComponent<Enemy>();
-                //}
-                //else
-                //{
-                //    Debug.LogError("EnemyObj is null at ResetAllenemy in UnitManager.");
-                //    return;
-                //}
+                    if (newObj != null)
+                    {
+                        newEnemy = newObj.GetComponent<Golem>();
+                        ((Golem)enemy).hpBar_Boss.DestorySceneReset();
+                    }
+                    else
+                    {
+                        Debug.LogError("Golem is null at ResetAllenemy in UnitManager.");
+                        return;
+                    }
+                }
+				else
+				{
+					continue;
+				}
+			}
+            newEnemy.navAgent.enabled = false;
+            newEnemy.gameObject.transform.position = enemy.initPos;
+            newEnemy.gameObject.transform.forward = enemy.initForward;
+            newEnemy.navAgent.enabled = true;
 
-            }
+            newEnemy.SetInitTr(enemy.initPos, enemy.initForward);
+            newObj.SetActive(true);
+
+            ObjectPoolingCenter.Instance.AddTrashBin(enemy.gameObject);
         }
 
 		ClearEnemyList();
