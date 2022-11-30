@@ -69,6 +69,11 @@ public class Player_Weapon : Weapon
                         if(PlayerActionTable.instance.curActAtkValue > 1.3f)
                         {
                             //InGameManager.Instance.TimeStopEffect0();
+                            SoundManager.Instance.PlaySound("HardAttack_Hit", this.gameObject, 0.7f);
+                        }
+                        else
+                        {
+                            SoundManager.Instance.PlaySound("WeakAttack_Hit", this.gameObject,0.7f);
                         }
                     }
                 }
