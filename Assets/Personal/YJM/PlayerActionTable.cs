@@ -51,15 +51,18 @@ public class PlayerActionTable : MonoBehaviour
             if (dmgStruct.atkType == eAttackType.Week)
             {
                 Player.instance.animator.SetTrigger("Hit");
+                PlaySound("Hit");
             }
             else if(dmgStruct.atkType == eAttackType.Strong)
             {
                 stunTime = 1.9f;
                 Player.instance.animator.SetTrigger("Hit_Hard");
+                PlaySound("Hit");
             }
             else
             {
                 Player.instance.animator.SetTrigger("Hit");
+                PlaySound("Hit");
             }
             yield return null;
         }
@@ -73,6 +76,7 @@ public class PlayerActionTable : MonoBehaviour
     {
         Player.instance.status.isDead = true;
         Player.instance.animator.SetTrigger("Death");
+        SoundManager.Instance.PlaySound("Dead", this.gameObject);
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
         InGameManager.Instance.PlayerDeathEvent();
@@ -157,6 +161,7 @@ public class PlayerActionTable : MonoBehaviour
             if (player.status.isParrying == true && dmgStruct.atkType == eAttackType.Week)
             {
                 print("적 isRiposte" + dmgStruct.isRiposte + "공격 패링함");
+                SoundManager.Instance.PlaySound("Shield_Guard", this.gameObject);
             }
             else if (player.status.isGuard == true)
             {
@@ -169,12 +174,14 @@ public class PlayerActionTable : MonoBehaviour
                     {
                         print("attacker : " + dmgStruct.attackObj + "방어성공 " + theta);
                         player.animator.SetTrigger("GuardSuccess");
+                        SoundManager.Instance.PlaySound("Shield_Guard", this.gameObject, 1.2f);
                     }
                     else
                     {
                         player.animator.SetTrigger("GuardFail");
                         SetPlayerStatus((int)ePlayerState.Hit);
                         print("방어실패");
+                        SoundManager.Instance.PlaySound("Guard", this.gameObject, 1.2f);
                     }
                 }
                 else
@@ -852,5 +859,10 @@ public class PlayerActionTable : MonoBehaviour
     {
         GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
         effect.transform.position = transform.position + transform.right * 0.3f + new Vector3(0f, 0f, 0f);
+    }
+
+    public void PlaySound(string name)
+    {
+        SoundManager.Instance.PlaySound(name, this.gameObject);
     }
 }

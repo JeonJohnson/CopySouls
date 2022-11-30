@@ -12,7 +12,7 @@ public abstract class Item : MonoBehaviour
     public Sprite itemImage;
     public Collider collider;
     public bool isHand = false;
-    private int count;
+    private int count = 1;
 
     public float speed = 10f;
 
