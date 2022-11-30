@@ -232,4 +232,33 @@ public class InGameManager : Manager<InGameManager>
     }
 
 
+    public void TimeStopEffect()
+    {
+        StartCoroutine(TimeStopEffectCoro());
+    }
+    IEnumerator TimeStopEffectCoro()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(1f);
+        while (Time.timeScale < 1f)
+        {
+            Time.timeScale += Time.unscaledDeltaTime;
+            print(Time.timeScale);
+        }
+        Time.timeScale = 1f;
+    }
+
+    public void TimeStopEffect0()
+    {
+        StartCoroutine(TimeStopEffectCoro0());
+    }
+
+    IEnumerator TimeStopEffectCoro0()
+    {
+        yield return new WaitForSecondsRealtime(0.07f);
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 1f;
+    }
 }

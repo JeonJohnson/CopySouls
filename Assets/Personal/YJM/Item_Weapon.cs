@@ -65,6 +65,7 @@ public class Item_Weapon : Item
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = weapon.gameObject.GetComponent<BoxCollider>().size;
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = weapon.gameObject.GetComponent<BoxCollider>().center;
+        PlayerActionTable.instance.holdType = false;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.trailRenderer.transform.localPosition = weapon.trailRenderer.transform.localPosition;
     }
@@ -77,6 +78,7 @@ public class Item_Weapon : Item
         playerWeapon.Dmg = weapon.Dmg;
         playerWeapon.status = weapon.status;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
+        PlayerActionTable.instance.holdType = false;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
     }
 
@@ -88,6 +90,7 @@ public class Item_Weapon : Item
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 4;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = weapon.gameObject.GetComponentInChildren<MeshFilter>().sharedMesh;
+        PlayerActionTable.instance.holdType = false;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
@@ -100,6 +103,7 @@ public class Item_Weapon : Item
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 4;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
+        PlayerActionTable.instance.holdType = false;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);
@@ -112,6 +116,7 @@ public class Item_Weapon : Item
         playerWeapon.type = eWeaponType.None;
         playerWeapon.Dmg = 4;
         playerWeapon.gameObject.GetComponent<MeshFilter>().mesh = null;
+        PlayerActionTable.instance.holdType = false;
         PlayerActionTable.instance.ChangeWeaponHoldType(false);
         playerWeapon.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.5f, 0.5f);
         playerWeapon.gameObject.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0f);

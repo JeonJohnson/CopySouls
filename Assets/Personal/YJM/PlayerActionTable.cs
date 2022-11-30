@@ -492,11 +492,11 @@ public class PlayerActionTable : MonoBehaviour
                     SetMainAnimIndex(1);
                     break;
                 case eWeaponType.Melee:
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
                     SetMainAnimIndex(2);
                     break;
                 case eWeaponType.Sheild:
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 0);
                     SetMainAnimIndex(4);
                     break;
                 case eWeaponType.Arrow:
@@ -519,12 +519,12 @@ public class PlayerActionTable : MonoBehaviour
                     break;
                 case eWeaponType.Melee:
                     print("메인");
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 3);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 1);
                     SetMainAnimIndex(3);
                     break;
                 case eWeaponType.Sheild:
                     print("실드");
-                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
+                    Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 2);
                     SetMainAnimIndex(5);
                     //Player.instance.animator.SetInteger("WeaponHoldTypeIndex", 4);
                     break;
@@ -817,7 +817,7 @@ public class PlayerActionTable : MonoBehaviour
         }
         else
         {
-            Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = true;
+            if (player.curState_e != ePlayerState.Hit) Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = true;
         }
     }
     
@@ -836,7 +836,21 @@ public class PlayerActionTable : MonoBehaviour
     public void PlayEffect(string name)
     {
         GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
-        effect.transform.position = transform.position + transform.forward + new Vector3(0f,0.8f,0f);
+        effect.transform.position = transform.position + transform.forward * 0.8f + new Vector3(0,0.8f,0f);
         effect.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void PlayHoldAttackEffect(string name)
+    {
+        print("콜");
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
+        effect.transform.position = transform.position + transform.forward + new Vector3(0f, 1.05f, 0f);
+        //effect.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void PlayFootStepEffect()
+    {
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj(name, 1);
+        effect.transform.position = transform.position + transform.right * 0.3f + new Vector3(0f, 0f, 0f);
     }
 }

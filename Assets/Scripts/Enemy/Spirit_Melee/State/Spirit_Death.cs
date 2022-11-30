@@ -32,6 +32,7 @@ public class Spirit_Death : cState
         }
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
+        InGameManager.Instance.TimeStopEffect();
     }
 
     public override void UpdateState()
