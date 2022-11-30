@@ -254,7 +254,7 @@ public class UiManager : Manager<UiManager>
         }
     }
 
-    void CheckIsUiActivated()
+    public void CheckIsUiActivated()
     {
         if(!isForceUiActivaed)
         {

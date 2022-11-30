@@ -65994,7 +65994,28 @@ AnimationClip:
     messageOptions: 0
   - time: 0.6666667
     functionName: PlayEffect
-    data: ScifiTris 1
+    data: ScifiTris 1(Big)
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: PlayHoldAttackEffect
+    data: HoldBlood0
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2
+    functionName: PlayEffect
+    data: ScifiTris 1(Big)
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2
+    functionName: PlayHoldAttackEffect
+    data: HoldBlood1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
