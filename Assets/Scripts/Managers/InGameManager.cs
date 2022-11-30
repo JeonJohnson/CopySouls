@@ -100,7 +100,7 @@ public class InGameManager : Manager<InGameManager>
         }
     }
 
-
+    //------------------------------------------------------------------------------//
     IEnumerator PlayerDiedScreenEffectCoroutine(float maxTime)
     {
         float time = 0f;
@@ -120,19 +120,15 @@ public class InGameManager : Manager<InGameManager>
         UiManager.Instance.SetBlurAmount(1f);
     }
 
-    //IEnumerator PlayDeathUiEffect()
-    //{
-    //    yield return new WaitForSeconds(2f);
-    //    YouDiedWindow.Instance.PlayDieEffect();
-    //}
 
     IEnumerator PlayerDiedCoroutine()
     {
         StartCoroutine(PlayerDiedScreenEffectCoroutine(playerDeathEffectTime));
         yield return new WaitForSeconds(2f);
-        
-        YouDiedWindow.Instance.diedText.gameObject.SetActive(true);
-        YouDiedWindow.Instance.bgImage.gameObject.SetActive(true);
+
+        //YouDiedWindow.Instance.diedText.gameObject.SetActive(true);
+        //YouDiedWindow.Instance.bgImage.gameObject.SetActive(true);
+        YouDiedWindow.Instance.ResetWindow();
         StartCoroutine(YouDiedWindow.Instance.BgEffectCoro());
         yield return StartCoroutine(YouDiedWindow.Instance.DiedEffectCoro());
         

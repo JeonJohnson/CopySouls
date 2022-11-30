@@ -657,3 +657,5 @@ Move 상태인데 가끔 idle 모션으로 따라오기만 함 (무서움)
 
 06:34 2022-12-01	다시 살아나면 you Died Window Bg, Text 꺼줌 / blur Effect Canvas 꺼줌
 	할거 : 두번죽으면 DiedWindow 안뜨는거 
+
+07:00 2022-12-01	diedWindow 버그 수정

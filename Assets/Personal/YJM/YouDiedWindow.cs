@@ -41,8 +41,21 @@ public class YouDiedWindow : MonoBehaviour
     float canvasAlpha = 1f;
 
 
+	public void ResetWindow()
+	{
+       diedText.gameObject.SetActive(true);
+       bgImage.gameObject.SetActive(true);
 
-    public IEnumerator BgEffectCoro()
+        bgAlpha = 0f;
+        bgImage.color = new Vector4(1f, 1f, 1f, bgAlpha);
+        diedAlpha = 0f;
+        Color col = diedText.color;
+        diedText.color = new Vector4(col.r, col.g, col.b, diedAlpha);
+        canvasAlpha = 1f;
+        canvasGroup.alpha = canvasAlpha;
+    }
+
+	public IEnumerator BgEffectCoro()
     {
         while (bgAlpha <= 1f)
         {
