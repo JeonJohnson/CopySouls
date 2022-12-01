@@ -849,10 +849,13 @@ public class PlayerActionTable : MonoBehaviour
         if(i == 0)
         {
             Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = false;
+            PlayerLocomove.instance.afterImageController.weaponMesh = player.status.mainWeapon.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            PlayerLocomove.instance.afterImageController.isWeaponEffect = false;
         }
         else
         {
             if (player.curState_e != ePlayerState.Hit) Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = true;
+            PlayerLocomove.instance.afterImageController.isWeaponEffect = true;
         }
     }
     
