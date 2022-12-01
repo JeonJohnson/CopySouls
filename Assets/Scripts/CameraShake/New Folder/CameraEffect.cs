@@ -69,6 +69,58 @@ public class CameraEffect : MonoBehaviour
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
 
+    public void zoominEffect()
+    {
+
+    }
+
+    public void PlayStepEffect()
+    {
+        //찌르는 이펙트(앞으로 나아가는 이펙트)
+        //줌인 추가
+    }
+    public void PlayLeftAttEffect()
+    {
+        //왼쪽공격
+
+    }
+    public void PlayRightAttEffect()
+    {
+        //오른쪽 공격
+
+    }
+    public void PlayTwoHandAttEffect()
+    {
+        //양손공격(내려찍기,오른쪽으로 휘두르기)
+
+    }
+
+    public void ChargeAttEffect()
+    {
+        //차지공격(오른쪽 위로)
+
+    }
+    public void SuccessParringEffect()
+    {
+
+    }
+    public void SuccessHoldEffect()
+    {
+        //뒤로갔다 앞으로
+
+    }
+    public void HitEffect()
+    {
+        //아래로 흔들렸으면 좋겠(출렁 한번)
+        
+    }
+
+
+
+
+
+
+
 
 
     //기본적으로 이미 실행한 것들은 모두 수행하네
