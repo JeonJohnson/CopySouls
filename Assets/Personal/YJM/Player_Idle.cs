@@ -8,6 +8,7 @@ public class Player_Idle : Player_cState
     public override void EnterState(Player script)
     {
         base.EnterState(script);
+        CameraEffect.instance.Stop = true;
     }
     public override void UpdateState()
     {

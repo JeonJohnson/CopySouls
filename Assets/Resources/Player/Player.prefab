@@ -285,7 +285,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 0.8, y: 0.8, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6274456743026991043
 GameObject:
@@ -2401,6 +2401,7 @@ GameObject:
   - component: {fileID: 6942927259787065918}
   - component: {fileID: 8912638675591138825}
   - component: {fileID: 1559559539583753623}
+  - component: {fileID: 2377008546950909355}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2497,6 +2498,9 @@ MonoBehaviour:
   playerModel: {fileID: 7030777313930249932}
   cameraArm: {fileID: 774360108790470553, guid: 4f8cc636c010c74408e2193d48362301, type: 3}
   cameraManager: {fileID: 6348691163088468841, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
+  walkTrails:
+  - {fileID: 0}
+  afterImageController: {fileID: 2377008546950909355}
   isMove: 0
   moveDir: {x: 0, y: 0, z: 0}
 --- !u!114 &7030777313930249926
@@ -2570,6 +2574,20 @@ CharacterController:
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2377008546950909355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030777313930249932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce808447be3e054b8df71a0a14b529a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smr: {fileID: 7030777313871796205}
+  mat: {fileID: 2100000, guid: 3d296cf0b84eef74f9c07db2802f7706, type: 2}
 --- !u!1 &7030777314351998324
 GameObject:
   m_ObjectHideFlags: 0

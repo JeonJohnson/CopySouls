@@ -57,6 +57,8 @@ public class PlayerLocomove : MonoBehaviour
 
     #endregion
 
+    public AfterImageController afterImageController;
+
     void Update()
     {
         SetAnimation();
@@ -177,6 +179,7 @@ public class PlayerLocomove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C))
         {
+            afterImageController.MakeAfterImage();
             addedSpeed += Time.deltaTime * accelSpeed;
             if (isRun == false) CameraEffect.instance.PlayShake("Shake Data Player_Sprint");
             if (isRun == false) CameraEffect.instance.Stop = false;

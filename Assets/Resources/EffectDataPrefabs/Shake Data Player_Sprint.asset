@@ -33,16 +33,16 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    m_PreInfinity: 2
+    m_PreInfinity: 0
     m_PostInfinity: 2
     m_RotationOrder: 4
-  shakePosition: 1
+  shakePosition: 0
   shakeRotation: 1
   duration: 5
-  magnitude: 2
+  magnitude: 5
   roughness: 2
   perlinSpeed: 0
-  radius: 6
-  isSeedUpdate: 1
+  radius: 30
+  isSeedUpdate: 0
   roop: 1
   currentTime: 0

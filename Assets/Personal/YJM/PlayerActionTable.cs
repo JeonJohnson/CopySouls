@@ -309,6 +309,9 @@ public class PlayerActionTable : MonoBehaviour
             curActAtkValue = 1.2f;
             Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
             Player.instance.status.curStamina -= 35;
+
+            PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+
         }
     }
 
@@ -318,20 +321,45 @@ public class PlayerActionTable : MonoBehaviour
         float timer = 1f;
         while(timer > 0f)
         {
-            curActAtkValue = 1.0f + ((1 - timer) * 3.0f);
+            if(timer < 1f) curActAtkValue = 1.0f + ((1 - timer) * 3.0f);
             timer -= Time.deltaTime;
             yield return null;
             if(Input.GetKey(KeyCode.Mouse0) == false)
             {
+                Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
                 Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
+
+                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+                yield break;
+            }
+        }
+
+        PlayerLocomove.instance.afterImageController.MakeSingleAfterImage();
+        print("Gene!");
+
+        float timer0 = 0.5f;
+        while (timer0 > 0f)
+        {
+            timer0 -= Time.deltaTime;
+            print("앍");
+            yield return null;
+            if (Input.GetKey(KeyCode.Mouse0) == false)
+            {
+                Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
+                PlayerLocomove.instance.SetPlayerTrImt();
+                Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
+
+                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
                 yield break;
             }
         }
         Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
         PlayerLocomove.instance.SetPlayerTrImt();
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
+
+        PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
     }
 
     public void DashAttack()
@@ -864,5 +892,10 @@ public class PlayerActionTable : MonoBehaviour
     public void PlaySound(string name)
     {
         SoundManager.Instance.PlaySound(name, this.gameObject);
+    }
+
+    public void RunningPlaySound(string name)
+    {
+        if(PlayerLocomove.instance.isRun) SoundManager.Instance.PlaySound(name, this.gameObject);
     }
 }

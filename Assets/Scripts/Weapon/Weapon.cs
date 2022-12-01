@@ -136,6 +136,8 @@ public abstract class Weapon : MonoBehaviour
                 }
                 else
                 {
+                    GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);
+                    effect.transform.position = other.ClosestPoint(HittedObj.transform.position);
                     temp.Hit(dmgStruct);
                     Debug.Log("Hit");
                 }

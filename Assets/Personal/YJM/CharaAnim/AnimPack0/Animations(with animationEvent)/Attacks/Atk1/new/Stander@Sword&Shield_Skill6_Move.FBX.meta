@@ -73,7 +73,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.31690177
+      - time: 0.28603756
         functionName: EnableWeaponMeshCol
         data: 
         objectReferenceParameter: {instanceID: 0}
