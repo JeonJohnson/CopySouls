@@ -30,8 +30,6 @@ public class EffectData : ScriptableObject
 
     public bool isSeedUpdate = false;
 
-
-
     private Vector3 originPos;
     private Vector3 originRot;
     private Vector3 seed;
