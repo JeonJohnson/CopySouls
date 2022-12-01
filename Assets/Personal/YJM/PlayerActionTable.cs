@@ -52,6 +52,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 Player.instance.animator.SetTrigger("Hit");
                 PlaySound("Hit");
+                //CameraEffect.instance.HitEffect();
             }
             else if(dmgStruct.atkType == eAttackType.Strong)
             {
@@ -202,6 +203,7 @@ public class PlayerActionTable : MonoBehaviour
 
     void TakeDamage(DamagedStruct dmgStruct)
     {
+
         StopAllCoroutines();
         CurCoroCounter1 = CurCoroCounter2;
         player.status.isParrying = false;
@@ -849,10 +851,13 @@ public class PlayerActionTable : MonoBehaviour
         if(i == 0)
         {
             Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = false;
+            PlayerLocomove.instance.afterImageController.weaponMesh = player.status.mainWeapon.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            PlayerLocomove.instance.afterImageController.isWeaponEffect = false;
         }
         else
         {
             if (player.curState_e != ePlayerState.Hit) Player.instance.status.mainWeapon.GetComponent<Player_Weapon>().trailRenderer.enabled = true;
+            PlayerLocomove.instance.afterImageController.isWeaponEffect = true;
         }
     }
     

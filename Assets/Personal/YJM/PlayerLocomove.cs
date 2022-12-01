@@ -179,10 +179,11 @@ public class PlayerLocomove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C))
         {
-            afterImageController.MakeAfterImage();
             addedSpeed += Time.deltaTime * accelSpeed;
             if (isRun == false) CameraEffect.instance.PlayShake("Shake Data Player_Sprint");
             if (isRun == false) CameraEffect.instance.Stop = false;
+            if (isRun == false) afterImageController.sprintCount = 5;
+            afterImageController.MakeAfterImage();
             isRun = true;
             //CameraEffect.instance.curData.currentTime = 1.0f;
         }
