@@ -65,7 +65,6 @@ public class CameraEffect : MonoBehaviour
             //List_EffectDatas.Add(data);
             data.Start = true;
             curData = data;//SelectCurData(data);
-            Debug.Log(curData.name + "을 쉐이크 할꺼임");
         }
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
