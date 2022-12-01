@@ -76,7 +76,6 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-
     List<ShakeEvent> shakeEvents = new List<ShakeEvent>();
 
 
@@ -92,7 +91,6 @@ public class CameraShake : MonoBehaviour
 
         AddShakeEvent(data);
     }
-
     void LateUpdate()
     {
         Vector3 positionOffset = new Vector3(transform.position.x, transform.position.y, transform.position.z);

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShakeType
+{
+    Smooth,
+    Rough
+}
 
 public class CameraEffect : MonoBehaviour
 {
@@ -47,7 +52,8 @@ public class CameraEffect : MonoBehaviour
         EffectData[] Datas =  Resources.LoadAll<EffectData>(EffectDataPrfabFolderPath);
         for(int i = 0; i < Datas.Length; i++)
         {
-            EffectData data = new EffectData(Datas[i].duration,Datas[i].roughness, Datas[i].magnitude, Datas[i].shakePosition, Datas[i].shakeRotation, Datas[i].radius, Datas[i].Curve, Datas[i].isSeedUpdate);
+            EffectData data = new EffectData(Datas[i].duration,Datas[i].shakeSpeed, Datas[i].magnitude, Datas[i].shakePosition,
+                                             Datas[i].shakeRotation, Datas[i].Curve, Datas[i].isSeedUpdate);
             Dic_EffectDatas.Add(Datas[i].name, Datas[i]);
         }
     }

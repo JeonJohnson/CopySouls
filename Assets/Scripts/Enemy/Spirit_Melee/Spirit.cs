@@ -117,7 +117,7 @@ public class Spirit : Enemy
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            CameraEffect.instance.PlayShake("Shake Data Golem_Scream");
+            CameraEffect.instance.PlayShake("Shake Data 1");
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
