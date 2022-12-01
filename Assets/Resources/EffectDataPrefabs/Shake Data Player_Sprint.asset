@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Shake Data Player_Sprint
   m_EditorClassIdentifier: 
+  shakeType: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -40,9 +41,6 @@ MonoBehaviour:
   shakeRotation: 1
   duration: 5
   magnitude: 5
-  roughness: 2
-  perlinSpeed: 0
-  radius: 30
+  shakeSpeed: 1.5
   isSeedUpdate: 0
   roop: 1
-  currentTime: 0

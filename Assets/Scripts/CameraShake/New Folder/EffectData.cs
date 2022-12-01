@@ -115,6 +115,7 @@ public class EffectData : ScriptableObject
                 originPos = Vector3.zero;
                 originRot = Vector3.zero;
                 CameraEffect.instance.curData = null;
+                Camera.main.transform.localEulerAngles = Vector3.zero;
             }
             else
             {
@@ -137,6 +138,7 @@ public class EffectData : ScriptableObject
                 originPos = Vector3.zero;
                 originRot = Vector3.zero;
                 CameraEffect.instance.curData = null;
+                Camera.main.transform.localEulerAngles = Vector3.zero;
             }
         }
     }
