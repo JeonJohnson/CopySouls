@@ -27,37 +27,38 @@ public class EffectData : ScriptableObject
     public float roughness;
     public float perlinSpeed;
     public float radius;
-    
+
+    public bool isSeedUpdate = false;
+
 
 
     private Vector3 originPos;
     private Vector3 originRot;
     private Vector3 seed;
-    
+
     private float startTime;
     public float currentTime;
 
     // INITIALIZERS: --------------------------------------------------------------------------
     private void Initialize()
     {
-        originPos =  Camera.main.transform.localPosition;
+        if (!isSeedUpdate) SetSeed();
+
+
+        originPos = Camera.main.transform.localPosition;
         originRot = Camera.main.transform.localEulerAngles;
 
         //this.magnitude = 1.0f;
         //this.roughness = 1.0f;
         //this.perlinSpeed = 0.0f;
-        
-        this.seed = new Vector3(
-            Random.Range(SEED_MIN, SEED_MAX),
-            Random.Range(SEED_MIN, SEED_MAX),
-            Random.Range(SEED_MIN, SEED_MAX)
-        );
 
+        Debug.Log("생성자!!!");
         this.startTime = Time.time;
         //this.duration = 1.0f;
     }
+
     public EffectData(float duration, float roughness, float magnitude,
-        bool shakePosition, bool shakeRotation,float radius, AnimationCurve curve)
+        bool shakePosition, bool shakeRotation, float radius, AnimationCurve curve, bool SeedUpdate)
     {
         this.Initialize();
 
@@ -68,7 +69,9 @@ public class EffectData : ScriptableObject
         this.magnitude = magnitude;
         this.radius = radius;
         this.Curve = curve;
+        this.isSeedUpdate = SeedUpdate;
     }
+
     public EffectData(float duration, EffectData cameraShake)
     {
         this.startTime = Time.time;
@@ -89,8 +92,9 @@ public class EffectData : ScriptableObject
 
     public void Update()
     {
-        Debug.Log(duration);
-        if(currentTime >= duration)
+        if (isSeedUpdate) SetSeed();
+        //Debug.Log(duration);
+        if (currentTime >= duration)
         {
             currentTime = 0.0f;
             perlinSpeed = 0.0f;
@@ -108,6 +112,7 @@ public class EffectData : ScriptableObject
 
     private void Shake()
     {
+
         Vector3 amount = new Vector3(
             Mathf.PerlinNoise(this.perlinSpeed, this.seed.x) - 0.5f,
             Mathf.PerlinNoise(this.perlinSpeed, this.seed.y) - 0.5f,
@@ -125,9 +130,9 @@ public class EffectData : ScriptableObject
         //coefficient = 1f - Mathf.Clamp01(distance / this.radius);
         //
         //Debug.Log("양 : " +amount + "컨피시언트 : " + coefficient);
-        
-        if(shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + amount * this.magnitude * coefficient;
-        if(shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + amount * this.magnitude * coefficient;
+
+        if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + amount * this.magnitude * coefficient;
+        if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + amount * this.magnitude * coefficient;
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
     }
@@ -157,6 +162,15 @@ public class EffectData : ScriptableObject
     private float GetNormalizedProgress()
     {
         return Mathf.Clamp01((Time.time - this.startTime) / this.duration);
+    }
+
+    private void SetSeed()
+        {
+            this.seed = new Vector3(
+    Random.Range(SEED_MIN, SEED_MAX),
+    Random.Range(SEED_MIN, SEED_MAX),
+    Random.Range(SEED_MIN, SEED_MAX)
+    );
     }
 }
 //bool isOver;

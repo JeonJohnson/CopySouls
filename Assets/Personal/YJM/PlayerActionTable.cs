@@ -75,7 +75,7 @@ public class PlayerActionTable : MonoBehaviour
     public void Death()
     {
         Player.instance.status.isDead = true;
-        Player.instance.animator.SetTrigger("Death");
+        Player.instance.animator.SetTrigger("Hit");
         SoundManager.Instance.PlaySound("Dead", this.gameObject);
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);
@@ -297,7 +297,7 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.animator.SetTrigger("ChargeAttack");
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.8f);
     }
-
+    
     public void ChargeAttackCheck()
     {
         if (Input.GetKey(KeyCode.Mouse0))
@@ -324,13 +324,13 @@ public class PlayerActionTable : MonoBehaviour
             if(Input.GetKey(KeyCode.Mouse0) == false)
             {
                 Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
-                PlayerLocomove.instance.SetPlayerTrSlow();
+                PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
                 yield break;
             }
         }
         Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
-        PlayerLocomove.instance.SetPlayerTrSlow();
+        PlayerLocomove.instance.SetPlayerTrImt();
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
     }
 

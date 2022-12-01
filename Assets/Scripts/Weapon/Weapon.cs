@@ -129,6 +129,7 @@ public abstract class Weapon : MonoBehaviour
                 {
                     ParryingToEnemy(owner.GetComponent<Enemy>());
                     GameObject effect = ObjectPoolingCenter.Instance.LentalObj("EtherealHit", 1);
+                    SoundManager.Instance.PlaySound("Shield_Guard", this.gameObject);
                     effect.transform.position = other.ClosestPoint(HittedObj.transform.position);
                     effect.GetComponent<ParticleSystem>().Play();
                     Debug.Log("Parrying");

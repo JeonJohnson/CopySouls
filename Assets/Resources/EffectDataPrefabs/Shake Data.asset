@@ -12,15 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Shake Data
   m_EditorClassIdentifier: 
-  duration: 0
-  amplitude: 0
-  Quick: 0
-  frequency: 0
-  Transform_X: 0
-  Transform_Y: 0
-  Transform_Z: 0
-  Transform_Amplitude: 0
-  Rotation_X: 0
-  Rotation_Y: 0
-  Rotation_Z: 0
-  Rotation_Amplitude: 0
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakePosition: 1
+  shakeRotation: 1
+  duration: 5
+  magnitude: 1
+  roughness: 1
+  perlinSpeed: 2.3408642
+  radius: 1
+  isSeedUpdate: 1
+  currentTime: 2.3408642

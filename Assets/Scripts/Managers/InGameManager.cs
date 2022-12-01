@@ -244,7 +244,6 @@ public class InGameManager : Manager<InGameManager>
         while (Time.timeScale < 1f)
         {
             Time.timeScale += Time.unscaledDeltaTime;
-            print(Time.timeScale);
             yield return null;
         }
         Time.timeScale = 1f;
