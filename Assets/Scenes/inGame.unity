@@ -881,6 +881,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ppProfile: {fileID: 0}
+  originIntensity: 0
+  Threshold: 0
+  SoftKnee: 0
+  FocusDistance: 0
+  Vignette_Intensity: 0
 --- !u!1001 &1932737004
 PrefabInstance:
   m_ObjectHideFlags: 0

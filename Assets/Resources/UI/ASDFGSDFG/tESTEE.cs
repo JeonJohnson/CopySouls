@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class tESTEE : MonoBehaviour
 {
-    CameraShake st;
+    //CameraShake st;
 
     // Start is called before the first frame update
     void Start()

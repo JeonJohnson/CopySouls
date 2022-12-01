@@ -9,9 +9,6 @@ public class Spirit : Enemy
 {
     public GameObject trail;
 
-    public CameraShakeEvent data1;
-    public CameraShakeEvent data2;
-
     public Vector3 respawnPos;
 
     public Transform targetHeadPos;

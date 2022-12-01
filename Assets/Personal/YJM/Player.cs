@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
     #endregion
 
 
-    CameraShake cameraShake;
+    //CameraShake cameraShake;
     
 
     // Start is called before the first frame update
