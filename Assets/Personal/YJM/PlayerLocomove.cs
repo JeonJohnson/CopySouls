@@ -178,11 +178,14 @@ public class PlayerLocomove : MonoBehaviour
         if (Input.GetKey(KeyCode.C))
         {
             addedSpeed += Time.deltaTime * accelSpeed;
+            if (isRun == false) CameraEffect.instance.PlayShake("Shake Data Player_Sprint");
             isRun = true;
+            CameraEffect.instance.curData.currentTime = 1.0f;
         }
         else
         {
             addedSpeed -= Time.deltaTime * accelSpeed;
+            if (isRun == true && CameraEffect.instance.curData != null) CameraEffect.instance.curData.currentTime = 0.2f;
             isRun = false;
         }
         addedSpeed = Mathf.Clamp(addedSpeed, 0, runningSpeed);
