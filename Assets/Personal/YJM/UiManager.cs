@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.PostProcessing;
 
 public class UiManager : Manager<UiManager>
 {
@@ -14,6 +14,7 @@ public class UiManager : Manager<UiManager>
     [SerializeField] GameObject hpBarPrefab;
     [SerializeField] GameObject bossHpBarPrefab;
 
+    public PostProcessController ppController;
 
     [Header("QuickSlot")]
     [SerializeField] public QuickSlot quickSlot1;

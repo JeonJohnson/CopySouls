@@ -34037,7 +34037,7 @@ AnimationClip:
   m_Events:
   - time: 0.3
     functionName: PlaySound
-    data: 
+    data: Light Sword Swing 9
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

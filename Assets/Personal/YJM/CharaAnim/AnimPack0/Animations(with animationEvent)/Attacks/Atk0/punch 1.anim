@@ -35448,7 +35448,7 @@ AnimationClip:
     messageOptions: 0
   - time: 0.6
     functionName: PlaySound
-    data: 
+    data: Swing
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

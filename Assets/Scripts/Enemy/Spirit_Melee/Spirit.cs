@@ -294,7 +294,7 @@ public class Spirit : Enemy
     }
     public void DoShake()
     {
-        CameraEffect.instance.PlayShake("Shake Data");
+        //CameraEffect.instance.PlayShake("Shake Data");
     }
 
 
