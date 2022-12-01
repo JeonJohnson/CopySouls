@@ -72,12 +72,14 @@ public class GameManager : Manager<GameManager>
 
     public void IntroSceneManagersInit()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         IntroSceneManager.InstantiateManager(false);
         SoundManager.InstantiateManager(true);
     }
 
     public void TitleSceneManagersInit()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         SoundManager.InstantiateManager(true);
         SoundManager.Instance.PlayBgm("TitleBgm_Test");
     }

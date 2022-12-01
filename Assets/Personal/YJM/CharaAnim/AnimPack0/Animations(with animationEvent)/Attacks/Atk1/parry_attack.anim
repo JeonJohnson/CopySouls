@@ -65992,6 +65992,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
+  - time: 0.5
+    functionName: PlaySound
+    data: ParryAttack_In
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.6666667
     functionName: PlayEffect
     data: ScifiTris 1(Big)
@@ -66002,6 +66009,13 @@ AnimationClip:
   - time: 0.6666667
     functionName: PlayHoldAttackEffect
     data: HoldBlood0
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.8666667
+    functionName: PlaySound
+    data: ParryAttack_Out
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
