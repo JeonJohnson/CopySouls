@@ -28,7 +28,7 @@ public class EffectData : ScriptableObject
     public float magnitude;
     public float shakeSpeed;
     private float perlinSpeed;
-    public float radius;
+    //public float radius;
 
     public bool isSeedUpdate = false;
     public bool roop = false;
@@ -59,7 +59,7 @@ public class EffectData : ScriptableObject
 
 
     public EffectData(float duration, float shakeSpeed, float magnitude,
-        bool shakePosition, bool shakeRotation, float radius, AnimationCurve curve, bool SeedUpdate)
+        bool shakePosition, bool shakeRotation, AnimationCurve curve, bool SeedUpdate)
     {
         this.Initialize();
 
@@ -68,7 +68,7 @@ public class EffectData : ScriptableObject
         this.duration = duration;
         this.shakeSpeed = shakeSpeed;
         this.magnitude = magnitude;
-        this.radius = radius;
+        //this.radius = radius;
         this.Curve = curve;
         this.isSeedUpdate = SeedUpdate;
     }
@@ -88,17 +88,17 @@ public class EffectData : ScriptableObject
 
         this.originPos = cameraShake.originPos;
         this.originRot = cameraShake.originRot;
-        this.radius = cameraShake.radius;
+        //this.radius = cameraShake.radius;
     }
 
     public void Update()
     {
-        if(!roop)
+        if (isSeedUpdate) SetSeed();
+        if (!roop)
         {
-            if (isSeedUpdate) SetSeed();
-            //Debug.Log(duration);
             if (currentTime > duration)
             {
+                roopTimer = 0.0f;
                 currentTime = 0.0f;
                 perlinSpeed = 0.0f;
                 originPos = Vector3.zero;
@@ -128,9 +128,6 @@ public class EffectData : ScriptableObject
                 CameraEffect.instance.curData = null;
             }
         }
-
-        
-        //return amount * this.magnitude * coefficient;
     }
 
     private void Shake()
