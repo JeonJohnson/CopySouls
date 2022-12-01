@@ -19,6 +19,8 @@ public class CameraEffect : MonoBehaviour
 
     private bool curDataStop;
 
+    private bool zoomStart;
+
     [SerializeField]
     private List<EffectData> List_EffectDatas = new List<EffectData>();
     private Dictionary<string, EffectData> Dic_EffectDatas = new Dictionary<string, EffectData>();
@@ -40,6 +42,10 @@ public class CameraEffect : MonoBehaviour
 
         originPos =  Camera.main.transform.localPosition;
         originRot = Camera.main.transform.localEulerAngles;
+    }
+    private void Update()
+    {
+        //if (zoomStart) zoominEffect();
     }
     private void LateUpdate()
     {
@@ -69,8 +75,14 @@ public class CameraEffect : MonoBehaviour
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
 
-    public void zoominEffect()
+    public enum ZoomDir
     {
+        Front,
+        Back,
+    }
+    public void zoominEffect(ZoomDir dir,float speed)
+    {
+        if(!zoomStart) zoomStart = true;
 
     }
 
@@ -82,12 +94,12 @@ public class CameraEffect : MonoBehaviour
     public void PlayLeftAttEffect()
     {
         //왼쪽공격
-
+        //애니메이션 이벤트로 만듬
     }
     public void PlayRightAttEffect()
     {
         //오른쪽 공격
-
+        //애니메이션 이벤트로 만듬
     }
     public void PlayTwoHandAttEffect()
     {
@@ -98,7 +110,7 @@ public class CameraEffect : MonoBehaviour
     public void ChargeAttEffect()
     {
         //차지공격(오른쪽 위로)
-
+        //애니메이션 이벤트로 만듬
     }
     public void SuccessParringEffect()
     {

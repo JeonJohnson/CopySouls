@@ -33,6 +33,12 @@ public class Spirit_Hold : cState
         //me.MoveStop();
         if (!complete_GetUp && !complete_Hold && me.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Hold"))
         {
+            if(((Spirit)me).timeSlow)
+            {
+                if (me.status.curHp <= 0) InGameManager.Instance.TimeStopEffect();
+                ((Spirit)me).timeSlow = false;
+            }
+
             if (((Spirit)me).isCurrentAnimationOver(me.animCtrl, 1f))
             {
                 if(me.animCtrl.GetBool("isHold"))

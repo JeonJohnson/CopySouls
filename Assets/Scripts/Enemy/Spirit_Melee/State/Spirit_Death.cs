@@ -32,7 +32,7 @@ public class Spirit_Death : cState
         }
         me.navAgent.enabled = false;
         me.GetComponent<FieldOfView>().enabled = false;
-        InGameManager.Instance.TimeStopEffect();
+        if(me.preState_i != 8) InGameManager.Instance.TimeStopEffect();
         UiManager.Instance.ppController.DoBloom(20f, 0.6f, 1.3f);
     }
 

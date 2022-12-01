@@ -51,6 +51,7 @@ public class Spirit : Enemy
     public bool isReturn;
     public bool stepWait;
     public bool isBoneChanged;
+    public bool timeSlow;
 
     //public bool isReset;
 
@@ -272,6 +273,7 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleteUnequiptment() { complete_Unequipt = true; }
     public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
     public void Spirit_Melee_DoubleAttCheck() { doubleAttCheck = true; }
+    public void PlayTimeSlow() { timeSlow = true; }
 
     public void Spirit_Damaged() { complete_Damaged = true; }
     public void Spirit_Groggy() { complete_Groggy = true; }
