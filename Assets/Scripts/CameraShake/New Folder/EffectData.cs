@@ -12,6 +12,8 @@ public class EffectData : ScriptableObject
 
     private const float SEED_MIN = 0.0f;
     private const float SEED_MAX = 1000.0f;
+    private float roopTimer;
+
 
     public AnimationCurve Curve = AnimationCurve.EaseInOut(
             0.0f,
@@ -118,6 +120,7 @@ public class EffectData : ScriptableObject
             }
             else
             {
+                roopTimer = 0.0f;
                 currentTime = 0.0f;
                 perlinSpeed = 0.0f;
                 originPos = Vector3.zero;
@@ -153,8 +156,19 @@ public class EffectData : ScriptableObject
 
         Vector3 total = amount * this.magnitude * coefficient;
 
-        if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(currentTime);
-        if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(currentTime);
+        if(!roop)
+        {
+            if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(currentTime);
+            if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(currentTime);
+        }
+        else
+        {
+            roopTimer += Time.deltaTime;
+            if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(roopTimer);
+            if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(roopTimer);
+        }
+
+
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
     }
