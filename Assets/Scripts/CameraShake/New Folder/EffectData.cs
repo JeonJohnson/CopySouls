@@ -29,6 +29,7 @@ public class EffectData : ScriptableObject
     public float radius;
 
     public bool isSeedUpdate = false;
+    public bool roop = false;
 
     private Vector3 originPos;
     private Vector3 originRot;
@@ -50,10 +51,10 @@ public class EffectData : ScriptableObject
         //this.roughness = 1.0f;
         //this.perlinSpeed = 0.0f;
 
-        Debug.Log("생성자!!!");
         this.startTime = Time.time;
         //this.duration = 1.0f;
     }
+
 
     public EffectData(float duration, float roughness, float magnitude,
         bool shakePosition, bool shakeRotation, float radius, AnimationCurve curve, bool SeedUpdate)
@@ -90,21 +91,41 @@ public class EffectData : ScriptableObject
 
     public void Update()
     {
-        if (isSeedUpdate) SetSeed();
-        //Debug.Log(duration);
-        if (currentTime >= duration)
+        if(!roop)
         {
-            currentTime = 0.0f;
-            perlinSpeed = 0.0f;
-            originPos = Vector3.zero;
-            originRot = Vector3.zero;
-            CameraEffect.instance.curData = null;
+            if (isSeedUpdate) SetSeed();
+            //Debug.Log(duration);
+            if (currentTime >= duration)
+            {
+                currentTime = 0.0f;
+                perlinSpeed = 0.0f;
+                originPos = Vector3.zero;
+                originRot = Vector3.zero;
+                CameraEffect.instance.curData = null;
+            }
+            else
+            {
+                currentTime += Time.deltaTime;
+                Shake();
+            }
         }
         else
         {
-            currentTime += Time.deltaTime;
-            Shake();
+            if(!CameraEffect.instance.Stop)
+            {
+                Shake();
+            }
+            else
+            {
+                currentTime = 0.0f;
+                perlinSpeed = 0.0f;
+                originPos = Vector3.zero;
+                originRot = Vector3.zero;
+                CameraEffect.instance.curData = null;
+            }
         }
+
+        
         //return amount * this.magnitude * coefficient;
     }
 
@@ -129,8 +150,10 @@ public class EffectData : ScriptableObject
         //
         //Debug.Log("양 : " +amount + "컨피시언트 : " + coefficient);
 
-        if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + amount * this.magnitude * coefficient;
-        if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + amount * this.magnitude * coefficient;
+        Vector3 total = amount * this.magnitude * coefficient;
+
+        if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(currentTime);
+        if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(currentTime);
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
         //Camera.main.transform.localPosition += amount * this.magnitude * coefficient;
     }

@@ -12,6 +12,8 @@ public class CameraEffect : MonoBehaviour
     Vector3 originPos;
     Vector3 originRot;
 
+    private bool curDataStop;
+
     [SerializeField]
     private List<EffectData> List_EffectDatas = new List<EffectData>();
     private Dictionary<string, EffectData> Dic_EffectDatas = new Dictionary<string, EffectData>();
@@ -19,6 +21,8 @@ public class CameraEffect : MonoBehaviour
 
     public Vector3 OriginPos { get { return originPos; } }
     public Vector3 OriginRot { get { return originRot; } }
+    public bool Stop { get { return curDataStop; } set { curDataStop = value; } }
+
     private void Awake()
     {
         if (instance == null) instance = this;
