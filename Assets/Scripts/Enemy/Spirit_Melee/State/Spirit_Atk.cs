@@ -102,16 +102,14 @@ public class Spirit_Atk : cState
         if (!startPattern)
         {
             int AttPatternIndex;
-            //AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.NormalAtk), ((int)eSpirit_AtkPattern.End));
-            AttPatternIndex = (int)eSpirit_AtkPattern.NormalAtk;
+            AttPatternIndex = Random.Range(((int)eSpirit_AtkPattern.NormalAtk), ((int)eSpirit_AtkPattern.End));
+            //AttPatternIndex = (int)eSpirit_AtkPattern.NormalAtk;
             AttIndex = AttPatternIndex;
-
 
             CurPattern = (eSpirit_AtkPattern)AttPatternIndex;
             me.transform.LookAt(me.targetObj.transform);
 
             if (CurPattern == eSpirit_AtkPattern.DoubleAtk || CurPattern == eSpirit_AtkPattern.TurnAtt)  ((Spirit)me).weapon.TransWeaponPos();
-            else ((Spirit)me).weapon.ReturnWeaponPos();
 
             startPattern = true;
         }

@@ -51,7 +51,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2018a8d174b19a459390c54366c209a, type: 2}
+  - {fileID: 2100000, guid: 207a89aef8e08f6498aeecbbd14564c3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +75,7 @@ TrailRenderer:
   m_Time: 0.7
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 3
+    widthMultiplier: 2.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -102,7 +102,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0.5882353}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -2588,8 +2588,6 @@ MonoBehaviour:
   navAgent: {fileID: 0}
   isRouting: 0
   trail: {fileID: 183187167516712156}
-  data1: {fileID: 0}
-  data2: {fileID: 0}
   respawnPos: {x: 0, y: 0, z: 0}
   targetHeadPos: {fileID: 0}
   headPos: {fileID: 2611732261619184374}
@@ -2627,6 +2625,7 @@ MonoBehaviour:
   isReturn: 0
   stepWait: 0
   isBoneChanged: 0
+  timeSlow: 0
 --- !u!114 &6675000016615760296
 MonoBehaviour:
   m_ObjectHideFlags: 0
