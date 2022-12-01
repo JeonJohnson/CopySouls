@@ -52,6 +52,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 Player.instance.animator.SetTrigger("Hit");
                 PlaySound("Hit");
+                //CameraEffect.instance.HitEffect();
             }
             else if(dmgStruct.atkType == eAttackType.Strong)
             {
@@ -202,6 +203,7 @@ public class PlayerActionTable : MonoBehaviour
 
     void TakeDamage(DamagedStruct dmgStruct)
     {
+
         StopAllCoroutines();
         CurCoroCounter1 = CurCoroCounter2;
         player.status.isParrying = false;
