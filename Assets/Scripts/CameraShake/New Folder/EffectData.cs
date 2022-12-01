@@ -28,8 +28,6 @@ public class EffectData : ScriptableObject
     public float perlinSpeed;
     public float radius;
     
-
-
     private Vector3 originPos;
     private Vector3 originRot;
     private Vector3 seed;
@@ -47,11 +45,7 @@ public class EffectData : ScriptableObject
         //this.roughness = 1.0f;
         //this.perlinSpeed = 0.0f;
         
-        this.seed = new Vector3(
-            Random.Range(SEED_MIN, SEED_MAX),
-            Random.Range(SEED_MIN, SEED_MAX),
-            Random.Range(SEED_MIN, SEED_MAX)
-        );
+        
 
         this.startTime = Time.time;
         //this.duration = 1.0f;
@@ -108,6 +102,13 @@ public class EffectData : ScriptableObject
 
     private void Shake()
     {
+        this.seed = new Vector3(
+            Random.Range(SEED_MIN, SEED_MAX),
+            Random.Range(SEED_MIN, SEED_MAX),
+            Random.Range(SEED_MIN, SEED_MAX)
+        );
+
+
         Vector3 amount = new Vector3(
             Mathf.PerlinNoise(this.perlinSpeed, this.seed.x) - 0.5f,
             Mathf.PerlinNoise(this.perlinSpeed, this.seed.y) - 0.5f,
