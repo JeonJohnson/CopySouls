@@ -41,8 +41,7 @@ public class CameraEffect : MonoBehaviour
         originPos =  Camera.main.transform.localPosition;
         originRot = Camera.main.transform.localEulerAngles;
     }
-
-    private void Update()
+    private void LateUpdate()
     {
         if(curData) curData.Update();
     }
@@ -64,12 +63,14 @@ public class CameraEffect : MonoBehaviour
         {
             EffectData data = Dic_EffectDatas[dataName];
             //List_EffectDatas.Add(data);
-
+            data.Start = true;
             curData = data;//SelectCurData(data);
             Debug.Log(curData.name + "을 쉐이크 할꺼임");
         }
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
+
+
 
     //기본적으로 이미 실행한 것들은 모두 수행하네
     //그럼 끝날때 인자 하나 받아서 끝났다는 체크 해야겠네

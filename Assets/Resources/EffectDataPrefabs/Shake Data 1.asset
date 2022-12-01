@@ -42,6 +42,5 @@ MonoBehaviour:
   duration: 1
   magnitude: 10
   shakeSpeed: 10
-  radius: 1
   isSeedUpdate: 1
   roop: 0

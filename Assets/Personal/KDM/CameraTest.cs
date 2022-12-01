@@ -34,6 +34,7 @@ public class CameraTest : Manager<CameraTest>
 
     private float defaultPosition;
 
+    public Vector3 CameraVectorPosition { get{ return cameraVectorPosition; } }
 
     void Awake()
     {
@@ -122,7 +123,7 @@ public class CameraTest : Manager<CameraTest>
         cameraTransform.localPosition = cameraVectorPosition;
     }
 
-    void ZoomCamera()
+    public void ZoomCamera()
     {
         if (Inventory.inventoryActivated) return;
         defaultPosition += Input.GetAxis("Mouse ScrollWheel") * ZoomSensitivity;

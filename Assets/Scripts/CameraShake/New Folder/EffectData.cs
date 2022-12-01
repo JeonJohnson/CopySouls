@@ -14,7 +14,9 @@ public class EffectData : ScriptableObject
     private const float SEED_MAX = 1000.0f;
     private float roopTimer;
 
+    [Tooltip("부드럽게 or 거칠게")]
     public ShakeType shakeType;
+    [Tooltip("keyframe사용법 잘 모르겠으면 물어보세요~ 친절하게 가르쳐 드립니다 ㅎㅎ")]
     public AnimationCurve Curve = AnimationCurve.EaseInOut(
             0.0f,
             1.0f,
@@ -22,10 +24,15 @@ public class EffectData : ScriptableObject
             0.0f
         );
     // PROPERTIES: ----------------------------------------------------------------------------
+    [Tooltip("Position값 쓸껀가?(둘다 체크 안하면 안움직임)")]
     public bool shakePosition = true;
+    [Tooltip("Rotation 쓸껀가?(둘다 체크 안하면 안움직임)")]
     public bool shakeRotation = true;
+    [Tooltip("지속시간")]
     public float duration;
+    [Tooltip("강도")]
     public float magnitude;
+    [Tooltip("빈도")]
     public float shakeSpeed;
     private float perlinSpeed;
     //public float radius;
@@ -39,24 +46,20 @@ public class EffectData : ScriptableObject
 
     private float startTime;
     private float currentTime;
+    private bool isStart;
+
+    public bool Start{ get{ return isStart; } set { isStart = value; } }
 
     // INITIALIZERS: --------------------------------------------------------------------------
     private void Initialize()
     {
         if (!isSeedUpdate) SetSeed();
-
-
-        originPos = Camera.main.transform.localPosition;
-        originRot = Camera.main.transform.localEulerAngles;
-
         //this.magnitude = 1.0f;
         //this.roughness = 1.0f;
         //this.perlinSpeed = 0.0f;
-
-        this.startTime = Time.time;
+        //this.startTime = Time.time;
         //this.duration = 1.0f;
     }
-
 
     public EffectData(float duration, float shakeSpeed, float magnitude,
         bool shakePosition, bool shakeRotation, AnimationCurve curve, bool SeedUpdate)
@@ -93,6 +96,14 @@ public class EffectData : ScriptableObject
 
     public void Update()
     {
+        if (isStart)
+        {
+            originPos = Camera.main.transform.localPosition;
+            originRot = Camera.main.transform.localEulerAngles;
+            isStart = false;
+        }
+        originPos.z = Camera.main.transform.localPosition.z;
+
         if (isSeedUpdate) SetSeed();
         if (!roop)
         {
@@ -151,14 +162,21 @@ public class EffectData : ScriptableObject
             //Debug.Log("양 : " +amount + "컨피시언트 : " + coefficient);
             if (!roop)
             {
-                if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(currentTime);
-                if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(currentTime);
+                if (shakePosition)
+                {
+                    Camera.main.transform.localPosition = originPos + total * Curve.Evaluate(currentTime);
+                }
+
+                if (shakeRotation)
+                {
+                    Camera.main.transform.localEulerAngles = originRot + total * Curve.Evaluate(currentTime);
+                }
             }
             else
             {
                 roopTimer += Time.deltaTime;
-                if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + total * Curve.Evaluate(roopTimer);
-                if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + total * Curve.Evaluate(roopTimer);
+                if (shakePosition) Camera.main.transform.localPosition = originPos + total * Curve.Evaluate(roopTimer);
+                if (shakeRotation) Camera.main.transform.localEulerAngles = originRot + total * Curve.Evaluate(roopTimer);
             }
         }
         else
@@ -170,48 +188,22 @@ public class EffectData : ScriptableObject
 
             if (!roop)
             {
-                if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + randVec * Curve.Evaluate(currentTime);
-                if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + randRot * Curve.Evaluate(currentTime);
+                if (shakePosition) Camera.main.transform.localPosition = originPos + randVec * Curve.Evaluate(currentTime);
+                if (shakeRotation) Camera.main.transform.localEulerAngles = originRot + randRot * Curve.Evaluate(currentTime);
             }
             else
             {
                 roopTimer += Time.deltaTime;
-                if (shakePosition) Camera.main.transform.localPosition = CameraEffect.instance.OriginPos + randVec * Curve.Evaluate(roopTimer);
-                if (shakeRotation) Camera.main.transform.localEulerAngles = CameraEffect.instance.OriginRot + randRot * Curve.Evaluate(roopTimer);
+                if (shakePosition) Camera.main.transform.localPosition = originPos + randVec * Curve.Evaluate(roopTimer);
+                if (shakeRotation) Camera.main.transform.localEulerAngles = originRot + randRot * Curve.Evaluate(roopTimer);
             }
         }
     }
 
     private void SetSeed()
-        {
+    {
             this.seed = new Vector3(Random.Range(SEED_MIN, SEED_MAX),
                                     Random.Range(SEED_MIN, SEED_MAX),
-                                    Random.Range(SEED_MIN, SEED_MAX)
-    );
+                                    Random.Range(SEED_MIN, SEED_MAX));
     }
 }
-    //private void HandleCameraCollisions()
-    //{
-    //    float targetPosition = defaultPosition;
-    //    RaycastHit hit;
-    //    Vector3 direction = cameraTransform.position - cameraPivot.position;
-    //    direction.Normalize();
-    //
-    //    if (Physics.SphereCast(cameraPivot.transform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetPosition), collisionLayers))
-    //    {
-    //        float distance = Vector3.Distance(cameraPivot.position, hit.point);
-    //        targetPosition = -(distance - cameraCollisionOffset);
-    //    }
-    //
-    //    if (Mathf.Abs(targetPosition) < minimumCollisionOffset)
-    //    {
-    //        targetPosition = targetPosition - minimumCollisionOffset;
-    //    }
-    //
-    //    cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
-    //    cameraTransform.localPosition = cameraVectorPosition;
-    //}
-    
-
-
-
