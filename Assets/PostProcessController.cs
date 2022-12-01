@@ -58,6 +58,7 @@ public class PostProcessController : MonoBehaviour
 
         bloom.intensity.value = originIntensity;
         bloom.softKnee.value = originSoftKnee;
+        yield break;
     }
     
 }

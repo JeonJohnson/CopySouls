@@ -99,5 +99,6 @@ MonoBehaviour:
   - {fileID: 100024, guid: 2ff8342f8377ab84eb7d89dd6655286b, type: 3}
   - {fileID: 8255215019295333937, guid: 4d56c3547e88d76418274368b52479bc, type: 3}
   - {fileID: 7768995382571168101, guid: d3513545d5bd068469706eb986120ad0, type: 3}
+  - {fileID: 6510125619236422602, guid: 6d7b01bdef4c9d44596d7108af762e72, type: 3}
   trashBin: []
   trashBinCan: {fileID: 2493624847980592776}
