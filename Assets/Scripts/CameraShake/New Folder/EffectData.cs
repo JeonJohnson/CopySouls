@@ -95,7 +95,7 @@ public class EffectData : ScriptableObject
         {
             if (isSeedUpdate) SetSeed();
             //Debug.Log(duration);
-            if (currentTime >= duration)
+            if (currentTime > duration)
             {
                 currentTime = 0.0f;
                 perlinSpeed = 0.0f;
@@ -113,6 +113,7 @@ public class EffectData : ScriptableObject
         {
             if(!CameraEffect.instance.Stop)
             {
+                currentTime = 1.0f;
                 Shake();
             }
             else

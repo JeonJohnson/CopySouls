@@ -179,13 +179,14 @@ public class PlayerLocomove : MonoBehaviour
         {
             addedSpeed += Time.deltaTime * accelSpeed;
             if (isRun == false) CameraEffect.instance.PlayShake("Shake Data Player_Sprint");
+            if (isRun == false) CameraEffect.instance.Stop = false;
             isRun = true;
-            CameraEffect.instance.curData.currentTime = 1.0f;
+            //CameraEffect.instance.curData.currentTime = 1.0f;
         }
         else
         {
             addedSpeed -= Time.deltaTime * accelSpeed;
-            if (isRun == true && CameraEffect.instance.curData != null) CameraEffect.instance.curData.currentTime = 0.2f;
+            if (isRun == true) CameraEffect.instance.Stop = true;//CameraEffect.instance.curData.currentTime = 0.2f;
             isRun = false;
         }
         addedSpeed = Mathf.Clamp(addedSpeed, 0, runningSpeed);
