@@ -51,19 +51,21 @@ public class PlayerActionTable : MonoBehaviour
             if (dmgStruct.atkType == eAttackType.Week)
             {
                 Player.instance.animator.SetTrigger("Hit");
-                PlaySound("Hit");
-                //CameraEffect.instance.HitEffect();
+                CameraEffect.instance.HitEffect();
+                SoundManager.Instance.PlaySound("Hit", this.gameObject,0.9f);
             }
             else if(dmgStruct.atkType == eAttackType.Strong)
             {
                 stunTime = 1.9f;
                 Player.instance.animator.SetTrigger("Hit_Hard");
-                PlaySound("Hit");
+                CameraEffect.instance.HitEffect();
+                SoundManager.Instance.PlaySound("Hit", this.gameObject, 0.9f);
             }
             else
             {
                 Player.instance.animator.SetTrigger("Hit");
-                PlaySound("Hit");
+                CameraEffect.instance.HitEffect();
+                SoundManager.Instance.PlaySound("Hit", this.gameObject, 0.9f);
             }
             yield return null;
         }
@@ -312,32 +314,34 @@ public class PlayerActionTable : MonoBehaviour
             Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
             Player.instance.status.curStamina -= 35;
 
-            PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+            PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(0f);
 
         }
     }
 
+    public float chargeValue = 0f;
     IEnumerator PlayRemainChargeFuncs()
     {
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.05f);
-        float timer = 1f;
-        while(timer > 0f)
+        chargeValue = 1f;
+        while(chargeValue > 0f)
         {
-            if(timer < 1f) curActAtkValue = 1.0f + ((1 - timer) * 3.0f);
-            timer -= Time.deltaTime;
+            if(chargeValue < 1f) curActAtkValue = 1.0f + ((1 - chargeValue) * 3.0f);
+            chargeValue -= Time.deltaTime;
             yield return null;
             if(Input.GetKey(KeyCode.Mouse0) == false)
             {
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
-                Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
+                Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
 
-                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1 - chargeValue);
                 yield break;
             }
         }
 
+        SoundManager.Instance.PlaySound("Fantasy click sound 3",this.gameObject, 1f);
         PlayerLocomove.instance.afterImageController.MakeSingleAfterImage();
         print("Gene!");
 
@@ -349,19 +353,19 @@ public class PlayerActionTable : MonoBehaviour
             yield return null;
             if (Input.GetKey(KeyCode.Mouse0) == false)
             {
-                Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
+                Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
 
-                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+                PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1f);
                 yield break;
             }
         }
-        Player.instance.status.curStamina -= 35 + ((1 - timer) * 15);
+        Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
         PlayerLocomove.instance.SetPlayerTrImt();
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
 
-        PlayerLocomove.instance.afterImageController.MakeAfterImageCoro();
+        PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1f);
     }
 
     public void DashAttack()
@@ -388,6 +392,7 @@ public class PlayerActionTable : MonoBehaviour
         EnableWeaponMeshCol(0);
         Player.instance.animator.SetTrigger("RollingAttack");
         PlayerLocomove.instance.SetPlayerTrSlow(PlayerLocomove.instance.isCameraLock, 0.4f);
+        CameraEffect.instance.PlayStepEffect();
     }
 
     public bool HoldAttackCheck()
@@ -896,11 +901,38 @@ public class PlayerActionTable : MonoBehaviour
 
     public void PlaySound(string name)
     {
-        SoundManager.Instance.PlaySound(name, this.gameObject);
+        SoundManager.Instance.PlaySound(name, this.gameObject, 0.5f);
     }
 
     public void RunningPlaySound(string name)
     {
-        if(PlayerLocomove.instance.isRun) SoundManager.Instance.PlaySound(name, this.gameObject);
+        if(PlayerLocomove.instance.isRun) SoundManager.Instance.PlaySound(name, this.gameObject, 0.5f);
+    }
+
+    public void PlayWeakAttackEffect(int i)
+    {
+        if(i== 0)
+        {
+            CameraEffect.instance.PlayLeftAttEffect();
+        }
+        else
+        {
+            CameraEffect.instance.PlayRightAttEffect();
+        }
+    }
+
+    public void PlayTwoHandAttEffect()
+    {
+        CameraEffect.instance.PlayTwoHandAttEffect();
+    }
+
+    public void PlayChargeAttEffect()
+    {
+        CameraEffect.instance.ChargeAttEffect();
+    }
+
+    public void PlayStepEffect()
+    {
+        CameraEffect.instance.PlayStepEffect();
     }
 }

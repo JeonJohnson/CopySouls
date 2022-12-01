@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class PlayerLocomove : MonoBehaviour
 {
     public bool isMoveable = true;
     public bool isCameraLock = false;
-    public Transform targetEnemy;
+    public Enemy targetEnemy;
 
     [Header("Stats")]
     [SerializeField]
@@ -64,6 +65,10 @@ public class PlayerLocomove : MonoBehaviour
         SetAnimation();
         KeyInput();
         GiveGravity();
+        if(targetEnemy != null && targetEnemy.status.curHp <= 0)
+        {
+            SearchTarget();
+        }
     }
 
     private void FixedUpdate()
@@ -183,6 +188,7 @@ public class PlayerLocomove : MonoBehaviour
             if (isRun == false) CameraEffect.instance.PlayShake("Shake Data Player_Sprint");
             if (isRun == false) CameraEffect.instance.Stop = false;
             if (isRun == false) afterImageController.sprintCount = 5;
+            if (isRun == false) SoundManager.Instance.PlaySound("Sweep 8", this.gameObject, 0.2f);
             afterImageController.MakeAfterImage();
             isRun = true;
             //CameraEffect.instance.curData.currentTime = 1.0f;
@@ -246,9 +252,13 @@ public class PlayerLocomove : MonoBehaviour
             if(Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position) < distance)
             {
                 distance = Vector3.Distance(UnitManager.Instance.aliveEnemyList[i].transform.position, this.transform.position);
-                targetEnemy = UnitManager.Instance.aliveEnemyList[i].transform;
+                targetEnemy = UnitManager.Instance.aliveEnemyList[i];
                 print(UnitManager.Instance.aliveEnemyList[i]);
             }
+        }
+        if (distance > 30f)
+        {
+            isCameraLock = false;
         }
     }
 
