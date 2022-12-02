@@ -49,13 +49,18 @@ public class Base_Attack : Golem_BaseState
 	{
 		base.EnterBaseState();
 
-
+		golem.animCtrl.ResetTrigger("tIdle");
 	}
 
 	public override void UpdateBaseState()
 	{
-		base.UpdateBaseState();
 
+
+		base.UpdateBaseState();
+		//if (golem.animCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+		//{
+		//	hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Move));
+		//}
 
 	}
 

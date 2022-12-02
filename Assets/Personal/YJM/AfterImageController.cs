@@ -114,7 +114,7 @@ public class AfterImageController : MonoBehaviour
             afterImageObj.transform.position = this.transform.position;
 
             afterImageObj.transform.rotation = this.transform.rotation;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.017f);
         }
     }
 }

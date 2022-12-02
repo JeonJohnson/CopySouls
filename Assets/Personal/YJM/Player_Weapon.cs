@@ -83,10 +83,10 @@ public class Player_Weapon : Weapon
                     }
                 }
             }
-            print(other.name);
+            //print(other.name);
             if(other.gameObject.layer == 8)
             {
-                print("앍");
+                //print("앍");
                 GameObject effect = ObjectPoolingCenter.Instance.LentalObj("BasicSpark 4 (Shower)", 1);
                 effect.transform.position = other.ClosestPoint(transform.position);
                 effect.GetComponent<ParticleSystem>().Play();

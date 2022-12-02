@@ -87,6 +87,7 @@ public class Golem : Enemy
 
 		if (hfsmCtrl.GetCurBaseState != hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack))
 		{
+			
 			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Damaged));
 		}
 

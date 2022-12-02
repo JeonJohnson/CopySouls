@@ -35,6 +35,7 @@ public class HFSMCtrl : MonoBehaviour
 	public float thinkMinTime;
 	public float thinkMaxTime;
 	public float thinkTime;
+	public float curThinkTime;
 	public Golem_BaseState GetBaseState(int index)
 	{
 		if (index >= baseStates.Length)
