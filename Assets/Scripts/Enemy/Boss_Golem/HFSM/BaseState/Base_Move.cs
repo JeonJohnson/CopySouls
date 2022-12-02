@@ -12,7 +12,7 @@ public enum eGolemMoveState
 
 public class Base_Move : Golem_BaseState
 {
-	float curTime;
+	
 
 	public Base_Move(HFSMCtrl script, string name) : base(script, name)
 	{
@@ -96,11 +96,11 @@ public class Base_Move : Golem_BaseState
 		}
 		else
 		{//Attack에 예약된거 없으면 시간 ㄱㄱㄱ
-			curTime += Time.deltaTime;
-			if (curTime >= hfsmCtrl.thinkTime)
+			hfsmCtrl.curThinkTime+= Time.deltaTime;
+			if (hfsmCtrl.curThinkTime >= hfsmCtrl.thinkTime)
 			{
 				hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack));
-				curTime = 0f;
+				hfsmCtrl.curThinkTime = 0f;
 			}
 		}
 	}
