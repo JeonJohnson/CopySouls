@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Player_Guard
   m_EditorClassIdentifier: 
-  shakeType: 0
+  shakeType: 1
   Curve:
     serializedVersion: 2
     m_Curve:

@@ -19,27 +19,27 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.04949951
+      outSlope: -0.04949951
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0.9505005
+      inSlope: -0.04949951
+      outSlope: -0.04949951
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   shakePosition: 1
   shakeRotation: 0
-  duration: 0.08
+  duration: 0.1
   magnitude: 10
   shakeSpeed: 2
   isSeedUpdate: 0

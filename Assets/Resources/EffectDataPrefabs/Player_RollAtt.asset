@@ -12,35 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: Player_RollAtt
   m_EditorClassIdentifier: 
-  shakeType: 0
+  shakeType: 1
   Curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 0.97627586
+      outSlope: 0.97627586
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      time: 0.8317561
+      value: 0.8120234
+      inSlope: -2.0488424
+      outSlope: -2.0488424
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9916687
+      value: 0.00063323975
+      inSlope: -5.073961
+      outSlope: -5.073961
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  shakePosition: 0
-  shakeRotation: 1
-  duration: 0.3
-  magnitude: 25
+  shakePosition: 1
+  shakeRotation: 0
+  duration: 0.5
+  magnitude: 30
   shakeSpeed: 1
   isSeedUpdate: 0
   roop: 0
