@@ -115,6 +115,19 @@ public class CameraEffect : MonoBehaviour
     {
         PlayShake("Player_RightAtt");
     }
+    public void PlayRollAttEffect()
+    {
+        PlayShake("Player_RollAtt");
+    }
+    public void PlaySpritAttEffect()
+    {
+        PlayShake("Player_SpritAtt");
+    }
+    public void PlayGuardEffect()
+    {
+        PlayShake("Player_Guard");
+    }
+
     public void PlayTwoHandAttEffect()
     {
         //양손공격(내려찍기,오른쪽으로 휘두르기)
