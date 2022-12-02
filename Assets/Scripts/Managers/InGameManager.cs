@@ -234,16 +234,12 @@ public class InGameManager : Manager<InGameManager>
 
     public void HitStop(float fps)
     {
-        if(!isStop)
-        {
-            StartCoroutine(TimeStop(fps));
-        }
+        if(!isStop) StartCoroutine(TimeStop(fps));
     }
     IEnumerator TimeStop(float fps)
     {
         isStop = true;
         Time.timeScale = 0f;
-        //프레임 계산하기
         yield return new WaitForSecondsRealtime(Time.deltaTime * fps);
         Time.timeScale = 1f;
         isStop = false;

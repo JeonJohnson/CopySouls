@@ -124,8 +124,7 @@ public class CameraEffect : MonoBehaviour
     {
         //차지공격(오른쪽 위로)
         //애니메이션 이벤트로 만듬
-        //PlayZoom(ZoomDir.Front, 0.1f, true);
-
+        PlayZoom(ZoomDir.Front, 0.1f, true);
     }
     public void SuccessParringEffect()
     {

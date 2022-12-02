@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6675000016615760299, guid: a14d4736e67077d43aef659df42bf6f7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6708518866082313589, guid: a14d4736e67077d43aef659df42bf6f7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4771818966817922546, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
@@ -722,7 +722,7 @@ MonoBehaviour:
   originThreshold: 0
   originSoftKnee: 0
   origindFocusDistance: 0
-  originVignette_Intensity: 0
+  originLensIntensity: 0
 --- !u!1001 &1932737004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4771818966817922546, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}

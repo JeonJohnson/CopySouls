@@ -325,6 +325,7 @@ public class PlayerActionTable : MonoBehaviour
         //=========================================
         //CameraEffect
         CameraEffect.instance.ChargeAttEffect();
+
         //=========================================
 
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.05f);
@@ -336,15 +337,15 @@ public class PlayerActionTable : MonoBehaviour
             yield return null;
             if(Input.GetKey(KeyCode.Mouse0) == false)
             {
+                //=========================================
+                //CameraEffect
+                CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+                //=========================================
+
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
                 Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
-
-                //=========================================
-                //CameraEffect
-                CameraEffect.instance.curZoom.Check = false;
-                //=========================================
 
                 PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1 - chargeValue);
                 yield break;
@@ -365,6 +366,11 @@ public class PlayerActionTable : MonoBehaviour
             yield return null;
             if (Input.GetKey(KeyCode.Mouse0) == false)
             {
+                //=========================================
+                //CameraEffect
+                CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+                //=========================================
+
                 Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
@@ -378,6 +384,10 @@ public class PlayerActionTable : MonoBehaviour
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
 
         PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1f);
+        //=========================================
+        //CameraEffect
+        CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+        //=========================================
     }
 
     public void DashAttack()
