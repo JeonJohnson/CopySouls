@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class InGameManager : Manager<InGameManager>
 {
     public bool isBossCombat = false;
+    public bool isStop = false;
 
     public Vector3 playerInitPos;
     [SerializeField] Vector3 lastBonfirePos;
@@ -230,6 +231,24 @@ public class InGameManager : Manager<InGameManager>
         Player.instance.animator.speed = 1f;
         yield return null;
     }
+
+    public void HitStop(float fps)
+    {
+        if(!isStop)
+        {
+            StartCoroutine(TimeStop(fps));
+        }
+    }
+    IEnumerator TimeStop(float fps)
+    {
+        isStop = true;
+        Time.timeScale = 0f;
+        //프레임 계산하기
+        yield return new WaitForSecondsRealtime(Time.deltaTime * fps);
+        Time.timeScale = 1f;
+        isStop = false;
+    }
+
     public void TimeStopEffect()
     {
         StartCoroutine(TimeStopEffectCoro());

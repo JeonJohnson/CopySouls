@@ -111,12 +111,6 @@ public class Spirit : Enemy
     {
         base.Update();
 
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            CameraEffect.instance.PlayShake("Spirit_Damaged");
-        }
-
-
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;
         curState_e = GetCurState<Enums.eSpiritState>();

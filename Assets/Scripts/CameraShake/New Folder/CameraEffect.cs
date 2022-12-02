@@ -65,7 +65,6 @@ public class CameraEffect : MonoBehaviour
     }
     private void LateUpdate()
     {
-        Debug.Log(curData.name);
         if(curData) curData.Update();
     }
 
@@ -110,15 +109,11 @@ public class CameraEffect : MonoBehaviour
     }
     public void PlayLeftAttEffect()
     {
-        //왼쪽공격
-        //애니메이션 이벤트로 만듬
-        //PlayZoom(ZoomDir.Front, 1f, 0.0f, 5f);
+        PlayShake("Player_LeftAtt");
     }
     public void PlayRightAttEffect()
     {
-        //오른쪽 공격
-        //애니메이션 이벤트로 만듬
-        //PlayZoom(ZoomDir.Front, 10f, 0.0f, 1f);
+        PlayShake("Player_RightAtt");
     }
     public void PlayTwoHandAttEffect()
     {
@@ -129,7 +124,8 @@ public class CameraEffect : MonoBehaviour
     {
         //차지공격(오른쪽 위로)
         //애니메이션 이벤트로 만듬
-        PlayZoom(ZoomDir.Front, 0.1f, true);
+        //PlayZoom(ZoomDir.Front, 0.1f, true);
+
     }
     public void SuccessParringEffect()
     {

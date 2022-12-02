@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
-  m_Name: Spirit_Damaged
+  m_Name: Player_LeftAtt
   m_EditorClassIdentifier: 
-  shakeType: 1
+  shakeType: 0
   Curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      value: 0.8336899
+      inSlope: 0.040790092
+      outSlope: 0.040790092
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: -0.007075472
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  shakePosition: 1
+  shakePosition: 0
   shakeRotation: 1
-  duration: 0.1
-  magnitude: 7
-  shakeSpeed: 2
-  isSeedUpdate: 1
+  duration: 0.5
+  magnitude: 15
+  shakeSpeed: 1
+  isSeedUpdate: 0
   roop: 0

@@ -51,6 +51,12 @@ public class Player_Weapon : Weapon
         if(PlayerActionTable.instance.curActAtkValue < 1.2f) CameraEffect.instance.PlayShake("WeekHit_M");
         else CameraEffect.instance.PlayShake("StrongHit_M");
 
+        UiManager.Instance.ppController.DoLens(9f,0.1f);
+        InGameManager.Instance.HitStop(2);
+
+        //UiManager.Instance.ppController.DoFocus(2.9f,0.3f);
+
+
         dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
         if (PlayerActionTable.instance.holdType) dmgStruct.dmg *= 1.2f;
         dmgStruct.attackObj = Player.instance.gameObject;

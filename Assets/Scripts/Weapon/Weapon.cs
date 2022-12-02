@@ -161,6 +161,7 @@ public abstract class Weapon : MonoBehaviour
 
                 temp.Hit(dmgStruct);
 
+
                 //HittedObj.GetComponent<Enemy>().status.curHp -= Dmg;
             }
             else
@@ -200,10 +201,14 @@ public abstract class Weapon : MonoBehaviour
             return;    
         }
 
-        if(other.gameObject.layer == 9)
+        if(owner.GetComponent<Spirit>() != null)
         {
-            CameraEffect.instance.PlayShake("FrictionToEnvironment");
-        }
+            if (other.gameObject.layer == 9)
+            {
+                CameraEffect.instance.PlayShake("FrictionToEnvironment");
+            }
+        }    
+        
 
             //Enemy -> Player
         if (owner.gameObject.GetComponent<Enemy>() != null)

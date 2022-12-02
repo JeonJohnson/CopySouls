@@ -12,17 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
   m_Name: FrictionToEnvironment
   m_EditorClassIdentifier: 
-  shakeType: 0
+  shakeType: 1
   Curve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.0212766
+      outSlope: -1.0212766
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9791667
+      value: 0
+      inSlope: -1.0212766
+      outSlope: -1.0212766
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   shakePosition: 0
-  shakeRotation: 0
-  duration: 0
-  magnitude: 0
-  shakeSpeed: 0
-  isSeedUpdate: 0
+  shakeRotation: 1
+  duration: 0.05
+  magnitude: 3
+  shakeSpeed: 7
+  isSeedUpdate: 1
   roop: 0
