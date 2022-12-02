@@ -127,6 +127,7 @@ public class CameraEffect : MonoBehaviour
     public void PlayGuardEffect()
     {
         PlayShake("Player_Guard");
+        PlayZoom(ZoomDir.Back, 1f, 1f, Camera.main.transform.localPosition);
     }
 
     public void PlayTwoHandAttEffect()
@@ -228,8 +229,8 @@ public class Zoom
             {
                 if (startTimer <= duration * 0.5f)
                 {
-                    Debug.Log("앞으로 가는중");
                     Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
+                    if (vec.z < -13f) vec.z = -13f; 
                     Camera.main.transform.localPosition = vec;
                 }
                 else
@@ -241,9 +242,9 @@ public class Zoom
             }
             else
             {
-                Debug.Log("뒤로 가는중");
                 startTimer += Time.deltaTime;
                 Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
+                if (vec.z < -13f) vec.z = -13f;
                 Camera.main.transform.localPosition = vec;
             }
         }
@@ -263,6 +264,7 @@ public class Zoom
             //진행
             startTimer += Time.deltaTime;
             Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
+            if (vec.z < -13f) vec.z = -13f;
             Camera.main.transform.localPosition = vec;
         }
         else
@@ -277,6 +279,7 @@ public class Zoom
         {
             startTimer += Time.deltaTime;
             Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
+            if (vec.z < -13f) vec.z = -13f;
             Camera.main.transform.localPosition = vec;
             if (originPos == Camera.main.transform.localPosition)
             {
