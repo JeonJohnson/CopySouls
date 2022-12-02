@@ -205,7 +205,10 @@ public class PlayerActionTable : MonoBehaviour
 
     void TakeDamage(DamagedStruct dmgStruct)
     {
-
+        //=============================================
+        //CameraEffect
+        if(CameraEffect.instance.curZoom != null) CameraEffect.instance.curZoom.Check = false;
+        //=============================================
         StopAllCoroutines();
         CurCoroCounter1 = CurCoroCounter2;
         player.status.isParrying = false;
@@ -339,7 +342,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 //=========================================
                 //CameraEffect
-                CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+                CameraEffect.instance.curZoom.Check = false;
                 //=========================================
 
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
@@ -368,7 +371,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 //=========================================
                 //CameraEffect
-                CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+                CameraEffect.instance.curZoom.Check = false;
                 //=========================================
 
                 Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
@@ -386,7 +389,7 @@ public class PlayerActionTable : MonoBehaviour
         PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1f);
         //=========================================
         //CameraEffect
-        CameraEffect.instance.PlayZoom(ZoomDir.Front, 1f, false);
+        CameraEffect.instance.curZoom.Check = false;
         //=========================================
     }
 

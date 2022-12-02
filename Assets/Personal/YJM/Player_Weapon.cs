@@ -52,10 +52,9 @@ public class Player_Weapon : Weapon
         else CameraEffect.instance.PlayShake("StrongHit_M");
 
         UiManager.Instance.ppController.DoLens(9f,0.1f);
-        InGameManager.Instance.HitStop(2);
+        InGameManager.Instance.HitStop(3);
 
         //UiManager.Instance.ppController.DoFocus(2.9f,0.3f);
-
 
         dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
         if (PlayerActionTable.instance.holdType) dmgStruct.dmg *= 1.2f;
