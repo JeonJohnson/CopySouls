@@ -8,7 +8,8 @@ public class PostProcessController : MonoBehaviour
 {
     public PostProcessProfile ppProfile;
     Bloom bloom; //빈 눈뽕(광원을 가진 애들이 눈뽕을 줌)
-    DepthOfField DOF; // 아이폰 인물사진 모드 
+    DepthOfField DOF; // 아이폰 인물사진 모드
+    MotionBlur blur; // 아이폰 인물사진 모드 
     LensDistortion Lens; // 렌즈
 
     [Header("Bloom")]
@@ -23,6 +24,10 @@ public class PostProcessController : MonoBehaviour
     [SerializeField]
     private float origindFocusDistance; // 아이폰 인물사진모드 강도 느낌
 
+    [Header("Motion Blur")]
+    [SerializeField]
+    private float originShutterAngle;
+
     [Header("Lens")]
     [SerializeField]
     private float originLensIntensity; //굴곡정도
@@ -36,12 +41,15 @@ public class PostProcessController : MonoBehaviour
     {
         ppProfile = GetComponent<PostProcessVolume>().profile;
         ppProfile.TryGetSettings<DepthOfField>(out DOF);
+        ppProfile.TryGetSettings<MotionBlur>(out blur);
         ppProfile.TryGetSettings<LensDistortion>(out Lens);
         ppProfile.TryGetSettings<Bloom>(out bloom);
 
         originIntensity = bloom.intensity.value;
         originThreshold = bloom.threshold.value;
         originSoftKnee = bloom.softKnee.value;
+
+        originShutterAngle = blur.shutterAngle.value;
 
         origindFocusDistance = DOF.focusDistance.value;
 
@@ -83,6 +91,36 @@ public class PostProcessController : MonoBehaviour
         yield break;
     }
 
+    public void DoBlur(float angle, float time)
+    {
+        StartCoroutine(SetBlur(angle, time));
+    }
+
+    IEnumerator SetBlur(float angle, float time)
+    {
+        float timer = 1f;
+        while (timer > 0f)
+        {
+            blur.shutterAngle.value = Mathf.Lerp(originShutterAngle, angle, 1 - timer);
+            timer -= Time.unscaledDeltaTime * 3f;
+            Debug.Log("블러중 " + blur.shutterAngle.value);
+            yield return null;
+        }
+        blur.shutterAngle.value = angle;
+        yield return new WaitForSecondsRealtime(time);
+        timer = 1f;
+        while (timer > 0f)
+        {
+            blur.shutterAngle.value = Mathf.Lerp(originShutterAngle, angle, timer);
+            timer -= Time.unscaledDeltaTime * 3f;
+            Debug.Log("블러중 " + blur.shutterAngle.value);
+            yield return null;
+        }
+        blur.shutterAngle.value = originShutterAngle;
+        yield break;
+    }
+
+
     //아마 달릴때 쓰면 좋을듯
     public void DoFocus(float fouseDistance, float time)
     {
@@ -108,7 +146,6 @@ public class PostProcessController : MonoBehaviour
         {
             Lens.intensity.value = Mathf.Lerp(originLensIntensity, intensity, 1 - timer);
             timer -= Time.unscaledDeltaTime * 3f;
-            Debug.Log(Lens.intensity.value);
             yield return null;
         }
         Lens.intensity.value = intensity;
@@ -118,7 +155,6 @@ public class PostProcessController : MonoBehaviour
         {
             Lens.intensity.value = Mathf.Lerp(originLensIntensity, intensity, timer);
             timer -= Time.unscaledDeltaTime * 3f;
-            Debug.Log(bloom.intensity.value);
             yield return null;
         }
         Lens.intensity.value = originLensIntensity;

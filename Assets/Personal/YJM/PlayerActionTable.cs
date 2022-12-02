@@ -342,6 +342,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 //=========================================
                 //CameraEffect
+                UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
                 //=========================================
 
@@ -371,6 +372,7 @@ public class PlayerActionTable : MonoBehaviour
             {
                 //=========================================
                 //CameraEffect
+                UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
                 //=========================================
 
@@ -389,6 +391,7 @@ public class PlayerActionTable : MonoBehaviour
         PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1f);
         //=========================================
         //CameraEffect
+        UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
         CameraEffect.instance.curZoom.Check = false;
         //=========================================
     }

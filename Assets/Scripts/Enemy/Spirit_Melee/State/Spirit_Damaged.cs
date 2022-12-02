@@ -11,7 +11,7 @@ public class Spirit_Damaged : cState
         me.animCtrl.SetBool("ChangeDamaged", true);
         ((Spirit)me).GetComponentInChildren<SkinnedMeshRenderer>().material = ((Spirit)me).hitMaterial;
 
-        UiManager.Instance.ppController.DoBloom(100f, 0.6f, 0.1f);
+        UiManager.Instance.ppController.DoBloom(10f, 0.6f, 0.1f);
     }
 
     public override void UpdateState()
