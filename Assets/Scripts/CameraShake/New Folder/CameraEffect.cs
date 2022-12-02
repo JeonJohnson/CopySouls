@@ -124,7 +124,7 @@ public class CameraEffect : MonoBehaviour
     {
         //차지공격(오른쪽 위로)
         //애니메이션 이벤트로 만듬
-        PlayZoom(ZoomDir.Front, 0.1f, true);
+        PlayZoom(ZoomDir.Front, 0.7f, true);
     }
     public void SuccessParringEffect()
     {
@@ -154,7 +154,7 @@ public class Zoom
     public float speed;
     public float power;
     public float duration;
-    public Vector3 originPos;
+    public Vector3 originPos = new Vector3(0.0f,0.0f,-2f);
     private float startTimer;
 
     public bool isFinish;
