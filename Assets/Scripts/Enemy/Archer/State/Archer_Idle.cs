@@ -23,7 +23,7 @@ public class Archer_Idle : cState
 
 	public override void UpdateState()
 	{
-		if (archer.CheckTargetInFov() == true)
+		if (archer.CheckTargetInFov() == true)	
 		{
 			archer.SetState((int)eArcherState.Bow_Equip);
 		}
