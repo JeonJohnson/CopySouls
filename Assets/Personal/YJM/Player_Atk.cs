@@ -11,7 +11,7 @@ public class Player_Atk : Player_cState
         playerTr = Player.instance.playerModel.transform;
         PlayerActionTable.instance.ResetGuardValue();
 
-        CameraEffect.instance.PlayShake("Shake Data Player_Attack");
+        //CameraEffect.instance.PlayShake("Shake Data Player_Attack");
     }
     public override void UpdateState()
     {

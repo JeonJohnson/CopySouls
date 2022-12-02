@@ -10,37 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
-  m_Name: Shake Data
+  m_Name: FrictionToEnvironment
   m_EditorClassIdentifier: 
   shakeType: 0
   Curve:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  shakePosition: 1
-  shakeRotation: 1
-  duration: 1
-  magnitude: 1
-  shakeSpeed: 1
-  isSeedUpdate: 1
+  shakePosition: 0
+  shakeRotation: 0
+  duration: 0
+  magnitude: 0
+  shakeSpeed: 0
+  isSeedUpdate: 0
   roop: 0

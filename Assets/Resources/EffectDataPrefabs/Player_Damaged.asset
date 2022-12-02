@@ -9,34 +9,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0951f5decfa3c40a8cac33d253f252, type: 3}
-  m_Name: Shake Transform Event
+  m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
+  m_Name: Player_Damaged
   m_EditorClassIdentifier: 
-  target: 0
-  amplitude: 1
-  frequency: 1
-  duration: 1
-  blendOverLifetime:
+  shakeType: 1
+  Curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  shakePosition: 1
+  shakeRotation: 0
+  duration: 0.08
+  magnitude: 10
+  shakeSpeed: 2
+  isSeedUpdate: 0
+  roop: 0

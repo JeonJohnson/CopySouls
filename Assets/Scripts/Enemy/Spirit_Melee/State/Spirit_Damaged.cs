@@ -9,6 +9,7 @@ public class Spirit_Damaged : cState
         base.EnterState(script);
         me.animCtrl.SetBool("isDamaged", true);
         me.animCtrl.SetBool("ChangeDamaged", true);
+        ((Spirit)me).GetComponentInChildren<SkinnedMeshRenderer>().material = ((Spirit)me).hitMaterial;
     }
 
     public override void UpdateState()
@@ -61,5 +62,6 @@ public class Spirit_Damaged : cState
         me.animCtrl.SetBool("isDamaged", false);
         ((Spirit)me).complete_Damaged = false;
         ((Spirit)me).HitCount = 0;
+        ((Spirit)me).GetComponentInChildren<SkinnedMeshRenderer>().material = ((Spirit)me).material;
     }
 }

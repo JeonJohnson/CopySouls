@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
-  m_Name: Shake Data 1
+  m_Name: WeekHit_M
   m_EditorClassIdentifier: 
   shakeType: 1
   Curve:
@@ -39,8 +39,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   shakePosition: 1
   shakeRotation: 1
-  duration: 1
-  magnitude: 10
-  shakeSpeed: 10
+  duration: 0.1
+  magnitude: 8.5
+  shakeSpeed: 2
   isSeedUpdate: 1
   roop: 0

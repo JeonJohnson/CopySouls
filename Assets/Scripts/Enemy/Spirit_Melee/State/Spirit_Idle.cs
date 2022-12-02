@@ -55,9 +55,9 @@ public class Spirit_Idle : cState
      
     public override void LateUpdateState()
     {
-        //((Spirit)me).boneRotation(((Spirit)me).RightShoulder, new Vector3(0, -20f, 0));
-        //((Spirit)me).boneRotation(((Spirit)me).RightElbow, new Vector3(0, -90f, 0));
-        //((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(0, 15f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightShoulder, new Vector3(0, -20f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightElbow, new Vector3(0, -90f, 0));
+        ((Spirit)me).boneRotation(((Spirit)me).RightHand, new Vector3(0, 15f, 0));
     }
 
     public override void ExitState()

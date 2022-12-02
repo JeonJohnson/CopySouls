@@ -44,8 +44,13 @@ public class Player_Weapon : Weapon
 
     new private void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         print("충돌");
         DamagedStruct dmgStruct = new DamagedStruct();
+        //Shake
+        if(PlayerActionTable.instance.curActAtkValue < 1.2f) CameraEffect.instance.PlayShake("WeekHit_M");
+        else CameraEffect.instance.PlayShake("StrongHit_M");
+
         dmgStruct.dmg = this.Dmg * PlayerActionTable.instance.curActAtkValue;
         if (PlayerActionTable.instance.holdType) dmgStruct.dmg *= 1.2f;
         dmgStruct.attackObj = Player.instance.gameObject;

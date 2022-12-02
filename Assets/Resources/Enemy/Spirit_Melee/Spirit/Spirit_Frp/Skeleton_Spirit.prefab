@@ -2587,6 +2587,8 @@ MonoBehaviour:
   rd: {fileID: 0}
   navAgent: {fileID: 0}
   isRouting: 0
+  hitMaterial: {fileID: 2100000, guid: 72b12e9aea537ea4ea06a2c94736e5b6, type: 2}
+  material: {fileID: 2100000, guid: 4a814d0c5dbba7545b8ddf112351b4e4, type: 2}
   trail: {fileID: 183187167516712156}
   respawnPos: {x: 0, y: 0, z: 0}
   targetHeadPos: {fileID: 0}

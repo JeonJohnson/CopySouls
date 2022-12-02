@@ -230,8 +230,6 @@ public class InGameManager : Manager<InGameManager>
         Player.instance.animator.speed = 1f;
         yield return null;
     }
-
-
     public void TimeStopEffect()
     {
         StartCoroutine(TimeStopEffectCoro());

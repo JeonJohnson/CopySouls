@@ -14,17 +14,20 @@ public class CameraEffect : MonoBehaviour
 
     public static CameraEffect instance = null;
 
+    public CameraTest ct;
+
     Vector3 originPos;
     Vector3 originRot;
 
     private bool curDataStop;
 
-    private bool zoomStart;
+    public bool zoomStart;
 
     [SerializeField]
     private List<EffectData> List_EffectDatas = new List<EffectData>();
     private Dictionary<string, EffectData> Dic_EffectDatas = new Dictionary<string, EffectData>();
     public EffectData curData;
+    public Zoom curZoom;
 
     public Vector3 OriginPos { get { return originPos; } }
     public Vector3 OriginRot { get { return originRot; } }
@@ -45,10 +48,24 @@ public class CameraEffect : MonoBehaviour
     }
     private void Update()
     {
-        //if (zoomStart) zoominEffect();
+        if (curZoom != null)
+        {
+            if (!curZoom.isFinish)
+            {
+                if (!zoomStart) zoomStart = true;
+                curZoom.Update();
+            }
+            else
+            {
+                zoomStart = false;
+                curZoom.isFinish = false;
+                curZoom = null;
+            }
+        }
     }
     private void LateUpdate()
     {
+        Debug.Log(curData.name);
         if(curData) curData.Update();
     }
 
@@ -75,42 +92,44 @@ public class CameraEffect : MonoBehaviour
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
 
-    public enum ZoomDir
+    public void PlayZoom(ZoomDir dir,float speed,float duration)
     {
-        Front,
-        Back,
+        curZoom = new Zoom(dir, speed, duration);
     }
-    public void zoominEffect(ZoomDir dir,float speed)
+    public void PlayZoom(ZoomDir dir, float speed,bool check)
     {
-        if(!zoomStart) zoomStart = true;
+        curZoom = new Zoom(dir, speed, check);
+    }
 
-    }
 
     public void PlayStepEffect()
     {
         //찌르는 이펙트(앞으로 나아가는 이펙트)
         //줌인 추가
+
     }
     public void PlayLeftAttEffect()
     {
         //왼쪽공격
         //애니메이션 이벤트로 만듬
+        //PlayZoom(ZoomDir.Front, 1f, 0.0f, 5f);
     }
     public void PlayRightAttEffect()
     {
         //오른쪽 공격
         //애니메이션 이벤트로 만듬
+        //PlayZoom(ZoomDir.Front, 10f, 0.0f, 1f);
     }
     public void PlayTwoHandAttEffect()
     {
         //양손공격(내려찍기,오른쪽으로 휘두르기)
-
     }
 
     public void ChargeAttEffect()
     {
         //차지공격(오른쪽 위로)
         //애니메이션 이벤트로 만듬
+        PlayZoom(ZoomDir.Front, 0.1f, true);
     }
     public void SuccessParringEffect()
     {
@@ -126,101 +145,132 @@ public class CameraEffect : MonoBehaviour
         //아래로 흔들렸으면 좋겠(출렁 한번)
         
     }
+}
 
+public enum ZoomDir
+{
+    Front,
+    Back,
+}
+public class Zoom
+{
+    private bool check;
+    public ZoomDir dir;
+    public float speed;
+    public float power;
+    public float duration;
+    public Vector3 originPos;
+    private float startTimer;
 
+    public bool isFinish;
+    public bool isFinishDir;
+    public bool startBack;
 
+    private Vector3 Dir;
+    private Vector3 tempPos;
 
+    public bool Check { get{ return check; } set{ check = value; } }
 
+    public Zoom(ZoomDir _dir, float _speed,bool _check)
+    {
+        dir = _dir;
+        speed = _speed;
+        check = _check;
+        if (dir == ZoomDir.Front)
+        {
+            Vector3 vec = Player.instance.transform.position - Camera.main.transform.localPosition;
+            Dir = vec.normalized;
+        }
+        else
+        {
+            Vector3 vec = Camera.main.transform.localPosition - Player.instance.transform.position;
+            Dir = vec.normalized;
+        }
+    }
+    public Zoom(ZoomDir _dir, float _speed, float _duration)
+    {
+        dir = _dir;
+        speed = _speed;
+        duration = _duration;
+        if (dir == ZoomDir.Front)
+        {
+            Vector3 vec = Player.instance.transform.position - Camera.main.transform.localPosition;
+            Dir = vec.normalized;
+        }
+        else
+        {
+            Vector3 vec = Camera.main.transform.localPosition - Player.instance.transform.position;
+            Dir = vec.normalized;
+        }
+    }
+    public void Update()
+    {
+        if (!check) Play();
+        else CheckPlay();
+    }
+    private void Play()
+    {
+        Debug.Log("줌인 중임");
+        if (startTimer < duration)
+        {
+            startTimer += Time.deltaTime;
+            if (!isFinishDir)
+            {
+                if (startTimer <= duration * 0.5f)
+                {
+                    Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
+                    Camera.main.transform.localPosition = vec;
+                }
+                else
+                {
+                    tempPos = Camera.main.transform.localPosition;
+                    isFinishDir = true;
+                    startTimer = 0.0f;
+                }
+            }
+            else
+            {
+                startTimer += Time.deltaTime;
+                Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
+                Camera.main.transform.localPosition = vec;
+            }
+        }
+        else
+        {
+            Camera.main.transform.localPosition = originPos;
+            isFinish = true;
+            isFinishDir = false;
+            startTimer = 0.0f;
+        }
+    }
 
+    public void CheckPlay()
+    {
+        if(!isFinishDir)
+        {
+            //진행
+            startTimer += Time.deltaTime;
+            Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
+            Camera.main.transform.localPosition = vec;
+        }
+        else
+        {
+            //외부에서 강제로 꺼
+            tempPos = Camera.main.transform.localPosition;
+            startTimer = 0.0f;
+            startBack = true;
+        }
 
-
-
-    //기본적으로 이미 실행한 것들은 모두 수행하네
-    //그럼 끝날때 인자 하나 받아서 끝났다는 체크 해야겠네
-
-    //private EffectData SelectCurData(EffectData data)
-    //{
-    //    //if (List_EffectDatas.Capacity == 0) return null;
-    //    if (curData == null)
-    //    {
-    //        if (!data.GetStart) data.GetStart = true;
-    //        return data;
-    //    }
-    //    if (curData == data)
-    //    {
-    //        //실행중 똑같은거 드오면 드온놈 실행
-    //        Debug.Log("똑같은 쉐이크 시간연장!!!!!!");
-    //        curData.GetStart = false;
-    //        if (!data.GetStart) data.GetStart = true;
-    //        return data;
-    //    }
-    //
-    //    if (curData.duration == data.duration)
-    //    {
-    //        if (curData.GetScore >= data.GetScore)
-    //        {
-    //            if (!curData.GetStart) curData.GetStart = true;
-    //            return curData;
-    //        }
-    //        else
-    //        {
-    //            if (!data.GetStart) data.GetStart = true;
-    //            return data;
-    //        }
-    //    }
-    //    else if (curData.duration > data.duration)
-    //    {
-    //        if (curData.GetScore > data.GetScore)
-    //        {
-    //            //data 씹힘
-    //            Debug.Log("금방 누른 쉐이크 씹힘!!!!!!");
-    //            if (!curData.GetStart) curData.GetStart = true;
-    //            return curData;
-    //        }
-    //        else
-    //        {
-    //            //<중첩되는 시간동안 강도 높여줌>
-    //            Debug.Log("지금 잠깐 강도 올라감!!!!!!");
-    //
-    //            curData.Conflict = true;        //이 시점부터
-    //            curData.AddValue = 2f;  //이만큼의 벡터를 더해줄꺼임
-    //            curData.ConflictTime = curData.CurrentTime + data.duration;
-    //            return curData;
-    //        }
-    //    }
-    //    else if (curData.duration < data.duration)
-    //    {
-    //        if (curData.GetScore > data.GetScore)
-    //        {
-    //            //중첩시간동안 씹히다가
-    //            //중첩시간 끝나면 다시 본래의 강도로 돌아옴
-    //
-    //            if (!curData.GetStart)
-    //            {
-    //                Debug.Log("씹히다가 원래 지금 드온 강도로 변환!!!!!!");
-    //
-    //                data.CurrentTime = data.duration - (curData.duration - curData.CurrentTime);
-    //                if (!data.GetStart) data.GetStart = true;
-    //                return data;
-    //            }
-    //        }
-    //        else
-    //        {
-    //            //중첩되는 시간동안 강도 높여줌
-    //            //중첩시간 끝나면 다시 본래의 강도로 돌아옴
-    //
-    //            curData.Conflict = true;        //이 시점부터
-    //            curData.AddValue = 2f;  //이만큼의 벡터를 더해줄꺼임
-    //            if (!curData.GetStart)
-    //            {
-    //                Debug.Log("강도 높아졌다가 지금 드온 강도로 변환!!!!!!");
-    //
-    //                data.CurrentTime = data.duration - (curData.duration - curData.CurrentTime);
-    //                return data;
-    //            }
-    //        }
-    //    }
-    //    
-    //    return null;
-    //}
+        if(startBack)
+        {
+            startTimer += Time.deltaTime;
+            Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
+            Camera.main.transform.localPosition = vec;
+            if (originPos == Camera.main.transform.localPosition)
+            {
+                startBack = false;
+                isFinish = true;
+            }
+        }
+    }
 }

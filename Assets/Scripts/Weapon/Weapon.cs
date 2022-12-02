@@ -133,12 +133,14 @@ public abstract class Weapon : MonoBehaviour
                     effect.transform.position = other.ClosestPoint(HittedObj.transform.position);
                     effect.GetComponent<ParticleSystem>().Play();
                     Debug.Log("Parrying");
+
                 }
                 else
                 {
                     GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);
                     effect.transform.position = other.ClosestPoint(HittedObj.transform.position);
                     temp.Hit(dmgStruct);
+                    CameraEffect.instance.PlayShake("Player_Damaged");
                     Debug.Log("Hit");
                 }
             }
@@ -197,6 +199,12 @@ public abstract class Weapon : MonoBehaviour
         {
             return;    
         }
+
+        if(other.gameObject.layer == 9)
+        {
+            CameraEffect.instance.PlayShake("FrictionToEnvironment");
+        }
+
             //Enemy -> Player
         if (owner.gameObject.GetComponent<Enemy>() != null)
         {

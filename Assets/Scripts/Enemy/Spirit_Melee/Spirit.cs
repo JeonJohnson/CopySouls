@@ -7,6 +7,8 @@ using Structs;
 
 public class Spirit : Enemy
 {
+    public Material hitMaterial;
+    public Material material;
     public GameObject trail;
 
     public Vector3 respawnPos;
@@ -111,16 +113,9 @@ public class Spirit : Enemy
 
         if(Input.GetKeyDown(KeyCode.B))
         {
-            CameraEffect.instance.PlayShake("Shake Data");
+            CameraEffect.instance.PlayShake("Spirit_Damaged");
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            CameraEffect.instance.PlayShake("Shake Data 1");
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            CameraEffect.instance.PlayShake("Shake Data Strong_Hit");
-        }
+
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;
@@ -291,9 +286,20 @@ public class Spirit : Enemy
             }
         }
     }
-    public void DoShake()
+
+    public enum ShakeIndex
     {
-        //CameraEffect.instance.PlayShake("Shake Data");
+        Spirit_Scream,
+        Spirit_Damaged,
+        End
+    }
+
+    public void DoShake(int index)
+    {
+        if(index == (int)ShakeIndex.Spirit_Scream)
+        {
+            CameraEffect.instance.PlayShake("Spirit_Scream");
+        }
     }
 
 

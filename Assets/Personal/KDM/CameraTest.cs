@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraTest : Manager<CameraTest>
 {
-
     public Transform targetTransform;  // TargetTransform(Transform)
     public Transform cameraPivot;      // CameraPivot
     public Transform cameraTransform;  // CameraManager

@@ -322,6 +322,11 @@ public class PlayerActionTable : MonoBehaviour
     public float chargeValue = 0f;
     IEnumerator PlayRemainChargeFuncs()
     {
+        //=========================================
+        //CameraEffect
+        CameraEffect.instance.ChargeAttEffect();
+        //=========================================
+
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.05f);
         chargeValue = 1f;
         while(chargeValue > 0f)
@@ -336,12 +341,19 @@ public class PlayerActionTable : MonoBehaviour
                 PlayerLocomove.instance.SetPlayerTrImt();
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 1f);
 
+                //=========================================
+                //CameraEffect
+                CameraEffect.instance.curZoom.Check = false;
+                //=========================================
+
                 PlayerLocomove.instance.afterImageController.MakeAfterImageCoro(1 - chargeValue);
                 yield break;
             }
         }
 
         SoundManager.Instance.PlaySound("Fantasy click sound 3",this.gameObject, 1f);
+
+
         PlayerLocomove.instance.afterImageController.MakeSingleAfterImage();
         print("Gene!");
 

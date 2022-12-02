@@ -96,6 +96,7 @@ public class EffectData : ScriptableObject
 
     public void Update()
     {
+        Debug.Log(this.name);
         if (isStart)
         {
             originPos = Camera.main.transform.localPosition;

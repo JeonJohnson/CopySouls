@@ -386,6 +386,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton_Spirit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6675000016615760299, guid: a14d4736e67077d43aef659df42bf6f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6708518866082313589, guid: a14d4736e67077d43aef659df42bf6f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.3
@@ -773,6 +777,10 @@ PrefabInstance:
     - target: {fileID: 4771818966817922546, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
       propertyPath: m_Name
       value: Skeleton_Archer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771818966817922546, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfed86c05ed9bb641929e44d4db93bc7, type: 3}
