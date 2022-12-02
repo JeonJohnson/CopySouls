@@ -221,7 +221,6 @@ public class Zoom
     }
     private void Play()
     {
-        Debug.Log("줌인 중임");
         if (startTimer < duration)
         {
             startTimer += Time.deltaTime;
@@ -230,7 +229,8 @@ public class Zoom
                 if (startTimer <= duration * 0.5f)
                 {
                     Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
-                    if (vec.z < -13f) vec.z = -13f; 
+                    if (vec.z < -16f) vec.z = -16f;
+                    else if (vec.z > -1f) vec.z = -1f;
                     Camera.main.transform.localPosition = vec;
                 }
                 else
@@ -244,7 +244,8 @@ public class Zoom
             {
                 startTimer += Time.deltaTime;
                 Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
-                if (vec.z < -13f) vec.z = -13f;
+                if (vec.z < -16f) vec.z = -16f;
+                else if (vec.z > -1f) vec.z = -1f;
                 Camera.main.transform.localPosition = vec;
             }
         }
@@ -264,7 +265,8 @@ public class Zoom
             //진행
             startTimer += Time.deltaTime;
             Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
-            if (vec.z < -13f) vec.z = -13f;
+            if (vec.z < -16f) vec.z = -16f;
+            else if (vec.z > -1f) vec.z = -1f;
             Camera.main.transform.localPosition = vec;
         }
         else
@@ -279,7 +281,8 @@ public class Zoom
         {
             startTimer += Time.deltaTime;
             Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
-            if (vec.z < -13f) vec.z = -13f;
+            if (vec.z < -16f) vec.z = -16f;
+            else if (vec.z > -1f) vec.z = -1f;
             Camera.main.transform.localPosition = vec;
             if (originPos == Camera.main.transform.localPosition)
             {
