@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,36 +7,36 @@ using UnityEngine.Rendering.PostProcessing;
 public class PostProcessController : MonoBehaviour
 {
     public PostProcessProfile ppProfile;
-    Bloom bloom; //ºó ´«»Í(±¤¿øÀ» °¡Áø ¾ÖµéÀÌ ´«»ÍÀ» ÁÜ)
-    DepthOfField DOF; // ¾ÆÀÌÆù ÀÎ¹°»çÁø ¸ğµå 
-    Vignette vignette;// Ä«¸Ş¶ó Å×µÎ¸® ¾îµÓ°Ô
-    ColorGrading CG; // »ö°¨
+    Bloom bloom; //ë¹ˆ ëˆˆë½•(ê´‘ì›ì„ ê°€ì§„ ì• ë“¤ì´ ëˆˆë½•ì„ ì¤Œ)
+    DepthOfField DOF; // ì•„ì´í° ì¸ë¬¼ì‚¬ì§„ ëª¨ë“œ 
+    Vignette vignette;// ì¹´ë©”ë¼ í…Œë‘ë¦¬ ì–´ë‘¡ê²Œ
+    ColorGrading CG; // ìƒ‰ê°
 
     [Header("Bloom")]
     [SerializeField]
-    private float originIntensity; //°­µµ
+    private float originIntensity; //ê°•ë„
     [SerializeField]
-    private float Threshold; //0 ~ 1°ªÀ¸·Î Á¶ÀıÇÏ¸ç ¾ËÆÄ °ª ´À³¦À¸·Î ¸·À» ÇÏ³ª ¾º¿ì³× ÇÏ¾á°Å
+    private float Threshold; //0 ~ 1ê°’ìœ¼ë¡œ ì¡°ì ˆí•˜ë©° ì•ŒíŒŒ ê°’ ëŠë‚Œìœ¼ë¡œ ë§‰ì„ í•˜ë‚˜ ì”Œìš°ë„¤ í•˜ì–€ê±°
     [SerializeField]
-    private float SoftKnee; //±¤¿øÀÇ ¹üÀ§
+    private float SoftKnee; //ê´‘ì›ì˜ ë²”ìœ„
 
     [Header("DepthOfField")]
     [SerializeField]
-    private float FocusDistance; // ¾ÆÀÌÆù ÀÎ¹°»çÁø¸ğµå °­µµ ´À³¦
+    private float FocusDistance; // ì•„ì´í° ì¸ë¬¼ì‚¬ì§„ëª¨ë“œ ê°•ë„ ëŠë‚Œ
 
     [Header("Vignette")]
     [SerializeField]
     private float Vignette_Intensity;
 
-    //private float FocusDistance; // ¾ÆÀÌÆù ÀÎ¹°»çÁø¸ğµå °­µµ ´À³¦
+    //private float FocusDistance; // ì•„ì´í° ì¸ë¬¼ì‚¬ì§„ëª¨ë“œ ê°•ë„ ëŠë‚Œ
     //[SerializeField]
-    //private float originIntensity; //°­µµ
+    //private float originIntensity; //ê°•ë„
     //[SerializeField]
-    //private float originIntensity; //°­µµ
+    //private float originIntensity; //ê°•ë„
     //[SerializeField]
-    //private float originIntensity; //°­µµ
+    //private float originIntensity; //ê°•ë„
     //[SerializeField]
-    //private float originIntensity; //°­µµ
+    //private float originIntensity; //ê°•ë„
     //[SerializeField]
     float originSoftKnee; 
 
