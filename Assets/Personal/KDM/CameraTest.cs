@@ -128,7 +128,7 @@ public class CameraTest : Manager<CameraTest>
     {
         if (Inventory.inventoryActivated) return;
         defaultPosition += Input.GetAxis("Mouse ScrollWheel") * ZoomSensitivity;
-        if (defaultPosition > -3.0f) defaultPosition = -3.0f;
-        if (defaultPosition < -13.0f) defaultPosition = -13.0f;
+        if (defaultPosition > -1.0f) defaultPosition = -1.0f;
+        if (defaultPosition < -16.0f) defaultPosition = -16.0f;
     }
 }
