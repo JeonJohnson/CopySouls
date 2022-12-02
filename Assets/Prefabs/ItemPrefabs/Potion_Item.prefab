@@ -96,6 +96,7 @@ MonoBehaviour:
   itemType: 6
   itemImage: {fileID: 21300000, guid: ea3967cf8adeb594699d568f9cb57ee9, type: 3}
   collider: {fileID: 0}
+  isHand: 0
   speed: 25
 --- !u!1001 &3521121600510041190
 PrefabInstance:
@@ -104,6 +105,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3102287878312034947}
     m_Modifications:
+    - target: {fileID: 4086475727805345266, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+      propertyPath: m_Range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086475727805345266, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+      propertyPath: m_Color.b
+      value: 0.49381453
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086475727805345266, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7456348
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086475727805345266, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+      propertyPath: m_Color.r
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086475727805345266, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5750851235394640691, guid: ea64523a9c89dcb4ba542baa723e96bc, type: 3}
       propertyPath: m_RootOrder
       value: 0
