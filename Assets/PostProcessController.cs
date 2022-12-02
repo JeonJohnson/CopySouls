@@ -103,7 +103,7 @@ public class PostProcessController : MonoBehaviour
         {
             blur.shutterAngle.value = Mathf.Lerp(originShutterAngle, angle, 1 - timer);
             timer -= Time.unscaledDeltaTime * 3f;
-            Debug.Log("블러중 " + blur.shutterAngle.value);
+            //Debug.Log("블러중 " + blur.shutterAngle.value);
             yield return null;
         }
         blur.shutterAngle.value = angle;
@@ -113,7 +113,7 @@ public class PostProcessController : MonoBehaviour
         {
             blur.shutterAngle.value = Mathf.Lerp(originShutterAngle, angle, timer);
             timer -= Time.unscaledDeltaTime * 3f;
-            Debug.Log("블러중 " + blur.shutterAngle.value);
+            //Debug.Log("블러중 " + blur.shutterAngle.value);
             yield return null;
         }
         blur.shutterAngle.value = originShutterAngle;

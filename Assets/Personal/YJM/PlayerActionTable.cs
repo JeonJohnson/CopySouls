@@ -175,6 +175,7 @@ public class PlayerActionTable : MonoBehaviour
                 {
                     if (dmgStruct.atkType == eAttackType.Week && player.status.curStamina > 0f)
                     {
+                        PlayGuardEffect();
                         print("attacker : " + dmgStruct.attackObj + "방어성공 " + theta);
                         player.animator.SetTrigger("GuardSuccess");
                         SoundManager.Instance.PlaySound("Shield_Guard", this.gameObject, 1.2f);
@@ -398,6 +399,7 @@ public class PlayerActionTable : MonoBehaviour
 
     public void DashAttack()
     {
+        PlaySpritAttEffect();
         curActAtkValue = 1.2f;
         isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 15;
@@ -410,6 +412,8 @@ public class PlayerActionTable : MonoBehaviour
 
     public void RollingAttack()
     {
+        PlayRollAttEffect();
+
         curActAtkValue = 1.2f;
         isActedTimer = 0.5f;
         Player.instance.status.curStamina -= 15;
@@ -962,5 +966,19 @@ public class PlayerActionTable : MonoBehaviour
     public void PlayStepEffect()
     {
         CameraEffect.instance.PlayStepEffect();
+    }
+
+    public void PlayGuardEffect()
+    {
+        CameraEffect.instance.PlayGuardEffect();
+    }
+
+    public void PlayRollAttEffect()
+    {
+        CameraEffect.instance.PlayRollAttEffect();
+    }
+    public void PlaySpritAttEffect()
+    {
+        CameraEffect.instance.PlaySpritAttEffect();
     }
 }

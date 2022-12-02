@@ -91,9 +91,9 @@ public class CameraEffect : MonoBehaviour
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
 
-    public void PlayZoom(ZoomDir dir,float speed,float duration)
+    public void PlayZoom(ZoomDir dir,float speed,float duration,Vector3 originPos)
     {
-        curZoom = new Zoom(dir, speed, duration);
+        curZoom = new Zoom(dir, speed, duration, originPos);
     }
     public void PlayZoom(ZoomDir dir, float speed,bool check)
     {
@@ -118,6 +118,7 @@ public class CameraEffect : MonoBehaviour
     public void PlayRollAttEffect()
     {
         PlayShake("Player_RollAtt");
+        PlayZoom(ZoomDir.Front, 1f, 1f,Camera.main.transform.localPosition);
     }
     public void PlaySpritAttEffect()
     {
@@ -195,11 +196,12 @@ public class Zoom
             Dir = vec.normalized;
         }
     }
-    public Zoom(ZoomDir _dir, float _speed, float _duration)
+    public Zoom(ZoomDir _dir, float _speed, float _duration,Vector3 _originPos)
     {
         dir = _dir;
         speed = _speed;
         duration = _duration;
+        originPos = _originPos;
         if (dir == ZoomDir.Front)
         {
             Vector3 vec = Player.instance.transform.position - Camera.main.transform.localPosition;
@@ -226,6 +228,7 @@ public class Zoom
             {
                 if (startTimer <= duration * 0.5f)
                 {
+                    Debug.Log("앞으로 가는중");
                     Vector3 vec = new Vector3(0.0f, 0.0f, originPos.z + -Dir.z * speed * startTimer);
                     Camera.main.transform.localPosition = vec;
                 }
@@ -238,6 +241,7 @@ public class Zoom
             }
             else
             {
+                Debug.Log("뒤로 가는중");
                 startTimer += Time.deltaTime;
                 Vector3 vec = new Vector3(0.0f, 0.0f, tempPos.z + Dir.z * speed * startTimer);
                 Camera.main.transform.localPosition = vec;
