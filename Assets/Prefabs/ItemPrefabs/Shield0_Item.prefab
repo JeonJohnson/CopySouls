@@ -129,6 +129,7 @@ MonoBehaviour:
   itemType: 2
   itemImage: {fileID: 21300000, guid: e5bf55489855e4e448776208148d25d2, type: 3}
   collider: {fileID: 0}
+  isHand: 0
   speed: 25
   weapon: {fileID: 5181190830630081411}
 --- !u!1001 &6320825510459532889
@@ -189,6 +190,18 @@ PrefabInstance:
     - target: {fileID: 3711218531106439640, guid: fcd3e0e4a2d7e454a97fda13b2d59c2c, type: 3}
       propertyPath: m_TagString
       value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711218531106439642, guid: fcd3e0e4a2d7e454a97fda13b2d59c2c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711218531106439642, guid: fcd3e0e4a2d7e454a97fda13b2d59c2c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6977869
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711218531106439642, guid: fcd3e0e4a2d7e454a97fda13b2d59c2c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34420612
       objectReference: {fileID: 0}
     - target: {fileID: 7129478424083253216, guid: fcd3e0e4a2d7e454a97fda13b2d59c2c, type: 3}
       propertyPath: m_TagString

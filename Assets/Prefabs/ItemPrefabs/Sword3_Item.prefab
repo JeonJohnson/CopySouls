@@ -195,6 +195,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Item
       objectReference: {fileID: 0}
+    - target: {fileID: 7926126197089027981, guid: bef908ee7546b1146b3a2fb73358f97f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926126197089027981, guid: bef908ee7546b1146b3a2fb73358f97f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.30980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926126197089027981, guid: bef908ee7546b1146b3a2fb73358f97f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6156863
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1351056330041920394, guid: bef908ee7546b1146b3a2fb73358f97f, type: 3}
     - {fileID: 1351056330041920395, guid: bef908ee7546b1146b3a2fb73358f97f, type: 3}
