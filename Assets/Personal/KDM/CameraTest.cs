@@ -53,14 +53,16 @@ public class CameraTest : Manager<CameraTest>
     void Update()
     {
         ZoomCamera();
-        cameraLookSpeed = GameManager.Instance.mouseSensivility;
     }
 
      void LateUpdate()
      {
         HandleAllCameraMovement();
-
-     }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            CameraEffect.instance.PlayRollAttEffect();
+        }
+    }
 
     public void HandleAllCameraMovement()
     {
