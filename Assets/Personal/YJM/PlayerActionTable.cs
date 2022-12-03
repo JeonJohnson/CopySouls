@@ -212,6 +212,7 @@ public class PlayerActionTable : MonoBehaviour
         GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ChargingEffect", 1);
         effect.transform.position = Player.instance.status.mainWeapon.transform.position;
         effect.GetComponent<ParticleSystem>().Stop();
+        effect.GetComponent<ParticleSystem>().Clear();
         //=============================================
         StopAllCoroutines();
         CurCoroCounter1 = CurCoroCounter2;
@@ -352,6 +353,7 @@ public class PlayerActionTable : MonoBehaviour
                 UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
                 effect.GetComponent<ParticleSystem>().Stop();
+                effect.GetComponent<ParticleSystem>().Clear();
                 //=========================================
 
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
@@ -383,6 +385,8 @@ public class PlayerActionTable : MonoBehaviour
                 UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
                 effect.GetComponent<ParticleSystem>().Stop();
+                effect.GetComponent<ParticleSystem>().Clear();
+
                 //=========================================
 
                 Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
@@ -403,6 +407,7 @@ public class PlayerActionTable : MonoBehaviour
         UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
         CameraEffect.instance.curZoom.Check = false;
         effect.GetComponent<ParticleSystem>().Stop();
+        effect.GetComponent<ParticleSystem>().Clear();
         //=========================================
     }
 
