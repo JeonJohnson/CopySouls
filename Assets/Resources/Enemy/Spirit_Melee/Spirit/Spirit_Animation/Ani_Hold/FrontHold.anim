@@ -38557,7 +38557,7 @@ AnimationClip:
     functionName: Spirit_Melee_DoZoom_FrontHold
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 2
     intParameter: 0
     messageOptions: 0
   - time: 0.73333335
@@ -38578,6 +38578,6 @@ AnimationClip:
     functionName: Spirit_Melee_StopZoom_FrontHold
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 2
     intParameter: 0
     messageOptions: 0
