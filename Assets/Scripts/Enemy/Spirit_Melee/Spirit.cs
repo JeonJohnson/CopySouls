@@ -263,6 +263,20 @@ public class Spirit : Enemy
     public void Spirit_Melee_CompleAtk() { complete_Atk = true; }
     public void Spirit_Melee_DoubleAttCheck() { doubleAttCheck = true; }
     public void PlayTimeSlow() { timeSlow = true; }
+    public void Spirit_Melee_DoZoom_FrontHold()
+    {
+        CameraEffect.instance.PlayZoom(ZoomDir.Front, 3f, true);
+    }
+    public void Spirit_Melee_StopZoom_FrontHold()
+    {
+        CameraEffect.instance.PlayZoom(ZoomDir.Front, 3f, false);
+    }
+
+    public void Spirit_Melee_DoShake()
+    {
+        CameraEffect.instance.PlayShake("Enemy_FrontHold");
+    }
+
 
     public void Spirit_Damaged() { complete_Damaged = true; }
     public void Spirit_Groggy() { complete_Groggy = true; }

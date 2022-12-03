@@ -201,13 +201,13 @@ public abstract class Weapon : MonoBehaviour
             return;    
         }
 
-        if(owner.GetComponent<Spirit>() != null)
-        {
-            if (other.gameObject.layer == 9)
-            {
-                CameraEffect.instance.PlayShake("FrictionToEnvironment");
-            }
-        }    
+        //if(owner.GetComponent<Spirit>() != null)
+        //{
+        //    if (other.gameObject.layer == 9)
+        //    {
+        //        CameraEffect.instance.PlayShake("FrictionToEnvironment");
+        //    }
+        //}    
         
 
             //Enemy -> Player

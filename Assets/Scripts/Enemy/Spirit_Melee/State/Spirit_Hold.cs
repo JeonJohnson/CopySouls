@@ -125,5 +125,7 @@ public class Spirit_Hold : cState
         complete_Hold = false;
         complete_GetUp = false;
         me.col.enabled = true;
+
+
     }
 }
