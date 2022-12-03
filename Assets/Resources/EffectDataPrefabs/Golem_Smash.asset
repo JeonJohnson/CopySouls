@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9081954cd761d624fbbf04fc7d093034, type: 3}
-  m_Name: Golem_Scream
+  m_Name: Golem_Smash
   m_EditorClassIdentifier: 
   shakeType: 0
   Curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.019173149
-      outSlope: -0.019173149
-      tangentMode: 34
+      time: -0.0041656494
+      value: 0.96698
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
-      time: 1.0083313
-      value: 0.9806671
-      inSlope: -0.019173149
-      outSlope: -0.019173149
-      tangentMode: 34
+      time: 0.9041748
+      value: 0.20518875
+      inSlope: -0.7801725
+      outSlope: -0.7801725
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.1697324
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   shakePosition: 1
   shakeRotation: 1
-  duration: 3.1
-  magnitude: 4
-  shakeSpeed: 2
+  duration: 0.5
+  magnitude: 3
+  shakeSpeed: 1
   isSeedUpdate: 1
   roop: 0

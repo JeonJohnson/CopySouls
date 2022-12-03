@@ -2402,6 +2402,7 @@ GameObject:
   - component: {fileID: 8912638675591138825}
   - component: {fileID: 1559559539583753623}
   - component: {fileID: 2377008546950909355}
+  - component: {fileID: 1638504189320501121}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2498,8 +2499,6 @@ MonoBehaviour:
   playerModel: {fileID: 7030777313930249932}
   cameraArm: {fileID: 774360108790470553, guid: 4f8cc636c010c74408e2193d48362301, type: 3}
   cameraManager: {fileID: 6348691163088468841, guid: 3691d523857dbac448fc76a578cd06a4, type: 3}
-  walkTrails:
-  - {fileID: 0}
   afterImageController: {fileID: 2377008546950909355}
   isMove: 0
   moveDir: {x: 0, y: 0, z: 0}
@@ -2552,6 +2551,7 @@ MonoBehaviour:
   curActAtkValue: 1
   pastHoldIndex: 0
   curHoldIndex: 0
+  chargeValue: 0
   holdType: 0
   holdParam: 0
   nearColliders: []
@@ -2587,7 +2587,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smr: {fileID: 7030777313871796205}
+  weaponMesh: {fileID: 0}
   mat: {fileID: 2100000, guid: 3d296cf0b84eef74f9c07db2802f7706, type: 2}
+  isWeaponEffect: 0
+  timer: 0
+  sprintCount: 5
+--- !u!81 &1638504189320501121
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030777313930249932}
+  m_Enabled: 1
 --- !u!1 &7030777314351998324
 GameObject:
   m_ObjectHideFlags: 0

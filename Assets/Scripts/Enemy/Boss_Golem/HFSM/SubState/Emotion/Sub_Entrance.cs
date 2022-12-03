@@ -29,6 +29,9 @@ public class Sub_Entrance : Golem_SubState
 				{
 					if (golem.distToTarget <= golem.status.ricognitionRange)
 					{
+
+						golem.actTable.GolemAssembleBeginEvent();
+
 						golem.animCtrl.enabled = false;
 						golem.combatState = eCombatState.Alert;
 						golem.FragScript.Assemble();
@@ -43,6 +46,9 @@ public class Sub_Entrance : Golem_SubState
 				{
 					if (Funcs.IsAnimationCompletelyFinish(golem.FragScript.animCtrl, "Assemble"))
 					{
+
+						golem.actTable.GolemAssembleEndEvent();
+
 						golem.combatState = eCombatState.Combat;
 
 						golem.meshObj.SetActive(true);
@@ -51,7 +57,7 @@ public class Sub_Entrance : Golem_SubState
 						golem.animCtrl.enabled = true;
 						golem.animCtrl.SetTrigger("tRoar");
 
-						SoundManager.Instance.PlaySound("Golem_RoarTest", golem.gameObject);
+						
 					}
 				}
 				break;

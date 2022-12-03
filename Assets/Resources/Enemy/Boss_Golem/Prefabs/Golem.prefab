@@ -430,6 +430,7 @@ MonoBehaviour:
   thinkMinTime: 1
   thinkMaxTime: 3
   thinkTime: 0
+  curThinkTime: 0
 --- !u!114 &1705065869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +527,7 @@ MonoBehaviour:
   fistScript:
   - {fileID: 4783900925492734397}
   - {fileID: 181847462544556577}
+  legScript: []
   hpCriteria: 4b0000003200000019000000
 --- !u!195 &7366577288407627356
 NavMeshAgent:
@@ -588,7 +590,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -907,6 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1814817405526944582}
+  - component: {fileID: 1055943918474033074}
   m_Layer: 0
   m_Name: GOLEM_ R Foot
   m_TagString: Untagged
@@ -928,6 +931,20 @@ Transform:
   m_Father: {fileID: 1814817405526944598}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1055943918474033074
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814817405527308070}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.45
+  m_Height: 1.75
+  m_Direction: 0
+  m_Center: {x: 0.25, y: 0, z: 0}
 --- !u!1 &1814817405527308072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,8 +1038,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: -1, y: 0, z: -0.25}
+  m_Radius: 1.25
+  m_Center: {x: -0.75, y: 0.25, z: -0.25}
 --- !u!114 &181847462544556577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,6 +1532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1814817405526944614}
+  - component: {fileID: 5118075105449334748}
   m_Layer: 0
   m_Name: GOLEM_ L Foot
   m_TagString: Untagged
@@ -1536,6 +1554,20 @@ Transform:
   m_Father: {fileID: 1814817405526944630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5118075105449334748
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814817405527308102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.45
+  m_Height: 1.75
+  m_Direction: 0
+  m_Center: {x: 0.25, y: 0, z: 0}
 --- !u!1 &1814817405527308104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,8 +1661,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: -1, y: 0, z: -0.25}
+  m_Radius: 1.25
+  m_Center: {x: -0.75, y: 0.25, z: -0.25}
 --- !u!114 &4783900925492734397
 MonoBehaviour:
   m_ObjectHideFlags: 0
