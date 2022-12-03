@@ -10,6 +10,7 @@ public class Spirit_Damaged : cState
         me.animCtrl.SetBool("isDamaged", true);
         me.animCtrl.SetBool("ChangeDamaged", true);
         ((Spirit)me).GetComponentInChildren<SkinnedMeshRenderer>().material = ((Spirit)me).hitMaterial;
+        me.GetComponent<FieldOfView>().viewAngle = 360f;
 
         UiManager.Instance.ppController.DoBloom(10f, 0.6f, 0.1f);
     }
