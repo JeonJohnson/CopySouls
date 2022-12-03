@@ -37,6 +37,11 @@ public class GolemFist : Weapon
 	public override void OnTriggerEnter(Collider other)
 	{
 		base.OnTriggerEnter(other);
+
+		if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
+		{
+			CameraEffect.instance.PlayShake("Golem_Smash");
+		}
 	}
 
 }

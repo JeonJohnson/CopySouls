@@ -83,7 +83,7 @@ public class Golem_ActionTable : MonoBehaviour
 	public RockFrag rockScript;
 	public int fistDmg;
 	public GolemFist[] fistScript;
-
+	public GolemFist[] legScript;
 
 	public int[] hpCriteria;
 
@@ -151,6 +151,26 @@ public class Golem_ActionTable : MonoBehaviour
 		}
 	}
 
+
+	public void GolemAssembleBeginEvent()
+	{
+		CameraEffect.instance.PlayShake("Golem_Assemble");
+	}
+	public void GolemAssembleEndEvent()
+	{
+		//CameraEffect.instance.PlayShake("Golem_AssembleFin");
+	}
+
+	public void GolemScreamShakeEvent()
+	{
+		CameraEffect.instance.PlayShake("Golem_Scream");
+		SoundManager.Instance.PlaySound("Golem_RoarTest", golem.gameObject);
+	}
+
+	public void GolemWalkShakeEvent()
+	{
+		CameraEffect.instance.PlayShake("Golem_Walk");
+	}
 	#endregion
 	//public void OrganizeStatePerCost()
 	//{

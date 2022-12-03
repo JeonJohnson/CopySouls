@@ -115,6 +115,7 @@ public class RockFrag : Weapon, IPoolingObject
 
 		if (((1 << other.gameObject.layer) & checkBitLayer) != 0)
 		{
+			CameraEffect.instance.PlayShake("Golem_Smash");
 			Explode();
 			ResetForReturn();
 			ObjectPoolingCenter.Instance.ReturnObj(gameObject);

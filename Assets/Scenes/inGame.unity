@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3882915, g: 0.4022025, b: 0.39101633, a: 1}
+  m_IndirectSpecularColor: {r: 0.3882913, g: 0.40220222, b: 0.39101598, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -570,10 +570,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
-    - target: {fileID: 1834412469782524341, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
-      propertyPath: MaxDistance
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f1831bae0855594c94830d19849adf6, type: 3}
 --- !u!1 &1659070536
@@ -967,7 +963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3422312629044115862, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3422312629044115862, guid: 4d1354fe52fca134c9a91fbdc0b970d1, type: 3}
       propertyPath: m_LocalPosition.z
