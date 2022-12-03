@@ -50,6 +50,6 @@ MonoBehaviour:
   shakeRotation: 0
   duration: 0.5
   magnitude: 30
-  shakeSpeed: 1
+  shakeSpeed: 0.2
   isSeedUpdate: 0
   roop: 0

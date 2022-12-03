@@ -109,11 +109,11 @@ public class CameraEffect : MonoBehaviour
     }
     public void PlayLeftAttEffect()
     {
-        PlayShake("Player_LeftAtt");
+        //PlayShake("Player_LeftAtt");
     }
     public void PlayRightAttEffect()
     {
-        PlayShake("Player_RightAtt");
+        //PlayShake("Player_RightAtt");
     }
     public void PlayRollAttEffect()
     {
