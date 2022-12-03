@@ -210,7 +210,7 @@ public abstract class Weapon : MonoBehaviour
         //}    
         
 
-            //Enemy -> Player
+        //Enemy -> Player
         if (owner.gameObject.GetComponent<Enemy>() != null)
         {
             if(!owner.gameObject.GetComponent<Enemy>().status.isDead)

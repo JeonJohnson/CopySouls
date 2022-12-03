@@ -209,6 +209,8 @@ public class PlayerActionTable : MonoBehaviour
         //=============================================
         //CameraEffect
         if(CameraEffect.instance.curZoom != null) CameraEffect.instance.curZoom.Check = false;
+        //이거 다른거 지우는데...?
+
         GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ChargingEffect", 1);
         effect.transform.position = Player.instance.status.mainWeapon.transform.position;
         effect.GetComponent<ParticleSystem>().Stop();

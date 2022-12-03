@@ -318,6 +318,11 @@ public class Spirit : Enemy
     {
         Spirit_Scream,
         Spirit_Damaged,
+        Spirit_Death,
+        Spirit_NormalAtt,
+        Spirit_SwingAtt,
+        Spirit_DoubleAtt1,
+        Spirit_DoubleAtt2,
         End
     }
 
@@ -326,6 +331,33 @@ public class Spirit : Enemy
         if (index == (int)SoundIndex.Spirit_Scream)
         {
             SoundManager.Instance.PlaySound("Spirit_Scream", gameObject, 1f);
+        }
+        else if (index == (int)SoundIndex.Spirit_Death)
+        {
+            SoundManager.Instance.PlaySound("Spirit_Death", gameObject, 10f);
+        }
+        else if (index == (int)SoundIndex.Spirit_Damaged)
+        {
+            int i = Random.Range(1, 4);
+            if(i == 1) SoundManager.Instance.PlaySound("Enemy_Damaged1", gameObject, 1f);
+            else if(i == 2) SoundManager.Instance.PlaySound("Enemy_Damaged2", gameObject, 1f);
+            else if (i == 3) SoundManager.Instance.PlaySound("Enemy_Damaged3", gameObject, 1f);
+        }
+        else if (index == (int)SoundIndex.Spirit_NormalAtt)
+        {
+            SoundManager.Instance.PlaySound("Spirit_NormalAtt", gameObject, 1f);
+        }
+        else if (index == (int)SoundIndex.Spirit_SwingAtt)
+        {
+            SoundManager.Instance.PlaySound("Spirit_SwingAtt", gameObject, 1f);
+        }
+        else if (index == (int)SoundIndex.Spirit_DoubleAtt1)
+        {
+            SoundManager.Instance.PlaySound("Spirit_DoubleAtt1", gameObject, 1f);
+        }
+        else if (index == (int)SoundIndex.Spirit_DoubleAtt2)
+        {
+            SoundManager.Instance.PlaySound("Spirit_DoubleAtt2", gameObject, 1f);
         }
     }
 

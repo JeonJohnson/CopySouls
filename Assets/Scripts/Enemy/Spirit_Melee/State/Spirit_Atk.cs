@@ -109,8 +109,10 @@ public class Spirit_Atk : cState
             CurPattern = (eSpirit_AtkPattern)AttPatternIndex;
             me.transform.LookAt(me.targetObj.transform);
 
-            if (CurPattern == eSpirit_AtkPattern.DoubleAtk || CurPattern == eSpirit_AtkPattern.TurnAtt)  ((Spirit)me).weapon.TransWeaponPos();
-
+            if (CurPattern == eSpirit_AtkPattern.DoubleAtk || CurPattern == eSpirit_AtkPattern.TurnAtt)
+            {
+                ((Spirit)me).weapon.TransWeaponPos();
+            }
             startPattern = true;
         }
     }

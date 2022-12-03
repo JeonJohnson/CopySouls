@@ -7,24 +7,26 @@ public class Spirit_Damaged : cState
     public override void EnterState(Enemy script)
     {
         base.EnterState(script);
+
         me.animCtrl.SetBool("isDamaged", true);
         me.animCtrl.SetBool("ChangeDamaged", true);
         ((Spirit)me).GetComponentInChildren<SkinnedMeshRenderer>().material = ((Spirit)me).hitMaterial;
         me.GetComponent<FieldOfView>().viewAngle = 360f;
 
         UiManager.Instance.ppController.DoBloom(10f, 0.6f, 0.1f);
+
+        ((Spirit)me).HitCount--;
     }
 
     public override void UpdateState()
     {
         //if (((Spirit)me).isReset) me.SetState((int)Enums.eSpiritState.Idle);
-
         if (me.status.isBackHold)
         {
             me.SetState((int)Enums.eSpiritState.Hold);
         }
 
-        if (((Spirit)me).HitCount > 1)
+        if(((Spirit)me).HitCount > 1)
         {
             if (me.animCtrl.GetBool("isDamaged")) me.animCtrl.SetBool("isDamaged", false);
             else me.animCtrl.SetBool("isDamaged", true);
@@ -34,8 +36,8 @@ public class Spirit_Damaged : cState
         {
             if (((Spirit)me).complete_Damaged)
             {
-                ((Spirit)me).HitCount--;
-                me.animCtrl.SetBool("ChangeDamaged", false);
+                //((Spirit)me).HitCount--;
+                //me.animCtrl.SetBool("ChangeDamaged", false);
 
                 if (((Spirit)me).isReturn) me.SetState((int)Enums.eSpiritState.Return);
 
