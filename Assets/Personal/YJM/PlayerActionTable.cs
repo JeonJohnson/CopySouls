@@ -209,6 +209,9 @@ public class PlayerActionTable : MonoBehaviour
         //=============================================
         //CameraEffect
         if(CameraEffect.instance.curZoom != null) CameraEffect.instance.curZoom.Check = false;
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ChargingEffect", 1);
+        effect.transform.position = Player.instance.status.mainWeapon.transform.position;
+        effect.GetComponent<ParticleSystem>().Stop();
         //=============================================
         StopAllCoroutines();
         CurCoroCounter1 = CurCoroCounter2;
@@ -329,8 +332,11 @@ public class PlayerActionTable : MonoBehaviour
         //=========================================
         //CameraEffect
         CameraEffect.instance.ChargeAttEffect();
-
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ChargingEffect", 1);
+        effect.transform.position = Player.instance.status.mainWeapon.transform.position;
+        effect.GetComponent<ParticleSystem>().Play();
         //=========================================
+
 
         Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.05f);
         chargeValue = 1f;
@@ -345,6 +351,7 @@ public class PlayerActionTable : MonoBehaviour
                 //CameraEffect
                 UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
+                effect.GetComponent<ParticleSystem>().Stop();
                 //=========================================
 
                 Player.instance.animator.SetFloat("ChargeAnimSpeed", 0.01f);
@@ -375,6 +382,7 @@ public class PlayerActionTable : MonoBehaviour
                 //CameraEffect
                 UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
                 CameraEffect.instance.curZoom.Check = false;
+                effect.GetComponent<ParticleSystem>().Stop();
                 //=========================================
 
                 Player.instance.status.curStamina -= 35 + ((1 - chargeValue) * 15);
@@ -394,6 +402,7 @@ public class PlayerActionTable : MonoBehaviour
         //CameraEffect
         UiManager.Instance.ppController.DoBlur(360.0f, 0.2f);
         CameraEffect.instance.curZoom.Check = false;
+        effect.GetComponent<ParticleSystem>().Stop();
         //=========================================
     }
 
