@@ -17,6 +17,7 @@ public class Spirit_Death : cState
     {
         base.EnterState(script);
 
+
         if (!me.isRouting)
         {
             me.isRouting = true;

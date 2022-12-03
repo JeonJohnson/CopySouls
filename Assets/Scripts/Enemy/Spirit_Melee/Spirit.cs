@@ -111,6 +111,11 @@ public class Spirit : Enemy
     {
         base.Update();
 
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            CameraEffect.instance.PlayShake("Golem_Scream");
+        }
+
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;
         curState_e = GetCurState<Enums.eSpiritState>();
@@ -307,6 +312,20 @@ public class Spirit : Enemy
         if(index == (int)ShakeIndex.Spirit_Scream)
         {
             CameraEffect.instance.PlayShake("Spirit_Scream");
+        }
+    }
+    public enum SoundIndex
+    {
+        Spirit_Scream,
+        Spirit_Damaged,
+        End
+    }
+
+    public void Spirit_Sound(int index)
+    {
+        if (index == (int)SoundIndex.Spirit_Scream)
+        {
+            SoundManager.Instance.PlaySound("Spirit_Scream", gameObject, 1f);
         }
     }
 

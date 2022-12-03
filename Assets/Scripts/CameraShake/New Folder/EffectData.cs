@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +14,9 @@ public class EffectData : ScriptableObject
     private const float SEED_MAX = 1000.0f;
     private float roopTimer;
 
-    [Tooltip("ºÎµå·´°Ô or °ÅÄ¥°Ô")]
+    [Tooltip("ë¶€ë“œëŸ½ê²Œ or ê±°ì¹ ê²Œ")]
     public ShakeType shakeType;
-    [Tooltip("keyframe»ç¿ë¹ı Àß ¸ğ¸£°ÚÀ¸¸é ¹°¾îº¸¼¼¿ä~ Ä£ÀıÇÏ°Ô °¡¸£ÃÄ µå¸³´Ï´Ù ¤¾¤¾")]
+    [Tooltip("keyframeì‚¬ìš©ë²• ì˜ ëª¨ë¥´ê² ìœ¼ë©´ ë¬¼ì–´ë³´ì„¸ìš”~ ì¹œì ˆí•˜ê²Œ ê°€ë¥´ì³ ë“œë¦½ë‹ˆë‹¤ ã…ã…")]
     public AnimationCurve Curve = AnimationCurve.EaseInOut(
             0.0f,
             1.0f,
@@ -24,15 +24,15 @@ public class EffectData : ScriptableObject
             0.0f
         );
     // PROPERTIES: ----------------------------------------------------------------------------
-    [Tooltip("Position°ª ¾µ²«°¡?(µÑ´Ù Ã¼Å© ¾ÈÇÏ¸é ¾È¿òÁ÷ÀÓ)")]
+    [Tooltip("Positionê°’ ì“¸ê»€ê°€?(ë‘˜ë‹¤ ì²´í¬ ì•ˆí•˜ë©´ ì•ˆì›€ì§ì„)")]
     public bool shakePosition = true;
-    [Tooltip("Rotation ¾µ²«°¡?(µÑ´Ù Ã¼Å© ¾ÈÇÏ¸é ¾È¿òÁ÷ÀÓ)")]
+    [Tooltip("Rotation ì“¸ê»€ê°€?(ë‘˜ë‹¤ ì²´í¬ ì•ˆí•˜ë©´ ì•ˆì›€ì§ì„)")]
     public bool shakeRotation = true;
-    [Tooltip("Áö¼Ó½Ã°£")]
+    [Tooltip("ì§€ì†ì‹œê°„")]
     public float duration;
-    [Tooltip("°­µµ")]
+    [Tooltip("ê°•ë„")]
     public float magnitude;
-    [Tooltip("ºóµµ")]
+    [Tooltip("ë¹ˆë„")]
     public float shakeSpeed;
     private float perlinSpeed;
     //public float radius;
@@ -162,7 +162,7 @@ public class EffectData : ScriptableObject
             //
             //coefficient = 1f - Mathf.Clamp01(distance / this.radius);
             //
-            //Debug.Log("¾ç : " +amount + "ÄÁÇÇ½Ã¾ğÆ® : " + coefficient);
+            //Debug.Log("ì–‘ : " +amount + "ì»¨í”¼ì‹œì–¸íŠ¸ : " + coefficient);
             if (!roop)
             {
                 if (shakePosition)
