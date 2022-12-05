@@ -101,5 +101,6 @@ MonoBehaviour:
   - {fileID: 7768995382571168101, guid: d3513545d5bd068469706eb986120ad0, type: 3}
   - {fileID: 6510125619236422602, guid: 6d7b01bdef4c9d44596d7108af762e72, type: 3}
   - {fileID: 3123075737211501182, guid: 3a6554b938d62bd41bafcb10e84912a0, type: 3}
+  - {fileID: 3940036432451144812, guid: d2d0bcc5ef9adb04082ad3a9a933d0cf, type: 3}
   trashBin: []
   trashBinCan: {fileID: 2493624847980592776}

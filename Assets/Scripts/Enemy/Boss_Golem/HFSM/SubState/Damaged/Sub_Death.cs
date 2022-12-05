@@ -23,7 +23,11 @@ public class Sub_Death : Golem_SubState
 
 		golem.FragScript.animCtrl.SetTrigger("tExplode");
 
-		InGameManager.Instance.BossDeathEvent();
+        GameObject effect = ObjectPoolingCenter.Instance.LentalObj("GolemDeathParticle");
+		effect.transform.position = golem.transform.position + new Vector3(0f,3f,0f);
+        InGameManager.Instance.BossDeathEvent();
+
+		//SoundManager.Instance.PlaySound("t", this.gameObject, 1f);
 	}
 	public override void UpdateState()
 	{

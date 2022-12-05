@@ -58,6 +58,8 @@ public class InGameManager : Manager<InGameManager>
 
     IEnumerator GotoTitleSceneCoroutine()
     {
+        TimeStopEffect(4f);
+        yield return new WaitForSeconds(3f);
         //스크린 이펙트 키면서 엔딩 크레딧 알파값 넣기
         //끝나면 크레딧 스크롤 ㄱㄱ
         yield return StartCoroutine(GameEndScreenEffectCoroutine(gameEndingEffectTime));
@@ -213,8 +215,8 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
-        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
+        //Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;        
         Player.instance.transform.position = startPos;
@@ -249,15 +251,15 @@ public class InGameManager : Manager<InGameManager>
         isStop = false;
     }
 
-    public void TimeStopEffect()
+    public void TimeStopEffect(float time = 1f, float stopValue = 0.1f)
     {
-        StartCoroutine(TimeStopEffectCoro());
+        StartCoroutine(TimeStopEffectCoro(time, stopValue));
     }
-    IEnumerator TimeStopEffectCoro()
+    IEnumerator TimeStopEffectCoro(float time, float stopValue)
     {
         yield return new WaitForSecondsRealtime(0.1f);
-        Time.timeScale = 0.1f;
-        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = stopValue;
+        yield return new WaitForSecondsRealtime(time);
         while (Time.timeScale < 1f)
         {
             Time.timeScale += Time.unscaledDeltaTime;
