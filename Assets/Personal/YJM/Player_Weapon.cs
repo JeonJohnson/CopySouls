@@ -44,7 +44,7 @@ public class Player_Weapon : Weapon
 
     new private void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);
+        //base.OnTriggerEnter(other);
         print("충돌");
         DamagedStruct dmgStruct = new DamagedStruct();
         //Shake
