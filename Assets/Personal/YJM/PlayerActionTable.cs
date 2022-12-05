@@ -467,7 +467,7 @@ public class PlayerActionTable : MonoBehaviour
             }
         }
 
-        if (target != null && target.status.name_e != eEnemyName.Golem)
+        if (target != null && target.status.name_e != eEnemyName.Golem && player.status.mainWeapon.type != eWeaponType.None)
         {
             if (!target.status.isDead && distance <= 1.5f )
             {

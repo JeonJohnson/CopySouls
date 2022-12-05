@@ -82,15 +82,16 @@ public class UiManager : Manager<UiManager>
     private void Awake()
     {
         //TestMakeHpBar();
-        InitEndingCredit();
-
-        if (!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
 
     }
 
     private void Start()
     {
         screenBlurMat.SetFloat("_BlurAmount", 0f);
+
+        InitEndingCredit();
+
+        if (!EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
 
         EquipmentWindow.Instance.gameObject.SetActive(true);
         if (EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
