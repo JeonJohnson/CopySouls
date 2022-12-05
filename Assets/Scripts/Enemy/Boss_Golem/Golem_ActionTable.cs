@@ -126,15 +126,34 @@ public class Golem_ActionTable : MonoBehaviour
 	public void LeftHandCol(int val)
 	{
 		fistScript[Defines.left].WeaponColliderOnOff(val);
+		SoundManager.Instance.PlaySound("Golem_Attsound1",gameObject,1f);
 	}
 	public void RightHandCol(int val)
 	{
 		fistScript[Defines.right].WeaponColliderOnOff(val);
+		SoundManager.Instance.PlaySound("Golem_Attsound2", gameObject, 1f);
 	}
 	public void BothHandCol(int val)
 	{
 		LeftHandCol(val);
 		RightHandCol(val);
+	}
+
+	//sound
+	public void Golem_BothhandSound(int index)
+    {
+		if(index == 0) SoundManager.Instance.PlaySound("Golem_Bothhandsound1", gameObject, 1f);
+		else SoundManager.Instance.PlaySound("Golem_Bothhandsound2", gameObject, 1f);
+	}
+	public void Golem_Scream(int index)
+    {
+		if(index == 0) SoundManager.Instance.PlaySound("Golem_Scream1", gameObject, 1f);
+		else SoundManager.Instance.PlaySound("Golem_Scream2", gameObject, 1f);
+	}
+
+	public void Golem_Alertsound()
+    {
+		SoundManager.Instance.PlaySound("Golem_Alertsound", gameObject, 1f);
 	}
 
 	public void SetAtkType(int type)
@@ -164,12 +183,13 @@ public class Golem_ActionTable : MonoBehaviour
 	public void GolemScreamShakeEvent()
 	{
 		CameraEffect.instance.PlayShake("Golem_Scream");
-		SoundManager.Instance.PlaySound("Golem_RoarTest", golem.gameObject);
 	}
 
-	public void GolemWalkShakeEvent()
+	public void GolemWalkShakeEvent(float index)
 	{
 		CameraEffect.instance.PlayShake("Golem_Walk");
+		if (index == 0) SoundManager.Instance.PlaySound("Golem_Step1", gameObject, 1f);
+		else SoundManager.Instance.PlaySound("Golem_Step2", gameObject, 1f);
 	}
 	#endregion
 	//public void OrganizeStatePerCost()

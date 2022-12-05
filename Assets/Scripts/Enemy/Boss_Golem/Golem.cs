@@ -264,4 +264,8 @@ public class Golem : Enemy
 			R_Trail.SetActive(false);
 		}
 	}
+
+	
+
+
 }
