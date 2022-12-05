@@ -44,9 +44,20 @@ public class SettingWindow : MonoBehaviour
         advancedSettingWindow.SetActive(false);
     }
 
-    public void SetMouseSensivility(float i)
+    public void SetMouseSensivility(float f)
     {
-        GameManager.Instance.mouseSensivility = i * 4;
+        GameManager.Instance.mouseSensivility = f * 4;
+    }
+
+    public void SetBgm(float f)
+    {
+        GameManager.Instance.BgmOffset = f * 0.1f;
+        SoundManager.Instance.bgmAus.volume = GameManager.Instance.BgmOffset;
+    }
+
+    public void SetSe(float f)
+    {
+        GameManager.Instance.SeOffset = f * 0.1f;
     }
 
     public void GotoMainMenu()

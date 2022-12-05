@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07442268, g: 0.06959011, b: 0.052775085, a: 1}
+  m_IndirectSpecularColor: {r: 0.07442283, g: 0.06959009, b: 0.05277504, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1307,6 +1307,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8165348833777693205, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.13183594
+      objectReference: {fileID: 0}
     - target: {fileID: 8165348833939870771, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 35
@@ -1378,6 +1382,34 @@ PrefabInstance:
     - target: {fileID: 8165348834729357218, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1962825239}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetMouseSensivility
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SettingWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165348835172206361, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8165348835272802837, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_IsActive
@@ -2392,6 +2424,10 @@ PrefabInstance:
     - target: {fileID: 5249583321543108677, guid: 6b3082257bb53cf44929591516df67c7, type: 3}
       propertyPath: m_Name
       value: Release_DebugObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249583321543108677, guid: 6b3082257bb53cf44929591516df67c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5249583321543108679, guid: 6b3082257bb53cf44929591516df67c7, type: 3}
       propertyPath: m_RootOrder

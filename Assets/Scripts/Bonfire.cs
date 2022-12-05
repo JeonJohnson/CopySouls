@@ -23,6 +23,7 @@ public class Bonfire : Item
 	protected override void Start()
 	{
 		base.Start();
+		SoundManager.Instance.PlayTempSound("BonFire", this.transform.position, 1f);
 	}
 
 	protected override void Update()

@@ -12,7 +12,7 @@ public class SoundManager : Manager<SoundManager>
 
     [SerializeField] Transform tempAusBox;
     
-    [SerializeField] AudioSource bgmAus;
+    public AudioSource bgmAus;
     public Queue<AudioSource> tempAusQueue;
 
     float volumeValue = 1f;
@@ -40,7 +40,7 @@ public class SoundManager : Manager<SoundManager>
         while (volumeValue < 1)
         {
             volumeValue += Time.deltaTime / FadeTime;
-            bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volumeValue;
+            bgmAus.volume = GameManager.Instance.BgmOffset * volumeValue;
             yield return null;
         }
     }
@@ -52,7 +52,7 @@ public class SoundManager : Manager<SoundManager>
             CreateBgmAudioSource();
         }
         bgmAus.clip = GetAuidoClip(clipName);
-        bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volume;
+        bgmAus.volume = GameManager.Instance.BgmOffset * volume;
         bgmAus.Play();
     }
 
@@ -131,7 +131,7 @@ public class SoundManager : Manager<SoundManager>
 			if (!temp.isPlaying)
 			{
                 temp.gameObject.SetActive(true);
-                temp.volume = volume;
+                temp.volume = volume * GameManager.Instance.SeOffset;
 				temp.transform.position = pos;
 				temp.PlayOneShot(clip);
 				tempAusQueue.Enqueue(temp);
@@ -148,7 +148,7 @@ public class SoundManager : Manager<SoundManager>
                 
                 newObj.AddComponent<TempAudioSource>();
 
-                newAus.volume = volume;
+                newAus.volume = volume * GameManager.Instance.SeOffset;
                 newAus.transform.position = pos;
                 newAus.PlayOneShot(clip);
                 tempAusQueue.Enqueue(newAus);
@@ -168,7 +168,7 @@ public class SoundManager : Manager<SoundManager>
 
             if (aus)
             {
-                aus.volume = volume;
+                aus.volume = volume * GameManager.Instance.SeOffset;
                 aus.PlayOneShot(clip);
             }
             else
@@ -274,7 +274,9 @@ public class SoundManager : Manager<SoundManager>
 
 	void Start()
     {
-        
+        //SearchAllAudClips();
+        //CreateTempAudioSource(50);
+        //CreateBgmAudioSource();
     }
 
     void Update()
