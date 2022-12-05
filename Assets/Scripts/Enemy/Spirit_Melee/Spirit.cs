@@ -81,7 +81,6 @@ public class Spirit : Enemy
 
         Spirit_TrailOnOff();
 
-        respawnPos = transform.localPosition;
         initFOVAngle = GetComponent<FieldOfView>().viewAngle;
 
         weapon = GetComponentInChildren<Spirit_Weapon>();
@@ -97,6 +96,8 @@ public class Spirit : Enemy
         //targetObj = GameObject.Find("Player");
         //if (targetObj != null) targetScript = targetObj.GetComponent<Player>();
 
+        respawnPos = transform.localPosition;
+
         targetObj = UnitManager.Instance.GetPlayerObj;
         if (targetObj != null) targetScript = UnitManager.Instance.GetPlayerScript;
 
@@ -110,11 +111,6 @@ public class Spirit : Enemy
     protected override void Update()
     {
         base.Update();
-
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            CameraEffect.instance.PlayShake("Golem_Scream");
-        }
 
         distToRespawnPos = Vector3.Distance(respawnPos, transform.position);
         if (distToRespawnPos > status.moveMileage) isReturn = true;
@@ -147,34 +143,61 @@ public class Spirit : Enemy
     {
         base.LateUpdate();
     }
-    //public override void ResetEnemy()
-    //{
-    //    base.ResetEnemy();
-    //
-    //    isReset = true;
-    //
-    //    if (status.isDead)
-    //    {
-    //        //래그돌 없애기
-    //        ragdoll.gameObject.SetActive(false);
-    //        model.SetActive(true);
-    //        status.isDead = false;
-    //        status.isFrontHold = false;
-    //        status.isBackHold = false;
-    //        animCtrl.SetTrigger("isReset");
-    //    }
-    //    Debug.Log("spirit리셋");
-    //
-    //    SetState((int)Enums.eSpiritState.Idle);
-    //
-    //    navAgent.enabled = true;
-    //    navAgent.isStopped = true;
-    //    //navAgent.speed = 0f;
-    //    //navAgent.SetDestination(gameObject.transform.position);
-    //    transform.position = initPos;
-    //    transform.forward = initForward;
-    //    navAgent.isStopped = false;
-    //}
+    public override void ResetEnemy()
+    {
+        base.ResetEnemy();
+
+        curState.ExitState();
+
+        Debug.Log("홧톨불로 되돌리기");
+
+        //isReset = true;
+
+
+
+        complete_Equipt = false;
+        complete_Unequipt = false;
+        complete_Atk = false;
+        complete_AttReturn = false;
+        complete_Damaged = false;
+        complete_Groggy = false;
+        isEquipt = false;
+        atting = false;
+        existRemainderWeapon = false;
+        preChangeWeaponPos = false;
+        doubleAttCheck = false;
+        isReturn = false;
+        stepWait = false;
+        isBoneChanged = false;
+        timeSlow = false;
+
+
+
+        if (status.isDead)
+        {
+            //래그돌 없애기
+            ragdoll.gameObject.SetActive(false);
+            model.SetActive(true);
+            status.isDead = false;
+            status.isFrontHold = false;
+            status.isBackHold = false;
+            //animCtrl.SetTrigger("isReset");
+        }
+        Debug.Log("spirit리셋");
+        
+        
+        navAgent.enabled = true;
+        navAgent.isStopped = true;
+        //navAgent.speed = 0f;
+        //navAgent.SetDestination(gameObject.transform.position);
+        transform.position = initPos;
+        transform.forward = initForward;
+        navAgent.isStopped = false;
+
+
+        SetState((int)Enums.eSpiritState.Idle);
+
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
