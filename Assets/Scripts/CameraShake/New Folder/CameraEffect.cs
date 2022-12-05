@@ -81,14 +81,17 @@ public class CameraEffect : MonoBehaviour
 
     public void PlayShake(string dataName)
     {
+        if (curData != null) return;
+
         if (Dic_EffectDatas.ContainsKey(dataName))
         {
             EffectData data = Dic_EffectDatas[dataName];
+
             //List_EffectDatas.Add(data);
-            
+
             //SelectCurData(data);
 
-            if(curData != null)
+            if (curData != null)
             {
                 if (curData.roop && data.roop)
                 {
