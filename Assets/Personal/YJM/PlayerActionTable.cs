@@ -78,7 +78,7 @@ public class PlayerActionTable : MonoBehaviour
     public void Death()
     {
         Player.instance.status.isDead = true;
-        Player.instance.animator.SetTrigger("Hit");
+        Player.instance.animator.SetTrigger("Death");
         SoundManager.Instance.PlaySound("Dead", this.gameObject);
         EnableWeaponMeshCol(0);
         player.SetModelCollider(false);

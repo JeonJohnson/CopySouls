@@ -2459,7 +2459,7 @@ MonoBehaviour:
     maxMp: 100
     curMp: 100
     moveSpd: 5
-    runSpd: 30
+    runSpd: 2
     isInvincible: 0
     isParrying: 0
     isGuard: 0
@@ -2488,11 +2488,11 @@ MonoBehaviour:
   isCameraLock: 0
   targetEnemy: {fileID: 0}
   movementSpeed: 4.5
-  runningSpeed: 8
+  runningSpeed: 6
   rotationSpeed: 10
   fallingSpeed: 25
   moveAmount: 0
-  accelSpeed: 80
+  accelSpeed: 70
   isRun: 0
   mouseSensitivity: 52
   cc: {fileID: 1559559539583753623}
