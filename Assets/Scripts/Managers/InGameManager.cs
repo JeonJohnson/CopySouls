@@ -37,7 +37,7 @@ public class InGameManager : Manager<InGameManager>
 
     public void BossCombatStart()
     {
-        SoundManager.Instance.PlayBgm("war-is-coming");
+        SoundManager.Instance.PlayBgmFade("war-is-coming");
         isBossCombat = true;
         fogWallObj.SetActive(true);
     }
@@ -193,6 +193,8 @@ public class InGameManager : Manager<InGameManager>
         SetPlayer();
         screenEffect = Camera.main.GetComponent<ScreenEffect>();
         lastBonfirePos = playerInitPos;
+        SoundManager.Instance.PlayTempSound("RainLoop", new Vector3(6.9f, 20.9f, -170.08f), 1f);
+        SoundManager.Instance.PlayBgm("CaveLoop", 0.3f);
     }
 
     void Update()
@@ -211,8 +213,8 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        //Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
-        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
+        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;        
         Player.instance.transform.position = startPos;

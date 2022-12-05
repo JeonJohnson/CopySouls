@@ -35,6 +35,7 @@ public class AfterImageController : MonoBehaviour
             print("¾Ì!~!");
             MeshRenderer mr = afterImageObj.AddComponent<MeshRenderer>();
             mr.material = mat;
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             mr.material.color = new Color(mr.material.color.r, mr.material.color.g, mr.material.color.b, 0.2f);
             mr.material.DOFade(0f, 1f).OnComplete(() => { Destroy(afterImageObj); });
             afterImageObj.transform.position = Player.instance.status.mainWeapon.transform.position;
@@ -54,6 +55,7 @@ public class AfterImageController : MonoBehaviour
 
         MeshRenderer mr = afterImageObj.AddComponent<MeshRenderer>();
         mr.material = mat;
+        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         mr.material.DOFade(0f, 1f).OnComplete(() => { Destroy(afterImageObj); });
         afterImageObj.transform.position = this.transform.position;
 
@@ -78,6 +80,7 @@ public class AfterImageController : MonoBehaviour
 
                 MeshRenderer mr = afterImageObj.AddComponent<MeshRenderer>();
                 mr.material = mat;
+                mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 mr.material.color = new Color(mr.material.color.r, mr.material.color.g, mr.material.color.b, 0.1f);
                 mr.material.DOFade(0f, 1f).OnComplete(() => { Destroy(afterImageObj); });
                 afterImageObj.transform.position = this.transform.position;
@@ -109,6 +112,7 @@ public class AfterImageController : MonoBehaviour
 
             MeshRenderer mr = afterImageObj.AddComponent<MeshRenderer>();
             mr.material = mat;
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             mr.material.color = new Color(mr.material.color.r, mr.material.color.g, mr.material.color.b, 0.1f + charge * 0.9f);
             mr.material.DOFade(0f, 1f).OnComplete(() => { Destroy(afterImageObj); });
             afterImageObj.transform.position = this.transform.position;

@@ -186,6 +186,7 @@ public class PlayerActionTable : MonoBehaviour
                         player.animator.SetTrigger("GuardFail");
                         SetPlayerStatus((int)ePlayerState.Hit);
                         print("방어실패");
+                        player.status.isGuard = false;
                         SoundManager.Instance.PlaySound("Guard", this.gameObject, 1.2f);
                     }
                 }

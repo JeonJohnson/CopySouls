@@ -135,6 +135,10 @@ public abstract class Weapon : MonoBehaviour
                     Debug.Log("Parrying");
 
                 }
+                else if(Player.instance.status.isInvincible)
+                {
+
+                }
                 else
                 {
                     GameObject effect = ObjectPoolingCenter.Instance.LentalObj("ScifiTris 1", 1);

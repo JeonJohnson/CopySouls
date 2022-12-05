@@ -40,19 +40,30 @@ public class SoundManager : Manager<SoundManager>
         while (volumeValue < 1)
         {
             volumeValue += Time.deltaTime / FadeTime;
+            bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volumeValue;
             yield return null;
         }
     }
 
-    public void PlayBgm(string clipName)
+    public void PlayBgm(string clipName, float volume = 1f)
     { //이건 한무반복
         if (!bgmAus)
         {
             CreateBgmAudioSource();
         }
         bgmAus.clip = GetAuidoClip(clipName);
+        bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volume;
+        bgmAus.Play();
+    }
+
+    public void PlayBgmFade(string clipName)
+    {
+        if (!bgmAus)
+        {
+            CreateBgmAudioSource();
+        }
+        bgmAus.clip = GetAuidoClip(clipName);
         StartCoroutine(FadeIn(bgmAus, 5f));
-        //bgmAus.Play();
     }
 
     public void StopBgm()
@@ -273,7 +284,6 @@ public class SoundManager : Manager<SoundManager>
         //    PlayTempSound("SoundTest", Vector3.zero);
         //}
         print(GameManager.Instance.BgmOffset);
-        bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volumeValue;
     }
 
 	public override void OnSceneChanged(Scene scene, LoadSceneMode mode)
