@@ -285,7 +285,6 @@ public class SoundManager : Manager<SoundManager>
         //{
         //    PlayTempSound("SoundTest", Vector3.zero);
         //}
-        print(GameManager.Instance.BgmOffset);
     }
 
 	public override void OnSceneChanged(Scene scene, LoadSceneMode mode)

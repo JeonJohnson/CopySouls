@@ -40,6 +40,7 @@ public class Setting_ScreenResOption : MonoBehaviour
             optionNum++;
         }
         resolutionDropdown.RefreshShownValue();
+        print(resolutionDropdown.value);
     }
 
     void InitWindow()
@@ -58,6 +59,7 @@ public class Setting_ScreenResOption : MonoBehaviour
                 windowModDropdown.value = optionNum;
                 optionNum++;
                 screenMode = (FullScreenMode)i;
+                print(screenMode);
             }
         }
         windowModDropdown.RefreshShownValue();
@@ -75,6 +77,6 @@ public class Setting_ScreenResOption : MonoBehaviour
 
     public void OkBtnClick()
     {
-        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
+        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, (FullScreenMode)windowModNum);
     }
 }

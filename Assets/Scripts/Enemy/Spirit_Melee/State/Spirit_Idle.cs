@@ -46,7 +46,7 @@ public class Spirit_Idle : cState
 
         if(((Spirit)me).isReturn)
         {
-            Debug.Log("ReTry SetRespawnPos");
+            //Debug.Log("ReTry SetRespawnPos");
         }
     }
      
