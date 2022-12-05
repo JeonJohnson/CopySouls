@@ -86,7 +86,12 @@ public class CameraEffect : MonoBehaviour
             EffectData data = Dic_EffectDatas[dataName];
             //List_EffectDatas.Add(data);
             data.Start = true;
-            curData = data;//SelectCurData(data);
+            //SelectCurData(data);
+            if(curData.roop && data.roop)
+            {
+                if(curData != data) curData = data;
+            }
+            else curData = data;
 
             //루트다 아니다
             //
