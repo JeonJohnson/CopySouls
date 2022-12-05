@@ -12,7 +12,6 @@
 //	public override void EnterState(Enemy script)
 //	{
 //		base.EnterState(script);
-
 //	}
 
 //	public override void UpdateState()
@@ -52,7 +51,7 @@
 //				break;
 //			case eCombatState.End:
 //				{ 
-				
+
 //				}
 //				break;
 

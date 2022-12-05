@@ -88,12 +88,16 @@ public class Player : MonoBehaviour
         curState.UpdateState();
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            CameraEffect.instance.PlayShake("Player_Parry");
+           // CameraEffect.instance.PlayShake("Player_Parry");
             //UnitManager.Instance.SpawnTestEnemy(this.transform.position);
             //DamagedStruct dmgst = new DamagedStruct();
             //dmgst.atkType = eAttackType.Strong;
             //dmgst.dmg = 1f;
             //PlayerActionTable.instance.Hit(dmgst);
+            DamagedStruct dmg = new DamagedStruct();
+            dmg.atkType = eAttackType.Week;
+            dmg.dmg = 1;
+            PlayerActionTable.instance.Hit(dmg);
         }
 
         if(Input.GetKeyDown(KeyCode.I))

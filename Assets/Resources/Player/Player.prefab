@@ -2459,7 +2459,7 @@ MonoBehaviour:
     maxMp: 100
     curMp: 100
     moveSpd: 5
-    runSpd: 7
+    runSpd: 30
     isInvincible: 0
     isParrying: 0
     isGuard: 0

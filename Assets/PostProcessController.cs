@@ -54,7 +54,6 @@ public class PostProcessController : MonoBehaviour
         origindFocusDistance = DOF.focusDistance.value;
 
         originLensIntensity = Lens.intensity.value;
-
     }
 
     public void DoBloom(float intenValue, float SoftValue, float time)
@@ -122,15 +121,29 @@ public class PostProcessController : MonoBehaviour
 
 
     //아마 달릴때 쓰면 좋을듯
-    public void DoFocus(float fouseDistance, float time)
+    public void DoFocus(float fouseDistance, float time, float fadeTime)
     {
-        StartCoroutine(SetFocus(fouseDistance, time));
+        StartCoroutine(SetFocus(fouseDistance, time, fadeTime));
     }
 
-    IEnumerator SetFocus(float fouseDistance, float time)
+    IEnumerator SetFocus(float fouseDistance, float time, float fadeTime)
     {
-        DOF.focusDistance.value = fouseDistance;
+        float timer = fadeTime;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            DOF.focusDistance.value = Mathf.Lerp(origindFocusDistance, fouseDistance, 1 - timer / fadeTime);
+            print(1 - timer / fadeTime);
+            yield return null;
+        }
         yield return new WaitForSecondsRealtime(time);
+        timer = fadeTime;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            DOF.focusDistance.value = Mathf.Lerp(fouseDistance, origindFocusDistance, 1 - timer / fadeTime);
+            yield return null;
+        }
         DOF.focusDistance.value = origindFocusDistance;
     }
 

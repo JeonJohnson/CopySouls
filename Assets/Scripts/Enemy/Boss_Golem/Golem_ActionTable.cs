@@ -165,7 +165,9 @@ public class Golem_ActionTable : MonoBehaviour
 	{
 		CameraEffect.instance.PlayShake("Golem_Scream");
 		SoundManager.Instance.PlaySound("Golem_RoarTest", golem.gameObject);
-	}
+
+        UiManager.Instance.ppController.DoFocus(0f, 2.5f, 0.7f);
+    }
 
 	public void GolemWalkShakeEvent()
 	{

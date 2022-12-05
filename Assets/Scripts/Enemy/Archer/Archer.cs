@@ -90,12 +90,13 @@ public class Archer : Enemy
 	public eArcherState preState_e;
 	public eArcherState curState_e;
 
+    public bool timeSlow;
 
-	//[Header("legLayer Fsm")]
-	//public cState[] legFsm;
+    //[Header("legLayer Fsm")]
+    //public cState[] legFsm;
 
 
-	public override void ResetEnemy()
+    public override void ResetEnemy()
 	{
 		base.ResetEnemy();
 
@@ -614,4 +615,18 @@ public class Archer : Enemy
 		
 	}
 
+    public void PlayTimeSlow() { timeSlow = true; }
+    public void Spirit_Melee_DoZoom_FrontHold(float speed)
+    {
+        CameraEffect.instance.PlayZoom(ZoomDir.Front, speed, true);
+    }
+    public void Spirit_Melee_StopZoom_FrontHold(float speed)
+    {
+        CameraEffect.instance.PlayZoom(ZoomDir.Front, speed, false);
+    }
+
+    public void Spirit_Melee_DoShake()
+    {
+        CameraEffect.instance.PlayShake("Enemy_FrontHold");
+    }
 }

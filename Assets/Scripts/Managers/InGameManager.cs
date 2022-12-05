@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class InGameManager : Manager<InGameManager>
 {
@@ -36,6 +37,7 @@ public class InGameManager : Manager<InGameManager>
 
     public void BossCombatStart()
     {
+        SoundManager.Instance.PlayBgm("war-is-coming");
         isBossCombat = true;
         fogWallObj.SetActive(true);
     }
@@ -209,8 +211,8 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
-        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
+        //Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;        
         Player.instance.transform.position = startPos;

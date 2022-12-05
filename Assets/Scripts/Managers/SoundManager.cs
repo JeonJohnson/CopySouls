@@ -15,11 +15,34 @@ public class SoundManager : Manager<SoundManager>
     [SerializeField] AudioSource bgmAus;
     public Queue<AudioSource> tempAusQueue;
 
+    float volumeValue = 1f;
+
 
     //브금 -> 여기서
     //엠비언트 -> 걍 맵 히어라키에서 세팅
     //일시적 물체음 -> Pooling해두고 세팅
     //해당 오브젝트에서 날 소리 -> transform으로 ㄴㄴ 오디오 소스 찾아서 넣고 없으면 일시적 물체음으로 ㄱㄱ
+    public IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+            yield return null;
+        }
+        audioSource.Stop();
+    }
+
+    public IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
+    {
+        audioSource.Play();
+        volumeValue = 0f;
+        while (volumeValue < 1)
+        {
+            volumeValue += Time.deltaTime / FadeTime;
+            yield return null;
+        }
+    }
 
     public void PlayBgm(string clipName)
     { //이건 한무반복
@@ -28,7 +51,8 @@ public class SoundManager : Manager<SoundManager>
             CreateBgmAudioSource();
         }
         bgmAus.clip = GetAuidoClip(clipName);
-        bgmAus.Play();
+        StartCoroutine(FadeIn(bgmAus, 5f));
+        //bgmAus.Play();
     }
 
     public void StopBgm()
@@ -248,7 +272,8 @@ public class SoundManager : Manager<SoundManager>
         //{
         //    PlayTempSound("SoundTest", Vector3.zero);
         //}
-        bgmAus.volume = GameManager.Instance.BgmOffset;
+        print(GameManager.Instance.BgmOffset);
+        bgmAus.volume = (GameManager.Instance.BgmOffset * 0.1f) * volumeValue;
     }
 
 	public override void OnSceneChanged(Scene scene, LoadSceneMode mode)

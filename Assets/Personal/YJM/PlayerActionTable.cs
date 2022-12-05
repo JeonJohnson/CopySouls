@@ -157,6 +157,7 @@ public class PlayerActionTable : MonoBehaviour
         yield return null;
     }
 
+
     public void Hit(DamagedStruct dmgStruct)
     {
         if (!Player.instance.status.isDead)
@@ -217,9 +218,9 @@ public class PlayerActionTable : MonoBehaviour
         effect.GetComponent<ParticleSystem>().Clear();
         //=============================================
         StopAllCoroutines();
-        CurCoroCounter1 = CurCoroCounter2;
+        CurCoroCounter2 = CurCoroCounter1;
         player.status.isParrying = false;
-        isComboCheck = false;
+        isComboCheck = true;
         EnableWeaponMeshCol(0);
         Player.instance.SetState(Enums.ePlayerState.Hit);
         player.SetModelCollider(true);
@@ -483,7 +484,7 @@ public class PlayerActionTable : MonoBehaviour
 				{
 					BackHoldAttack(transform, playerFrontpos, target);
 					Debug.Log(transform.localRotation);
-					isAct = true;
+                    isAct = true;
 				}
 				else
 				{
