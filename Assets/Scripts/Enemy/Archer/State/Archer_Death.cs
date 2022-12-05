@@ -27,6 +27,7 @@ public class Archer_Death : cState
 		archer.actTable.DeleteArrow();
 
 		archer.actTable.DeathSoundTest();
+
 	}
 	public override void UpdateState()
 	{
