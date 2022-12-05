@@ -177,11 +177,10 @@ public class Spirit : Enemy
         {
             //래그돌 없애기
             ragdoll.gameObject.SetActive(false);
-            model.SetActive(true);
+            gameObject.SetActive(true);
             status.isDead = false;
             status.isFrontHold = false;
             status.isBackHold = false;
-            //animCtrl.SetTrigger("isReset");
         }
         Debug.Log("spirit리셋");
         
@@ -194,6 +193,9 @@ public class Spirit : Enemy
         transform.forward = initForward;
         navAgent.isStopped = false;
 
+        boneRotation(RightShoulder, Vector3.zero);
+        boneRotation(RightElbow, Vector3.zero);
+        boneRotation(RightHand, Vector3.zero);
 
         SetState((int)Enums.eSpiritState.Idle);
 
