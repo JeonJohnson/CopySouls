@@ -87,6 +87,11 @@ public class CameraEffect : MonoBehaviour
             //List_EffectDatas.Add(data);
             data.Start = true;
             curData = data;//SelectCurData(data);
+
+            //루트다 아니다
+            //
+            //있을수도 없을수도
+            //
         }
         else Debug.Log("해당 데이터는 딕셔너리에 존재하지 않습니다.");
     }
