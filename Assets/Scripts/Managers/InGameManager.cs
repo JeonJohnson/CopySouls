@@ -251,7 +251,7 @@ public class InGameManager : Manager<InGameManager>
         isStop = false;
     }
 
-    public void TimeStopEffect(float time = 1f, float stopValue = 0.1f)
+    public void TimeStopEffect(float time = 0.7f, float stopValue = 0.1f)
     {
         StartCoroutine(TimeStopEffectCoro(time, stopValue));
     }

@@ -469,8 +469,9 @@ public class PlayerActionTable : MonoBehaviour
 
         if (target != null && target.status.name_e != eEnemyName.Golem && player.status.mainWeapon.type != eWeaponType.None)
         {
-            if (!target.status.isDead && distance <= 1.5f )
+            if (target.status.curHp > 0 && distance <= 1.5f )
             {
+                print(target.status.curHp + " < 체력" + target.curState);
                 float dot = Vector3.Dot(target.transform.forward, -Player.instance.playerModel.transform.forward);
                 float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
 

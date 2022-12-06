@@ -557,6 +557,11 @@ public class Archer : Enemy
 
 		preState_e = (eArcherState)preState_i;
 		curState_e = (eArcherState)curState_i;
+
+		if(status.isDead)
+        {
+			actTable.DeleteArrow();
+		}
 	}
 
     protected override void LateUpdate()

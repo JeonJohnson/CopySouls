@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07442283, g: 0.06959009, b: 0.05277504, a: 1}
+  m_IndirectSpecularColor: {r: 0.074422814, g: 0.069590084, b: 0.052775018, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1168,17 +1168,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230680763}
   m_CullTransparentMesh: 1
---- !u!1 &346394312 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8321704424655354577, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
-  m_PrefabInstance: {fileID: 405074600}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &346394314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
   m_PrefabInstance: {fileID: 405074600}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346394312}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
@@ -1425,15 +1420,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 346394312}
+      objectReference: {fileID: 405074601}
     - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: WindowModDropboxOptionChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Setting_ScreenResOption, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669703596063834463, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8857321839474682135, guid: 48146c118f56602459ccaecec9222c8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2627,7 +2634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1519629981
 RectTransform:
   m_ObjectHideFlags: 0
