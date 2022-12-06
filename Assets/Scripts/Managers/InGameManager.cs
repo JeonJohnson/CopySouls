@@ -240,15 +240,14 @@ public class InGameManager : Manager<InGameManager>
 
     public void HitStop(float fps)
     {
-        if(!isStop) StartCoroutine(TimeStop(fps));
+        if (isStop) return; 
+        StartCoroutine(TimeStop(fps));
     }
     IEnumerator TimeStop(float fps)
     {
-        isStop = true;
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(Time.deltaTime * fps);
         Time.timeScale = 1f;
-        isStop = false;
     }
 
     public void TimeStopEffect(float time = 0.7f, float stopValue = 0.1f)
@@ -258,6 +257,7 @@ public class InGameManager : Manager<InGameManager>
     IEnumerator TimeStopEffectCoro(float time, float stopValue)
     {
         yield return new WaitForSecondsRealtime(0.1f);
+        isStop = true;
         Time.timeScale = stopValue;
         yield return new WaitForSecondsRealtime(time);
         while (Time.timeScale < 1f)
@@ -266,6 +266,7 @@ public class InGameManager : Manager<InGameManager>
             yield return null;
         }
         Time.timeScale = 1f;
+        if(Time.timeScale >= 1.0f)isStop = false;
     }
 
     public void TimeStopEffect0()

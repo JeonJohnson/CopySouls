@@ -87,6 +87,8 @@ public class CameraEffect : MonoBehaviour
         {
             EffectData data = Dic_EffectDatas[dataName];
 
+            Debug.Log(dataName);
+
             //List_EffectDatas.Add(data);
 
             //SelectCurData(data);

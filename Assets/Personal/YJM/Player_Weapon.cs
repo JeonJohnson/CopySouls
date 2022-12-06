@@ -47,9 +47,6 @@ public class Player_Weapon : Weapon
         //base.OnTriggerEnter(other);
         print("충돌");
         DamagedStruct dmgStruct = new DamagedStruct();
-        //Shake
-        if(PlayerActionTable.instance.curActAtkValue < 1.2f) CameraEffect.instance.PlayShake("WeekHit_M");
-        else CameraEffect.instance.PlayShake("StrongHit_M");
 
         UiManager.Instance.ppController.DoLens(9f,0.1f);
         InGameManager.Instance.HitStop(3);
@@ -70,6 +67,10 @@ public class Player_Weapon : Weapon
                 {
                     if (!hittedEnemy.status.isDead)
                     {
+                        //Shake
+                        if (PlayerActionTable.instance.curActAtkValue < 1.2f) CameraEffect.instance.PlayShake("WeekHit_M");
+                        else CameraEffect.instance.PlayShake("StrongHit_M");
+
                         hittedEnemyList.Add(hittedEnemy);
                         print("충돌중!!!");
                         hittedEnemy.Hit(dmgStruct);
