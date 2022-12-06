@@ -308,6 +308,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler , IBeginDragHandler, IDr
                 else ChangeSlot();
             }
         }
+        DragSlot.instance.dragSlot = null;
     }
 
     private void ChangeSlot()

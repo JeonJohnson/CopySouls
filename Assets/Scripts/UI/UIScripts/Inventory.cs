@@ -185,26 +185,26 @@ public class Inventory : MonoBehaviour
         int index = Random.Range(0, 11);
         switch (index)
         {
-            case 0: Draw("Shield0_Item", 25, Pos1);  //Lv 0
+            case 0: Draw("Shield0_Item", 100, Pos1);  //Lv 0     25
                 break;
-            case 1: Draw("Sword0_Item", 25, Pos1);   //Lv 0
+            case 1: Draw("Sword0_Item", 100, Pos1);   //Lv 0     25      
                 break;
-            case 2: Draw("Shield1_Item", 20, Pos1);  //Lv 1
+            case 2: Draw("Shield1_Item", 100, Pos1);  //Lv 1     20  
                 break;
-            case 3: Draw("Sword1_Item", 20, Pos1);   //Lv 1
+            case 3: Draw("Sword1_Item", 100, Pos1);   //Lv 1     20
                 break;
-            case 4: Draw("Shield2_Item", 15, Pos1);  //Lv 2
+            case 4: Draw("Shield2_Item", 100, Pos1);  //Lv 2     15
                 break;
-            case 5: Draw("Sword2_Item", 15, Pos1);   //Lv 2
+            case 5: Draw("Sword2_Item", 100, Pos1);   //Lv 2     15
                 break;
-            case 6: Draw("Shield3_Item", 5, Pos1);  //Lv 3
+            case 6: Draw("Shield3_Item", 100, Pos1);  //Lv 3      5
                 break;
-            case 7: Draw("Sword3_Item", 5, Pos1);   //Lv 3
+            case 7: Draw("Sword3_Item", 100, Pos1);   //Lv 3      5
                 break;
             case 8:
             case 9:
             case 10:
-                Draw("Potion_Item", 85, pos);       //potion
+                Draw("Potion_Item", 100, pos);       //potion        85
                 break;
             default:
                 break;
