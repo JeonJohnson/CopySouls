@@ -31,9 +31,9 @@ RectTransform:
   m_Father: {fileID: 2329402659198982188}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -948.5, y: -4054.9434}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2021514953219270176
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8211743996084656265}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.24709782
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -362,7 +362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3289.359}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5609716414123446400
@@ -483,35 +483,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'New TextNew TextNew Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-'
+  m_Text: "\r\n<size=100><b>\uC601\uC0B0\uB300\uD559\uAD50\r\n22\uB144\uB3C4 2\uD559\uAE30\r\n\uCEA1\uC2A4\uD1A4
+    \uB514\uC790\uC778 \uD300 \uD504\uB85C\uC81D\uD2B8</b></size>\r\n\r\n<size=75><b>\uD504\uB85C\uC81D\uD2B8\uBA85</b></size>\r\n<size=50>\uD0B9
+    \uAC13 \uC18C\uC6B8\r(\uC18C\uC6B8\uB77C\uC774\uD06C\uB958 \uBAA8\uC791)</size>\r\n\r\n<size=75><b>\uD50C\uB7AB\uD3FC</b></size>\r\n<size=50>PC</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uAE30\uAC04</b></size>\r\n<size=50>2022.09.13 ~ 2202.12.11(\uC57D3\uB2EC)</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uC778\uC6D0 / \uC5ED\uD560</b></size>\r\n<size=40>\uD50C\uB808\uC774\uC5B4 \uCE74\uBA54\uB77C
+    / \uCE74\uBA54\uB77C \uC250\uC774\uD06C : \uAE40\uB300\uC6D0\r\n\uD50C\uB808\uC774\uC5B4
+    / UI / \uC774\uD399\uD2B8 : \uC724\uC815\uBBFC\r\n\uC801(\uAD81\uC218) / \uBCF4\uC2A4
+    / \uD504\uB808\uC784\uC6CC\uD06C : \uC804\uADFC\uD76C\r\n\uC801(\uADFC\uC811)
+    / \uC778\uBCA4\uD1A0\uB9AC, \uD035\uC2AC\uB86F / UI /\uC774\uD399\uD2B8  : \uD55C\uC6A9\uC11D\n</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uC5B8\uC5B4</b></size>\r\n<size=50>C# / HLSL</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uD658\uACBD</b></size>\r\n<size=50>Unity 2020.3.30f1 / VS2019 / VC</size>\r\n\r\n<size=75><b>\uD615\uC0C1\uAD00\uB9AC\uD234</b></size>\r\n<size=50>Github
+    Desktop</size>\r\n\r\n<size=75><b>\uC5D0\uC14B \uCD9C\uCC98</b></size>\r\n<size=40>Dotween
+    Pro (Unity asset Store)\r\nGothic UI (Unity asset Store)\r\nPlatform Animation
+    (Unity asset Store)\r\nPOLYGON Dungeons Art by Synty (Unity asset Store)\r\nDay-Night
+    Skyboxes (Unity asset Store)\r\nEpic Toon VFX 2 (Unity asset Store)\r\nSherbb's
+    Particle Collection (Unity asset Store)\r\nUltimate 10+ Shaders (Unity asset
+    Store)\r\nUltimate Sound FX Bundle (Unity asset Store)\r\nSimple Particle Scaler
+    (Unity asset Store)\r\nPseudo-Volume Blood Effects (Unity asset Store)\r\nHeroic
+    fantasy creatures FullPack volume 1 (Unity asset Store)\r\nUnit Animations (Mixamo.com)\n</size>\r\n\r\n<size=100><b>\n\uC2DC\uCCAD\uD574\uC8FC\uC154\uC11C
+    \uAC10\uC0AC\uD569\uB2C8\uB2E4.\n</b></size>"
 --- !u!1 &5868231977614948393
 GameObject:
   m_ObjectHideFlags: 0

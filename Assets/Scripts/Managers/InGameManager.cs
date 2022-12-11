@@ -63,7 +63,9 @@ public class InGameManager : Manager<InGameManager>
         //스크린 이펙트 키면서 엔딩 크레딧 알파값 넣기
         //끝나면 크레딧 스크롤 ㄱㄱ
         yield return StartCoroutine(GameEndScreenEffectCoroutine(gameEndingEffectTime));
+        yield return new WaitForSecondsRealtime(2f);
         yield return StartCoroutine(EndingCreditFadeCoroutine());
+        yield return StartCoroutine(EndingCreditScrollCoroutine());
      
         isCreditEnd = true;
         UiManager.Instance.endingCredit.pressAnyKeyTxt.gameObject.SetActive(true);
@@ -77,7 +79,7 @@ public class InGameManager : Manager<InGameManager>
             float ratio = time / maxTime;
             screenEffect.SetGrayScaleAmount(ratio);
             UiManager.Instance.SetBlurAmount(ratio);
-            UiManager.Instance.endingCreditCanvasGroup.alpha = ratio;
+            //UiManager.Instance.endingCreditCanvasGroup.alpha = ratio;
             Time.timeScale = Mathf.Lerp(1f, 0.0f, ratio);
             
             time += Time.unscaledDeltaTime;
@@ -94,6 +96,19 @@ public class InGameManager : Manager<InGameManager>
 
     IEnumerator EndingCreditFadeCoroutine()
     {
+        float alpha = 0;
+        while (alpha < 1f)
+        {//ratio : 0 to 1
+            alpha += Time.unscaledDeltaTime;
+
+           UiManager.Instance.endingCreditCanvasGroup.alpha = alpha;
+           yield return null;
+        }
+        
+    }
+
+    IEnumerator EndingCreditScrollCoroutine()
+    {
         float time = 0;
         while (time < creditScrollTime)
         {//ratio : 0 to 1
@@ -101,9 +116,11 @@ public class InGameManager : Manager<InGameManager>
             UiManager.Instance.endingCredit.SetScrollVal(ratio);
             time += Time.unscaledDeltaTime;
 
-           yield return null;
+            yield return null;
         }
+
     }
+        
 
     //------------------------------------------------------------------------------//
     IEnumerator PlayerDiedScreenEffectCoroutine(float maxTime)
@@ -215,8 +232,8 @@ public class InGameManager : Manager<InGameManager>
 
     void SetPlayer()
     {
-        Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
-        //Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
+        //Vector3 startPos = playerInitPos; //ㄹㅇ시작 위치
+        Vector3 startPos = new Vector3(3.6f, -7.2f, 64.4f); //보스 위치 
         Vector3 startRot = Vector3.zero;
         PlayerLocomove.instance.cc.enabled = false;        
         Player.instance.transform.position = startPos;

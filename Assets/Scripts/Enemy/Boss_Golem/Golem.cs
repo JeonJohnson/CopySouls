@@ -85,9 +85,16 @@ public class Golem : Enemy
 	{
 		base.Hit(dmgStruct);
 
-		if (hfsmCtrl.GetCurBaseState != hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack))
+
+		if (status.curHp > 0)
 		{
-			
+			if (hfsmCtrl.GetCurBaseState != hfsmCtrl.GetBaseState((int)eGolemBaseState.Attack))
+			{
+				hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Damaged));
+			}
+		}
+		else
+		{
 			hfsmCtrl.SetNextBaseState(hfsmCtrl.GetBaseState((int)eGolemBaseState.Damaged));
 		}
 

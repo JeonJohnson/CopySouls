@@ -246,17 +246,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 2
-  m_Text: "\n\uB300\uD559\uAD50\n2022 \uD559\uB144\uB3C4 2\uD559\uAE30\n\uD300 \uD504\uB85C\uC81D\uD2B8\n\n\n\uD0B9
-    \uAC13 \uC18C\uC6B8\n(\uC18C\uC6B8\uB77C\uC774\uD06C\uB958 \uBAA8\uC791)\n\n\uAC1C\uBC1C
-    \uAE30\uAC04\n2022.07 ~ 2202.11(\uC57D2\uB2EC)]\n\n\uAC1C\uBC1C \uC778\uC6D0\n4\uC778(\uD504\uB85C\uADF8\uB798\uBC0D)\n\n\uAC1C\uBC1C
-    \uC5B8\uC5B4\nC# / HLSL\n\n\uAC1C\uBC1C \uD658\uACBD\nUnity 2020.3.30f1 / VS
-    / VC\n\n\uD615\uC0C1\uAD00\uB9AC\uD234\nGithub Desktop\n\n\uC778\uC6D0\n\uD50C\uB808\uC774\uC5B4
-    / UI  : \uC815\uBBFC\n\uCE74\uBA54\uB77C : \uB300\uC6D0\n\uAD81\uC218 \uC801
-    / \uBCF4\uC2A4 / \uD504\uB808\uC784\uC6CC\uD06C : \uADFC\uD76C\n\uADFC\uC811
-    \uC801 / \uC778\uBCA4\uD1A0\uB9AC, \uD035\uC2AC\uB86F / UI  : \uC6A9\uC11D\n\n\uC5D0\uC14B
-    \uCD9C\uCC98\nAsset 1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset
-    1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset 1 (Unity asset Store)\nAsset
-    1 (Unity asset Store)\n\n\uC544\uB9AC\uAC00\uB610 \uACE0\uC790\uC774\uB9C8\uC2A4"
+  m_Text: "\r\n<size=100><b>\uC601\uC0B0\uB300\uD559\uAD50\r\n22\uB144\uB3C4 2\uD559\uAE30\r\n\uCEA1\uC2A4\uD1A4
+    \uB514\uC790\uC778 \uD300 \uD504\uB85C\uC81D\uD2B8</b></size>\r\n\r\n<size=75><b>\uD504\uB85C\uC81D\uD2B8\uBA85</b></size>\r\n<size=50>\uD0B9
+    \uAC13 \uC18C\uC6B8\r(\uC18C\uC6B8\uB77C\uC774\uD06C\uB958 \uBAA8\uC791)</size>\r\n\r\n<size=75><b>\uD50C\uB7AB\uD3FC</b></size>\r\n<size=50>PC</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uAE30\uAC04</b></size>\r\n<size=50>2022.09.13 ~ 2202.12.11(\uC57D3\uB2EC)</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uC778\uC6D0 / \uC5ED\uD560</b></size>\r\n<size=40>\uD50C\uB808\uC774\uC5B4 \uCE74\uBA54\uB77C
+    / \uCE74\uBA54\uB77C \uC250\uC774\uD06C : \uAE40\uB300\uC6D0\r\n\uD50C\uB808\uC774\uC5B4
+    / UI / \uC774\uD399\uD2B8 : \uC724\uC815\uBBFC\r\n\uC801(\uAD81\uC218) / \uBCF4\uC2A4
+    / \uD504\uB808\uC784\uC6CC\uD06C : \uC804\uADFC\uD76C\r\n\uC801(\uADFC\uC811)
+    / \uC778\uBCA4\uD1A0\uB9AC, \uD035\uC2AC\uB86F / UI /\uC774\uD399\uD2B8  : \uD55C\uC6A9\uC11D\n</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uC5B8\uC5B4</b></size>\r\n<size=50>C# / HLSL</size>\r\n\r\n<size=75><b>\uAC1C\uBC1C
+    \uD658\uACBD</b></size>\r\n<size=50>Unity 2020.3.30f1 / VS2019 / VC</size>\r\n\r\n<size=75><b>\uD615\uC0C1\uAD00\uB9AC\uD234</b></size>\r\n<size=50>Github
+    Desktop</size>\r\n\r\n<size=75><b>\uC5D0\uC14B \uCD9C\uCC98</b></size>\r\n<size=40>Dotween
+    Pro (Unity asset Store)\r\nGothic UI (Unity asset Store)\r\nPlatform Animation
+    (Unity asset Store)\r\nPOLYGON Dungeons Art by Synty (Unity asset Store)\r\nDay-Night
+    Skyboxes (Unity asset Store)\r\nEpic Toon VFX 2 (Unity asset Store)\r\nSherbb's
+    Particle Collection (Unity asset Store)\r\nUltimate 10+ Shaders (Unity asset
+    Store)\r\nUltimate Sound FX Bundle (Unity asset Store)\r\nSimple Particle Scaler
+    (Unity asset Store)\r\nPseudo-Volume Blood Effects (Unity asset Store)\r\nHeroic
+    fantasy creatures FullPack volume 1 (Unity asset Store)\r\nUnit Animations (Mixamo.com)\n</size>\r\n\r\n<size=100><b>\n\uC2DC\uCCAD\uD574\uC8FC\uC154\uC11C
+    \uAC10\uC0AC\uD569\uB2C8\uB2E4.\n</b></size>"
 --- !u!1 &5225158437315335189
 GameObject:
   m_ObjectHideFlags: 0
