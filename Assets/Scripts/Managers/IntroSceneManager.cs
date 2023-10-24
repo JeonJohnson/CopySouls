@@ -48,7 +48,8 @@ public class IntroSceneManager : Manager<IntroSceneManager>
         fadeImg.DOColor(fadeCol, 0.3f);
 
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene((int)eSceneChangeTestIndex.Title);
+        LoadingSceneController.Instance.LoadScene((int)eSceneChangeTestIndex.Title);
+       // SceneManager.LoadScene((int)eSceneChangeTestIndex.Title);
     }
 
     void LogoAnim()

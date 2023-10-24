@@ -4896,7 +4896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 0}
   type: 1
-  Dmg: 10
+  Dmg: 40
   atkType: 2
   owner: {fileID: 0}
   PlayerLayer:

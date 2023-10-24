@@ -116,9 +116,11 @@ public class LoadingSceneController : MonoBehaviour
             progressCricle.transform.Rotate(new Vector3(0,0.5f,0) * 360 * Time.deltaTime);
             ChangeLoadingText();
             loadingSlider.value = op.progress;
+            Debug.Log(op.progress);
             yield return null;
             if (op.progress >= 0.9f)
             {
+                yield return null;
                 ChangeLoadingText();
                 timer += Time.unscaledDeltaTime;
                 loadingSlider.value = 1;

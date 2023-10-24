@@ -2716,6 +2716,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2441314450090418241, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e6ef5196a925f9041b95783e5537e3f0, type: 3}
+    - target: {fileID: 4261893995231849802, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e6ef5196a925f9041b95783e5537e3f0, type: 3}
+    - target: {fileID: 4554440449899917362, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e6ef5196a925f9041b95783e5537e3f0, type: 3}
     - target: {fileID: 6498181731616472633, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
       propertyPath: m_Value
       value: 1
@@ -2840,6 +2852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UiManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8305632470287389202, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e6ef5196a925f9041b95783e5537e3f0, type: 3}
     - target: {fileID: 8706821101347101995, guid: 510422cfd4dc83d4aa425b9dbb956e6e, type: 3}
       propertyPath: m_SortingOrder
       value: 10
