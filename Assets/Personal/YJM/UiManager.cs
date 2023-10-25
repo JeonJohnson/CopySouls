@@ -96,7 +96,75 @@ public class UiManager : Manager<UiManager>
 
         EquipmentWindow.Instance.gameObject.SetActive(true);
         if (EquipmentWindow.EquipmentActivated) EquipmentWindow.Instance.TryOpenEquiptment();
+
+        StartCoroutine(InitInvenCoro()); 
+
     }
+
+    #region 1024 정민 야매 무기추가코드
+
+    IEnumerator InitInvenCoro()
+    {
+            Inventory.Instance.TryOpenInventory();
+            CheckIsUiActivated();
+
+        yield return null;
+
+        Inventory.Instance.TryOpenInventory();
+        CheckIsUiActivated();
+
+        DebugEquipt(Inventory.Instance.slots[0]);
+        DebugEquipt(Inventory.Instance.slots[4]);
+        DebugEquipt(Inventory.Instance.slots[8]);
+
+        yield return new WaitForSeconds(1.5f);
+        PlayerActionTable.instance.ChangeWeaponHoldType(false);
+
+        Player player = Player.instance;
+        for (int i = 1; i < player.animator.layerCount - 2; i++)
+        {
+            Debug.Log(i);
+            if (i == 1) player.animator.SetLayerWeight(1, (int)1);
+            else player.animator.SetLayerWeight(i, (int)0);
+        }
+    }
+
+    public void DebugEquipt(Slot _curSlot)
+    {
+        EquiptSlot EquiptSlot = EquipmentWindow.Instance.GetEquiptSlot(_curSlot.item.itemType);
+        if (EquiptSlot)
+        {
+            EquiptSlot.AddEquiptment(_curSlot, _curSlot.item, 1, EquiptSlot);
+        }
+        else Debug.Log("EquiptSlot == null");
+
+        if(_curSlot.item.GetComponent<Player_Weapon>() != null)
+        {
+            if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Melee)
+            {
+                print(_curSlot.item.name + " " + _curSlot.item.gameObject);
+                _curSlot.item.GetComponent<Item_Weapon>().SetAsMainWeapon();
+            }
+            else if (_curSlot.item.GetComponent<Player_Weapon>().type == eWeaponType.Sheild)
+            {
+                _curSlot.item.GetComponent<Item_Weapon>().SetAsSubWeapon();
+            }
+        }
+        else
+        {
+            _curSlot.SetRegister(true);
+            if (UiManager.Instance.quickSlot1.invenSlot != null)
+            {
+                if (UiManager.Instance.quickSlot1.invenSlot != _curSlot)
+                {
+                    UiManager.Instance.quickSlot1.invenSlot.SetRegister(false);
+                }
+            }
+            UiManager.Instance.quickSlot1.AddRegister(_curSlot, _curSlot.item, _curSlot.itemCount, UiManager.Instance.quickSlot1);
+        }
+    }
+
+    #endregion
 
     private void Update()
     {
@@ -240,6 +308,14 @@ public class UiManager : Manager<UiManager>
     private void EquiptmentInitialize()
     {
         Debug.Log("야메 발동!");
+    }
+
+    public void ApplyQuickSlot(Slot mainSlot, Slot subSlot)//1024정민 야매 개조
+    {
+        if (SelectionProcess.SelectionActivated) Inventory.Instance.SelectionParent.Selection_AllOff();
+        UiManager.Instance.quickSlot2.AddRegister(subSlot, subSlot.item, 1, UiManager.Instance.quickSlot2);
+        UiManager.Instance.quickSlot2.AddRegister(mainSlot, mainSlot.item, 1, UiManager.Instance.quickSlot2);
+
     }
 
     //int maxIndex = 0;

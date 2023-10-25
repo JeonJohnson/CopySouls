@@ -49,7 +49,7 @@ public class Player_Weapon : Weapon
         DamagedStruct dmgStruct = new DamagedStruct();
 
         UiManager.Instance.ppController.DoLens(9f,0.1f);
-        InGameManager.Instance.HitStop(3);
+        //InGameManager.Instance.HitStop(3);
 
         //UiManager.Instance.ppController.DoFocus(2.9f,0.3f);
 

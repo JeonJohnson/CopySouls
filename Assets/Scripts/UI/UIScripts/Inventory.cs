@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour
 
     //½½·Ôµé
     [SerializeField]
-    private Slot[] slots;
+    public Slot[] slots;
 
     private void Awake()
     {
@@ -47,6 +47,13 @@ public class Inventory : MonoBehaviour
         SetAll_Items();
         GetItems();
     }
+
+    private void Update()
+    {
+
+    }
+
+
     public void TryOpenInventory()
     {
         inventoryActivated = !inventoryActivated;
@@ -66,6 +73,7 @@ public class Inventory : MonoBehaviour
         if (!DivisionProcess.DivisionActivated && !ThrowingProcess.ThrowingActivated)
         {
             InventoryBase.SetActive(true);
+            inventoryActivated = true;
             UiManager.Instance.WindowProcedure(true, GetComponent<Canvas>());
         }
     }
